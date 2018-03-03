@@ -15,7 +15,7 @@
   "devDependencies": {
     "coveralls": "3.0.0",
     "js-gardener": "1.11.15",
-    "semantic-release": "11.0.2"
+    "semantic-release": "12.4.1"
   },
   "version": "0.0.0-development",
   "scripts": {
