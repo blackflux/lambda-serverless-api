@@ -1,6 +1,6 @@
 {
   "env": {
-    "RATE_LIMIT_MAX": "0"
+    "RATE_LIMIT": "0"
   },
   "handler": "json",
   "success": true,
