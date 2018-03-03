@@ -19,7 +19,7 @@ Provides support for:
 
 ## Install
 
-  $ npm install --save lambda-serverless-api
+    $ npm install --save lambda-serverless-api
 
 ## Getting Started
 
