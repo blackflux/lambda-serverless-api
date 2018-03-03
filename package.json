@@ -1,5 +1,5 @@
 {
-  "name": "lambda-severless-api",
+  "name": "lambda-serverless-api",
   "description": "Basic Api Wrapper for Serverless Framework.",
   "main": "lib/api.js",
   "keywords": [
