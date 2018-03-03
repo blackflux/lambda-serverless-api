@@ -14,7 +14,7 @@
   "author": "Lukas Siemon",
   "devDependencies": {
     "coveralls": "3.0.0",
-    "js-gardener": "1.11.15",
+    "js-gardener": "1.11.17",
     "semantic-release": "12.4.1"
   },
   "version": "0.0.0-development",
