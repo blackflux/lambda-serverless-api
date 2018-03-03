@@ -1,4 +1,4 @@
-const api = require("./../lib/api");
+const api = require("./../lib/api")();
 
 module.exports.json = api.wrap(process.env.RATE_LIMIT_MAX, () => new api.JsonResponse({ some: "json" }));
 
