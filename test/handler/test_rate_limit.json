@@ -15,5 +15,7 @@
       "to.deep.equal": []
     }
   ],
-  "event": {}
+  "event": {
+    "httpMethod": "GET"
+  }
 }

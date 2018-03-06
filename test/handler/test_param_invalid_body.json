@@ -13,6 +13,7 @@
     }
   ],
   "event": {
-    "body": "invalid_json_string"
+    "body": "invalid_json_string",
+    "httpMethod": "POST"
   }
 }

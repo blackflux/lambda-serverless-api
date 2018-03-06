@@ -13,6 +13,7 @@
     }
   ],
   "event": {
-    "body": "{\"username\": \"Anja Smith\", \"email\": \"invalid@email\"}"
+    "body": "{\"username\": \"Anja Smith\", \"email\": \"invalid@email\"}",
+    "httpMethod": "POST"
   }
 }

@@ -16,6 +16,7 @@
     "queryStringParameters": {
       "ref": "12345"
     },
-    "body": "{\"username\": \"Anja Smith\", \"email\": \"anja@test.ca\"}"
+    "body": "{\"username\": \"Anja Smith\", \"email\": \"anja@test.ca\"}",
+    "httpMethod": "POST"
   }
 }

@@ -13,6 +13,7 @@
     }
   ],
   "event": {
-    "body": "{}"
+    "body": "{}",
+    "httpMethod": "POST"
   }
 }
