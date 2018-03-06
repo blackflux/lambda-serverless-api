@@ -4,7 +4,7 @@
   "timeout": 2000,
   "response": [
     {
-      "to.deep.equal": "{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Invalid Json Body detected.\\\"}\"}"
+      "to.deep.equal": "{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Invalid Json Body detected.\\\",\\\"messageId\\\":99001,\\\"context\\\":{\\\"value\\\":\\\"invalid_json_string\\\"}}\"}"
     }
   ],
   "logs": [

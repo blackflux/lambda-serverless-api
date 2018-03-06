@@ -4,7 +4,7 @@
   "timeout": 2000,
   "response": [
     {
-      "to.deep.equal": "{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Invalid Value for json-Parameter \\\\\\\"email\\\\\\\" provided.\\\"}\"}"
+      "to.deep.equal": "{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Invalid Value for json-Parameter \\\\\\\"email\\\\\\\" provided.\\\",\\\"messageId\\\":99003,\\\"context\\\":{\\\"value\\\":\\\"invalid@email\\\"}}\"}"
     }
   ],
   "logs": [
