@@ -1,0 +1,18 @@
+{
+  "handler": "param",
+  "success": true,
+  "timeout": 2000,
+  "response": [
+    {
+      "to.deep.equal": "{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Invalid Value for json-Parameter \\\\\\\"email\\\\\\\" provided.\\\"}\"}"
+    }
+  ],
+  "logs": [
+    {
+      "to.deep.equal": []
+    }
+  ],
+  "event": {
+    "body": "{\"username\": \"Anja Smith\", \"email\": \"invalid@email\"}"
+  }
+}

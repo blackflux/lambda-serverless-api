@@ -1,0 +1,18 @@
+{
+  "handler": "param",
+  "success": true,
+  "timeout": 2000,
+  "response": [
+    {
+      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",\\\"anja@test.ca\\\"]\"}"
+    }
+  ],
+  "logs": [
+    {
+      "to.deep.equal": []
+    }
+  ],
+  "event": {
+    "body": "{\"username\": \"Anja Smith\", \"email\": \"anja@test.ca\"}"
+  }
+}

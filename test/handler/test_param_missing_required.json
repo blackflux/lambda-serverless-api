@@ -1,0 +1,18 @@
+{
+  "handler": "param",
+  "success": true,
+  "timeout": 2000,
+  "response": [
+    {
+      "to.deep.equal": "{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Required json-Parameter \\\\\\\"username\\\\\\\" missing.\\\"}\"}"
+    }
+  ],
+  "logs": [
+    {
+      "to.deep.equal": []
+    }
+  ],
+  "event": {
+    "body": "{}"
+  }
+}
