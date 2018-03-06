@@ -12,7 +12,10 @@ module.exports.text = api.wrap("GET text", [], process.env.RATE_LIMIT, () => api
 
 module.exports.json = api.wrap("GET json", [], process.env.RATE_LIMIT, () => api.JsonResponse({ some: "json" }));
 
-module.exports.param = api.wrap("GET param", [
+module.exports.param = api.wrap("POST param", [
   api.Str("username", "json"),
-  api.Email("email", "json", false)
+  api.Email("email", "json", false),
+  api.Str("ref", "query", false)
 ], process.env.RATE_LIMIT, params => api.JsonResponse(params));
+
+module.exports.generateSwagger = api.generateSwagger;

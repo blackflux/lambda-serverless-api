@@ -4,7 +4,7 @@
   "timeout": 2000,
   "response": [
     {
-      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",\\\"anja@test.ca\\\"]\"}"
+      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",\\\"anja@test.ca\\\",\\\"12345\\\"]\"}"
     }
   ],
   "logs": [
@@ -13,6 +13,9 @@
     }
   ],
   "event": {
+    "queryStringParameters": {
+      "ref": "12345"
+    },
     "body": "{\"username\": \"Anja Smith\", \"email\": \"anja@test.ca\"}"
   }
 }

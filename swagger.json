@@ -1,0 +1,102 @@
+{
+  "swagger": "2.0",
+  "produces": [
+    "application/json"
+  ],
+  "info": {
+    "title": "Api Name",
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/error": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    },
+    "/exception": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    },
+    "/text": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    },
+    "/json": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    },
+    "/param": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ref",
+            "required": false,
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "in": "body",
+            "name": "bodyParamData",
+            "schema": {
+              "type": "object",
+              "required": [
+                "username"
+              ],
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    }
+  }
+}
