@@ -34,15 +34,20 @@ const api = require("lambda-serverless-api")({
 
 module.exports = api.wrap(process.env.RATE_LIMIT_PER_IP, () => {
   if (new Date().getHours() === 4) {
-    throw new api.ApiError("I am a teapot", 418);
+    throw api.ApiError("I am a teapot", 418);
   }
-  return new api.JsonResponse({ message: "What's up?" });
+  return api.JsonResponse({ message: "What's up?" });
 });
 
 ```
 where `RATE_LIMIT_PER_IP` allows to set different limits per endpoint. Rate limiting is explained below.
 
 If you want to send plain text instead of json, you can use `ApiResponse`.
+
+## Custom Error Messages
+
+You can pass an additional `messageId` and `context` to the `ApiError` constructor.
+These will be returned with the error response.
 
 ## Rate Limiting
 

@@ -1,10 +1,10 @@
 {
-  "handler": "error",
+  "handler": "text",
   "success": true,
   "timeout": 2000,
   "response": [
     {
-      "to.deep.equal": "{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Some Error\\\",\\\"messageId\\\":2341}\"}"
+      "to.deep.equal": "{\"statusCode\":200,\"body\":\"some text\"}"
     }
   ],
   "logs": [
