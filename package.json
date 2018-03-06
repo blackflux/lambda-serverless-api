@@ -14,6 +14,7 @@
   "author": "Lukas Siemon",
   "devDependencies": {
     "app-root-path": "2.0.1",
+    "chai": "4.1.2",
     "coveralls": "3.0.0",
     "js-gardener": "1.11.18",
     "semantic-release": "12.4.1",
