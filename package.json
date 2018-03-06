@@ -47,7 +47,7 @@
   "dependencies": {
     "lambda-rate-limiter": "2.4.1",
     "lambda-rollbar": "1.8.2",
-    "lambda-tdd": "1.11.10",
+    "lambda-tdd": "1.11.11",
     "lodash.get": "4.4.2"
   },
   "peerDependencies": {}
