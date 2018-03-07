@@ -13,6 +13,7 @@
         "consumes": [
           "application/json"
         ],
+        "description": "",
         "parameters": [],
         "responses": {
           "default": {
@@ -26,6 +27,7 @@
         "consumes": [
           "application/json"
         ],
+        "description": "",
         "parameters": [],
         "responses": {
           "default": {
@@ -39,6 +41,7 @@
         "consumes": [
           "application/json"
         ],
+        "description": "",
         "parameters": [],
         "responses": {
           "default": {
@@ -52,6 +55,7 @@
         "consumes": [
           "application/json"
         ],
+        "description": "",
         "parameters": [],
         "responses": {
           "default": {
@@ -65,12 +69,19 @@
         "consumes": [
           "application/json"
         ],
+        "description": "Internally contexts are used: authorizer",
         "parameters": [
           {
             "name": "ref",
             "required": false,
             "type": "string",
             "in": "query"
+          },
+          {
+            "name": "authorizer",
+            "required": false,
+            "type": "string",
+            "in": "header"
           },
           {
             "in": "body",

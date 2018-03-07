@@ -4,7 +4,7 @@
   "timeout": 2000,
   "response": [
     {
-      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",\\\"anja@test.ca\\\",\\\"12345\\\"]\"}"
+      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",\\\"anja@test.ca\\\",\\\"12345\\\",\\\"Auth Info Context\\\",\\\"Auth Info Header\\\"]\"}"
     }
   ],
   "logs": [
@@ -17,6 +17,12 @@
       "ref": "12345"
     },
     "body": "{\"username\": \"Anja Smith\", \"email\": \"anja@test.ca\"}",
-    "httpMethod": "POST"
+    "httpMethod": "POST",
+    "requestContext": {
+      "authorizer": "Auth Info Context"
+    },
+    "headers": {
+      "authorizer": "Auth Info Header"
+    }
   }
 }
