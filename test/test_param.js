@@ -7,4 +7,10 @@ describe("Testing Params", () => {
       .to.throw("Can not use JSON parameter with GET requests.");
     done();
   });
+
+  it("Testing Undefined Path Parameter", (done) => {
+    expect(() => api.wrap("GET route/id", [api.Str("id", "path")], 1, () => {}))
+      .to.throw("Path Parameter not defined in given path.");
+    done();
+  });
 });
