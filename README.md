@@ -14,8 +14,8 @@ This project abstracts the creation of a basic API and the most commonly desired
 
 Provides support for:
 
-- Api Gateway Parameter validation and Response Generation
-- Swagger generation for defined Api
+- Api Gateway Parameter Validation and Response Generation
+- Generation of [Swagger](https://swagger.io/) Documentation
 - Rate Limiting using [lambda-rate-limiter](https://github.com/simlu/lambda-rate-limiter)
 - Logging of ApiErrors using [lambda-rollbar](https://github.com/simlu/lambda-rollbar)
 
@@ -49,11 +49,15 @@ module.exports = api.wrap("POST register", [
 ```
 where `RATE_LIMIT_PER_IP` allows to set different limits per endpoint. Rate limiting is explained below.
 
-The first parameter for `api.wrap` needs to define the route and redeclared in `serverless.yml`. 
+The first `api.wrap` parameter defines the route and is re-declared in `serverless.yml`. 
 
 A list of supported parameters can be found [here](lib/param.js).
 
 If you want to send plain text instead of json, you can use `ApiResponse`.
+
+## Swagger Documentation
+
+To generate swagger documentation we can call `api.generateSwagger()` after the api is initialized with routes.
 
 ## Custom Error Messages
 
@@ -69,7 +73,3 @@ To customize rate limiting, the package options are passed as `limiter` into the
 ## Logging Api Errors / Exceptions
 
 To monitor api errors and exceptions [lambda-rollbar](https://github.com/simlu/lambda-rollbar) can be enabled. Options are passed by putting them as `rollbar` into the constructor.
-
-## Swagger Documentation
-
-To generate swagger documentation we can call `api.generateSwagger()` after the api is initialized with routes.
