@@ -9,8 +9,14 @@ describe("Testing Params", () => {
   });
 
   it("Testing Undefined Path Parameter", (done) => {
-    expect(() => api.wrap("GET route/id", [api.Str("id", "path")], 1, () => {}))
+    expect(() => api.wrap("GET route/{otherId}", [api.Str("id", "path")], 1, () => {}))
       .to.throw("Path Parameter not defined in given path.");
+    done();
+  });
+
+  it("Testing Unknown Parameter Position", (done) => {
+    expect(() => api.wrap("GET route", [api.Str("id", "unknown")], 1, () => {}))
+      .to.throw("Parameter Position needs to be one of: query, json, path, header, context");
     done();
   });
 });
