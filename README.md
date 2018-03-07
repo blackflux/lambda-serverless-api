@@ -32,15 +32,24 @@ const api = require("lambda-serverless-api")({
   rollbar: {}
 });
 
-module.exports = api.wrap(process.env.RATE_LIMIT_PER_IP, () => {
+module.exports = api.wrap("POST register", [
+  api.Str("name", "json", false),
+  api.Email("email", "json"),
+  api.Str("password", "json")
+], process.env.RATE_LIMIT_PER_IP, (name, email, password) => {
   if (new Date().getHours() === 4) {
     throw api.ApiError("I am a teapot", 418);
   }
-  return api.JsonResponse({ message: "What's up?" });
+  // handle registration logic here ...
+  return api.JsonResponse({ message: "Success!" });
 });
 
 ```
 where `RATE_LIMIT_PER_IP` allows to set different limits per endpoint. Rate limiting is explained below.
+
+The first parameter for `api.wrap` needs to define the route and redeclared in `serverless.yml`. 
+
+A list of supported parameters can be found [here](lib/param.js).
 
 If you want to send plain text instead of json, you can use `ApiResponse`.
 
@@ -58,3 +67,7 @@ To customize rate limiting, the package options are passed as `limiter` into the
 ## Logging Api Errors / Exceptions
 
 To monitor api errors and exceptions [lambda-rollbar](https://github.com/simlu/lambda-rollbar) can be enabled. Options are passed by putting them as `rollbar` into the constructor.
+
+## Swagger Documentation
+
+To generate swagger documentation we can call `api.generateSwagger()` after the api is initialized with routes.
