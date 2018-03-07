@@ -16,7 +16,7 @@
     "app-root-path": "2.0.1",
     "chai": "4.1.2",
     "coveralls": "3.0.0",
-    "js-gardener": "1.11.18",
+    "js-gardener": "1.11.19",
     "semantic-release": "12.4.1"
   },
   "version": "0.0.0-development",
