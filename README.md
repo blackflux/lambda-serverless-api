@@ -14,7 +14,7 @@ This project abstracts the creation of a basic API and the most commonly desired
 
 Provides support for:
 
-- Api Gateway Parameter Validation and Response Generation
+- Parameter Validation and Response Generation
 - Generation of [Swagger](https://swagger.io/) Documentation
 - Rate Limiting using [lambda-rate-limiter](https://github.com/simlu/lambda-rate-limiter)
 - Logging of ApiErrors using [lambda-rollbar](https://github.com/simlu/lambda-rollbar)
