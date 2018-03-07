@@ -1,0 +1,19 @@
+{
+  "handler": "param",
+  "success": true,
+  "timeout": 2000,
+  "response": [
+    {
+      "to.deep.equal": "{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Invalid Value for json-Parameter \\\\\\\"username\\\\\\\" provided.\\\",\\\"messageId\\\":99003,\\\"context\\\":{\\\"value\\\":{}}}\"}"
+    }
+  ],
+  "logs": [
+    {
+      "to.deep.equal": []
+    }
+  ],
+  "event": {
+    "body": "{\"username\": {}}",
+    "httpMethod": "POST"
+  }
+}

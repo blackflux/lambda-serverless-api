@@ -1,0 +1,22 @@
+{
+  "handler": "param",
+  "success": true,
+  "timeout": 2000,
+  "response": [
+    {
+      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",\\\"anja@test.ca\\\",\\\"12345\\\"]\"}"
+    }
+  ],
+  "logs": [
+    {
+      "to.deep.equal": []
+    }
+  ],
+  "event": {
+    "queryStringParameters": {
+      "ref": "12345"
+    },
+    "body": "{\"username\": \"Anja Smith\", \"email\": \"anja@test.ca\"}",
+    "httpMethod": "POST"
+  }
+}
