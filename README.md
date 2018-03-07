@@ -39,10 +39,10 @@ module.exports = api.wrap("POST register", [
   api.Email("email", "json"),
   api.Str("password", "json")
 ], process.env.RATE_LIMIT_PER_IP, ([name, email, password], context, callback, rb) => {
+  // handle registration logic here ...
   if (new Date().getHours() === 4) {
     throw api.ApiError("I am a teapot", 418);
   }
-  // handle registration logic here ...
   return api.JsonResponse({ message: "Success!" });
 });
 
