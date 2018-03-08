@@ -17,6 +17,7 @@
     "chai": "4.1.2",
     "coveralls": "3.0.0",
     "js-gardener": "1.11.19",
+    "lambda-tdd": "1.11.11",
     "semantic-release": "15.0.0"
   },
   "version": "0.0.0-development",
@@ -49,7 +50,6 @@
   "dependencies": {
     "lambda-rate-limiter": "2.4.1",
     "lambda-rollbar": "1.8.2",
-    "lambda-tdd": "1.11.11",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
     "swagger-parser": "4.0.2"
