@@ -50,8 +50,11 @@
   "dependencies": {
     "lambda-rate-limiter": "2.4.1",
     "lambda-rollbar": "1.8.2",
+    "lodash.defaultsdeep": "4.6.0",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
+    "lodash.xor": "4.5.0",
+    "js-yaml": "3.11.0",
     "swagger-parser": "4.0.2"
   },
   "peerDependencies": {}
