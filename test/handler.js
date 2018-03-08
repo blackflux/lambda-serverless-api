@@ -16,6 +16,7 @@ module.exports.param = api.wrap("POST param", [
   api.Str("username", "json"),
   api.Email("email", "json", false),
   api.Str("ref", "query", false),
+  api.RegEx("notification", "^(1|0)$", "query", false),
   api.Str("authorizer", "context", false),
   api.Str("authorizer", "header", false)
 ], process.env.RATE_LIMIT, params => api.JsonResponse(params));
