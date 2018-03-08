@@ -19,4 +19,18 @@ describe("Testing Params", () => {
       .to.throw("Parameter Position needs to be one of: query, json, path, header, context");
     done();
   });
+
+  it("Testing Bool Parameter", () => {
+    const param = api.Bool("enabled");
+    expect(param.get({
+      queryStringParameters: {
+        enabled: "true"
+      }
+    })).to.equal(true);
+    expect(param.get({
+      queryStringParameters: {
+        enabled: "false"
+      }
+    })).to.equal(false);
+  });
 });
