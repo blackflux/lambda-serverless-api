@@ -51,6 +51,7 @@
     "lambda-rollbar": "1.8.2",
     "lambda-tdd": "1.11.11",
     "lodash.get": "4.4.2",
+    "lodash.set": "4.3.2",
     "swagger-parser": "4.0.2"
   },
   "peerDependencies": {}
