@@ -18,7 +18,7 @@
     "coveralls": "3.0.0",
     "lambda-tdd": "1.11.11",
     "js-gardener": "1.11.20",
-    "semantic-release": "15.0.1"
+    "semantic-release": "15.0.2"
   },
   "version": "0.0.0-development",
   "scripts": {
@@ -48,7 +48,7 @@
     "lib"
   ],
   "dependencies": {
-    "lambda-rate-limiter": "2.4.1",
+    "lambda-rate-limiter": "2.4.2",
     "lambda-rollbar": "1.8.2",
     "lodash.defaultsdeep": "4.6.0",
     "lodash.get": "4.4.2",
