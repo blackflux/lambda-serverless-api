@@ -1,0 +1,82 @@
+swagger: '2.0'
+produces:
+  - application/json
+info:
+  title: Api Name
+  version: 0.0.1
+paths:
+  /error:
+    get:
+      consumes:
+        - application/json
+      description: ''
+      parameters: []
+      responses:
+        default:
+          description: Unexpected Error
+  /exception:
+    get:
+      consumes:
+        - application/json
+      description: ''
+      parameters: []
+      responses:
+        default:
+          description: Unexpected Error
+  /text:
+    get:
+      consumes:
+        - application/json
+      description: ''
+      parameters: []
+      responses:
+        default:
+          description: Unexpected Error
+  /json:
+    get:
+      consumes:
+        - application/json
+      description: ''
+      parameters: []
+      responses:
+        default:
+          description: Unexpected Error
+  /param:
+    post:
+      consumes:
+        - application/json
+      description: 'Internally contexts are used: authorizer'
+      parameters:
+        - name: ref
+          required: false
+          type: string
+          format: Str
+          in: query
+        - name: notification
+          required: false
+          type: string
+          format: RegEx
+          in: query
+          pattern: ^(1|0)$
+        - name: authorizer
+          required: false
+          type: string
+          format: Str
+          in: header
+        - in: body
+          name: bodyParamData
+          schema:
+            type: object
+            required:
+              - username
+            properties:
+              username:
+                type: string
+                format: Str
+              email:
+                type: string
+                format: Email
+                pattern: '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/'
+      responses:
+        default:
+          description: Unexpected Error
