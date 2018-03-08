@@ -78,6 +78,12 @@
             "in": "query"
           },
           {
+            "name": "notification",
+            "required": false,
+            "type": "string",
+            "in": "query"
+          },
+          {
             "name": "authorizer",
             "required": false,
             "type": "string",

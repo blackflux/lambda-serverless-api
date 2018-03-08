@@ -4,7 +4,7 @@
   "timeout": 2000,
   "response": [
     {
-      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",null,null,null,null]\"}"
+      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",null,null,null,null,null]\"}"
     }
   ],
   "logs": [
