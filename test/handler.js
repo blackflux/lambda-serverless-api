@@ -21,4 +21,4 @@ module.exports.param = api.wrap("POST param", [
   api.Str("authorizer", "header", false)
 ], process.env.RATE_LIMIT, params => api.JsonResponse(params));
 
-module.exports.generateSwagger = api.generateSwagger;
+module.exports.internalApi = api;

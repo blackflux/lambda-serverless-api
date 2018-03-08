@@ -1,15 +1,24 @@
 const fs = require("fs");
 const path = require("path");
+const expect = require('chai').expect;
 const appRoot = require('app-root-path');
-const SwaggerParser = require('swagger-parser');
-const generateSwagger = require("./handler").generateSwagger;
+const api = require("./handler").internalApi;
 
 describe("Testing Swagger", () => {
-  it("Testing Generation", (done) => {
+  it("Updating Swagger File with API definitions.", (done) => {
     const file = path.join(appRoot.path, "test", `swagger.json`);
-    generateSwagger().then((api) => {
-      fs.writeFileSync(file, JSON.stringify(api, null, 2));
-      SwaggerParser.validate(file, err => done(err));
-    });
+    Promise.resolve(fs.readFileSync(file))
+      .then(JSON.parse)
+      .then(api.generateSwagger)
+      .then(swagger => JSON.stringify(swagger, null, 2))
+      .then(swagger => fs.writeFileSync(file, swagger))
+      .then(done);
+  });
+
+  it("Testing serverless.yml", () => {
+    expect(api.generateDifference(
+      path.join(appRoot.path, "test", `swagger.json`),
+      path.join(appRoot.path, "test", `serverless.yml`)
+    )).to.deep.equal([]);
   });
 });
