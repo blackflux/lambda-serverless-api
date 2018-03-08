@@ -75,18 +75,22 @@
             "name": "ref",
             "required": false,
             "type": "string",
+            "format": "Str",
             "in": "query"
           },
           {
             "name": "notification",
             "required": false,
             "type": "string",
-            "in": "query"
+            "format": "RegEx",
+            "in": "query",
+            "pattern": "^(1|0)$"
           },
           {
             "name": "authorizer",
             "required": false,
             "type": "string",
+            "format": "Str",
             "in": "header"
           },
           {
@@ -99,10 +103,13 @@
               ],
               "properties": {
                 "username": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "Str"
                 },
                 "email": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "Email",
+                  "pattern": "/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$/"
                 }
               }
             }
