@@ -1,2 +1,2 @@
 functions:
-  ${file(./${opt:functionFile, 'functions'}.yml)}
+  ${file(./${opt:functionFile, 'functions'}.yml):functions}
