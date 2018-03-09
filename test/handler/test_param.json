@@ -4,7 +4,7 @@
   "timeout": 2000,
   "response": [
     {
-      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",\\\"anja@test.ca\\\",\\\"12345\\\",\\\"1\\\",\\\"Auth Info Context\\\",\\\"Auth Info Header\\\"]\"}"
+      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",\\\"anja@test.ca\\\",\\\"12345\\\",\\\"1\\\",\\\"Auth Info Context\\\",\\\"Auth Info Header\\\"]\",\"headers\":{}}"
     }
   ],
   "logs": [
