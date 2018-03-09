@@ -7,7 +7,7 @@ const api = require("./handler").internalApi;
 
 describe("Testing Swagger", () => {
   it("Updating Swagger File with API definitions.", (done) => {
-    const file = path.join(appRoot.path, "test", `swagger.yml`);
+    const file = path.join(appRoot.path, "test", "resources", `swagger.yml`);
     Promise.resolve(fs.readFileSync(file))
       .then(yaml.safeLoad)
       .then(api.generateSwagger)
@@ -18,8 +18,8 @@ describe("Testing Swagger", () => {
 
   it("Testing serverless.yml", () => {
     expect(api.generateDifference(
-      path.join(appRoot.path, "test", `swagger.yml`),
-      path.join(appRoot.path, "test", `serverless.yml`)
+      path.join(appRoot.path, "test", "resources", `swagger.yml`),
+      path.join(appRoot.path, "test", "resources", `serverless.yml`)
     )).to.deep.equal([]);
   });
 });
