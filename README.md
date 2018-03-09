@@ -53,7 +53,7 @@ The first `api.wrap` parameter defines the route and is re-declared in `serverle
 
 A list of supported parameters can be found [here](lib/param.js).
 
-If you want to send plain text instead of json, you can use `ApiResponse`.
+If you want to send plain text instead of json, you can use `ApiResponse`. You can also set custom status codes and headers as second and third parameter respectively.
 
 ## Swagger Documentation
 
