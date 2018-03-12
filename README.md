@@ -77,3 +77,7 @@ To customize rate limiting, the package options are passed as `limiter` into the
 ## Logging Api Errors / Exceptions
 
 To monitor api errors and exceptions [lambda-rollbar](https://github.com/simlu/lambda-rollbar) can be enabled. Options are passed by putting them as `rollbar` into the constructor.
+
+## Loading serverless.yml
+
+Function `loadYaml` is exposed to load `serverless.yml` style files and resolve references and variables. This is handy to be used in `serverless.js` since the native loading currently has some issues.
