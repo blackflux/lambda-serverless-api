@@ -1,2 +1,5 @@
 parent:
   ${file(./${opt:child, 'child'}.yml):subParent}
+
+raw:
+  ${file(./${opt:child, 'child'}.yml)}
