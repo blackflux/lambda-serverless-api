@@ -8,14 +8,16 @@ describe("Testing Yaml", () => {
   it("Testing Load - Undefined Variable", () => {
     expect(yaml.load(parentFile)).to.deep.equal({
       parent: { v1: 'undefined', v2: 'default' },
-      raw: { subParent: { v1: 'undefined', v2: 'default' } }
+      raw: { subParent: { v1: 'undefined', v2: 'default' } },
+      subParent: { v1: 'undefined', v2: 'default' }
     });
   });
 
   it("Testing Load - Provided Variable", () => {
     expect(yaml.load(parentFile, { test: "info" })).to.deep.equal({
       parent: { v1: 'info', v2: 'info' },
-      raw: { subParent: { v1: 'info', v2: 'info' } }
+      raw: { subParent: { v1: 'info', v2: 'info' } },
+      subParent: { v1: 'info', v2: 'info' }
     });
   });
 
