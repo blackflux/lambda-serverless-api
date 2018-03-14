@@ -3,3 +3,6 @@ parent:
 
 raw:
   ${file(./${opt:child, 'child'}.yml)}
+
+<<<:
+  - ${file(./${opt:child, 'child'}.yml)}
