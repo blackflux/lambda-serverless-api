@@ -4,5 +4,10 @@ parent:
 raw:
   ${file(./${opt:child, 'child'}.yml)}
 
+array:
+    - v1
+
 <<<:
   - ${file(./${opt:child, 'child'}.yml)}
+  - array:
+    - v2

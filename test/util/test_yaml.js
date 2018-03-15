@@ -9,7 +9,8 @@ describe("Testing Yaml", () => {
     expect(yaml.load(parentFile)).to.deep.equal({
       parent: { v1: 'undefined', v2: 'default' },
       raw: { subParent: { v1: 'undefined', v2: 'default' } },
-      subParent: { v1: 'undefined', v2: 'default' }
+      subParent: { v1: 'undefined', v2: 'default' },
+      array: ["v1", "v2"]
     });
   });
 
@@ -17,7 +18,8 @@ describe("Testing Yaml", () => {
     expect(yaml.load(parentFile, { test: "info" })).to.deep.equal({
       parent: { v1: 'info', v2: 'info' },
       raw: { subParent: { v1: 'info', v2: 'info' } },
-      subParent: { v1: 'info', v2: 'info' }
+      subParent: { v1: 'info', v2: 'info' },
+      array: ["v1", "v2"]
     });
   });
 
