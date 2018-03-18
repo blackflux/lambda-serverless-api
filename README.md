@@ -80,4 +80,4 @@ To monitor api errors and exceptions [lambda-rollbar](https://github.com/simlu/l
 
 ## Loading serverless.yml
 
-Function `loadYaml` is exposed to load `serverless.yml` style files and resolve references and variables. This is handy to be used in `serverless.js` since the native loading currently has some issues.
+Consider using [yaml-boost](https://github.com/simlu/yaml-boost)
