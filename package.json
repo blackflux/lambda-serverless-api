@@ -18,7 +18,7 @@
     "coveralls": "3.0.0",
     "lambda-tdd": "1.11.13",
     "js-gardener": "1.11.24",
-    "semantic-release": "15.1.4"
+    "semantic-release": "15.1.5"
   },
   "version": "0.0.0-development",
   "scripts": {
