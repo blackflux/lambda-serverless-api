@@ -22,4 +22,8 @@ describe("Testing Swagger", () => {
       path.join(appRoot.path, "test", "resources", `serverless.yml`)
     )).to.deep.equal([]);
   });
+
+  it("Testing Empty Compare", () => {
+    expect(JSON.stringify(api.generateSwagger())).to.equal("{}");
+  });
 });
