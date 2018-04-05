@@ -18,6 +18,7 @@
     "coveralls": "3.0.0",
     "lambda-tdd": "1.11.14",
     "js-gardener": "1.15.0",
+    "nyc": "11.6.0",
     "semantic-release": "15.1.5"
   },
   "version": "0.0.0-development",
