@@ -8,4 +8,4 @@ const lambdaTester = require("lambda-tdd")({
   testFolder: path.join(__dirname, "handler")
 });
 
-lambdaTester.execute().substring(9);
+lambdaTester.execute();
