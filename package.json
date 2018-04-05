@@ -16,9 +16,8 @@
     "app-root-path": "2.0.1",
     "chai": "4.1.2",
     "coveralls": "3.0.0",
-    "js-gardener": "git+https://github.com/simlu/js-gardener.git#develop",
     "lambda-tdd": "1.11.14",
-    "nyc": "11.6.0",
+    "js-gardener": "1.15.0",
     "semantic-release": "15.1.5"
   },
   "version": "0.0.0-development",
