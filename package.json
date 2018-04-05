@@ -16,13 +16,14 @@
     "app-root-path": "2.0.1",
     "chai": "4.1.2",
     "coveralls": "3.0.0",
-    "lambda-tdd": "1.11.13",
-    "js-gardener": "1.14.0",
+    "js-gardener": "git+https://github.com/simlu/js-gardener.git#develop",
+    "lambda-tdd": "1.11.14",
+    "nyc": "11.6.0",
     "semantic-release": "15.1.5"
   },
   "version": "0.0.0-development",
   "scripts": {
-    "test": "node gardener",
+    "test": "node gardener && nyc mocha --recursive",
     "coveralls": "node ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info",
     "semantic-release": "semantic-release"
   },
@@ -58,5 +59,35 @@
     "js-yaml": "3.11.0",
     "swagger-parser": "4.0.2"
   },
-  "peerDependencies": {}
+  "peerDependencies": {},
+  "nyc": {
+    "tempDirectory": "./coverage/.nyc_output",
+    "report-dir": "./coverage",
+    "check-coverage": true,
+    "per-file": false,
+    "lines": 100,
+    "statements": 100,
+    "functions": 100,
+    "branches": 100,
+    "include": [
+      "**/*.js"
+    ],
+    "exclude": [
+      "gardener.js",
+      "node_modules/*",
+      "coverage/*",
+      "flow-typed/*"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "extension": [],
+    "cache": true,
+    "all": true,
+    "babel": true
+  }
 }
