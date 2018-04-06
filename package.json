@@ -55,7 +55,7 @@
     "lib"
   ],
   "dependencies": {
-    "lambda-rate-limiter": "2.4.3",
+    "lambda-rate-limiter": "2.4.4",
     "lambda-rollbar": "1.9.1",
     "lodash.defaultsdeep": "4.6.0",
     "lodash.get": "4.4.2",
