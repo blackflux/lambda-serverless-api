@@ -17,7 +17,7 @@
     "chai": "4.1.2",
     "coveralls": "3.0.0",
     "lambda-tdd": "1.11.15",
-    "js-gardener": "1.15.0",
+    "js-gardener": "1.16.0",
     "nyc": "11.6.0",
     "semantic-release": "15.1.5"
   },
