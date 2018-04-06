@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const response = require("../lib/response");
+const response = require("../src/response");
 
 describe("Testing Response", () => {
   it("Testing ApiError", (done) => {

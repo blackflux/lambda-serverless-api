@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const Find = require("./../../lib/util/find");
+const Find = require("./../../src/util/find");
 
 const haystack = { some: { path: "a" }, other: { path: "a" }, something: { else: ["a", "b", "c"] } };
 

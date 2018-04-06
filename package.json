@@ -17,15 +17,21 @@
     "chai": "4.1.2",
     "coveralls": "3.0.0",
     "lambda-tdd": "1.11.15",
-    "js-gardener": "1.15.0",
+    "js-gardener": "1.16.0",
     "nyc": "11.6.0",
-    "semantic-release": "15.1.5"
+    "semantic-release": "15.1.5",
+    "babel-cli": "7.0.0-beta.3"
   },
   "version": "0.0.0-development",
   "scripts": {
-    "test": "node gardener && nyc mocha --recursive",
+    "test": "npm run clean && npm run gardener && npm run test-simple",
     "coveralls": "node ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info",
-    "semantic-release": "semantic-release"
+    "semantic-release": "npm run clean-build && semantic-release",
+    "clean": "rm -rf lib",
+    "build": "npx babel src --out-dir lib --source-maps inline --copy-files --include-dotfiles",
+    "clean-build": "npm run clean && npm run build",
+    "test-simple": "nyc mocha --recursive",
+    "gardener": "node gardener"
   },
   "homepage": "https://github.com/simlu/lambda-serverless-api#readme",
   "license": "MIT",
@@ -76,7 +82,8 @@
       "gardener.js",
       "node_modules/*",
       "coverage/*",
-      "flow-typed/*"
+      "flow-typed/*",
+      "lib/*"
     ],
     "reporter": [
       "lcov",
