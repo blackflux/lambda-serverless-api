@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const Merge = require("./../../lib/util/merge");
+const Merge = require("./../../src/util/merge");
 
 const target = {};
 const data = {};
