@@ -63,7 +63,7 @@
     "lodash.set": "4.3.2",
     "lodash.xor": "4.5.0",
     "js-yaml": "3.11.0",
-    "swagger-parser": "4.0.2"
+    "swagger-parser": "4.1.0"
   },
   "peerDependencies": {},
   "nyc": {
