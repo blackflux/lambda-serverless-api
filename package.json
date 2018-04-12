@@ -19,7 +19,7 @@
     "lambda-tdd": "1.11.15",
     "js-gardener": "1.16.0",
     "nyc": "11.6.0",
-    "semantic-release": "15.1.6",
+    "semantic-release": "15.1.7",
     "babel-cli": "7.0.0-beta.3"
   },
   "version": "0.0.0-development",
