@@ -11,9 +11,8 @@ install:
   - npm install
 node_js:
   - '9'
-  - 6.10.3
   - '8'
-  - '6'
+  - '8.10'
 before_script: greenkeeper-lockfile-update
 script:
   - npm test
@@ -21,6 +20,3 @@ after_script: greenkeeper-lockfile-upload
 after_success:
   - npm run coveralls
   - npm run semantic-release
-branches:
-  except:
-    - /^v\d+\.\d+\.\d+$/
