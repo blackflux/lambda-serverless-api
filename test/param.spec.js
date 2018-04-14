@@ -33,4 +33,18 @@ describe("Testing Params", () => {
       }
     })).to.equal(false);
   });
+
+  it("Testing Int Parameter", () => {
+    const param = api.Int("value");
+    expect(param.get({
+      queryStringParameters: {
+        value: "-43"
+      }
+    })).to.equal(-43);
+    expect(() => param.get({
+      queryStringParameters: {
+        value: "invalid"
+      }
+    })).to.throw("Invalid Value for query-Parameter \"value\" provided.");
+  });
 });

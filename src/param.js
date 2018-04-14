@@ -90,3 +90,15 @@ class Bool extends RegEx {
   }
 }
 module.exports.Bool = (...args) => new Bool(...args);
+
+class Int extends RegEx {
+  constructor(name, ...args) {
+    super(name, /^(-?[1-9]+\d*)$|^0$/, ...args);
+  }
+
+  get(event) {
+    const result = super.get(event);
+    return Number(result);
+  }
+}
+module.exports.Int = (...args) => new Int(...args);

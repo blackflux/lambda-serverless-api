@@ -96,6 +96,7 @@ module.exports = (options = {}) => {
     Str: param.Str,
     Email: param.Email,
     RegEx: param.RegEx,
-    Bool: param.Bool
+    Bool: param.Bool,
+    Int: param.Int
   };
 };
