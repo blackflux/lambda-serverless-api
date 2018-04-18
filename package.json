@@ -16,7 +16,7 @@
     "app-root-path": "2.0.1",
     "chai": "4.1.2",
     "coveralls": "3.0.0",
-    "lambda-tdd": "1.12.1",
+    "lambda-tdd": "1.12.2",
     "js-gardener": "1.22.5",
     "nyc": "11.6.0",
     "semantic-release": "15.1.7",
