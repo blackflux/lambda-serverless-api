@@ -18,7 +18,7 @@
     "coveralls": "3.0.1",
     "lambda-tdd": "1.12.3",
     "js-gardener": "1.22.12",
-    "nyc": "11.7.2",
+    "nyc": "11.7.3",
     "semantic-release": "15.1.11",
     "babel-cli": "7.0.0-beta.3"
   },
