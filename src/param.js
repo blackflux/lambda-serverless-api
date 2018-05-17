@@ -64,7 +64,7 @@ class RegEx extends Str {
 
   validate(value) {
     let valid = super.validate(value);
-    if (!value.match(this.regex)) {
+    if (!String(value).match(this.regex)) {
       valid = false;
     }
     return valid;
