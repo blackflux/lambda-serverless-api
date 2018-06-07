@@ -14,10 +14,15 @@
   "author": "Lukas Siemon",
   "devDependencies": {
     "app-root-path": "2.0.1",
+    "babel-eslint": "8.2.3",
+    "babel-plugin-transform-flow-comments": "7.0.0-beta.3",
+    "babel-preset-flow": "7.0.0-beta.3",
+    "babel-register": "7.0.0-beta.3",
     "chai": "4.1.2",
     "coveralls": "3.0.1",
-    "lambda-tdd": "1.12.3",
-    "js-gardener": "1.22.12",
+    "js-gardener": "1.23.5",
+    "lambda-tdd": "1.13.2",
+    "nock": "9.3.0",
     "nyc": "12.0.2",
     "semantic-release": "15.5.1",
     "babel-cli": "7.0.0-beta.3"
@@ -60,11 +65,11 @@
     "lambda-rollbar": "1.9.7",
     "lodash.defaultsdeep": "4.6.0",
     "lodash.get": "4.4.2",
-    "yaml-boost": "1.3.3",
+    "yaml-boost": "1.7.1",
     "lodash.set": "4.3.2",
     "lodash.xor": "4.5.0",
     "js-yaml": "3.12.0",
-    "swagger-parser": "4.1.0"
+    "swagger-parser": "5.0.0"
   },
   "peerDependencies": {},
   "nyc": {
