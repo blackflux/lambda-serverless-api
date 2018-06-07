@@ -91,6 +91,7 @@ module.exports = (options = {}) => {
     generateSwagger: (existing = {}) => swagger(endpoints, existing),
     generateDifference,
     ApiError: response.ApiError,
+    ApiErrorClass: response.ApiErrorClass,
     ApiResponse: response.ApiResponse,
     JsonResponse: response.JsonResponse,
     Str: param.Str,
