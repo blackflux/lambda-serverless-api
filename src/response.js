@@ -28,4 +28,6 @@ class JsonResponse extends ApiResponse {
     super(JSON.stringify(payload), ...args);
   }
 }
+
+module.exports.JsonResponseClass = JsonResponse;
 module.exports.JsonResponse = (...args) => new JsonResponse(...args);
