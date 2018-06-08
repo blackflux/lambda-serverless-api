@@ -1,5 +1,5 @@
 const SwaggerParser = require('swagger-parser');
-
+const get = require('lodash.get');
 const merge = require("./util/merge")([
   "swagger",
   "produces",
@@ -65,7 +65,7 @@ module.exports = (endpoints, existing) => {
       description.push(`Internally contexts are used: ${contextParams.join(", ")}`);
     }
 
-    data.paths[`/${request.split(" ")[1]}`] = {
+    data.paths[`/${request.split(" ")[1]}`] = Object.assign(get(data.paths, `/${request.split(" ")[1]}`, {}), {
       [request.split(" ")[0].toLowerCase()]: {
         consumes: ["application/json"],
         description: description.join("\n"),
@@ -76,7 +76,7 @@ module.exports = (endpoints, existing) => {
           }
         }
       }
-    };
+    });
   });
 
   const result = JSON.parse(JSON.stringify(existing));
