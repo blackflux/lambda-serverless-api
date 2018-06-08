@@ -67,8 +67,29 @@ paths:
           name: bodyParamData
           schema:
             type: object
+            properties:
+              username:
+                type: string
+                format: Str
+              email:
+                type: string
+                format: Email
+                pattern: '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/'
             required:
               - username
+      responses:
+        default:
+          description: Unexpected Error
+  /param2:
+    post:
+      consumes:
+        - application/json
+      description: ''
+      parameters:
+        - in: body
+          name: bodyParamData
+          schema:
+            type: object
             properties:
               username:
                 type: string

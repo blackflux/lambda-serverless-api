@@ -1,10 +1,10 @@
 {
-  "handler": "param",
+  "handler": "param2",
   "success": true,
   "timeout": 2000,
   "response": [
     {
-      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",null,null,null,null,null]\",\"headers\":{}}"
+      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",null]\",\"headers\":{}}"
     }
   ],
   "logs": [

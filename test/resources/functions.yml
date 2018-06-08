@@ -24,3 +24,8 @@ functions:
       - http:
           path: param
           method: post
+  param2:
+    events:
+      - http:
+          path: param2
+          method: post
