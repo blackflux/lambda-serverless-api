@@ -36,22 +36,24 @@ module.exports = (endpoints, existing) => {
     const jsonParams = endpoints[request]
       .filter(p => p.position === "json");
     if (jsonParams.length !== 0) {
+      const required = jsonParams.filter(p => p.required).map(p => p.name);
       parameters.push({
         in: "body",
         name: "bodyParamData",
-        schema: {
-          type: "object",
-          required: jsonParams.filter(p => p.required).map(p => p.name),
-          properties: jsonParams.reduce((prev, p) => Object.assign(prev, {
-            [p.name]: Object.assign(
-              {
+        schema: Object.assign(
+          {
+            type: "object",
+            properties: jsonParams.reduce((prev, p) => Object.assign(prev, {
+              [p.name]: Object.assign({
                 type: p.type,
                 format: p.constructor.name
-              },
-              p.regex === undefined ? {} : { pattern: p.regex.toString() }
-            )
-          }), {})
-        }
+              }, p.regex === undefined ? {} : {
+                pattern: p.regex.toString()
+              })
+            }), {})
+          },
+          required.length === 0 ? {} : { required }
+        )
       });
     }
 
