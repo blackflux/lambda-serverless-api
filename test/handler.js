@@ -21,4 +21,9 @@ module.exports.param = api.wrap("POST param", [
   api.Str("authorizer", "header", false)
 ], process.env.RATE_LIMIT, params => api.JsonResponse(params));
 
+module.exports.param2 = api.wrap("POST param2", [
+  api.Str("username", "json", false),
+  api.Email("email", "json", false)
+], process.env.RATE_LIMIT, params => api.JsonResponse(params));
+
 module.exports.internalApi = api;
