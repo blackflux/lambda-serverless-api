@@ -65,7 +65,8 @@ module.exports = (endpoints, existing) => {
       description.push(`Internally contexts are used: ${contextParams.join(", ")}`);
     }
 
-    data.paths[`/${request.split(" ")[1]}`] = Object.assign(get(data.paths, `/${request.split(" ")[1]}`, {}), {
+    const key = `/${request.split(" ")[1]}`;
+    data.paths[key] = Object.assign(get(data.paths, key, {}), {
       [request.split(" ")[0].toLowerCase()]: {
         consumes: ["application/json"],
         description: description.join("\n"),
