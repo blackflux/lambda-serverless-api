@@ -1,11 +1,11 @@
 const get = require("lodash.get");
 const set = require("lodash.set");
 const defaultsdeep = require("lodash.defaultsdeep");
-const Find = require("./find");
+const objectScan = require("object-scan");
 
 module.exports = (exact, contains) => {
-  const findExact = Find(exact);
-  const findContains = Find(contains);
+  const findExact = objectScan(exact);
+  const findContains = objectScan(contains);
 
   return (target, data) => {
     defaultsdeep(target, data);

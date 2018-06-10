@@ -13,7 +13,7 @@ describe("Testing Response", () => {
 
   it("Testing ApiResponse Integration", (done) => {
     api.wrap("GET test", [], 10, (event, context, rb) => rb.warning("123")
-      .then(() => api.ApiResponse("promiseResponse")))({
+      .then(() => api.ApiResponse("promiseResponse")).catch(done.fail))({
       httpMethod: "GET"
     }, {
       getRemainingTimeInMillis: () => 0
@@ -27,7 +27,7 @@ describe("Testing Response", () => {
   it("Testing ApiError Integration", (done) => {
     api.wrap("GET test", [], 10, (event, context, rb) => rb.warning("123").then(() => {
       throw api.ApiError("promiseError");
-    }))({
+    }).catch(done.fail))({
       httpMethod: "GET"
     }, {
       getRemainingTimeInMillis: () => 0
@@ -43,7 +43,7 @@ describe("Testing Response", () => {
     const error = new Error("other");
     api.wrap("GET test", [], 10, (event, context, rb) => rb.warning("123").then(() => {
       throw error;
-    }))({
+    }).catch(done.fail))({
       httpMethod: "GET"
     }, {
       getRemainingTimeInMillis: () => 0

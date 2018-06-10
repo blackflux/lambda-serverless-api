@@ -6,7 +6,7 @@ const yaml = require("yaml-boost");
 const param = require("./param");
 const response = require("./response");
 const swagger = require("./swagger");
-const Find = require("./util/find");
+const objectScan = require("object-scan");
 
 const parse = (request, params, event) => {
   const expectedRequestMethod = request.split(" ")[0];
@@ -78,9 +78,9 @@ module.exports = (options = {}) => {
     const serverlessData = yaml.load(serverlessFile, serverlessVars);
     const swaggerData = yaml.load(swaggerFile);
 
-    const serverlessRequests = Find(["functions.*.events.*.http"])(serverlessData)
+    const serverlessRequests = objectScan(["functions.*.events[*].http"])(serverlessData)
       .map(k => get(serverlessData, k)).map(e => `${e.method.toUpperCase()} ${e.path}`);
-    const swaggerRequests = Find(["paths.*.*"])(swaggerData)
+    const swaggerRequests = objectScan(["paths.*.*"])(swaggerData)
       .map(k => k.split(".")).map(e => `${e[2].toUpperCase()} ${e[1].substring(1)}`);
 
     return xor(serverlessRequests, swaggerRequests);

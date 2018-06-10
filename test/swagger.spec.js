@@ -13,7 +13,8 @@ describe("Testing Swagger", () => {
       .then(api.generateSwagger)
       .then(swagger => yaml.dump(swagger))
       .then(swagger => fs.writeFileSync(file, swagger))
-      .then(done);
+      .then(done)
+      .catch(done.fail);
   });
 
   it("Testing serverless.yml", () => {
