@@ -16,13 +16,14 @@ class Param {
     }
     this.name = name;
     this.position = position;
+    this.stringInput = ["json", "context"].indexOf(position) === -1;
     this.required = required;
     this.type = null;
   }
 
   // eslint-disable-next-line class-methods-use-this
   validate(value) {
-    return true;
+    return !(this.stringInput && typeof value !== 'string');
   }
 
   get(event) {
@@ -64,7 +65,7 @@ class RegEx extends Str {
 
   validate(value) {
     let valid = super.validate(value);
-    if (!String(value).match(this.regex)) {
+    if (!value.match(this.regex)) {
       valid = false;
     }
     return valid;
@@ -79,26 +80,34 @@ class Email extends RegEx {
 }
 module.exports.Email = (...args) => new Email(...args);
 
-class Bool extends RegEx {
-  constructor(name, ...args) {
-    super(name, /^(0|1|true|false)$/, ...args);
+class Bool extends Param {
+  validate(value) {
+    let valid = super.validate(value);
+    if (this.stringInput ? !value.match(/^(0|1|true|false)$/) : typeof value !== 'boolean') {
+      valid = false;
+    }
+    return valid;
   }
 
   get(event) {
     const result = super.get(event);
-    return ["1", "true"].indexOf(result) !== -1;
+    return this.stringInput ? ["1", "true"].indexOf(result) !== -1 : result === true;
   }
 }
 module.exports.Bool = (...args) => new Bool(...args);
 
-class Int extends RegEx {
-  constructor(name, ...args) {
-    super(name, /^(-?[1-9]+\d*)$|^0$/, ...args);
+class Int extends Param {
+  validate(value) {
+    let valid = super.validate(value);
+    if (this.stringInput ? !value.match(/^(-?[1-9]+\d*)$|^0$/) : typeof value !== 'number') {
+      valid = false;
+    }
+    return valid;
   }
 
   get(event) {
     const result = super.get(event);
-    return Number(result);
+    return this.stringInput ? Number(result) : result;
   }
 }
 module.exports.Int = (...args) => new Int(...args);

@@ -20,7 +20,7 @@ describe("Testing Params", () => {
     done();
   });
 
-  it("Testing Bool Parameter", () => {
+  it("Testing Bool Parameter (query)", () => {
     const param = api.Bool("enabled");
     expect(param.get({
       queryStringParameters: {
@@ -32,9 +32,33 @@ describe("Testing Params", () => {
         enabled: "false"
       }
     })).to.equal(false);
+    expect(() => param.get({
+      queryStringParameters: {
+        enabled: "invalid"
+      }
+    })).to.throw("Invalid Value for query-Parameter \"enabled\" provided.");
   });
 
-  it("Testing Int Parameter", () => {
+  it("Testing Bool Parameter (json)", () => {
+    const param = api.Bool("enabled", "json");
+    expect(param.get({
+      body: {
+        enabled: true
+      }
+    })).to.equal(true);
+    expect(param.get({
+      body: {
+        enabled: false
+      }
+    })).to.equal(false);
+    expect(() => param.get({
+      body: {
+        enabled: 1
+      }
+    })).to.throw("Invalid Value for json-Parameter \"enabled\" provided.");
+  });
+
+  it("Testing Int Parameter (query)", () => {
     const param = api.Int("value");
     expect(param.get({
       queryStringParameters: {
@@ -46,5 +70,19 @@ describe("Testing Params", () => {
         value: "invalid"
       }
     })).to.throw("Invalid Value for query-Parameter \"value\" provided.");
+  });
+
+  it("Testing Int Parameter (json)", () => {
+    const param = api.Int("value", "json");
+    expect(param.get({
+      body: {
+        value: -43
+      }
+    })).to.equal(-43);
+    expect(() => param.get({
+      body: {
+        value: "invalid"
+      }
+    })).to.throw("Invalid Value for json-Parameter \"value\" provided.");
   });
 });
