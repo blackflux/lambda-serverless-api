@@ -99,4 +99,32 @@ describe("Testing Params", () => {
       }
     })).to.throw("Invalid Value for json-Parameter \"value\" provided.");
   });
+
+  it("Testing StrList Parameter (query)", () => {
+    const param = api.StrList("list");
+    expect(param.get({
+      queryStringParameters: {
+        list: '["123","345"]'
+      }
+    })).to.deep.equal(["123", "345"]);
+    expect(() => param.get({
+      queryStringParameters: {
+        list: "invalid"
+      }
+    })).to.throw("Invalid Value for query-Parameter \"list\" provided.");
+  });
+
+  it("Testing StrList Parameter (json)", () => {
+    const param = api.StrList("list", "json");
+    expect(param.get({
+      body: {
+        list: ["123", "345"]
+      }
+    })).to.deep.equal(["123", "345"]);
+    expect(() => param.get({
+      body: {
+        list: ["123", 213]
+      }
+    })).to.throw("Invalid Value for json-Parameter \"list\" provided.");
+  });
 });

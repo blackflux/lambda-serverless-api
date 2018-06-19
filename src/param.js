@@ -118,3 +118,22 @@ class Int extends Param {
   }
 }
 module.exports.Int = (...args) => new Int(...args);
+
+class StrList extends Param {
+  validate(value) {
+    let valid = super.validate(value);
+    if (this.stringInput
+      ? !value.match(/^\["[^"]+"(,"[^"]+")*]$/)
+      : !Array.isArray(value) || value.some(e => typeof e !== 'string')
+    ) {
+      valid = false;
+    }
+    return valid;
+  }
+
+  get(event) {
+    const result = super.get(event);
+    return this.stringInput ? JSON.parse(result) : result;
+  }
+}
+module.exports.StrList = (...args) => new StrList(...args);
