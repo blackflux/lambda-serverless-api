@@ -20,6 +20,20 @@ describe("Testing Params", () => {
     done();
   });
 
+  it("Testing UUID param", () => {
+    const param = api.UUID("value");
+    expect(param.get({
+      queryStringParameters: {
+        value: "9d09d573-173e-4919-b823-70d406242040"
+      }
+    })).to.equal("9d09d573-173e-4919-b823-70d406242040");
+    expect(() => param.get({
+      queryStringParameters: {
+        value: "invalid"
+      }
+    })).to.throw("Invalid Value for query-Parameter \"value\" provided.");
+  });
+
   it("Testing Bool Parameter (query)", () => {
     const param = api.Bool("enabled");
     expect(param.get({
@@ -84,5 +98,61 @@ describe("Testing Params", () => {
         value: "invalid"
       }
     })).to.throw("Invalid Value for json-Parameter \"value\" provided.");
+  });
+
+  it("Testing List Parameter (query)", () => {
+    const param = api.List("list");
+    expect(param.get({
+      queryStringParameters: {
+        list: '["123","345"]'
+      }
+    })).to.deep.equal(["123", "345"]);
+    expect(() => param.get({
+      queryStringParameters: {
+        list: "invalid"
+      }
+    })).to.throw("Invalid Value for query-Parameter \"list\" provided.");
+  });
+
+  it("Testing List Parameter (json)", () => {
+    const param = api.List("list", "json");
+    expect(param.get({
+      body: {
+        list: ["123", 123]
+      }
+    })).to.deep.equal(["123", 123]);
+    expect(() => param.get({
+      body: {
+        list: {}
+      }
+    })).to.throw("Invalid Value for json-Parameter \"list\" provided.");
+  });
+
+  it("Testing StrList Parameter (query)", () => {
+    const param = api.StrList("list");
+    expect(param.get({
+      queryStringParameters: {
+        list: '["123","345"]'
+      }
+    })).to.deep.equal(["123", "345"]);
+    expect(() => param.get({
+      queryStringParameters: {
+        list: "invalid"
+      }
+    })).to.throw("Invalid Value for query-Parameter \"list\" provided.");
+  });
+
+  it("Testing StrList Parameter (json)", () => {
+    const param = api.StrList("list", "json");
+    expect(param.get({
+      body: {
+        list: ["123", "345"]
+      }
+    })).to.deep.equal(["123", "345"]);
+    expect(() => param.get({
+      body: {
+        list: ["123", 213]
+      }
+    })).to.throw("Invalid Value for json-Parameter \"list\" provided.");
   });
 });
