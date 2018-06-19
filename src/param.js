@@ -49,7 +49,7 @@ class Str extends Param {
 
   validate(value) {
     let valid = super.validate(value);
-    if (!(typeof value === 'string' || value instanceof String)) {
+    if (valid && !(typeof value === 'string' || value instanceof String)) {
       valid = false;
     }
     return valid;
@@ -65,7 +65,7 @@ class RegEx extends Str {
 
   validate(value) {
     let valid = super.validate(value);
-    if (!value.match(this.regex)) {
+    if (valid && !value.match(this.regex)) {
       valid = false;
     }
     return valid;
@@ -90,7 +90,7 @@ module.exports.UUID = (...args) => new UUID(...args);
 class Bool extends Param {
   validate(value) {
     let valid = super.validate(value);
-    if (this.stringInput ? !value.match(/^(0|1|true|false)$/) : typeof value !== 'boolean') {
+    if (valid && this.stringInput ? !value.match(/^(0|1|true|false)$/) : typeof value !== 'boolean') {
       valid = false;
     }
     return valid;
@@ -106,7 +106,7 @@ module.exports.Bool = (...args) => new Bool(...args);
 class Int extends Param {
   validate(value) {
     let valid = super.validate(value);
-    if (this.stringInput ? !value.match(/^(-?[1-9]+\d*)$|^0$/) : typeof value !== 'number') {
+    if (valid && this.stringInput ? !value.match(/^(-?[1-9]+\d*)$|^0$/) : typeof value !== 'number') {
       valid = false;
     }
     return valid;
@@ -119,13 +119,18 @@ class Int extends Param {
 }
 module.exports.Int = (...args) => new Int(...args);
 
-class StrList extends Param {
+class List extends Param {
   validate(value) {
     let valid = super.validate(value);
-    if (this.stringInput
-      ? !value.match(/^\["[^"]+"(,"[^"]+")*]$/)
-      : !Array.isArray(value) || value.some(e => typeof e !== 'string')
-    ) {
+    let valueParsed = value;
+    if (valid && this.stringInput) {
+      try {
+        valueParsed = JSON.parse(value);
+      } catch (e) {
+        valid = false;
+      }
+    }
+    if (valid && !Array.isArray(valueParsed)) {
       valid = false;
     }
     return valid;
@@ -134,6 +139,17 @@ class StrList extends Param {
   get(event) {
     const result = super.get(event);
     return this.stringInput ? JSON.parse(result) : result;
+  }
+}
+module.exports.List = (...args) => new List(...args);
+
+class StrList extends List {
+  validate(value) {
+    let valid = super.validate(value);
+    if (valid && (this.stringInput ? JSON.parse(value) : value).some(e => typeof e !== 'string')) {
+      valid = false;
+    }
+    return valid;
   }
 }
 module.exports.StrList = (...args) => new StrList(...args);

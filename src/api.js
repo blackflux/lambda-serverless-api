@@ -102,6 +102,7 @@ module.exports = (options = {}) => {
     UUID: param.UUID,
     Bool: param.Bool,
     Int: param.Int,
+    List: param.List,
     StrList: param.StrList
   };
 };
