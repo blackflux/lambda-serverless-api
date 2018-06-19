@@ -80,6 +80,13 @@ class Email extends RegEx {
 }
 module.exports.Email = (...args) => new Email(...args);
 
+class UUID extends RegEx {
+  constructor(name, ...args) {
+    super(name, /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/, ...args);
+  }
+}
+module.exports.UUID = (...args) => new UUID(...args);
+
 class Bool extends Param {
   validate(value) {
     let valid = super.validate(value);

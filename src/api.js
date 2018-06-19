@@ -100,6 +100,7 @@ module.exports = (options = {}) => {
     Email: param.Email,
     RegEx: param.RegEx,
     Bool: param.Bool,
-    Int: param.Int
+    Int: param.Int,
+    UUID: param.UUID
   };
 };

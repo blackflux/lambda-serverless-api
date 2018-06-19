@@ -20,6 +20,20 @@ describe("Testing Params", () => {
     done();
   });
 
+  it("Testing UUID param", () => {
+    const param = api.UUID("value");
+    expect(param.get({
+      queryStringParameters: {
+        value: "9d09d573-173e-4919-b823-70d406242040"
+      }
+    })).to.equal("9d09d573-173e-4919-b823-70d406242040");
+    expect(() => param.get({
+      queryStringParameters: {
+        value: "invalid"
+      }
+    })).to.throw("Invalid Value for query-Parameter \"value\" provided.");
+  });
+
   it("Testing Bool Parameter (query)", () => {
     const param = api.Bool("enabled");
     expect(param.get({
