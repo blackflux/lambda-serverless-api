@@ -98,6 +98,9 @@ class Bool extends Param {
 
   get(event) {
     const result = super.get(event);
+    if (result === undefined) {
+      return result;
+    }
     return this.stringInput ? ["1", "true"].indexOf(result) !== -1 : result === true;
   }
 }
@@ -114,6 +117,9 @@ class Int extends Param {
 
   get(event) {
     const result = super.get(event);
+    if (result === undefined) {
+      return result;
+    }
     return this.stringInput ? Number(result) : result;
   }
 }
@@ -149,7 +155,10 @@ class List extends Param {
 
   get(event) {
     const result = super.get(event);
-    return this.stringInput && typeof result === 'string' ? JSON.parse(result) : result;
+    if (result === undefined) {
+      return result;
+    }
+    return this.stringInput ? JSON.parse(result) : result;
   }
 }
 module.exports.List = (...args) => new List(...args);
