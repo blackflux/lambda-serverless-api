@@ -72,6 +72,13 @@ describe("Testing Params", () => {
     })).to.throw("Invalid Value for json-Parameter \"enabled\" provided.");
   });
 
+  it("Testing Bool Parameter Undefined (json)", () => {
+    const param = api.Bool("enabled", "json", false);
+    expect(param.get({
+      body: {}
+    })).to.equal(undefined);
+  });
+
   it("Testing Int Parameter (query)", () => {
     const param = api.Int("value");
     expect(param.get({
@@ -98,6 +105,13 @@ describe("Testing Params", () => {
         value: "invalid"
       }
     })).to.throw("Invalid Value for json-Parameter \"value\" provided.");
+  });
+
+  it("Testing Int Parameter Undefined (json)", () => {
+    const param = api.Int("value", "json", false);
+    expect(param.get({
+      body: {}
+    })).to.equal(undefined);
   });
 
   it("Testing List Parameter (query)", () => {
