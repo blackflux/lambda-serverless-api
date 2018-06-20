@@ -88,6 +88,11 @@ class UUID extends RegEx {
 module.exports.UUID = (...args) => new UUID(...args);
 
 class Bool extends Param {
+  constructor(...args) {
+    super(...args);
+    this.type = "boolean";
+  }
+
   validate(value) {
     let valid = super.validate(value);
     if (valid && this.stringInput ? !value.match(/^(0|1|true|false)$/) : typeof value !== 'boolean') {
@@ -107,6 +112,11 @@ class Bool extends Param {
 module.exports.Bool = (...args) => new Bool(...args);
 
 class Int extends Param {
+  constructor(...args) {
+    super(...args);
+    this.type = "integer";
+  }
+
   validate(value) {
     let valid = super.validate(value);
     if (valid && this.stringInput ? !value.match(/^(-?[1-9]+\d*)$|^0$/) : typeof value !== 'number') {
