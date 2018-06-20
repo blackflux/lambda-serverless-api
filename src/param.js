@@ -120,6 +120,17 @@ class Int extends Param {
 module.exports.Int = (...args) => new Int(...args);
 
 class List extends Param {
+  constructor(...args) {
+    super(...args);
+    this.type = "array";
+    this.items = [
+      { type: "string" },
+      { type: "number" },
+      { type: "integer" },
+      { type: "boolean" }
+    ];
+  }
+
   validate(value) {
     let valid = super.validate(value);
     let valueParsed = value;
@@ -138,12 +149,17 @@ class List extends Param {
 
   get(event) {
     const result = super.get(event);
-    return this.stringInput ? JSON.parse(result) : result;
+    return this.stringInput && typeof result === 'string' ? JSON.parse(result) : result;
   }
 }
 module.exports.List = (...args) => new List(...args);
 
 class StrList extends List {
+  constructor(...args) {
+    super(...args);
+    this.items = [{ type: "string" }];
+  }
+
   validate(value) {
     let valid = super.validate(value);
     if (valid && (this.stringInput ? JSON.parse(value) : value).some(e => typeof e !== 'string')) {

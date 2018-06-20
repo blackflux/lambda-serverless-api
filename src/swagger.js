@@ -30,7 +30,8 @@ module.exports = (endpoints, existing) => {
           format: p.constructor.name,
           in: p.position
         },
-        p.regex === undefined ? {} : { pattern: p.regex.toString() }
+        p.regex === undefined ? {} : { pattern: p.regex.toString() },
+        p.items === undefined ? {} : { type: "string" }
       ));
 
     const jsonParams = endpoints[request]
@@ -44,12 +45,11 @@ module.exports = (endpoints, existing) => {
           {
             type: "object",
             properties: jsonParams.reduce((prev, p) => Object.assign(prev, {
-              [p.name]: Object.assign({
-                type: p.type,
-                format: p.constructor.name
-              }, p.regex === undefined ? {} : {
-                pattern: p.regex.toString()
-              })
+              [p.name]: Object.assign(
+                { type: p.type, format: p.constructor.name },
+                p.regex === undefined ? {} : { pattern: p.regex.toString() },
+                p.items === undefined ? {} : { items: p.items }
+              )
             }), {})
           },
           required.length === 0 ? {} : { required }

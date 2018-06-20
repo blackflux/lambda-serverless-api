@@ -63,6 +63,16 @@ paths:
           type: string
           format: Str
           in: header
+        - name: listParam
+          required: false
+          type: string
+          format: List
+          in: query
+        - name: strListParam
+          required: false
+          type: string
+          format: StrList
+          in: query
         - in: body
           name: bodyParamData
           schema:
@@ -75,6 +85,24 @@ paths:
                 type: string
                 format: Email
                 pattern: '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/'
+              uuidParam:
+                type: string
+                format: UUID
+                pattern: >-
+                  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+              listParam:
+                type: array
+                format: List
+                items:
+                  - type: string
+                  - type: number
+                  - type: integer
+                  - type: boolean
+              strListParam:
+                type: array
+                format: StrList
+                items:
+                  - type: string
             required:
               - username
       responses:
