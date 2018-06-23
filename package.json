@@ -13,7 +13,7 @@
   ],
   "author": "Lukas Siemon",
   "devDependencies": {
-    "app-root-path": "2.0.1",
+    "app-root-path": "2.1.0",
     "babel-eslint": "8.2.5",
     "babel-plugin-transform-flow-comments": "7.0.0-beta.3",
     "babel-preset-flow": "7.0.0-beta.3",
