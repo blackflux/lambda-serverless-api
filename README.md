@@ -31,7 +31,8 @@ First we need to wrap our lambda endpoint. Inside the lambda function we can the
 ```js
 const api = require("lambda-serverless-api")({
   limiter: {},
-  rollbar: {}
+  rollbar: {},
+  defaultHeaders: {}
 });
 
 module.exports = api.wrap("POST register", [

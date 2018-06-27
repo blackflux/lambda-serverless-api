@@ -28,23 +28,29 @@ const parse = (request, params, event) => {
   return Promise.resolve(params.map(p => p.get(eventParsed)));
 };
 
-const generateResponse = (err, resp, rb) => {
+const generateResponse = (err, resp, rb, options) => {
   if (err instanceof response.ApiErrorClass) {
-    return rb.warning(err).then(() => ({
-      statusCode: err.statusCode,
-      body: JSON.stringify({
-        message: err.message,
-        messageId: err.messageId,
-        context: err.context
-      })
-    }));
+    return rb.warning(err).then(() => Object.assign(
+      {
+        statusCode: err.statusCode,
+        body: JSON.stringify({
+          message: err.message,
+          messageId: err.messageId,
+          context: err.context
+        })
+      },
+      Object.keys(options.defaultHeaders).length === 0 ? {} : { headers: options.defaultHeaders }
+    ));
   }
   if (resp instanceof response.ApiResponseClass) {
-    return {
-      statusCode: resp.statusCode,
-      body: resp.payload,
-      headers: resp.headers
-    };
+    const headers = Object.assign({}, options.defaultHeaders, resp.headers);
+    return Object.assign(
+      {
+        statusCode: resp.statusCode,
+        body: resp.payload
+      },
+      Object.keys(headers).length === 0 ? {} : { headers }
+    );
   }
   throw err;
 };
@@ -53,6 +59,7 @@ module.exports = (options = {}) => {
   const endpoints = {};
   const rollbar = Rollbar(get(options, 'rollbar', {}));
   const limiter = Limiter(get(options, 'limiter', {}));
+  const defaultHeaders = get(options, 'defaultHeaders', {});
 
   const wrap = (request, params, limit, handler) => {
     if (request.startsWith("GET ") && params.filter(p => p.position === 'json').length !== 0) {
@@ -70,8 +77,8 @@ module.exports = (options = {}) => {
         })
         .then(() => parse(request, params, event))
         .then(paramsOut => handler(paramsOut, context, rb))
-        .then(payload => generateResponse(null, payload, rb))
-        .catch(err => generateResponse(err, null, rb)));
+        .then(payload => generateResponse(null, payload, rb, { defaultHeaders }))
+        .catch(err => generateResponse(err, null, rb, { defaultHeaders })));
   };
 
   const generateDifference = (swaggerFile, serverlessFile, serverlessVars) => {
