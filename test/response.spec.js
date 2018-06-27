@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const response = require("../src/response");
 const Api = require("../src/api");
 
-const api = Api({});
+const api = Api({ defaultHeaders: { 'X-Custom-Header': 'header-value' } });
 
 describe("Testing Response", () => {
   it("Testing ApiError", (done) => {
@@ -19,7 +19,11 @@ describe("Testing Response", () => {
       getRemainingTimeInMillis: () => 0
     }, (err, resp) => {
       expect(err).to.equal(null);
-      expect(resp).to.deep.equal({ statusCode: 200, body: 'promiseResponse', headers: {} });
+      expect(resp).to.deep.equal({
+        statusCode: 200,
+        body: 'promiseResponse',
+        headers: { 'X-Custom-Header': 'header-value' }
+      });
       done();
     });
   });
@@ -33,7 +37,11 @@ describe("Testing Response", () => {
       getRemainingTimeInMillis: () => 0
     }, (err, resp) => {
       expect(err).to.equal(null);
-      expect(resp).to.deep.equal({ statusCode: 400, body: '{"message":"promiseError"}' });
+      expect(resp).to.deep.equal({
+        statusCode: 400,
+        body: '{"message":"promiseError"}',
+        headers: { 'X-Custom-Header': 'header-value' }
+      });
       done();
     });
   });
