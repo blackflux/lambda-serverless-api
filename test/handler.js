@@ -22,8 +22,10 @@ module.exports.param = api.wrap("POST param", [
   api.UUID("uuidParam", "json", false),
   api.List("listParam", "json", false),
   api.StrList("strListParam", "json", false),
+  api.NumberList("numberListParam", "json", false),
   api.List("listParam", "query", false),
-  api.StrList("strListParam", "query", false)
+  api.StrList("strListParam", "query", false),
+  api.NumberList("numberListParam", "query", false)
 ], process.env.RATE_LIMIT, params => api.JsonResponse(params));
 
 module.exports.param2 = api.wrap("POST param2", [

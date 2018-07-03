@@ -110,6 +110,7 @@ module.exports = (options = {}) => {
     Bool: param.Bool,
     Int: param.Int,
     List: param.List,
-    StrList: param.StrList
+    StrList: param.StrList,
+    NumberList: param.NumberList
   };
 };

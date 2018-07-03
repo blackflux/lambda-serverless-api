@@ -73,6 +73,11 @@ paths:
           type: string
           format: StrList
           in: query
+        - name: numberListParam
+          required: false
+          type: string
+          format: NumberList
+          in: query
         - in: body
           name: bodyParamData
           schema:
@@ -103,6 +108,11 @@ paths:
                 format: StrList
                 items:
                   - type: string
+              numberListParam:
+                type: array
+                format: NumberList
+                items:
+                  - type: number
             required:
               - username
       responses:
