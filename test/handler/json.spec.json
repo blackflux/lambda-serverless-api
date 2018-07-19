@@ -2,16 +2,15 @@
   "handler": "json",
   "success": true,
   "timeout": 2000,
-  "response": [
-    {
-      "to.deep.equal": "{\"statusCode\":200,\"body\":\"{\\\"some\\\":\\\"json\\\"}\"}"
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 200,
+      "body": "{\"some\":\"json\"}"
     }
-  ],
-  "logs": [
-    {
-      "to.deep.equal": []
-    }
-  ],
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
   "event": {
     "httpMethod": "GET"
   }

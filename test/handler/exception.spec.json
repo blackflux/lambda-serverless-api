@@ -2,16 +2,12 @@
   "handler": "exception",
   "success": false,
   "timeout": 2000,
-  "error": [
-    {
-      "to.deep.equal": "Some Exception"
-    }
-  ],
-  "logs": [
-    {
-      "to.deep.equal": []
-    }
-  ],
+  "expect(message)": {
+    "to.deep.equal()": "Some Exception"
+  },
+  "logs": {
+    "to.deep.equal()": []
+  },
   "event": {
     "httpMethod": "GET"
   }

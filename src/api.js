@@ -1,12 +1,12 @@
 const xor = require('lodash.xor');
 const get = require('lodash.get');
+const objectScan = require("object-scan");
+const yaml = require("yaml-boost");
 const Rollbar = require('lambda-rollbar');
 const Limiter = require('lambda-rate-limiter');
-const yaml = require("yaml-boost");
 const param = require("./param");
 const response = require("./response");
 const swagger = require("./swagger");
-const objectScan = require("object-scan");
 
 const parse = (request, params, event) => {
   const expectedRequestMethod = request.split(" ")[0];

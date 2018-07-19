@@ -204,4 +204,3 @@ class NumberList extends List {
   }
 }
 module.exports.NumberList = (...args) => new NumberList(...args);
-
