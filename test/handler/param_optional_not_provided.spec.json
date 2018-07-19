@@ -2,16 +2,15 @@
   "handler": "param2",
   "success": true,
   "timeout": 2000,
-  "response": [
-    {
-      "to.deep.equal": "{\"statusCode\":200,\"body\":\"[\\\"Anja Smith\\\",null]\"}"
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 200,
+      "body": "[\"Anja Smith\",null]"
     }
-  ],
-  "logs": [
-    {
-      "to.deep.equal": []
-    }
-  ],
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
   "event": {
     "body": "{\"username\": \"Anja Smith\"}",
     "httpMethod": "POST"

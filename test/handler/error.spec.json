@@ -2,16 +2,15 @@
   "handler": "error",
   "success": true,
   "timeout": 2000,
-  "response": [
-    {
-      "to.deep.equal": "{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Some Error\\\",\\\"messageId\\\":2341}\"}"
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 400,
+      "body": "{\"message\":\"Some Error\",\"messageId\":2341}"
     }
-  ],
-  "logs": [
-    {
-      "to.deep.equal": []
-    }
-  ],
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
   "event": {
     "httpMethod": "GET"
   }

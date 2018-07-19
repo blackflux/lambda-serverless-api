@@ -2,16 +2,15 @@
   "handler": "param",
   "success": true,
   "timeout": 2000,
-  "response": [
-    {
-      "to.deep.equal": "{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Required json-Parameter \\\\\\\"username\\\\\\\" missing.\\\",\\\"messageId\\\":99002}\"}"
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 400,
+      "body": "{\"message\":\"Required json-Parameter \\\"username\\\" missing.\",\"messageId\":99002}"
     }
-  ],
-  "logs": [
-    {
-      "to.deep.equal": []
-    }
-  ],
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
   "event": {
     "body": "{}",
     "httpMethod": "POST"

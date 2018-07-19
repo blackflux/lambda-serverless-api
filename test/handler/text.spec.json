@@ -2,16 +2,15 @@
   "handler": "text",
   "success": true,
   "timeout": 2000,
-  "response": [
-    {
-      "to.deep.equal": "{\"statusCode\":200,\"body\":\"some text\"}"
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 200,
+      "body": "some text"
     }
-  ],
-  "logs": [
-    {
-      "to.deep.equal": []
-    }
-  ],
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
   "event": {
     "httpMethod": "GET"
   }

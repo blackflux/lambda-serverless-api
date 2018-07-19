@@ -2,16 +2,15 @@
   "handler": "param",
   "success": true,
   "timeout": 2000,
-  "response": [
-    {
-      "to.deep.equal": "{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Request Method \\\\\\\"POST\\\\\\\" expected.\\\",\\\"messageId\\\":99004,\\\"context\\\":{\\\"value\\\":\\\"GET\\\"}}\"}"
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 400,
+      "body": "{\"message\":\"Request Method \\\"POST\\\" expected.\",\"messageId\":99004,\"context\":{\"value\":\"GET\"}}"
     }
-  ],
-  "logs": [
-    {
-      "to.deep.equal": []
-    }
-  ],
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
   "event": {
     "httpMethod": "GET"
   }
