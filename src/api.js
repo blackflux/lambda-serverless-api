@@ -25,7 +25,12 @@ const parse = (request, params, event) => {
     });
   }
   const eventParsed = Object.assign({}, event, { body });
-  return Promise.resolve(params.map(p => p.get(eventParsed)));
+  return Promise.resolve(params
+    .reduce((prev, cur) => Object.assign(prev, {
+      [cur.name
+        .replace(/(?:^\w|[A-Z]|\b\w)/g, (l, idx) => (idx === 0 ? l.toLowerCase() : l.toUpperCase()))
+        .replace(/[^a-zA-Z0-9]+/g, '')]: cur.get(eventParsed)
+    }), {}));
 };
 
 const generateResponse = (err, resp, rb, options) => {

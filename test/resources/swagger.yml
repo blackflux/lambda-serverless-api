@@ -124,6 +124,11 @@ paths:
         - application/json
       description: ''
       parameters:
+        - name: X-Custom-Header
+          required: false
+          type: string
+          format: Str
+          in: header
         - in: body
           name: bodyParamData
           schema:

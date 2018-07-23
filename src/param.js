@@ -27,7 +27,13 @@ class Param {
   }
 
   get(event) {
-    const result = get(event, `${positionMapping[this.position]}.${this.name}`);
+    const result = get(event, `${positionMapping[this.position]}.${
+      this.position === "header"
+        ? Object
+          .keys(get(event, positionMapping[this.position], {}))
+          .reduce((prev, cur) => Object.assign(prev, { [cur.toLowerCase()]: cur }), {})[this.name.toLowerCase()]
+        : this.name
+    }`);
     if (result === undefined) {
       if (this.required) {
         throw response.ApiError(`Required ${this.position}-Parameter "${this.name}" missing.`, 400, 99002);
