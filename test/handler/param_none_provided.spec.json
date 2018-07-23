@@ -4,19 +4,16 @@
   "timeout": 2000,
   "expect(body|JSON.parse)": {
     "to.deep.equal()": {
-      "username": "Anja Smith",
+      "username": "default",
       "email": "default",
-      "xCustomHeader": "value"
+      "xCustomHeader": null
     }
   },
   "logs": {
     "to.deep.equal": []
   },
   "event": {
-    "body": "{\"username\": \"Anja Smith\"}",
-    "httpMethod": "POST",
-    "headers": {
-      "x-custom-header": "value"
-    }
+    "body": "{}",
+    "httpMethod": "POST"
   }
 }

@@ -30,7 +30,12 @@ module.exports.param = api.wrap("POST param", [
 
 module.exports.param2 = api.wrap("POST param2", [
   api.Str("username", "json", false),
-  api.Email("email", "json", false)
-], process.env.RATE_LIMIT, params => api.JsonResponse(params));
+  api.Email("email", "json", false),
+  api.Str('X-Custom-Header', "header", false)
+], process.env.RATE_LIMIT, ({
+  username = "default",
+  email = "default",
+  xCustomHeader = null
+}) => api.JsonResponse({ username, email, xCustomHeader }));
 
 module.exports.internalApi = api;

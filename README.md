@@ -39,7 +39,7 @@ module.exports = api.wrap("POST register", [
   api.Str("name", "json", false),
   api.Email("email", "json"),
   api.Str("password", "json")
-], process.env.RATE_LIMIT_PER_IP, ([name, email, password], context, rb) => {
+], process.env.RATE_LIMIT_PER_IP, ({ name = null, email = null, password = null }, context, rb) => {
   // handle registration logic here ...
   if (new Date().getHours() === 4) {
     throw api.ApiError("I am a teapot", 418);
@@ -57,6 +57,8 @@ A list of supported parameters can be found [here](lib/param.js).
 If you want to send plain text instead of json, you can use `ApiResponse`. You can also set custom status codes and headers as second and third parameter respectively.
 
 The `defaultHeaders` are returned with every request that isn't an unexpected crash. This is handy if you are planning to set up Access headers.
+
+Parameter names are converted to camel case. E.g. `X-Custom-Header` would be passed as `xCustomHeader`.
 
 ## Swagger Documentation
 
