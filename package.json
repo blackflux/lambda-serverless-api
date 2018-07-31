@@ -69,7 +69,7 @@
     "lodash.set": "4.3.2",
     "lodash.xor": "4.5.0",
     "object-scan": "1.2.1",
-    "swagger-parser": "5.0.1",
+    "swagger-parser": "5.0.2",
     "yaml-boost": "1.7.3"
   },
   "peerDependencies": {},
