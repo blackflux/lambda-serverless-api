@@ -100,6 +100,7 @@ module.exports = (options = {}) => {
 
   return {
     wrap,
+    rollbar,
     generateSwagger: (existing = {}) => swagger(endpoints, existing),
     generateDifference,
     ApiError: response.ApiError,
