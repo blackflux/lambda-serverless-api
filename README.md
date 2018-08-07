@@ -1,5 +1,6 @@
 [![Build Status](https://img.shields.io/travis/simlu/lambda-serverless-api/master.svg)](https://travis-ci.org/simlu/lambda-serverless-api)
 [![Test Coverage](https://img.shields.io/coveralls/simlu/lambda-serverless-api/master.svg)](https://coveralls.io/github/simlu/lambda-serverless-api?branch=master)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=simlu/lambda-serverless-api)](https://dependabot.com)
 [![Dependencies](https://david-dm.org/simlu/lambda-serverless-api/status.svg)](https://david-dm.org/simlu/lambda-serverless-api)
 [![NPM](https://img.shields.io/npm/v/lambda-serverless-api.svg)](https://www.npmjs.com/package/lambda-serverless-api)
 [![Downloads](https://img.shields.io/npm/dt/lambda-serverless-api.svg)](https://www.npmjs.com/package/lambda-serverless-api)
