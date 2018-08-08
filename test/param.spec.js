@@ -197,4 +197,32 @@ describe("Testing Params", () => {
       }
     })).to.throw("Invalid Value for json-Parameter \"list\" provided.");
   });
+
+  it("Testing Json Parameter (query)", () => {
+    const param = api.Json("param");
+    expect(param.get({
+      queryStringParameters: {
+        param: '{"key": "value"}'
+      }
+    })).to.deep.equal({ key: "value" });
+    expect(() => param.get({
+      queryStringParameters: {
+        param: "invalid"
+      }
+    })).to.throw("Invalid Value for query-Parameter \"param\" provided.");
+  });
+
+  it("Testing Json Parameter (json)", () => {
+    const param = api.Json("param", "json");
+    expect(param.get({
+      body: {
+        param: { key: "value" }
+      }
+    })).to.deep.equal({ key: "value" });
+    expect(() => param.get({
+      body: {
+        param: "string"
+      }
+    })).to.throw("Invalid Value for json-Parameter \"param\" provided.");
+  });
 });

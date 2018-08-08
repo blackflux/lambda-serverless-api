@@ -117,6 +117,7 @@ module.exports = (options = {}) => {
     Int: param.Int,
     List: param.List,
     StrList: param.StrList,
+    Json: param.Json,
     NumberList: param.NumberList
   };
 };

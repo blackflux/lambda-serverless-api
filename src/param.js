@@ -210,3 +210,36 @@ class NumberList extends List {
   }
 }
 module.exports.NumberList = (...args) => new NumberList(...args);
+
+
+class Json extends Param {
+  constructor(...args) {
+    super(...args);
+    this.type = this.stringInput ? "string" : "object";
+  }
+
+  validate(value) {
+    let valid = super.validate(value);
+    let valueParsed = value;
+    if (valid && this.stringInput) {
+      try {
+        valueParsed = JSON.parse(value);
+      } catch (e) {
+        valid = false;
+      }
+    }
+    if (valid && typeof valueParsed !== 'object') {
+      valid = false;
+    }
+    return valid;
+  }
+
+  get(event) {
+    const result = super.get(event);
+    if (result === undefined) {
+      return result;
+    }
+    return this.stringInput ? JSON.parse(result) : result;
+  }
+}
+module.exports.Json = (...args) => new Json(...args);

@@ -78,6 +78,11 @@ paths:
           type: string
           format: NumberList
           in: query
+        - name: jsonParam
+          required: false
+          type: string
+          format: Json
+          in: query
         - in: body
           name: bodyParamData
           schema:
@@ -113,6 +118,9 @@ paths:
                 format: NumberList
                 items:
                   - type: number
+              jsonParam:
+                type: object
+                format: Json
             required:
               - username
       responses:
