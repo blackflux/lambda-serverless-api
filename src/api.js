@@ -1,5 +1,7 @@
+const assert = require("assert");
 const xor = require('lodash.xor');
 const get = require('lodash.get');
+const difference = require("lodash.difference");
 const objectScan = require("object-scan");
 const yaml = require("yaml-boost");
 const Rollbar = require('lambda-rollbar');
@@ -8,28 +10,45 @@ const param = require("./param");
 const response = require("./response");
 const swagger = require("./swagger");
 
-const parse = (request, params, event) => {
+const parse = (request, params, eventRaw) => {
   const expectedRequestMethod = request.split(" ")[0];
-  const receivedRequestMethod = get(event, 'httpMethod');
-  if (receivedRequestMethod !== expectedRequestMethod) {
-    throw response.ApiError(`Request Method "${expectedRequestMethod}" expected.`, 400, 99004, {
-      value: receivedRequestMethod
-    });
-  }
+  const receivedRequestMethod = get(eventRaw, 'httpMethod');
+  assert(receivedRequestMethod === expectedRequestMethod, "Request Method Mismatch");
   let body;
   try {
-    body = JSON.parse(get(event, 'body', '{}'));
+    body = JSON.parse(get(eventRaw, 'body', '{}'));
   } catch (e) {
     throw response.ApiError("Invalid Json Body detected.", 400, 99001, {
-      value: get(event, 'body')
+      value: get(eventRaw, 'body')
     });
   }
-  const eventParsed = Object.assign({}, event, { body });
+  const event = Object.assign({}, eventRaw, { body });
+
+  const invalidQsParams = difference(
+    Object.keys(get(event, "queryStringParameters", {})),
+    params.filter(p => p.position === "query").map(p => p.name)
+  );
+  if (invalidQsParams.length !== 0) {
+    throw response.ApiError(`Invalid Query Param(s) detected.`, 400, 99004, {
+      value: invalidQsParams
+    });
+  }
+
+  const invalidJsonParams = difference(
+    Object.keys(get(event, "body", {})),
+    params.filter(p => p.position === "json").map(p => p.name)
+  );
+  if (invalidJsonParams.length !== 0) {
+    throw response.ApiError(`Invalid Json Body Param(s) detected.`, 400, 99005, {
+      value: invalidJsonParams
+    });
+  }
+
   return Promise.resolve(params
     .reduce((prev, cur) => Object.assign(prev, {
       [cur.name
         .replace(/(?:^\w|[A-Z]|\b\w)/g, (l, idx) => (idx === 0 ? l.toLowerCase() : l.toUpperCase()))
-        .replace(/[^a-zA-Z0-9]+/g, '')]: cur.get(eventParsed)
+        .replace(/[^a-zA-Z0-9]+/g, '')]: cur.get(event)
     }), {}));
 };
 
@@ -117,6 +136,7 @@ module.exports = (options = {}) => {
     Int: param.Int,
     List: param.List,
     StrList: param.StrList,
+    PathParam: param.PathParam,
     Json: param.Json,
     NumberList: param.NumberList
   };

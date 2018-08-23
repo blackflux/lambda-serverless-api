@@ -1,4 +1,7 @@
+const assert = require("assert");
 const get = require("lodash.get");
+const difference = require("lodash.difference");
+const objectPaths = require("obj-paths");
 const response = require("./response");
 
 const positionMapping = {
@@ -11,9 +14,7 @@ const positionMapping = {
 
 class Param {
   constructor(name, position = 'query', required = true) {
-    if (Object.keys(positionMapping).indexOf(position) === -1) {
-      throw new Error(`Parameter Position needs to be one of: ${Object.keys(positionMapping).join(", ")}`);
-    }
+    assert(Object.keys(positionMapping).includes(position), "Invalid Parameter Position");
     this.name = name;
     this.position = position;
     this.stringInput = ["json", "context"].indexOf(position) === -1;
@@ -178,6 +179,22 @@ class List extends Param {
   }
 }
 module.exports.List = (...args) => new List(...args);
+
+class PathParam extends Str {
+  constructor(name, paths, ...args) {
+    super(name, ...args);
+    this.paths = Array.isArray(paths) ? paths : objectPaths.split(paths);
+  }
+
+  validate(value) {
+    let valid = super.validate(value);
+    if (valid && difference(objectPaths.split(value), this.paths).length !== 0) {
+      valid = false;
+    }
+    return valid;
+  }
+}
+module.exports.PathParam = (...args) => new PathParam(...args);
 
 class StrList extends List {
   constructor(...args) {

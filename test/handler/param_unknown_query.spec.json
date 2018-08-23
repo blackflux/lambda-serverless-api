@@ -1,0 +1,29 @@
+{
+  "handler": "param",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 400,
+      "body": "{\"message\":\"Invalid Query Param(s) detected.\",\"messageId\":99004,\"context\":{\"value\":[\"unknown\"]}}"
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "queryStringParameters": {
+      "ref": "12345",
+      "notification": "1",
+      "unknown": "value"
+    },
+    "body": "{\"username\": \"Anja Smith\", \"email\": \"anja@test.ca\"}",
+    "httpMethod": "POST",
+    "requestContext": {
+      "authorizer": "Auth Info Context"
+    },
+    "headers": {
+      "authorizer": "Auth Info Header"
+    }
+  }
+}
