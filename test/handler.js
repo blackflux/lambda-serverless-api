@@ -22,11 +22,11 @@ module.exports.param = api.wrap("POST param", [
   api.UUID("uuidParam", "json", false),
   api.List("listParam", "json", false),
   api.StrList("strListParam", "json", false),
-  api.PathParam("pathParam", "id", "json", false),
+  api.FieldsParam("fieldsParam", "id", "json", false),
   api.NumberList("numberListParam", "json", false),
   api.List("listParam", "query", false),
   api.StrList("strListParam", "query", false),
-  api.PathParam("pathParam", "id", "query", false),
+  api.FieldsParam("fieldsParam", "id", "query", false),
   api.NumberList("numberListParam", "query", false),
   api.Json("jsonParam", "json", false),
   api.Json("jsonParam", "query", false)

@@ -226,8 +226,8 @@ describe("Testing Params", () => {
     })).to.throw("Invalid Value for json-Parameter \"param\" provided.");
   });
 
-  it("Testing Path Parameter (query)", () => {
-    const param = api.PathParam("param", ["id", "user.id", "user.name"]);
+  it("Testing Fields Parameter (query)", () => {
+    const param = api.FieldsParam("param", ["id", "user.id", "user.name"]);
     expect(param.get({
       queryStringParameters: {
         param: 'id,user.id,user.name'
@@ -240,8 +240,8 @@ describe("Testing Params", () => {
     })).to.throw("Invalid Value for query-Parameter \"param\" provided.");
   });
 
-  it("Testing Path Parameter (json)", () => {
-    const param = api.PathParam("param", "id,user(id,name)", "json");
+  it("Testing Fields Parameter (json)", () => {
+    const param = api.FieldsParam("param", "id,user(id,name)", "json");
     expect(param.get({
       body: {
         param: "id,user.id,user.name"

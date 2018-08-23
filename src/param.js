@@ -180,7 +180,7 @@ class List extends Param {
 }
 module.exports.List = (...args) => new List(...args);
 
-class PathParam extends Str {
+class FieldsParam extends Str {
   constructor(name, paths, ...args) {
     super(name, ...args);
     this.paths = Array.isArray(paths) ? paths : objectPaths.split(paths);
@@ -194,7 +194,7 @@ class PathParam extends Str {
     return valid;
   }
 }
-module.exports.PathParam = (...args) => new PathParam(...args);
+module.exports.FieldsParam = (...args) => new FieldsParam(...args);
 
 class StrList extends List {
   constructor(...args) {
