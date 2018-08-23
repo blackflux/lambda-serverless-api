@@ -1,0 +1,20 @@
+{
+  "handler": "param",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 400,
+      "body": "{\"message\":\"Invalid Json Body Param(s) detected.\",\"messageId\":99005,\"context\":{\"value\":[\"unknown\"]}}"
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "body|JSON.stringify": {
+      "unknown": "value"
+    },
+    "httpMethod": "POST"
+  }
+}
