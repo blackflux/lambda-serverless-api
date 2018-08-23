@@ -25,7 +25,8 @@ const parse = (request, params, eventRaw) => {
   const event = Object.assign({}, eventRaw, { body });
 
   const invalidQsParams = difference(
-    Object.keys(get(event, "queryStringParameters", {})),
+    typeof event.queryStringParameters === 'object' && !Array.isArray(event.queryStringParameters)
+      ? Object.keys(event.queryStringParameters) : [],
     params.filter(p => p.position === "query").map(p => p.name)
   );
   if (invalidQsParams.length !== 0) {
@@ -35,7 +36,8 @@ const parse = (request, params, eventRaw) => {
   }
 
   const invalidJsonParams = difference(
-    Object.keys(get(event, "body", {})),
+    typeof event.body === 'object' && !Array.isArray(event.body)
+      ? Object.keys(event.body) : [],
     params.filter(p => p.position === "json").map(p => p.name)
   );
   if (invalidJsonParams.length !== 0) {
