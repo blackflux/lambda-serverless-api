@@ -16,7 +16,7 @@ describe("Testing Params", () => {
 
   it("Testing Unknown Parameter Position", (done) => {
     expect(() => api.wrap("GET route", [api.Str("id", "unknown")], 1))
-      .to.throw("Parameter Position needs to be one of: query, json, path, header, context");
+      .to.throw("Invalid Parameter Position");
     done();
   });
 

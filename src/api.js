@@ -1,3 +1,4 @@
+const assert = require("assert");
 const xor = require('lodash.xor');
 const get = require('lodash.get');
 const objectScan = require("object-scan");
@@ -11,11 +12,7 @@ const swagger = require("./swagger");
 const parse = (request, params, event) => {
   const expectedRequestMethod = request.split(" ")[0];
   const receivedRequestMethod = get(event, 'httpMethod');
-  if (receivedRequestMethod !== expectedRequestMethod) {
-    throw response.ApiError(`Request Method "${expectedRequestMethod}" expected.`, 400, 99004, {
-      value: receivedRequestMethod
-    });
-  }
+  assert(receivedRequestMethod === expectedRequestMethod, "Request Method Mismatch");
   let body;
   try {
     body = JSON.parse(get(event, 'body', '{}'));

@@ -1,3 +1,4 @@
+const assert = require("assert");
 const get = require("lodash.get");
 const response = require("./response");
 
@@ -11,9 +12,7 @@ const positionMapping = {
 
 class Param {
   constructor(name, position = 'query', required = true) {
-    if (Object.keys(positionMapping).indexOf(position) === -1) {
-      throw new Error(`Parameter Position needs to be one of: ${Object.keys(positionMapping).join(", ")}`);
-    }
+    assert(Object.keys(positionMapping).includes(position), "Invalid Parameter Position");
     this.name = name;
     this.position = position;
     this.stringInput = ["json", "context"].indexOf(position) === -1;
