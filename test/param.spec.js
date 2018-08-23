@@ -225,4 +225,32 @@ describe("Testing Params", () => {
       }
     })).to.throw("Invalid Value for json-Parameter \"param\" provided.");
   });
+
+  it("Testing Path Parameter (query)", () => {
+    const param = api.PathParam("param", ["id", "user.id", "user.name"]);
+    expect(param.get({
+      queryStringParameters: {
+        param: 'id,user.id,user.name'
+      }
+    })).to.deep.equal("id,user.id,user.name");
+    expect(() => param.get({
+      queryStringParameters: {
+        param: "invalid"
+      }
+    })).to.throw("Invalid Value for query-Parameter \"param\" provided.");
+  });
+
+  it("Testing Path Parameter (json)", () => {
+    const param = api.PathParam("param", "id,user(id,name)", "json");
+    expect(param.get({
+      body: {
+        param: "id,user.id,user.name"
+      }
+    })).to.deep.equal("id,user.id,user.name");
+    expect(() => param.get({
+      body: {
+        param: "invalid"
+      }
+    })).to.throw("Invalid Value for json-Parameter \"param\" provided.");
+  });
 });
