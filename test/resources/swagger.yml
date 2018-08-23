@@ -73,10 +73,10 @@ paths:
           type: string
           format: StrList
           in: query
-        - name: pathParam
+        - name: fieldsParam
           required: false
           type: string
-          format: PathParam
+          format: FieldsParam
           in: query
         - name: numberListParam
           required: false
@@ -118,9 +118,9 @@ paths:
                 format: StrList
                 items:
                   - type: string
-              pathParam:
+              fieldsParam:
                 type: string
-                format: PathParam
+                format: FieldsParam
               numberListParam:
                 type: array
                 format: NumberList
