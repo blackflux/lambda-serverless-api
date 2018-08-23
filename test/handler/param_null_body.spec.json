@@ -12,7 +12,7 @@
     "to.deep.equal": []
   },
   "event": {
-    "body": "[]",
+    "body": null,
     "httpMethod": "POST"
   }
 }

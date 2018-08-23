@@ -1,0 +1,25 @@
+{
+  "handler": "param",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 200,
+      "body": "{\"username\":\"Anja Smith\",\"email\":\"anja@test.ca\",\"authorizer\":\"Auth Info Header\"}"
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "queryStringParameters": null,
+    "body": "{\"username\": \"Anja Smith\", \"email\": \"anja@test.ca\"}",
+    "httpMethod": "POST",
+    "requestContext": {
+      "authorizer": "Auth Info Context"
+    },
+    "headers": {
+      "authorizer": "Auth Info Header"
+    }
+  }
+}
