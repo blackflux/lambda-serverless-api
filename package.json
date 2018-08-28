@@ -71,7 +71,7 @@
     "lodash.xor": "4.5.0",
     "obj-paths": "1.1.0",
     "object-scan": "1.2.2",
-    "swagger-parser": "5.0.2",
+    "swagger-parser": "5.0.5",
     "yaml-boost": "1.7.3"
   },
   "peerDependencies": {},
