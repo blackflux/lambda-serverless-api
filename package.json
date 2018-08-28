@@ -24,7 +24,7 @@
     "lambda-tdd": "1.22.0",
     "nock": "9.6.1",
     "nyc": "12.0.2",
-    "semantic-release": "15.9.9",
+    "semantic-release": "15.9.12",
     "babel-cli": "7.0.0-beta.3"
   },
   "version": "0.0.0-development",
