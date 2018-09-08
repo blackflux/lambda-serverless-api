@@ -100,7 +100,7 @@ module.exports = (options = {}) => {
           throw response.ApiError("Rate limit exceeded.", 429);
         })
         .then(() => parse(request, params, event))
-        .then(paramsOut => handler(paramsOut, context, rb))
+        .then(paramsOut => handler(paramsOut, context, rb, event))
         .then(payload => generateResponse(null, payload, rb, { defaultHeaders }))
         .catch(err => generateResponse(err, null, rb, { defaultHeaders })));
   };
