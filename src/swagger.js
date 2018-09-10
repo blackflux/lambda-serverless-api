@@ -31,7 +31,9 @@ module.exports = (endpoints, existing) => {
           in: p.position
         },
         p.regex === undefined ? {} : { pattern: p.regex.toString() },
-        p.items === undefined ? {} : { type: "string" }
+        p.items === undefined ? {} : { type: "string" },
+        p.minItems === undefined ? {} : { minItems: p.minItems },
+        p.maxItems === undefined ? {} : { maxItems: p.maxItems }
       ));
 
     const jsonParams = endpoints[request]
@@ -48,7 +50,9 @@ module.exports = (endpoints, existing) => {
               [p.name]: Object.assign(
                 { type: p.type, format: p.constructor.name },
                 p.regex === undefined ? {} : { pattern: p.regex.toString() },
-                p.items === undefined ? {} : { items: p.items }
+                p.items === undefined ? {} : { items: p.items },
+                p.minItems === undefined ? {} : { minItems: p.minItems },
+                p.maxItems === undefined ? {} : { maxItems: p.maxItems }
               )
             }), {})
           },

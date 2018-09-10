@@ -146,12 +146,14 @@ class List extends Param {
   constructor(...args) {
     super(...args);
     this.type = "array";
-    this.items = [
-      { type: "string" },
-      { type: "number" },
-      { type: "integer" },
-      { type: "boolean" }
-    ];
+    this.items = {
+      allOf: [
+        { type: "string" },
+        { type: "number" },
+        { type: "integer" },
+        { type: "boolean" }
+      ]
+    };
   }
 
   validate(value) {
@@ -199,7 +201,7 @@ module.exports.FieldsParam = (...args) => new FieldsParam(...args);
 class StrList extends List {
   constructor(...args) {
     super(...args);
-    this.items = [{ type: "string" }];
+    this.items = { type: "string" };
   }
 
   validate(value) {
@@ -215,7 +217,7 @@ module.exports.StrList = (...args) => new StrList(...args);
 class NumberList extends List {
   constructor(...args) {
     super(...args);
-    this.items = [{ type: "number" }];
+    this.items = { type: "number" };
   }
 
   validate(value) {
@@ -230,6 +232,13 @@ module.exports.NumberList = (...args) => new NumberList(...args);
 
 
 class GeoPoint extends NumberList {
+  constructor(...args) {
+    super(...args);
+    this.items = { type: "number" };
+    this.minItems = 2;
+    this.maxItems = 2;
+  }
+
   validate(value) {
     let valid = super.validate(value);
     const valueParsed = (this.stringInput ? JSON.parse(value) : value);
