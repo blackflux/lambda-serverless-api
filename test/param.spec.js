@@ -222,7 +222,7 @@ describe("Testing Params", () => {
     [[-181, 0], [181, 0], [0, -91], [0, 91], [0, 0, 0]].forEach((geoPoint) => {
       expect(() => param.get({
         body: { geoPoint }
-      }), `GeoPoint: ${geoPoint}`).to.throw("Invalid Value for json \"geoPoint\" provided.");
+      }), `GeoPoint: ${geoPoint}`).to.throw("Invalid Value for json-Parameter \"geoPoint\" provided.");
     });
   });
 
