@@ -83,6 +83,13 @@ paths:
           type: string
           format: NumberList
           in: query
+        - name: geoPointParam
+          required: false
+          type: string
+          format: GeoPoint
+          in: query
+          minItems: 2
+          maxItems: 2
         - name: jsonParam
           required: false
           type: string
@@ -109,15 +116,16 @@ paths:
                 type: array
                 format: List
                 items:
-                  - type: string
-                  - type: number
-                  - type: integer
-                  - type: boolean
+                  allOf:
+                    - type: string
+                    - type: number
+                    - type: integer
+                    - type: boolean
               strListParam:
                 type: array
                 format: StrList
                 items:
-                  - type: string
+                  type: string
               fieldsParam:
                 type: string
                 format: FieldsParam
@@ -125,7 +133,14 @@ paths:
                 type: array
                 format: NumberList
                 items:
-                  - type: number
+                  type: number
+              geoPointParam:
+                type: array
+                format: GeoPoint
+                items:
+                  type: number
+                minItems: 2
+                maxItems: 2
               jsonParam:
                 type: object
                 format: Json
