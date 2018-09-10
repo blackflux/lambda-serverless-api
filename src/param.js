@@ -233,7 +233,7 @@ class GeoPoint extends NumberList {
   validate(value) {
     let valid = super.validate(value);
     const valueParsed = (this.stringInput ? JSON.parse(value) : value);
-    if (valid && (this.stringInput ? JSON.parse(value) : value).length !== 2) {
+    if (valid && valueParsed.length !== 2) {
       valid = false;
     } else if (valueParsed[0] < -180 || valueParsed[0] > 180) {
       valid = false;
