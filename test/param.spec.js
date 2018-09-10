@@ -198,33 +198,31 @@ describe("Testing Params", () => {
     })).to.throw("Invalid Value for json-Parameter \"list\" provided.");
   });
 
-  it("Testing Location Parameter (query)", () => {
-    const param = api.Location("list");
+  it("Testing GeoPoint Parameter (query)", () => {
+    const param = api.GeoPoint("geoPoint");
     expect(param.get({
       queryStringParameters: {
-        list: "[-119.491,49.892]"
+        geoPoint: "[-119.491,49.892]"
       }
     })).to.deep.equal([-119.491, 49.892]);
-    ["[-181,0]", "[181,0]", "[0,-91]", "[0,91]", "[0,0,0]"].forEach((list) => {
+    ["[-181,0]", "[181,0]", "[0,-91]", "[0,91]", "[0,0,0]"].forEach((geoPoint) => {
       expect(() => param.get({
-        queryStringParameters: {
-          list
-        }
-      }), `Location: ${list}`).to.throw("Invalid Value for query-Parameter \"list\" provided.");
+        queryStringParameters: { geoPoint }
+      }), `GeoPoint: ${geoPoint}`).to.throw("Invalid Value for query-Parameter \"geoPoint\" provided.");
     });
   });
 
-  it("Testing Location Parameter (json)", () => {
-    const param = api.Location("list", "json");
+  it("Testing GeoPoint Parameter (json)", () => {
+    const param = api.GeoPoint("geoPoint", "json");
     expect(param.get({
       body: {
-        list: [-119.491, 49.892]
+        geoPoint: [-119.491, 49.892]
       }
     })).to.deep.equal([-119.491, 49.892]);
-    [[-181, 0], [181, 0], [0, -91], [0, 91], [0, 0, 0]].forEach((list) => {
+    [[-181, 0], [181, 0], [0, -91], [0, 91], [0, 0, 0]].forEach((geoPoint) => {
       expect(() => param.get({
-        body: { list }
-      }), `Location: ${list}`).to.throw("Invalid Value for query-Parameter \"list\" provided.");
+        body: { geoPoint }
+      }), `GeoPoint: ${geoPoint}`).to.throw("Invalid Value for json \"geoPoint\" provided.");
     });
   });
 

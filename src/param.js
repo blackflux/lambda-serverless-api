@@ -229,7 +229,7 @@ class NumberList extends List {
 module.exports.NumberList = (...args) => new NumberList(...args);
 
 
-class Location extends NumberList {
+class GeoPoint extends NumberList {
   validate(value) {
     let valid = super.validate(value);
     const valueParsed = (this.stringInput ? JSON.parse(value) : value);
@@ -243,7 +243,7 @@ class Location extends NumberList {
     return valid;
   }
 }
-module.exports.Location = (...args) => new Location(...args);
+module.exports.GeoPoint = (...args) => new GeoPoint(...args);
 
 
 class Json extends Param {
