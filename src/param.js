@@ -234,7 +234,6 @@ module.exports.NumberList = (...args) => new NumberList(...args);
 class GeoPoint extends NumberList {
   constructor(...args) {
     super(...args);
-    this.items = { type: "number" };
     this.minItems = 2;
     this.maxItems = 2;
   }
