@@ -219,7 +219,7 @@ describe("Testing Params", () => {
         geoPoint: [-119.491, 49.892]
       }
     })).to.deep.equal([-119.491, 49.892]);
-    [[-181, 0], [181, 0], [0, -91], [0, 91], [0, 0, 0]].forEach((geoPoint) => {
+    [[-181, 0], [181, 0], [0, -91], [0, 91], [0, 0, 0], "0,0"].forEach((geoPoint) => {
       expect(() => param.get({
         body: { geoPoint }
       }), `GeoPoint: ${geoPoint}`).to.throw("Invalid Value for json-Parameter \"geoPoint\" provided.");
