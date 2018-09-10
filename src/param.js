@@ -235,8 +235,10 @@ class GeoPoint extends NumberList {
     const valueParsed = (this.stringInput ? JSON.parse(value) : value);
     if (valid && (
       valueParsed.length !== 2
-      || (valueParsed[0] < -180 || valueParsed[0] > 180)
-      || (valueParsed[1] < -90 || valueParsed[1] > 90)
+      || valueParsed[0] < -180
+      || valueParsed[0] > 180
+      || valueParsed[1] < -90
+      || valueParsed[1] > 90
     )) {
       valid = false;
     }
