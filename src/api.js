@@ -132,13 +132,13 @@ module.exports = (options = {}) => {
     Email: param.Email,
     RegEx: param.RegEx,
     UUID: param.UUID,
-    GeoPoint: param.GeoPoint,
     Bool: param.Bool,
     Int: param.Int,
     List: param.List,
     StrList: param.StrList,
     FieldsParam: param.FieldsParam,
     Json: param.Json,
-    NumberList: param.NumberList
+    NumberList: param.NumberList,
+    GeoPoint: param.GeoPoint
   };
 };
