@@ -198,6 +198,36 @@ describe("Testing Params", () => {
     })).to.throw("Invalid Value for json-Parameter \"list\" provided.");
   });
 
+  it("Testing Location Parameter (query)", () => {
+    const param = api.Location("list");
+    expect(param.get({
+      queryStringParameters: {
+        list: "[-119.491,49.892]"
+      }
+    })).to.deep.equal([-119.491, 49.892]);
+    ["[-181,0]", "[181,0]", "[0,-91]", "[0,91]", "[0,0,0]"].forEach((list) => {
+      expect(() => param.get({
+        queryStringParameters: {
+          list
+        }
+      }), `Location: ${list}`).to.throw("Invalid Value for query-Parameter \"list\" provided.");
+    });
+  });
+
+  it("Testing Location Parameter (json)", () => {
+    const param = api.Location("list", "json");
+    expect(param.get({
+      body: {
+        list: [-119.491, 49.892]
+      }
+    })).to.deep.equal([-119.491, 49.892]);
+    [[-181, 0], [181, 0], [0, -91], [0, 91], [0, 0, 0]].forEach((list) => {
+      expect(() => param.get({
+        body: { list }
+      }), `Location: ${list}`).to.throw("Invalid Value for query-Parameter \"list\" provided.");
+    });
+  });
+
   it("Testing Json Parameter (query)", () => {
     const param = api.Json("param");
     expect(param.get({

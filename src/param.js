@@ -229,6 +229,23 @@ class NumberList extends List {
 module.exports.NumberList = (...args) => new NumberList(...args);
 
 
+class Location extends NumberList {
+  validate(value) {
+    let valid = super.validate(value);
+    const valueParsed = (this.stringInput ? JSON.parse(value) : value);
+    if (valid && (this.stringInput ? JSON.parse(value) : value).length !== 2) {
+      valid = false;
+    } else if (valueParsed[0] < -180 || valueParsed[0] > 180) {
+      valid = false;
+    } else if (valueParsed[1] < -90 || valueParsed[1] > 90) {
+      valid = false;
+    }
+    return valid;
+  }
+}
+module.exports.Location = (...args) => new Location(...args);
+
+
 class Json extends Param {
   constructor(...args) {
     super(...args);

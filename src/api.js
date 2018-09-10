@@ -132,6 +132,7 @@ module.exports = (options = {}) => {
     Email: param.Email,
     RegEx: param.RegEx,
     UUID: param.UUID,
+    Location: param.Location,
     Bool: param.Bool,
     Int: param.Int,
     List: param.List,
