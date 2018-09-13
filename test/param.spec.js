@@ -226,6 +226,42 @@ describe("Testing Params", () => {
     });
   });
 
+  it("Testing GeoRect Parameter (query)", () => {
+    const param = api.GeoRect("geoRect");
+    expect(param.get({
+      queryStringParameters: {
+        geoRect: "[-119.491,49.892,-121.491,49.101]"
+      }
+    })).to.deep.equal([-119.491, 49.892, -121.491, 49.101]);
+    [
+      "[181,0,0,0]", "[0,91,0,0]", "[0,0,181,0]", "[0,0,0,91]",
+      "[-181,0,0,0]", "[0,-91,0,0]", "[0,0,-181,0]", "[0,0,0,-91]",
+      "[-1", "[0]"
+    ].forEach((geoRect) => {
+      expect(() => param.get({
+        queryStringParameters: { geoRect }
+      }), `GeoRect: ${geoRect}`).to.throw("Invalid Value for query-Parameter \"geoRect\" provided.");
+    });
+  });
+
+  it("Testing GeoRect Parameter (json)", () => {
+    const param = api.GeoRect("geoRect", "json");
+    expect(param.get({
+      body: {
+        geoRect: [-119.491, 49.892, -121.491, 49.101]
+      }
+    })).to.deep.equal([-119.491, 49.892, -121.491, 49.101]);
+    [
+      [181, 0, 0, 0], [0, 91, 0, 0], [0, 0, 181, 0], [0, 0, 0, 91],
+      [-181, 0, 0, 0], [0, -91, 0, 0], [0, 0, -181, 0], [0, 0, 0, -91],
+      [0]
+    ].forEach((geoRect) => {
+      expect(() => param.get({
+        body: { geoRect }
+      }), `GeoRect: ${geoRect}`).to.throw("Invalid Value for json-Parameter \"geoRect\" provided.");
+    });
+  });
+
   it("Testing Json Parameter (query)", () => {
     const param = api.Json("param");
     expect(param.get({
