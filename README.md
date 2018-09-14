@@ -8,7 +8,7 @@
 [![Gardener](https://github.com/blackflux/js-gardener/blob/master/assets/badge.svg)](https://github.com/blackflux/js-gardener)
 [![Gitter](https://github.com/blackflux/js-gardener/blob/master/assets/icons/gitter.svg)](https://gitter.im/blackflux/lambda-serverless-api)
 
-# Abstraction for Serverless API 
+# Rest Abstraction for Serverless API 
 
 This project abstracts the creation of a basic API and the most commonly desired features.
 
