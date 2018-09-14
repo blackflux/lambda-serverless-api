@@ -1,12 +1,12 @@
-[![Build Status](https://img.shields.io/travis/simlu/lambda-serverless-api/master.svg)](https://travis-ci.org/simlu/lambda-serverless-api)
-[![Test Coverage](https://img.shields.io/coveralls/simlu/lambda-serverless-api/master.svg)](https://coveralls.io/github/simlu/lambda-serverless-api?branch=master)
+[![Build Status](https://circleci.com/gh/blackflux/lambda-serverless-api.png?style=shield)](https://circleci.com/gh/blackflux/lambda-serverless-api)
+[![Test Coverage](https://img.shields.io/coveralls/blackflux/lambda-serverless-api/master.svg)](https://coveralls.io/github/blackflux/lambda-serverless-api?branch=master)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=simlu/lambda-serverless-api)](https://dependabot.com)
-[![Dependencies](https://david-dm.org/simlu/lambda-serverless-api/status.svg)](https://david-dm.org/simlu/lambda-serverless-api)
+[![Dependencies](https://david-dm.org/blackflux/lambda-serverless-api/status.svg)](https://david-dm.org/blackflux/lambda-serverless-api)
 [![NPM](https://img.shields.io/npm/v/lambda-serverless-api.svg)](https://www.npmjs.com/package/lambda-serverless-api)
 [![Downloads](https://img.shields.io/npm/dt/lambda-serverless-api.svg)](https://www.npmjs.com/package/lambda-serverless-api)
-[![Semantic-Release](https://github.com/simlu/js-gardener/blob/master/assets/icons/semver.svg)](https://github.com/semantic-release/semantic-release)
-[![Gardener](https://github.com/simlu/js-gardener/blob/master/assets/badge.svg)](https://github.com/simlu/js-gardener)
-[![Gitter](https://github.com/simlu/js-gardener/blob/master/assets/icons/gitter.svg)](https://gitter.im/simlu/lambda-serverless-api)
+[![Semantic-Release](https://github.com/blackflux/js-gardener/blob/master/assets/icons/semver.svg)](https://github.com/semantic-release/semantic-release)
+[![Gardener](https://github.com/blackflux/js-gardener/blob/master/assets/badge.svg)](https://github.com/blackflux/js-gardener)
+[![Gitter](https://github.com/blackflux/js-gardener/blob/master/assets/icons/gitter.svg)](https://gitter.im/blackflux/lambda-serverless-api)
 
 # Abstraction for Serverless API 
 
@@ -16,8 +16,8 @@ Provides support for:
 
 - Parameter Validation and Response Generation
 - Generation of [Swagger](https://swagger.io/) Documentation
-- Rate Limiting using [lambda-rate-limiter](https://github.com/simlu/lambda-rate-limiter)
-- Logging of ApiErrors using [lambda-rollbar](https://github.com/simlu/lambda-rollbar)
+- Rate Limiting using [lambda-rate-limiter](https://github.com/blackflux/lambda-rate-limiter)
+- Logging of ApiErrors using [lambda-rollbar](https://github.com/blackflux/lambda-rollbar)
 
 ## Install
 
@@ -75,14 +75,14 @@ These will be returned with the error response.
 
 ## Rate Limiting
 
-Rate limiting uses [lambda-rate-limiter](https://github.com/simlu/lambda-rate-limiter). Note that there are some serious restrictions because it does not use centralized storage!
+Rate limiting uses [lambda-rate-limiter](https://github.com/blackflux/lambda-rate-limiter). Note that there are some serious restrictions because it does not use centralized storage!
 
 To customize rate limiting, the package options are passed as `limiter` into the constructor.
 
 ## Logging Api Errors / Exceptions
 
-To monitor api errors and exceptions [lambda-rollbar](https://github.com/simlu/lambda-rollbar) can be enabled. Options are passed by putting them as `rollbar` into the constructor.
+To monitor api errors and exceptions [lambda-rollbar](https://github.com/blackflux/lambda-rollbar) can be enabled. Options are passed by putting them as `rollbar` into the constructor.
 
 ## Loading serverless.yml
 
-Consider using [yaml-boost](https://github.com/simlu/yaml-boost)
+Consider using [yaml-boost](https://github.com/blackflux/yaml-boost)

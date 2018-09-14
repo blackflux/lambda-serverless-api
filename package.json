@@ -20,11 +20,11 @@
     "babel-register": "7.0.0-beta.3",
     "chai": "4.1.2",
     "coveralls": "3.0.2",
-    "js-gardener": "1.31.5",
+    "js-gardener": "1.31.7",
     "lambda-tdd": "1.24.0",
     "nock": "9.6.1",
     "nyc": "13.0.1",
-    "semantic-release": "15.9.14",
+    "semantic-release": "15.9.15",
     "babel-cli": "7.0.0-beta.3"
   },
   "version": "0.0.0-development",
@@ -39,12 +39,12 @@
     "gardener": "node gardener",
     "build-artifact": "npm run clean-build && tar -zxvf $(npm pack) && rm *-0.0.0-development.tgz && cd package && tar -zcvf ../release.tar.gz . && cd .. && rm -rf package"
   },
-  "homepage": "https://github.com/simlu/lambda-serverless-api#readme",
+  "homepage": "https://github.com/blackflux/lambda-serverless-api#readme",
   "license": "MIT",
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/simlu/lambda-serverless-api/blob/master/LICENSE"
+      "url": "https://github.com/blackflux/lambda-serverless-api/blob/master/LICENSE"
     }
   ],
   "engines": {
@@ -52,10 +52,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/simlu/lambda-serverless-api.git"
+    "url": "https://github.com/blackflux/lambda-serverless-api.git"
   },
   "bugs": {
-    "url": "https://github.com/simlu/lambda-serverless-api/issues"
+    "url": "https://github.com/blackflux/lambda-serverless-api/issues"
   },
   "files": [
     "lib"
