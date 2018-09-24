@@ -140,6 +140,8 @@ module.exports = (options = {}) => {
     StrList: param.StrList,
     FieldsParam: param.FieldsParam,
     Json: param.Json,
-    NumberList: param.NumberList
+    NumberList: param.NumberList,
+    GeoPoint: param.GeoPoint,
+    GeoRect: param.GeoRect
   };
 };

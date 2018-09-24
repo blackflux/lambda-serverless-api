@@ -147,12 +147,14 @@ class List extends Param {
   constructor(...args) {
     super(...args);
     this.type = "array";
-    this.items = [
-      { type: "string" },
-      { type: "number" },
-      { type: "integer" },
-      { type: "boolean" }
-    ];
+    this.items = {
+      allOf: [
+        { type: "string" },
+        { type: "number" },
+        { type: "integer" },
+        { type: "boolean" }
+      ]
+    };
   }
 
   validate(value) {
@@ -200,7 +202,7 @@ module.exports.FieldsParam = (...args) => new FieldsParam(...args);
 class StrList extends List {
   constructor(...args) {
     super(...args);
-    this.items = [{ type: "string" }];
+    this.items = { type: "string" };
   }
 
   validate(value) {
@@ -216,7 +218,7 @@ module.exports.StrList = (...args) => new StrList(...args);
 class NumberList extends List {
   constructor(...args) {
     super(...args);
-    this.items = [{ type: "number" }];
+    this.items = { type: "number" };
   }
 
   validate(value) {
@@ -228,6 +230,67 @@ class NumberList extends List {
   }
 }
 module.exports.NumberList = (...args) => new NumberList(...args);
+
+
+class GeoPoint extends NumberList {
+  constructor(...args) {
+    super(...args);
+    this.minItems = 2;
+    this.maxItems = 2;
+  }
+
+  validate(value) {
+    let valid = super.validate(value);
+    if (valid) {
+      const valueParsed = (this.stringInput ? JSON.parse(value) : value);
+      if (
+        valueParsed.length !== 2
+        || valueParsed[0] < -180
+        || valueParsed[0] > 180
+        || valueParsed[1] < -90
+        || valueParsed[1] > 90
+      ) {
+        valid = false;
+      }
+    }
+    return valid;
+  }
+}
+module.exports.GeoPoint = (...args) => new GeoPoint(...args);
+
+
+class GeoRect extends NumberList {
+  constructor(...args) {
+    super(...args);
+    this.minItems = 4;
+    this.maxItems = 4;
+  }
+
+  validate(value) {
+    let valid = super.validate(value);
+    if (valid) {
+      const valueParsed = (this.stringInput ? JSON.parse(value) : value);
+      if (
+        valueParsed.length !== 4
+        // check bounds
+        || valueParsed[0] < -180
+        || valueParsed[0] > 180
+        || valueParsed[1] < -90
+        || valueParsed[1] > 90
+        || valueParsed[2] < -180
+        || valueParsed[2] > 180
+        || valueParsed[3] < -90
+        || valueParsed[3] > 90
+        // check latitude (longitude always valid because rect covering anti-meridian valid in es)
+        || valueParsed[1] < valueParsed[3]
+      ) {
+        valid = false;
+      }
+    }
+    return valid;
+  }
+}
+module.exports.GeoRect = (...args) => new GeoRect(...args);
 
 
 class Json extends Param {
