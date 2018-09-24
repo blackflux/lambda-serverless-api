@@ -2,6 +2,7 @@ const assert = require("assert");
 const xor = require('lodash.xor');
 const get = require('lodash.get');
 const difference = require("lodash.difference");
+const Joi = require("joi");
 const objectScan = require("object-scan");
 const yaml = require("yaml-boost");
 const Rollbar = require('lambda-rollbar');
@@ -122,6 +123,7 @@ module.exports = (options = {}) => {
     rollbar,
     generateSwagger: (existing = {}) => swagger(endpoints, existing),
     generateDifference,
+    Joi,
     ApiError: response.ApiError,
     ApiErrorClass: response.ApiErrorClass,
     ApiResponse: response.ApiResponse,

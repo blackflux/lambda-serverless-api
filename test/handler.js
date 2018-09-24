@@ -1,3 +1,4 @@
+const Joi = require("joi");
 const api = require("./../src/api")();
 
 module.exports.error = api.wrap("GET error", [], process.env.RATE_LIMIT, () => {
@@ -28,8 +29,8 @@ module.exports.param = api.wrap("POST param", [
   api.StrList("strListParam", "query", false),
   api.FieldsParam("fieldsParam", "id", "query", false),
   api.NumberList("numberListParam", "query", false),
-  api.Json("jsonParam", "json", false),
-  api.Json("jsonParam", "query", false)
+  api.Json("jsonParam", Joi.object(), "json", false),
+  api.Json("jsonParam", Joi.object(), "query", false)
 ], process.env.RATE_LIMIT, params => api.JsonResponse(params));
 
 module.exports.param2 = api.wrap("POST param2", [
