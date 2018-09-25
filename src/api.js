@@ -54,7 +54,7 @@ const parse = (request, params, eventRaw) => {
 };
 
 const generateResponse = (err, resp, rb, options) => {
-  if (err instanceof response.ApiErrorClass) {
+  if (get(err, "isApiError") === true) {
     return rb.warning(err).then(() => Object.assign(
       {
         statusCode: err.statusCode,
@@ -67,7 +67,7 @@ const generateResponse = (err, resp, rb, options) => {
       Object.keys(options.defaultHeaders).length === 0 ? {} : { headers: options.defaultHeaders }
     ));
   }
-  if (resp instanceof response.ApiResponseClass) {
+  if (get(resp, "isApiResponse") === true) {
     const headers = Object.assign({}, options.defaultHeaders, resp.headers);
     return Object.assign(
       {
