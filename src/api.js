@@ -2,6 +2,7 @@ const assert = require("assert");
 const xor = require('lodash.xor');
 const get = require('lodash.get');
 const difference = require("lodash.difference");
+const Joi = require("joi");
 const objectScan = require("object-scan");
 const yaml = require("yaml-boost");
 const Rollbar = require('lambda-rollbar');
@@ -53,7 +54,7 @@ const parse = (request, params, eventRaw) => {
 };
 
 const generateResponse = (err, resp, rb, options) => {
-  if (err instanceof response.ApiErrorClass) {
+  if (get(err, "isApiError") === true) {
     return rb.warning(err).then(() => Object.assign(
       {
         statusCode: err.statusCode,
@@ -66,7 +67,7 @@ const generateResponse = (err, resp, rb, options) => {
       Object.keys(options.defaultHeaders).length === 0 ? {} : { headers: options.defaultHeaders }
     ));
   }
-  if (resp instanceof response.ApiResponseClass) {
+  if (get(resp, "isApiResponse") === true) {
     const headers = Object.assign({}, options.defaultHeaders, resp.headers);
     return Object.assign(
       {
@@ -122,6 +123,7 @@ module.exports = (options = {}) => {
     rollbar,
     generateSwagger: (existing = {}) => swagger(endpoints, existing),
     generateDifference,
+    Joi,
     ApiError: response.ApiError,
     ApiErrorClass: response.ApiErrorClass,
     ApiResponse: response.ApiResponse,

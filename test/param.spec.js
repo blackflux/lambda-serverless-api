@@ -263,7 +263,7 @@ describe("Testing Params", () => {
   });
 
   it("Testing Json Parameter (query)", () => {
-    const param = api.Json("param");
+    const param = api.Json("param", api.Joi.object().required());
     expect(param.get({
       queryStringParameters: {
         param: '{"key": "value"}'
@@ -277,7 +277,7 @@ describe("Testing Params", () => {
   });
 
   it("Testing Json Parameter (json)", () => {
-    const param = api.Json("param", "json");
+    const param = api.Json("param", api.Joi.object().required(), "json");
     expect(param.get({
       body: {
         param: { key: "value" }

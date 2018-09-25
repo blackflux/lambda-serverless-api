@@ -32,8 +32,8 @@ module.exports.param = api.wrap("POST param", [
   api.NumberList("numberListParam", "query", false),
   api.GeoPoint("geoPointParam", "query", false),
   api.GeoRect("geoRectParam", "query", false),
-  api.Json("jsonParam", "json", false),
-  api.Json("jsonParam", "query", false)
+  api.Json("jsonParam", api.Joi.object().required(), "json", false),
+  api.Json("jsonParam", api.Joi.object().required(), "query", false)
 ], process.env.RATE_LIMIT, params => api.JsonResponse(params));
 
 module.exports.param2 = api.wrap("POST param2", [

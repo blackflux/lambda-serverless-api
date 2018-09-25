@@ -1,6 +1,7 @@
 const assert = require("assert");
 const get = require("lodash.get");
 const difference = require("lodash.difference");
+const Joi = require("joi");
 const objectPaths = require("obj-paths");
 const response = require("./response");
 
@@ -293,9 +294,11 @@ module.exports.GeoRect = (...args) => new GeoRect(...args);
 
 
 class Json extends Param {
-  constructor(...args) {
-    super(...args);
+  constructor(name, schema, ...args) {
+    super(name, ...args);
+    assert(get(schema, 'isJoi') === true, "Joi Schema required");
     this.type = this.stringInput ? "string" : "object";
+    this.schema = schema;
   }
 
   validate(value) {
@@ -308,7 +311,7 @@ class Json extends Param {
         valid = false;
       }
     }
-    if (valid && typeof valueParsed !== 'object') {
+    if (valid && Joi.validate(valueParsed, this.schema).error !== null) {
       valid = false;
     }
     return valid;
