@@ -80,7 +80,7 @@ const generateResponse = (err, resp, rb, options) => {
   throw err;
 };
 
-module.exports = (options = {}) => {
+const Api = (options = {}) => {
   const endpoints = {};
   const rollbar = Rollbar(get(options, 'rollbar', {}));
   const limiter = Limiter(get(options, 'limiter', {}));
@@ -144,4 +144,28 @@ module.exports = (options = {}) => {
     GeoPoint: param.GeoPoint,
     GeoRect: param.GeoRect
   };
+};
+
+module.exports = {
+  Api,
+  Joi,
+  ApiError: response.ApiError,
+  ApiErrorClass: response.ApiErrorClass,
+  ApiResponse: response.ApiResponse,
+  ApiResponseClass: response.ApiResponseClass,
+  JsonResponse: response.JsonResponse,
+  JsonResponseClass: response.JsonResponseClass,
+  Str: param.Str,
+  Email: param.Email,
+  RegEx: param.RegEx,
+  UUID: param.UUID,
+  Bool: param.Bool,
+  Int: param.Int,
+  List: param.List,
+  StrList: param.StrList,
+  FieldsParam: param.FieldsParam,
+  Json: param.Json,
+  NumberList: param.NumberList,
+  GeoPoint: param.GeoPoint,
+  GeoRect: param.GeoRect
 };
