@@ -1,4 +1,4 @@
-const api = require("./../src/api")();
+const api = require("./../src/api").Api();
 
 module.exports.error = api.wrap("GET error", [], process.env.RATE_LIMIT, () => {
   throw api.ApiError("Some Error", 400, 2341);

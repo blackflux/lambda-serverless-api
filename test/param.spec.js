@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const api = require("../src/api")();
+const api = require("../src/api").Api();
 
 describe("Testing Params", () => {
   it("Testing Error for GET And JSON Param", (done) => {
