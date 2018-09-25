@@ -6,6 +6,7 @@ class ApiError extends Error {
     this.statusCode = statusCode;
     this.messageId = messageId;
     this.context = context;
+    this.isApiError = true;
   }
 }
 module.exports.ApiErrorClass = ApiError;
@@ -16,6 +17,7 @@ class ApiResponse {
     this.payload = payload;
     this.statusCode = statusCode;
     this.headers = headers;
+    this.isApiResponse = true;
   }
 }
 module.exports.ApiResponseClass = ApiResponse;
