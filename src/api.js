@@ -80,6 +80,29 @@ const generateResponse = (err, resp, rb, options) => {
   throw err;
 };
 
+const staticExports = {
+  Joi,
+  ApiError: response.ApiError,
+  ApiErrorClass: response.ApiErrorClass,
+  ApiResponse: response.ApiResponse,
+  ApiResponseClass: response.ApiResponseClass,
+  JsonResponse: response.JsonResponse,
+  JsonResponseClass: response.JsonResponseClass,
+  Str: param.Str,
+  Email: param.Email,
+  RegEx: param.RegEx,
+  UUID: param.UUID,
+  Bool: param.Bool,
+  Int: param.Int,
+  List: param.List,
+  StrList: param.StrList,
+  FieldsParam: param.FieldsParam,
+  Json: param.Json,
+  NumberList: param.NumberList,
+  GeoPoint: param.GeoPoint,
+  GeoRect: param.GeoRect
+};
+
 const Api = (options = {}) => {
   const endpoints = {};
   const rollbar = Rollbar(get(options, 'rollbar', {}));
@@ -118,54 +141,12 @@ const Api = (options = {}) => {
     return xor(serverlessRequests, swaggerRequests);
   };
 
-  return {
+  return Object.assign({
     wrap,
     rollbar,
     generateSwagger: (existing = {}) => swagger(endpoints, existing),
-    generateDifference,
-    Joi,
-    ApiError: response.ApiError,
-    ApiErrorClass: response.ApiErrorClass,
-    ApiResponse: response.ApiResponse,
-    ApiResponseClass: response.ApiResponseClass,
-    JsonResponse: response.JsonResponse,
-    JsonResponseClass: response.JsonResponseClass,
-    Str: param.Str,
-    Email: param.Email,
-    RegEx: param.RegEx,
-    UUID: param.UUID,
-    Bool: param.Bool,
-    Int: param.Int,
-    List: param.List,
-    StrList: param.StrList,
-    FieldsParam: param.FieldsParam,
-    Json: param.Json,
-    NumberList: param.NumberList,
-    GeoPoint: param.GeoPoint,
-    GeoRect: param.GeoRect
-  };
+    generateDifference
+  }, staticExports);
 };
 
-module.exports = {
-  Api,
-  Joi,
-  ApiError: response.ApiError,
-  ApiErrorClass: response.ApiErrorClass,
-  ApiResponse: response.ApiResponse,
-  ApiResponseClass: response.ApiResponseClass,
-  JsonResponse: response.JsonResponse,
-  JsonResponseClass: response.JsonResponseClass,
-  Str: param.Str,
-  Email: param.Email,
-  RegEx: param.RegEx,
-  UUID: param.UUID,
-  Bool: param.Bool,
-  Int: param.Int,
-  List: param.List,
-  StrList: param.StrList,
-  FieldsParam: param.FieldsParam,
-  Json: param.Json,
-  NumberList: param.NumberList,
-  GeoPoint: param.GeoPoint,
-  GeoRect: param.GeoRect
-};
+module.exports = Object.assign({ Api }, staticExports);
