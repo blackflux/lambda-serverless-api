@@ -16,7 +16,7 @@ const positionMapping = {
 class Param {
   constructor(name, position = 'query', required = true, { nullable = false } = {}) {
     assert(Object.keys(positionMapping).includes(position), "Invalid Parameter Position");
-    assert(nullable === false || ['json', 'context'].includes(position));
+    assert(nullable === false || ['json', 'context'].includes(position), "Parameter Position cannot be nullable");
     this.name = name;
     this.position = position;
     this.stringInput = !["json", "context"].includes(position);
