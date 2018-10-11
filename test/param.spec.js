@@ -157,7 +157,7 @@ describe("Testing Params", () => {
   });
 
   it("Testing StrList Parameter (json)", () => {
-    const param = api.StrList("list", "json", null, { nullable: true });
+    const param = api.StrList("list", "json");
     expect(param.get({
       body: {
         list: ["123", "345"]
