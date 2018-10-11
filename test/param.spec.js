@@ -54,7 +54,7 @@ describe("Testing Params", () => {
   });
 
   it("Testing Bool Parameter (json)", () => {
-    const param = api.Bool("enabled", "json");
+    const param = api.Bool("enabled", "json", false, { nullable: true });
     expect(param.get({
       body: {
         enabled: true
@@ -65,6 +65,11 @@ describe("Testing Params", () => {
         enabled: false
       }
     })).to.equal(false);
+    expect(param.get({
+      body: {
+        enabled: null
+      }
+    })).to.equal(null);
     expect(() => param.get({
       body: {
         enabled: 1
@@ -94,12 +99,17 @@ describe("Testing Params", () => {
   });
 
   it("Testing Int Parameter (json)", () => {
-    const param = api.Int("value", "json");
+    const param = api.Int("value", "json", false, { nullable: true });
     expect(param.get({
       body: {
         value: -43
       }
     })).to.equal(-43);
+    expect(param.get({
+      body: {
+        value: null
+      }
+    })).to.equal(null);
     expect(() => param.get({
       body: {
         value: "invalid"
@@ -129,12 +139,17 @@ describe("Testing Params", () => {
   });
 
   it("Testing List Parameter (json)", () => {
-    const param = api.List("list", "json");
+    const param = api.List("list", "json", false, { nullable: true });
     expect(param.get({
       body: {
         list: ["123", 123]
       }
     })).to.deep.equal(["123", 123]);
+    expect(param.get({
+      body: {
+        list: null
+      }
+    })).to.equal(null);
     expect(() => param.get({
       body: {
         list: {}
@@ -157,12 +172,17 @@ describe("Testing Params", () => {
   });
 
   it("Testing StrList Parameter (json)", () => {
-    const param = api.StrList("list", "json");
+    const param = api.StrList("list", "json", null, { nullable: true });
     expect(param.get({
       body: {
         list: ["123", "345"]
       }
     })).to.deep.equal(["123", "345"]);
+    expect(param.get({
+      body: {
+        list: null
+      }
+    })).to.equal(null);
     expect(() => param.get({
       body: {
         list: ["123", 213]
@@ -185,12 +205,17 @@ describe("Testing Params", () => {
   });
 
   it("Testing NumberList Parameter (json)", () => {
-    const param = api.NumberList("list", "json");
+    const param = api.NumberList("list", "json", false, { nullable: true });
     expect(param.get({
       body: {
         list: [123.123, 345.234]
       }
     })).to.deep.equal([123.123, 345.234]);
+    expect(param.get({
+      body: {
+        list: null
+      }
+    })).to.equal(null);
     expect(() => param.get({
       body: {
         list: ["123", 213]
@@ -213,12 +238,17 @@ describe("Testing Params", () => {
   });
 
   it("Testing GeoPoint Parameter (json)", () => {
-    const param = api.GeoPoint("geoPoint", "json");
+    const param = api.GeoPoint("geoPoint", "json", false, { nullable: true });
     expect(param.get({
       body: {
         geoPoint: [-119.491, 49.892]
       }
     })).to.deep.equal([-119.491, 49.892]);
+    expect(param.get({
+      body: {
+        geoPoint: null
+      }
+    })).to.equal(null);
     [[-181, 0], [181, 0], [0, -91], [0, 91], [0, 0, 0], "0,0"].forEach((geoPoint) => {
       expect(() => param.get({
         body: { geoPoint }
@@ -245,12 +275,17 @@ describe("Testing Params", () => {
   });
 
   it("Testing GeoRect Parameter (json)", () => {
-    const param = api.GeoRect("geoRect", "json");
+    const param = api.GeoRect("geoRect", "json", false, { nullable: true });
     expect(param.get({
       body: {
         geoRect: [-119.491, 49.892, -121.491, 49.101]
       }
     })).to.deep.equal([-119.491, 49.892, -121.491, 49.101]);
+    expect(param.get({
+      body: {
+        geoRect: null
+      }
+    })).to.equal(null);
     [
       [181, 0, 0, 0], [0, 91, 0, 0], [0, 0, 181, 0], [0, 0, 0, 91],
       [-181, 0, 0, 0], [0, -91, 0, 0], [0, 0, -181, 0], [0, 0, 0, -91],
@@ -277,12 +312,17 @@ describe("Testing Params", () => {
   });
 
   it("Testing Json Parameter (json)", () => {
-    const param = api.Json("param", api.Joi.object().required(), "json");
+    const param = api.Json("param", api.Joi.object().required(), "json", false, { nullable: true });
     expect(param.get({
       body: {
         param: { key: "value" }
       }
     })).to.deep.equal({ key: "value" });
+    expect(param.get({
+      body: {
+        param: null
+      }
+    })).to.equal(null);
     expect(() => param.get({
       body: {
         param: "string"
@@ -305,12 +345,17 @@ describe("Testing Params", () => {
   });
 
   it("Testing Fields Parameter (json)", () => {
-    const param = api.FieldsParam("param", "id,user(id,name)", "json");
+    const param = api.FieldsParam("param", "id,user(id,name)", "json", false, { nullable: true });
     expect(param.get({
       body: {
         param: "id,user.id,user.name"
       }
     })).to.deep.equal("id,user.id,user.name");
+    expect(param.get({
+      body: {
+        param: null
+      }
+    })).to.equal(null);
     expect(() => param.get({
       body: {
         param: "invalid"
