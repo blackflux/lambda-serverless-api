@@ -18,7 +18,7 @@ class Param {
     assert(Object.keys(positionMapping).includes(position), `Unknown Parameter Position: ${position}`);
     assert(
       nullable === false || ['json', 'context'].includes(position),
-      `Parameter Position "${position}" cannot be nullable`
+      `Parameter Position cannot be nullable: ${position}`
     );
     this.name = name;
     this.position = position;
