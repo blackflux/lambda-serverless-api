@@ -14,12 +14,17 @@ const positionMapping = {
 };
 
 class Param {
-  constructor(name, position = 'query', required = true) {
-    assert(Object.keys(positionMapping).includes(position), "Invalid Parameter Position");
+  constructor(name, position = 'query', required = true, { nullable = false } = {}) {
+    assert(Object.keys(positionMapping).includes(position), `Unknown Parameter Position: ${position}`);
+    assert(
+      nullable === false || ['json', 'context'].includes(position),
+      `Parameter Position cannot be nullable: ${position}`
+    );
     this.name = name;
     this.position = position;
-    this.stringInput = ["json", "context"].indexOf(position) === -1;
+    this.stringInput = !["json", "context"].includes(position);
     this.required = required;
+    this.nullable = nullable;
     this.type = null;
   }
 
@@ -39,6 +44,10 @@ class Param {
     if (result === undefined) {
       if (this.required) {
         throw response.ApiError(`Required ${this.position}-Parameter "${this.name}" missing.`, 400, 99002);
+      }
+    } else if (result === null) {
+      if (this.nullable !== true) {
+        throw response.ApiError(`Non-nullable ${this.position}-Parameter "${this.name}" is null.`, 400, 99006);
       }
     } else if (!this.validate(result)) {
       throw response.ApiError(`Invalid Value for ${this.position}-Parameter "${this.name}" provided.`, 400, 99003, {
@@ -111,7 +120,7 @@ class Bool extends Param {
 
   get(event) {
     const result = super.get(event);
-    if (result === undefined) {
+    if ([undefined, null].includes(result)) {
       return result;
     }
     return this.stringInput ? ["1", "true"].indexOf(result) !== -1 : result === true;
@@ -135,7 +144,7 @@ class Int extends Param {
 
   get(event) {
     const result = super.get(event);
-    if (result === undefined) {
+    if ([undefined, null].includes(result)) {
       return result;
     }
     return this.stringInput ? Number(result) : result;
@@ -175,7 +184,7 @@ class List extends Param {
 
   get(event) {
     const result = super.get(event);
-    if (result === undefined) {
+    if ([undefined, null].includes(result)) {
       return result;
     }
     return this.stringInput ? JSON.parse(result) : result;
@@ -319,7 +328,7 @@ class Json extends Param {
 
   get(event) {
     const result = super.get(event);
-    if (result === undefined) {
+    if ([undefined, null].includes(result)) {
       return result;
     }
     return this.stringInput ? JSON.parse(result) : result;

@@ -1,0 +1,26 @@
+{
+  "handler": "param2",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.contain()": {
+      "statusCode": 200
+    }
+  },
+  "expect(body|JSON.parse)": {
+    "to.deep.equal()": {
+      "username": "default",
+      "email": null,
+      "xCustomHeader": null
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "body|JSON.stringify": {
+      "email": null
+    },
+    "httpMethod": "POST"
+  }
+}
