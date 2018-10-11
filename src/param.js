@@ -117,10 +117,7 @@ class Bool extends Param {
 
   get(event) {
     const result = super.get(event);
-    if (result === undefined) {
-      return result;
-    }
-    if (this.nullable === true && result === null) {
+    if ([undefined, null].includes(result)) {
       return result;
     }
     return this.stringInput ? ["1", "true"].indexOf(result) !== -1 : result === true;
@@ -144,7 +141,7 @@ class Int extends Param {
 
   get(event) {
     const result = super.get(event);
-    if (result === undefined) {
+    if ([undefined, null].includes(result)) {
       return result;
     }
     return this.stringInput ? Number(result) : result;
@@ -184,7 +181,7 @@ class List extends Param {
 
   get(event) {
     const result = super.get(event);
-    if (result === undefined) {
+    if ([undefined, null].includes(result)) {
       return result;
     }
     return this.stringInput ? JSON.parse(result) : result;
@@ -328,7 +325,7 @@ class Json extends Param {
 
   get(event) {
     const result = super.get(event);
-    if (result === undefined) {
+    if ([undefined, null].includes(result)) {
       return result;
     }
     return this.stringInput ? JSON.parse(result) : result;
