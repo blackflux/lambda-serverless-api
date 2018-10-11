@@ -1,0 +1,25 @@
+{
+  "handler": "param",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.contain()": {
+      "statusCode": 400
+    }
+  },
+  "expect(body|JSON.parse)": {
+    "to.deep.equal()": {
+      "message": "Non-nullable json-Parameter \"username\" is null.",
+      "messageId": 99006
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "body|JSON.stringify": {
+      "username": null
+    },
+    "httpMethod": "POST"
+  }
+}
