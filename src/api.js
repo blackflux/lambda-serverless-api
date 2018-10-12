@@ -133,10 +133,11 @@ const Api = (options = {}) => {
     const serverlessData = yaml.load(serverlessFile, serverlessVars);
     const swaggerData = yaml.load(swaggerFile);
 
-    const serverlessRequests = objectScan(["functions.*.events[*].http"])(serverlessData)
-      .map(k => get(serverlessData, k)).map(e => `${e.method.toUpperCase()} ${e.path}`);
-    const swaggerRequests = objectScan(["paths.*.*"])(swaggerData)
-      .map(k => k.split(".")).map(e => `${e[2].toUpperCase()} ${e[1].substring(1)}`);
+    const serverlessRequests = objectScan(["functions.*.events[*].http"], { joined: false })(serverlessData)
+      .map(k => get(serverlessData, k))
+      .map(e => `${e.method.toUpperCase()} ${e.path}`);
+    const swaggerRequests = objectScan(["paths.*.*"], { joined: false })(swaggerData)
+      .map(e => `${e[2].toUpperCase()} ${e[1].substring(1)}`);
 
     return xor(serverlessRequests, swaggerRequests);
   };
