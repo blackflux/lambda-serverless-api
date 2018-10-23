@@ -113,7 +113,11 @@ const Api = (options = {}) => {
     if (request.startsWith("GET ") && params.filter(p => p.position === 'json').length !== 0) {
       throw new Error("Can not use JSON parameter with GET requests.");
     }
-    if (params.filter(p => p.position === 'path').some(p => request.indexOf(`{${p.name}}`) === -1)) {
+    if (
+      params
+        .filter(p => p.position === 'path')
+        .some(p => !request.includes(`{${p.name}}`) && !request.includes(`{${p.name}+}`))
+    ) {
       throw new Error("Path Parameter not defined in given path.");
     }
     endpoints[request] = params;
