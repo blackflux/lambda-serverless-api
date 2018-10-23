@@ -110,24 +110,21 @@ const Api = (options = {}) => {
   const defaultHeaders = get(options, 'defaultHeaders', {});
 
   const wrap = (request, params, limit, handler) => {
-    if (request.startsWith("GET ") && params.filter(p => p.position === 'json').length !== 0) {
+    const cleanPath = request.replace(/{([^}]+)\+}/g, "{$1}");
+    if (cleanPath.startsWith("GET ") && params.filter(p => p.position === 'json').length !== 0) {
       throw new Error("Can not use JSON parameter with GET requests.");
     }
-    if (
-      params
-        .filter(p => p.position === 'path')
-        .some(p => !request.includes(`{${p.name}}`) && !request.includes(`{${p.name}+}`))
-    ) {
+    if (params.filter(p => p.position === 'path').some(p => cleanPath.indexOf(`{${p.name}}`) === -1)) {
       throw new Error("Path Parameter not defined in given path.");
     }
-    endpoints[request] = params;
+    endpoints[cleanPath] = params;
     return rollbar
       .wrap((event, context, rb) => limiter
         .check(limit, get(event, 'requestContext.identity.sourceIp'))
         .catch(() => {
           throw response.ApiError("Rate limit exceeded.", 429);
         })
-        .then(() => parse(request, params, event))
+        .then(() => parse(cleanPath, params, event))
         .then(paramsOut => handler(paramsOut, context, rb, event))
         .then(payload => generateResponse(null, payload, rb, { defaultHeaders }))
         .catch(err => generateResponse(err, null, rb, { defaultHeaders })));
