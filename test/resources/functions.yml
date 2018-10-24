@@ -29,3 +29,8 @@ functions:
       - http:
           path: param2
           method: post
+  proxy:
+    events:
+      - http:
+          path: proxy/{proxy+}
+          method: get

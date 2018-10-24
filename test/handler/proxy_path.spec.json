@@ -1,0 +1,20 @@
+{
+  "handler": "proxy",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 200,
+      "body": "{\"path\":\"123\"}"
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "httpMethod": "GET",
+    "pathParameters": {
+      "proxy": "123"
+    }
+  }
+}
