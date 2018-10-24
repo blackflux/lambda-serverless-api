@@ -12,6 +12,10 @@ module.exports.text = api.wrap("GET text", [], process.env.RATE_LIMIT, () => api
 
 module.exports.json = api.wrap("GET json", [], process.env.RATE_LIMIT, () => api.JsonResponse({ some: "json" }));
 
+module.exports.proxy = api.wrap("GET proxy/{proxy+}", [
+  api.Str("proxy+", "path")
+], process.env.RATE_LIMIT, ({ proxy }) => api.JsonResponse({ path: proxy }));
+
 module.exports.param = api.wrap("POST param", [
   api.Str("username", "json"),
   api.Email("email", "json", false),

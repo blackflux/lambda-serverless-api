@@ -24,7 +24,7 @@ module.exports = (endpoints, existing) => {
       .filter(p => ["json", "context"].indexOf(p.position) === -1)
       .map(p => Object.assign(
         {
-          name: p.name,
+          name: p.nameOriginal,
           required: p.required,
           type: p.type,
           format: p.constructor.name,
