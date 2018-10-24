@@ -20,11 +20,11 @@
     "babel-register": "7.0.0-beta.3",
     "chai": "4.2.0",
     "coveralls": "3.0.2",
-    "js-gardener": "1.31.7",
+    "js-gardener": "1.31.8",
     "lambda-tdd": "1.25.2",
     "nock": "10.0.1",
-    "nyc": "13.0.1",
-    "semantic-release": "15.9.17",
+    "nyc": "13.1.0",
+    "semantic-release": "15.10.5",
     "babel-cli": "7.0.0-beta.3"
   },
   "version": "0.0.0-development",
@@ -61,7 +61,7 @@
     "lib"
   ],
   "dependencies": {
-    "joi": "13.7.0",
+    "joi": "14.0.1",
     "js-yaml": "3.12.0",
     "lambda-rate-limiter": "2.4.6",
     "lambda-rollbar": "1.9.11",
@@ -71,7 +71,7 @@
     "lodash.set": "4.3.2",
     "lodash.xor": "4.5.0",
     "obj-paths": "1.2.1",
-    "object-scan": "1.10.8",
+    "object-scan": "2.0.4",
     "swagger-parser": "6.0.1",
     "yaml-boost": "1.7.4"
   },
