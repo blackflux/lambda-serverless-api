@@ -117,7 +117,7 @@ const Api = (options = {}) => {
     if (params.filter(p => p.position === 'path').some(p => requestClean.indexOf(`{${p.name}}`) === -1)) {
       throw new Error("Path Parameter not defined in given path.");
     }
-    endpoints[requestClean] = params
+    endpoints[requestClean] = params;
     return rollbar
       .wrap((event, context, rb) => limiter
         .check(limit, get(event, 'requestContext.identity.sourceIp'))
