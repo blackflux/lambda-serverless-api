@@ -20,7 +20,8 @@ class Param {
       nullable === false || ['json', 'context'].includes(position),
       `Parameter Position cannot be nullable: ${position}`
     );
-    this.name = name;
+    this.nameOriginal = name;
+    this.name = name.endsWith("+") ? name.slice(0, name.length - 1) : name;
     this.position = position;
     this.stringInput = !["json", "context"].includes(position);
     this.required = required;
