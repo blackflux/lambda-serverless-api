@@ -324,6 +324,11 @@ describe("Testing Params", () => {
     })).to.equal(-12.34);
     expect(() => param.get({
       body: {
+        param: "-12.34"
+      }
+    })).to.throw('Invalid Value for json-Parameter "param" provided.');
+    expect(() => param.get({
+      body: {
         param: "string"
       }
     })).to.throw('Invalid Value for json-Parameter "param" provided.');

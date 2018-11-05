@@ -348,7 +348,11 @@ class NumberParam extends Json {
   }
 
   validate(value) {
-    return super.validate(value);
+    let valid = super.validate(value);
+    if (valid && !this.stringInput && typeof value !== 'number') {
+      valid = false;
+    }
+    return valid;
   }
 
   get(event) {
