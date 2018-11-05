@@ -332,13 +332,13 @@ describe("Testing Params", () => {
         param: "string"
       }
     })).to.throw('Invalid Value for json-Parameter "param" provided.');
-    const paramPositve = api.Number("param", { positive: true }, "json");
-    expect(paramPositve.get({
+    const paramPositive = api.Number("param", { positive: true }, "json");
+    expect(paramPositive.get({
       body: {
         param: 12.34
       }
     })).to.equal(12.34);
-    expect(() => paramPositve.get({
+    expect(() => paramPositive.get({
       body: {
         param: 'invalid'
       }
