@@ -336,3 +336,23 @@ class Json extends Param {
   }
 }
 module.exports.Json = (...args) => new Json(...args);
+
+class NumberParam extends Json {
+  constructor(name, { positive = false } = {}, ...args) {
+    let schema = Joi.number();
+    if (positive === true) {
+      schema = schema.positive();
+    }
+    super(name, schema, ...args);
+    this.type = "number";
+  }
+
+  validate(value) {
+    return super.validate(value);
+  }
+
+  get(event) {
+    return super.get(event);
+  }
+}
+module.exports.Number = (...args) => new NumberParam(...args);
