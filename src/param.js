@@ -338,10 +338,13 @@ class Json extends Param {
 module.exports.Json = (...args) => new Json(...args);
 
 class NumberParam extends Json {
-  constructor(name, { positive = false } = {}, ...args) {
+  constructor(name, { min, max } = {}, ...args) {
     let schema = Joi.number();
-    if (positive === true) {
-      schema = schema.positive();
+    if (min !== undefined) {
+      schema = schema.min(min);
+    }
+    if (max !== undefined) {
+      schema = schema.max(max);
     }
     super(name, schema, ...args);
     this.type = "number";

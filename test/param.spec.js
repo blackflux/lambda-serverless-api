@@ -291,58 +291,41 @@ describe("Testing Params", () => {
   });
 
   it("Testing Number Parameter (query)", () => {
-    const param = api.Number("param");
-    expect(param.get({
-      queryStringParameters: {
-        param: '-12.34'
-      }
-    })).to.equal(-12.34);
+    const param = api.Number("number");
+    expect(param.get({ queryStringParameters: { number: '-12.34' } })).to.equal(-12.34);
     expect(() => param.get({
-      queryStringParameters: {
-        param: "invalid"
-      }
-    })).to.throw('Invalid Value for query-Parameter "param" provided.');
-    const paramPositive = api.Number("param", { positive: true });
-    expect(paramPositive.get({
-      queryStringParameters: {
-        param: '12.34'
-      }
-    })).to.equal(12.34);
-    expect(() => paramPositive.get({
-      queryStringParameters: {
-        param: '-12.34'
-      }
-    })).to.throw('Invalid Value for query-Parameter "param" provided.');
+      queryStringParameters: { number: "invalid" }
+    })).to.throw('Invalid Value for query-Parameter "number" provided.');
+  });
+
+  it("Testing Number Parameter with options (query)", () => {
+    const param = api.Number("number", { min: 0, max: 10 });
+    expect(param.get({ queryStringParameters: { number: '1.234' } })).to.equal(1.234);
+    ['-11', '11'].forEach((number) => {
+      expect(() => param.get({
+        queryStringParameters: { number }
+      })).to.throw('Invalid Value for query-Parameter "number" provided.');
+    });
   });
 
   it("Testing Number Parameter (json)", () => {
-    const param = api.Number("param", {}, "json");
+    const param = api.Number("number", {}, "json");
     expect(param.get({
-      body: {
-        param: -12.34
-      }
-    })).to.equal(-12.34);
-    expect(() => param.get({
-      body: {
-        param: "-12.34"
-      }
-    })).to.throw('Invalid Value for json-Parameter "param" provided.');
-    expect(() => param.get({
-      body: {
-        param: "string"
-      }
-    })).to.throw('Invalid Value for json-Parameter "param" provided.');
-    const paramPositive = api.Number("param", { positive: true }, "json");
-    expect(paramPositive.get({
-      body: {
-        param: 12.34
-      }
+      body: { number: 12.34 }
     })).to.equal(12.34);
-    expect(() => paramPositive.get({
-      body: {
-        param: 'invalid'
-      }
-    })).to.throw('Invalid Value for json-Parameter "param" provided.');
+    ["12.34", "string"].forEach((number) => {
+      expect(() => param.get({ body: { number } })).to.throw('Invalid Value for json-Parameter "number" provided.');
+    });
+  });
+
+  it("Testing Number Parameter with options (json)", () => {
+    const param = api.Number("number", { min: 0, max: 10 }, "json");
+    expect(param.get({
+      body: { number: 1.234 }
+    })).to.equal(1.234);
+    [-11, 11].forEach((number) => {
+      expect(() => param.get({ body: { number } })).to.throw('Invalid Value for json-Parameter "number" provided.');
+    });
   });
 
   it("Testing Fields Parameter (query)", () => {
