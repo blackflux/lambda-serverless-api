@@ -353,13 +353,12 @@ class GeoShape extends Json {
     this.items = { type: "array", items: { type: "number" } };
   }
 
-  static isDirection(arr, clockwise) {
-    // The area of a complex polygon is defined to be positive if the points are arranged in a counter-clockwise order
+  static isDirectional(arr, clockwise) {
     let result = (arr[arr.length - 1][1] * arr[0][0]) - (arr[0][1] * arr[arr.length - 1][0]);
     for (let i = 0; i < arr.length - 1; i += 1) {
       result += (arr[i][1] * arr[i + 1][0]) - (arr[i + 1][1] * arr[i][0]);
     }
-    return (result > 0) === clockwise;
+    return clockwise ? result > 0 : result < 0;
   }
 
   validate(value) {
@@ -370,16 +369,16 @@ class GeoShape extends Json {
       valueParsed = JSON.parse(value);
     }
     // check direction
-    if (valid && this.clockwise !== undefined && !GeoShape.isDirection(valueParsed, this.clockwise)) {
+    if (valid && this.clockwise !== undefined && !GeoShape.isDirectional(valueParsed, this.clockwise)) {
       valid = false;
     }
-    // check open polygon
+    // ensure closed polygon
     if (valid && (
       valueParsed[0][0] !== valueParsed[valueParsed.length - 1][0]
       || valueParsed[0][1] !== valueParsed[valueParsed.length - 1][1])) {
       valid = false;
     }
-    // check degenerate polygon
+    // ensure non-degenerate polygon
     if (valid && new Set(valueParsed.map(p => `${p[0]}${p[1]}`)).size !== valueParsed.length - 1) {
       valid = false;
     }

@@ -311,6 +311,14 @@ describe("Testing Params", () => {
         body: { geoShape }
       })).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
     });
+    const param2 = api.GeoShape("geoShape", { clockwise: false }, "json");
+    [
+      [[0, 0], [0, 1], [1, 1], [1, 0], [0, 0]] // not counter-clockwise
+    ].forEach((geoShape) => {
+      expect(() => param2.get({
+        body: { geoShape }
+      })).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
+    });
   });
 
   it("Testing Json Parameter (query)", () => {
