@@ -1,27 +1,27 @@
 const SwaggerParser = require('swagger-parser');
 const get = require('lodash.get');
-const merge = require("./util/merge")([
-  "swagger",
-  "produces",
-  "paths.*.*.parameters",
-  "paths.*.*.consumes"
+const merge = require('./util/merge')([
+  'swagger',
+  'produces',
+  'paths.*.*.parameters',
+  'paths.*.*.consumes'
 ], [
-  "paths.*.*.description"
+  'paths.*.*.description'
 ]);
 
 module.exports = (endpoints, existing) => {
   const data = {
-    swagger: "2.0",
-    produces: ["application/json"],
+    swagger: '2.0',
+    produces: ['application/json'],
     info: {
-      title: "Api Name",
-      version: "0.0.1"
+      title: 'Api Name',
+      version: '0.0.1'
     },
     paths: {}
   };
   Object.keys(endpoints).forEach((request) => {
     const parameters = endpoints[request]
-      .filter(p => ["json", "context"].indexOf(p.position) === -1)
+      .filter(p => ['json', 'context'].indexOf(p.position) === -1)
       .map(p => Object.assign(
         {
           name: p.nameOriginal,
@@ -31,21 +31,21 @@ module.exports = (endpoints, existing) => {
           in: p.position
         },
         p.regex === undefined ? {} : { pattern: p.regex.toString() },
-        p.items === undefined ? {} : { type: "string" },
+        p.items === undefined ? {} : { type: 'string' },
         p.minItems === undefined ? {} : { minItems: p.minItems },
         p.maxItems === undefined ? {} : { maxItems: p.maxItems }
       ));
 
     const jsonParams = endpoints[request]
-      .filter(p => p.position === "json");
+      .filter(p => p.position === 'json');
     if (jsonParams.length !== 0) {
       const required = jsonParams.filter(p => p.required).map(p => p.name);
       parameters.push({
-        in: "body",
-        name: "bodyParamData",
+        in: 'body',
+        name: 'bodyParamData',
         schema: Object.assign(
           {
-            type: "object",
+            type: 'object',
             properties: jsonParams.reduce((prev, p) => Object.assign(prev, {
               [p.name]: Object.assign(
                 { type: p.type, format: p.constructor.name },
@@ -63,21 +63,21 @@ module.exports = (endpoints, existing) => {
 
     const description = [];
     const contextParams = endpoints[request]
-      .filter(p => p.position === "context")
+      .filter(p => p.position === 'context')
       .map(p => p.name);
     if (contextParams.length !== 0) {
-      description.push(`Internally contexts are used: ${contextParams.join(", ")}`);
+      description.push(`Internally contexts are used: ${contextParams.join(', ')}`);
     }
 
-    const path = `/${request.split(" ")[1]}`;
+    const path = `/${request.split(' ')[1]}`;
     data.paths[path] = Object.assign(get(data.paths, path, {}), {
-      [request.split(" ")[0].toLowerCase()]: {
-        consumes: ["application/json"],
-        description: description.join("\n"),
+      [request.split(' ')[0].toLowerCase()]: {
+        consumes: ['application/json'],
+        description: description.join('\n'),
         parameters,
         responses: {
           default: {
-            description: "Unexpected Error"
+            description: 'Unexpected Error'
           }
         }
       }

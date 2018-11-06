@@ -1,20 +1,20 @@
 const expect = require('chai').expect;
-const response = require("../src/response");
-const { Api } = require("../src/api");
+const response = require('../src/response');
+const { Api } = require('../src/api');
 
 const api = Api({ defaultHeaders: { 'X-Custom-Header': 'header-value' } });
 
-describe("Testing Response", () => {
-  it("Testing ApiError", (done) => {
+describe('Testing Response', () => {
+  it('Testing ApiError', (done) => {
     const apiError = response.ApiError();
     expect(apiError instanceof response.ApiErrorClass).to.equal(true);
     done();
   });
 
-  it("Testing ApiResponse Integration", (done) => {
-    api.wrap("GET test", [], 10, (event, context, rb) => rb.warning("123")
-      .then(() => api.ApiResponse("promiseResponse")).catch(done.fail))({
-      httpMethod: "GET"
+  it('Testing ApiResponse Integration', (done) => {
+    api.wrap('GET test', [], 10, (event, context, rb) => rb.warning('123')
+      .then(() => api.ApiResponse('promiseResponse')).catch(done.fail))({
+      httpMethod: 'GET'
     }, {
       getRemainingTimeInMillis: () => 0
     }, (err, resp) => {
@@ -28,11 +28,11 @@ describe("Testing Response", () => {
     });
   });
 
-  it("Testing ApiError Integration", (done) => {
-    api.wrap("GET test", [], 10, (event, context, rb) => rb.warning("123").then(() => {
-      throw api.ApiError("promiseError");
+  it('Testing ApiError Integration', (done) => {
+    api.wrap('GET test', [], 10, (event, context, rb) => rb.warning('123').then(() => {
+      throw api.ApiError('promiseError');
     }).catch(done.fail))({
-      httpMethod: "GET"
+      httpMethod: 'GET'
     }, {
       getRemainingTimeInMillis: () => 0
     }, (err, resp) => {
@@ -47,12 +47,12 @@ describe("Testing Response", () => {
   });
 
 
-  it("Testing Error Integration", (done) => {
-    const error = new Error("other");
-    api.wrap("GET test", [], 10, (event, context, rb) => rb.warning("123").then(() => {
+  it('Testing Error Integration', (done) => {
+    const error = new Error('other');
+    api.wrap('GET test', [], 10, (event, context, rb) => rb.warning('123').then(() => {
       throw error;
     }).catch(done.fail))({
-      httpMethod: "GET"
+      httpMethod: 'GET'
     }, {
       getRemainingTimeInMillis: () => 0
     }, (err, resp) => {

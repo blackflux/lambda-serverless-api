@@ -1,7 +1,7 @@
-const get = require("lodash.get");
-const set = require("lodash.set");
-const defaultsdeep = require("lodash.defaultsdeep");
-const objectScan = require("object-scan");
+const get = require('lodash.get');
+const set = require('lodash.set');
+const defaultsdeep = require('lodash.defaultsdeep');
+const objectScan = require('object-scan');
 
 module.exports = (exact, contains) => {
   const findExact = objectScan(exact, { joined: false });
@@ -13,8 +13,8 @@ module.exports = (exact, contains) => {
     findContains(data).forEach((m) => {
       const current = get(target, m);
       const shouldContain = get(data, m);
-      if ((current || "").indexOf(shouldContain) === -1) {
-        set(target, m, [current, shouldContain].filter(e => e !== undefined).join("\n"));
+      if ((current || '').indexOf(shouldContain) === -1) {
+        set(target, m, [current, shouldContain].filter(e => e !== undefined).join('\n'));
       }
     });
   };
