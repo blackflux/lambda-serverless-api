@@ -370,7 +370,7 @@ class GeoShape extends Json {
       valueParsed = JSON.parse(value);
     }
     // check direction
-    if (valid && this.clockwise !== undefined && GeoShape.isDirection(valueParsed, this.clockwise)) {
+    if (valid && this.clockwise !== undefined && !GeoShape.isDirection(valueParsed, this.clockwise)) {
       valid = false;
     }
     // check open polygon
