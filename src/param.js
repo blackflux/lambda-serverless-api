@@ -242,6 +242,41 @@ class NumberList extends List {
 module.exports.NumberList = (...args) => new NumberList(...args);
 
 
+class Json extends Param {
+  constructor(name, schema, ...args) {
+    super(name, ...args);
+    assert(get(schema, 'isJoi') === true, "Joi Schema required");
+    this.type = this.stringInput ? "string" : "object";
+    this.schema = schema;
+  }
+
+  validate(value) {
+    let valid = super.validate(value);
+    let valueParsed = value;
+    if (valid && this.stringInput) {
+      try {
+        valueParsed = JSON.parse(value);
+      } catch (e) {
+        valid = false;
+      }
+    }
+    if (valid && Joi.validate(valueParsed, this.schema).error !== null) {
+      valid = false;
+    }
+    return valid;
+  }
+
+  get(event) {
+    const result = super.get(event);
+    if ([undefined, null].includes(result)) {
+      return result;
+    }
+    return this.stringInput ? JSON.parse(result) : result;
+  }
+}
+module.exports.Json = (...args) => new Json(...args);
+
+
 class GeoPoint extends NumberList {
   constructor(...args) {
     super(...args);
@@ -303,39 +338,60 @@ class GeoRect extends NumberList {
 module.exports.GeoRect = (...args) => new GeoRect(...args);
 
 
-class Json extends Param {
-  constructor(name, schema, ...args) {
-    super(name, ...args);
-    assert(get(schema, 'isJoi') === true, "Joi Schema required");
-    this.type = this.stringInput ? "string" : "object";
-    this.schema = schema;
+class GeoShape extends Json {
+  constructor(name, { maxSize } = {}, ...args) {
+    let schema = Joi.array().items(Joi.array().ordered([
+      Joi.number().min(-180).max(180).required(),
+      Joi.number().min(-90).max(90).required()
+    ]));
+    if (maxSize !== undefined) {
+      schema = schema.max(maxSize);
+    }
+    super(name, schema, ...args);
+    this.type = "array";
+    this.items = { type: "array", items: { type: "number" } };
+  }
+
+  static isClockwise(arr) {
+    // The area of a complex polygon is defined to be positive if the points are arranged in a counter-clockwise order
+    // elasticsearch expects this as counter-clockwise as well, database expects, outputs it as clockwise? <- yes
+    let result = (arr[arr.length - 1][1] * arr[0][0]) - (arr[0][1] * arr[arr.length - 1][0]);
+    for (let i = 0; i < arr.length - 1; i += 1) {
+      result += (arr[i][1] * arr[i + 1][0]) - (arr[i + 1][1] * arr[i][0]);
+    }
+    return result > 0;
   }
 
   validate(value) {
     let valid = super.validate(value);
     let valueParsed = value;
     if (valid && this.stringInput) {
-      try {
-        valueParsed = JSON.parse(value);
-      } catch (e) {
-        valid = false;
-      }
+      // already validated by super
+      valueParsed = JSON.parse(value);
     }
-    if (valid && Joi.validate(valueParsed, this.schema).error !== null) {
+    // check clockwise
+    if (valid && !GeoShape.isClockwise(valueParsed)) {
+      valid = false;
+    }
+    // check open polygon
+    if (valid && (
+      valueParsed[0][0] !== valueParsed[valueParsed.length - 1][0]
+      || valueParsed[0][1] !== valueParsed[valueParsed.length - 1][1])) {
+      valid = false;
+    }
+    // check degenerate polygon
+    if (valid && new Set(valueParsed.map(p => `${p[0]}${p[1]}`)).size !== valueParsed.length - 1) {
       valid = false;
     }
     return valid;
   }
 
   get(event) {
-    const result = super.get(event);
-    if ([undefined, null].includes(result)) {
-      return result;
-    }
-    return this.stringInput ? JSON.parse(result) : result;
+    return super.get(event);
   }
 }
-module.exports.Json = (...args) => new Json(...args);
+module.exports.GeoShape = (...args) => new GeoShape(...args);
+
 
 class NumberParam extends Json {
   constructor(name, { min, max } = {}, ...args) {
