@@ -353,13 +353,13 @@ class GeoShape extends Json {
     this.items = { type: "array", items: { type: "number" } };
   }
 
-  static isClockwise(arr) {
+  static isDirection(arr, clockwise) {
     // The area of a complex polygon is defined to be positive if the points are arranged in a counter-clockwise order
     let result = (arr[arr.length - 1][1] * arr[0][0]) - (arr[0][1] * arr[arr.length - 1][0]);
     for (let i = 0; i < arr.length - 1; i += 1) {
       result += (arr[i][1] * arr[i + 1][0]) - (arr[i + 1][1] * arr[i][0]);
     }
-    return result > 0;
+    return (result > 0) === clockwise;
   }
 
   validate(value) {
@@ -370,7 +370,7 @@ class GeoShape extends Json {
       valueParsed = JSON.parse(value);
     }
     // check direction
-    if (valid && this.clockwise !== undefined && GeoShape.isClockwise(valueParsed) !== this.clockwise) {
+    if (valid && this.clockwise !== undefined && GeoShape.isDirection(valueParsed, this.clockwise)) {
       valid = false;
     }
     // check open polygon
