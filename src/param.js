@@ -1,16 +1,16 @@
-const assert = require("assert");
-const get = require("lodash.get");
-const difference = require("lodash.difference");
-const Joi = require("joi");
-const objectPaths = require("obj-paths");
-const response = require("./response");
+const assert = require('assert');
+const get = require('lodash.get');
+const difference = require('lodash.difference');
+const Joi = require('joi');
+const objectPaths = require('obj-paths');
+const response = require('./response');
 
 const positionMapping = {
-  query: "queryStringParameters",
-  json: "body",
-  path: "pathParameters",
-  header: "headers",
-  context: "requestContext"
+  query: 'queryStringParameters',
+  json: 'body',
+  path: 'pathParameters',
+  header: 'headers',
+  context: 'requestContext'
 };
 
 class Param {
@@ -21,9 +21,9 @@ class Param {
       `Parameter Position cannot be nullable: ${position}`
     );
     this.nameOriginal = name;
-    this.name = name.endsWith("+") ? name.slice(0, name.length - 1) : name;
+    this.name = name.endsWith('+') ? name.slice(0, name.length - 1) : name;
     this.position = position;
-    this.stringInput = !["json", "context"].includes(position);
+    this.stringInput = !['json', 'context'].includes(position);
     this.required = required;
     this.nullable = nullable;
     this.type = null;
@@ -36,7 +36,7 @@ class Param {
 
   get(event) {
     const result = get(event, `${positionMapping[this.position]}.${
-      this.position === "header"
+      this.position === 'header'
         ? Object
           .keys(get(event, positionMapping[this.position], {}))
           .reduce((prev, cur) => Object.assign(prev, { [cur.toLowerCase()]: cur }), {})[this.name.toLowerCase()]
@@ -62,7 +62,7 @@ class Param {
 class Str extends Param {
   constructor(...args) {
     super(...args);
-    this.type = "string";
+    this.type = 'string';
   }
 
   validate(value) {
@@ -108,7 +108,7 @@ module.exports.UUID = (...args) => new UUID(...args);
 class Bool extends Param {
   constructor(...args) {
     super(...args);
-    this.type = "boolean";
+    this.type = 'boolean';
   }
 
   validate(value) {
@@ -124,7 +124,7 @@ class Bool extends Param {
     if ([undefined, null].includes(result)) {
       return result;
     }
-    return this.stringInput ? ["1", "true"].indexOf(result) !== -1 : result === true;
+    return this.stringInput ? ['1', 'true'].indexOf(result) !== -1 : result === true;
   }
 }
 module.exports.Bool = (...args) => new Bool(...args);
@@ -132,7 +132,7 @@ module.exports.Bool = (...args) => new Bool(...args);
 class Int extends Param {
   constructor(...args) {
     super(...args);
-    this.type = "integer";
+    this.type = 'integer';
   }
 
   validate(value) {
@@ -156,13 +156,13 @@ module.exports.Int = (...args) => new Int(...args);
 class List extends Param {
   constructor(...args) {
     super(...args);
-    this.type = "array";
+    this.type = 'array';
     this.items = {
       allOf: [
-        { type: "string" },
-        { type: "number" },
-        { type: "integer" },
-        { type: "boolean" }
+        { type: 'string' },
+        { type: 'number' },
+        { type: 'integer' },
+        { type: 'boolean' }
       ]
     };
   }
@@ -212,7 +212,7 @@ module.exports.FieldsParam = (...args) => new FieldsParam(...args);
 class StrList extends List {
   constructor(...args) {
     super(...args);
-    this.items = { type: "string" };
+    this.items = { type: 'string' };
   }
 
   validate(value) {
@@ -228,7 +228,7 @@ module.exports.StrList = (...args) => new StrList(...args);
 class NumberList extends List {
   constructor(...args) {
     super(...args);
-    this.items = { type: "number" };
+    this.items = { type: 'number' };
   }
 
   validate(value) {
@@ -245,8 +245,8 @@ module.exports.NumberList = (...args) => new NumberList(...args);
 class Json extends Param {
   constructor(name, schema, ...args) {
     super(name, ...args);
-    assert(get(schema, 'isJoi') === true, "Joi Schema required");
-    this.type = this.stringInput ? "string" : "object";
+    assert(get(schema, 'isJoi') === true, 'Joi Schema required');
+    this.type = this.stringInput ? 'string' : 'object';
     this.schema = schema;
   }
 
@@ -349,8 +349,8 @@ class GeoShape extends Json {
     }
     super(name, schema, ...args);
     this.clockwise = clockwise;
-    this.type = "array";
-    this.items = { type: "array", items: { type: "number" } };
+    this.type = 'array';
+    this.items = { type: 'array', items: { type: 'number' } };
   }
 
   static isDirectional(arr, clockwise) {
@@ -402,7 +402,7 @@ class NumberParam extends Json {
       schema = schema.max(max);
     }
     super(name, schema, ...args);
-    this.type = "number";
+    this.type = 'number';
   }
 
   validate(value) {

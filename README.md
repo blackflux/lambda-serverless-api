@@ -28,22 +28,22 @@ First we need to wrap our lambda endpoint. Inside the lambda function we can the
 
 <!-- eslint-disable import/no-unresolved -->
 ```js
-const api = require("lambda-serverless-api")({
+const api = require('lambda-serverless-api')({
   limiter: {},
   rollbar: {},
   defaultHeaders: {}
 });
 
-module.exports = api.wrap("POST register", [
-  api.Str("name", "json", false),
-  api.Email("email", "json"),
-  api.Str("password", "json")
+module.exports = api.wrap('POST register', [
+  api.Str('name', 'json', false),
+  api.Email('email', 'json'),
+  api.Str('password', 'json')
 ], process.env.RATE_LIMIT_PER_IP, ({ name = null, email = null, password = null }, context, rb, event) => {
   // handle registration logic here ...
   if (new Date().getHours() === 4) {
-    throw api.ApiError("I am a teapot", 418);
+    throw api.ApiError('I am a teapot', 418);
   }
-  return api.JsonResponse({ message: "Success!" });
+  return api.JsonResponse({ message: 'Success!' });
 });
 
 ```
