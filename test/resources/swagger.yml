@@ -78,6 +78,11 @@ paths:
           type: string
           format: FieldsParam
           in: query
+        - name: numberParam
+          required: false
+          type: number
+          format: NumberParam
+          in: query
         - name: numberListParam
           required: false
           type: string
@@ -97,6 +102,11 @@ paths:
           in: query
           minItems: 4
           maxItems: 4
+        - name: geoShapeParam
+          required: false
+          type: string
+          format: GeoShape
+          in: query
         - name: jsonParam
           required: false
           type: string
@@ -136,6 +146,9 @@ paths:
               fieldsParam:
                 type: string
                 format: FieldsParam
+              numberParam:
+                type: number
+                format: NumberParam
               numberListParam:
                 type: array
                 format: NumberList
@@ -155,6 +168,13 @@ paths:
                   type: number
                 minItems: 4
                 maxItems: 4
+              geoShapeParam:
+                type: array
+                format: GeoShape
+                items:
+                  type: array
+                  items:
+                    type: number
               jsonParam:
                 type: object
                 format: Json
