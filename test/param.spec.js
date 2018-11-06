@@ -271,7 +271,6 @@ describe("Testing Params", () => {
     })).to.deep.equal([[0, 0], [0, 1], [1, 1], [1, 0], [0, 0]]);
     [
       "invalid", // parse error
-      "[[0,0],[1,0],[1,1],[0,1],[0,0]]", // not clockwise
       "[[0,0],[0,1],[1,1],[1,0]]", // open polygon
       "[[0,0],[0,1],[1,1],[1,1],[1,0],[0,0]]", // degenerate polygon
       "[[0,0],[0,1],[300,1],[1,0],[0,0]]", // invalid point
@@ -291,7 +290,6 @@ describe("Testing Params", () => {
       }
     })).to.deep.equal([[0, 0], [0, 1], [1, 1], [1, 0], [0, 0]]);
     [
-      [[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]], // not clockwise
       [[0, 0], [0, 1], [1, 1], [1, 0]], // open polygon
       [[0, 0], [0, 1], [1, 1], [1, 1], [1, 0], [0, 0]], // degenerate polygon
       [[0, 0], [0, 1], [300, 1], [1, 0], [0, 0]], // invalid point
@@ -304,10 +302,15 @@ describe("Testing Params", () => {
   });
 
   it("Testing GeoShape Parameter with options (json)", () => {
-    const param = api.GeoShape("geoShape", { maxSize: 6 }, "json");
-    expect(() => param.get({
-      body: { geoShape: [[0, 0], [0, 1], [1, 1], [1.1, 1.1], [1.2, 1.2], [1.3, 1.3], [1, 0], [0, 0]] }
-    })).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
+    const param = api.GeoShape("geoShape", { maxPoints: 6, clockwise: true }, "json");
+    [
+      [[0, 0], [0, 1], [1, 1], [1.1, 1.1], [1.2, 1.2], [1.3, 1.3], [1, 0], [0, 0]], // too large
+      [[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]] // not clockwise
+    ].forEach((geoShape) => {
+      expect(() => param.get({
+        body: { geoShape }
+      })).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
+    });
   });
 
   it("Testing Json Parameter (query)", () => {

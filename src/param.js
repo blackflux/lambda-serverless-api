@@ -339,22 +339,22 @@ module.exports.GeoRect = (...args) => new GeoRect(...args);
 
 
 class GeoShape extends Json {
-  constructor(name, { maxSize } = {}, ...args) {
+  constructor(name, { maxPoints, clockwise } = {}, ...args) {
     let schema = Joi.array().items(Joi.array().ordered([
       Joi.number().min(-180).max(180).required(),
       Joi.number().min(-90).max(90).required()
     ]));
-    if (maxSize !== undefined) {
-      schema = schema.max(maxSize);
+    if (maxPoints !== undefined) {
+      schema = schema.max(maxPoints);
     }
     super(name, schema, ...args);
+    this.clockwise = clockwise;
     this.type = "array";
     this.items = { type: "array", items: { type: "number" } };
   }
 
   static isClockwise(arr) {
     // The area of a complex polygon is defined to be positive if the points are arranged in a counter-clockwise order
-    // elasticsearch expects this as counter-clockwise as well, database expects, outputs it as clockwise? <- yes
     let result = (arr[arr.length - 1][1] * arr[0][0]) - (arr[0][1] * arr[arr.length - 1][0]);
     for (let i = 0; i < arr.length - 1; i += 1) {
       result += (arr[i][1] * arr[i + 1][0]) - (arr[i + 1][1] * arr[i][0]);
@@ -369,8 +369,8 @@ class GeoShape extends Json {
       // already validated by super
       valueParsed = JSON.parse(value);
     }
-    // check clockwise
-    if (valid && !GeoShape.isClockwise(valueParsed)) {
+    // check direction
+    if (valid && this.clockwise !== undefined && GeoShape.isClockwise(valueParsed) !== this.clockwise) {
       valid = false;
     }
     // check open polygon
