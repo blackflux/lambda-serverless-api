@@ -301,7 +301,7 @@ describe("Testing Params", () => {
   it("Testing Number Parameter with options (query)", () => {
     const param = api.Number("number", { min: 0, max: 10 });
     expect(param.get({ queryStringParameters: { number: '1.234' } })).to.equal(1.234);
-    ['-11', '11'].forEach((number) => {
+    ['-11', '-1', '11'].forEach((number) => {
       expect(() => param.get({
         queryStringParameters: { number }
       })).to.throw('Invalid Value for query-Parameter "number" provided.');
@@ -323,7 +323,7 @@ describe("Testing Params", () => {
     expect(param.get({
       body: { number: 1.234 }
     })).to.equal(1.234);
-    [-11, 11].forEach((number) => {
+    [-11, -1, 11].forEach((number) => {
       expect(() => param.get({ body: { number } })).to.throw('Invalid Value for json-Parameter "number" provided.');
     });
   });
