@@ -98,6 +98,7 @@ const staticExports = {
   StrList: param.StrList,
   FieldsParam: param.FieldsParam,
   Json: param.Json,
+  Number: param.Number,
   NumberList: param.NumberList,
   GeoPoint: param.GeoPoint,
   GeoRect: param.GeoRect
