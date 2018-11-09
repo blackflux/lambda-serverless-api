@@ -55,3 +55,11 @@ module.exports.param2 = api.wrap('POST param2', [
 }) => api.JsonResponse({ username, email, xCustomHeader }));
 
 module.exports.internalApi = api;
+
+module.exports.pathParam = api.wrap('POST path/{param}', [
+  api.Str('param', 'path')
+], process.env.RATE_LIMIT, ({ param }) => api.JsonResponse({ param }));
+
+module.exports.path = api.wrap('GET some/path', [], process.env.RATE_LIMIT, () => api.JsonResponse({}));
+
+module.exports.router = api.router;
