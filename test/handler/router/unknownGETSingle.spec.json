@@ -1,0 +1,18 @@
+{
+  "handler": "router",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 403,
+      "body": "{\"message\":\"Method / Route not allowed\"}"
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "path": "/some/other",
+    "httpMethod": "GET"
+  }
+}

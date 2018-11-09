@@ -34,3 +34,13 @@ functions:
       - http:
           path: proxy/{proxy+}
           method: get
+  path:
+    events:
+      - http:
+          path: path/{param}
+          method: post
+  nested:
+    events:
+      - http:
+          path: some/path
+          method: get

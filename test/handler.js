@@ -27,15 +27,19 @@ module.exports.param = api.wrap('POST param', [
   api.List('listParam', 'json', false),
   api.StrList('strListParam', 'json', false),
   api.FieldsParam('fieldsParam', 'id', 'json', false),
+  api.Number('numberParam', {}, 'json', false),
   api.NumberList('numberListParam', 'json', false),
   api.GeoPoint('geoPointParam', 'json', false),
   api.GeoRect('geoRectParam', 'json', false),
+  api.GeoShape('geoShapeParam', {}, 'json', false),
   api.List('listParam', 'query', false),
   api.StrList('strListParam', 'query', false),
   api.FieldsParam('fieldsParam', 'id', 'query', false),
+  api.Number('numberParam', {}, 'query', false),
   api.NumberList('numberListParam', 'query', false),
   api.GeoPoint('geoPointParam', 'query', false),
   api.GeoRect('geoRectParam', 'query', false),
+  api.GeoShape('geoShapeParam', {}, 'query', false),
   api.Json('jsonParam', api.Joi.object().required(), 'json', false),
   api.Json('jsonParam', api.Joi.object().required(), 'query', false)
 ], process.env.RATE_LIMIT, params => api.JsonResponse(params));
@@ -51,3 +55,11 @@ module.exports.param2 = api.wrap('POST param2', [
 }) => api.JsonResponse({ username, email, xCustomHeader }));
 
 module.exports.internalApi = api;
+
+module.exports.pathParam = api.wrap('POST path/{param}', [
+  api.Str('param', 'path')
+], process.env.RATE_LIMIT, ({ param }) => api.JsonResponse({ param }));
+
+module.exports.path = api.wrap('GET some/path', [], process.env.RATE_LIMIT, () => api.JsonResponse({}));
+
+module.exports.router = api.router;

@@ -2,9 +2,19 @@ const expect = require('chai').expect;
 const response = require('../src/response');
 const { Api } = require('../src/api');
 
-const api = Api({ defaultHeaders: { 'X-Custom-Header': 'header-value' } });
-
 describe('Testing Response', () => {
+  let api;
+  beforeEach(() => {
+    api = Api({ defaultHeaders: { 'X-Custom-Header': 'header-value' } });
+  });
+
+  it('Testing Redefined Endpoint', (done) => {
+    api.wrap('GET path/{p1}', [], 10);
+    expect(() => api.wrap('GET path/{p2}', [], 10))
+      .to.throw('Path parameter collision: GET path/{p2}');
+    done();
+  });
+
   it('Testing ApiError', (done) => {
     const apiError = response.ApiError();
     expect(apiError instanceof response.ApiErrorClass).to.equal(true);

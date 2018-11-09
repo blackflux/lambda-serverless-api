@@ -19,6 +19,7 @@ it('Testing Exports Synchronized.', () => {
     'generateDifference',
     'generateSwagger',
     'rollbar',
+    'router',
     'wrap'
   ]);
 });
