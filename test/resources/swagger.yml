@@ -223,3 +223,26 @@ paths:
       responses:
         default:
           description: Unexpected Error
+  '/path/{param}':
+    post:
+      consumes:
+        - application/json
+      description: ''
+      parameters:
+        - name: param
+          required: true
+          type: string
+          format: Str
+          in: path
+      responses:
+        default:
+          description: Unexpected Error
+  /some/path:
+    get:
+      consumes:
+        - application/json
+      description: ''
+      parameters: []
+      responses:
+        default:
+          description: Unexpected Error
