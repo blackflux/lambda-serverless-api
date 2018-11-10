@@ -1,0 +1,12 @@
+{
+  "handler": "json",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.equal()": "OK - No API Gateway call detected."
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {}
+}
