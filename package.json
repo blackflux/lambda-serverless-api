@@ -21,9 +21,9 @@
     "lambda-tdd": "1.25.2",
     "nock": "10.0.2",
     "nyc": "13.1.0",
-    "semantic-release": "15.10.8",
+    "semantic-release": "15.11.0",
     "@babel/register": "7.0.0",
-    "@babel/core": "7.1.5",
+    "@babel/core": "7.1.6",
     "@babel/cli": "7.1.5",
     "@babel/plugin-transform-flow-comments": "7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "7.0.0",
@@ -63,7 +63,7 @@
     "lib"
   ],
   "dependencies": {
-    "joi": "14.0.4",
+    "joi": "14.0.6",
     "js-yaml": "3.12.0",
     "lambda-rate-limiter": "2.4.6",
     "lambda-rollbar": "1.9.11",

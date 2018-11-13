@@ -27,4 +27,9 @@ describe('Testing Swagger', () => {
   it('Testing Empty Compare', () => {
     expect(JSON.stringify(api.generateSwagger())).to.equal('{}');
   });
+
+  it('Testing Unexpected Swagger Endpoint', () => {
+    expect(() => api.generateSwagger({ paths: { '/path': { GET: {} } } }))
+      .to.throw('Unexpected swagger endpoint(s) detected: paths./path.GET');
+  });
 });

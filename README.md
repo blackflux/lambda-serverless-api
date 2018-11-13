@@ -28,7 +28,7 @@ First we need to wrap our lambda endpoint. Inside the lambda function we can the
 
 <!-- eslint-disable import/no-unresolved -->
 ```js
-const api = require('lambda-serverless-api')({
+const api = require('lambda-serverless-api').Api({
   limiter: {},
   rollbar: {},
   defaultHeaders: {}
@@ -85,3 +85,18 @@ To monitor api errors and exceptions [lambda-rollbar](https://github.com/blackfl
 ## Loading serverless.yml
 
 Consider using [yaml-boost](https://github.com/blackflux/yaml-boost)
+
+Consider using a single router function instead of declaring each function individually.
+
+Example that also keeps lambda function warm:
+
+```yml
+functions:
+  router:
+    handler: lib/handler.router
+    events:
+      - schedule: rate(10 minutes)
+      - http:
+          path: /{proxy+}
+          method: ANY
+```
