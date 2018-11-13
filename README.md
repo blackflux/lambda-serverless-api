@@ -28,7 +28,7 @@ First we need to wrap our lambda endpoint. Inside the lambda function we can the
 
 <!-- eslint-disable import/no-unresolved -->
 ```js
-const api = require('lambda-serverless-api')({
+const api = require('lambda-serverless-api').Api({
   limiter: {},
   rollbar: {},
   defaultHeaders: {}
