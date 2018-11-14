@@ -12,7 +12,7 @@
     "to.deep.equal": []
   },
   "event": {
-    "path": "/some/other",
+    "path": "/unknown",
     "httpMethod": "GET"
   }
 }
