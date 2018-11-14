@@ -138,7 +138,7 @@ const Api = (options = {}) => {
           .catch(err => generateResponse(err, null, rb, { defaultHeaders }));
       });
 
-    // test for route collisions (has to be different in at least one part where bot hare static)
+    // test for route collisions (has to be different in at least one part where both are static)
     const routeSignature = request.split(/[\s/]/g).map(e => e.replace(/^{.*?}$/, ':param'));
     routeSignatures.forEach((signature) => {
       if (routeSignature.length !== signature.length) {
