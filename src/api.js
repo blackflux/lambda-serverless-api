@@ -168,19 +168,23 @@ const Api = (options = {}) => {
     return wrappedHandler;
   };
 
-  const routerFn = (event, ...args) => {
+  // IMPORTANT: Never return from this vanilla lambda function
+  const routerFn = (event, context, callback, ...args) => {
     if (!event.httpMethod) {
-      return Promise.resolve('OK - No API Gateway call detected.');
+      callback(null, 'OK - No API Gateway call detected.');
+    } else {
+      const matchedRoutes = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
+      if (!matchedRoutes) {
+        callback(null, {
+          statusCode: 403,
+          body: JSON.stringify({ message: 'Method / Route not allowed' })
+        });
+      } else {
+        matchedRoutes[0].handler(Object.assign(event, {
+          pathParameters: matchedRoutes[0].params
+        }), context, callback, ...args);
+      }
     }
-
-    const matchedRoutes = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
-    if (!matchedRoutes) {
-      return Promise.resolve({
-        statusCode: 403,
-        body: JSON.stringify({ message: 'Method / Route not allowed' })
-      });
-    }
-    return matchedRoutes[0].handler(Object.assign(event, { pathParameters: matchedRoutes[0].params }), ...args);
   };
 
   const generateDifference = (swaggerFile, serverlessFile, serverlessVars) => {
