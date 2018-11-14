@@ -11,7 +11,7 @@ describe('Testing Response', () => {
   it('Testing Redefined Endpoint', (done) => {
     api.wrap('GET path/{p1}', [], 10);
     expect(() => api.wrap('GET path/{p2}', [], 10))
-      .to.throw('Path parameter collision: GET path/{p2}');
+      .to.throw('Path collision: GET path/{p2}');
     done();
   });
 

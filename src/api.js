@@ -1,6 +1,5 @@
 const assert = require('assert');
 const xor = require('lodash.xor');
-const set = require('lodash.set');
 const get = require('lodash.get');
 const difference = require('lodash.difference');
 const Joi = require('joi');
@@ -8,6 +7,7 @@ const objectScan = require('object-scan');
 const yaml = require('yaml-boost');
 const Rollbar = require('lambda-rollbar');
 const Limiter = require('lambda-rate-limiter');
+const Router = require('route-recognizer');
 const param = require('./param');
 const response = require('./response');
 const swagger = require('./swagger');
@@ -108,7 +108,8 @@ const staticExports = {
 
 const Api = (options = {}) => {
   const endpoints = {};
-  const handlers = {};
+  const router = new Router();
+  const routeSignatures = [];
   const rollbar = Rollbar(get(options, 'rollbar', {}));
   const limiter = Limiter(get(options, 'limiter', {}));
   const defaultHeaders = get(options, 'defaultHeaders', {});
@@ -137,59 +138,49 @@ const Api = (options = {}) => {
           .catch(err => generateResponse(err, null, rb, { defaultHeaders }));
       });
 
-    const path = request.split(/[\s|/]/g).concat('__fn');
-    assert(get(handlers, path) === undefined, `Path re-defined: ${request}`);
-    set(handlers, path, wrappedHandler);
-    // ensure no path parameter collisions
-    assert(path.reduce((p, c) => (p !== false && (
-      !/^{.*?}$/.test(c)
-      || Object.keys(p).filter(e => e !== '__fn').length === 1
-    ) ? p[c] : false), handlers) !== false, `Path parameter collision: ${request}`);
+    // test for route collisions (has to be different in at least one part where bot hare static)
+    const routeSignature = request.split(/[\s/]/g).map(e => e.replace(/^{.*?}$/, ':param'));
+    routeSignatures.forEach((signature) => {
+      if (routeSignature.length !== signature.length) {
+        return;
+      }
+      for (let idx = 0; idx < signature.length; idx += 1) {
+        if (
+          signature[idx] !== ':param'
+          && routeSignature[idx] !== ':param'
+          && signature[idx] !== routeSignature[idx]
+        ) {
+          return;
+        }
+      }
+      throw new Error(`Path collision: ${request}`);
+    });
+    routeSignatures.push(routeSignature);
+
+    router.add([{
+      path: request.split(/[\s/]/g).map(e => e.replace(
+        /^{(.*?)(\+)?}$/,
+        (_, name, type) => `${type === '+' ? '*' : ':'}${name}`
+      )).join('/'),
+      handler: wrappedHandler
+    }]);
 
     return wrappedHandler;
   };
 
-  const router = (event, ...args) => {
+  const routerFn = (event, ...args) => {
     if (!event.httpMethod) {
       return Promise.resolve('OK - No API Gateway call detected.');
     }
 
-    const path = [event.httpMethod, ...get(event, 'path', '').split('/'), '__fn']
-      .filter(e => typeof e === 'string' && e.length > 0);
-    let method = handlers;
-    const pathParameters = {};
-
-    for (let idx = 0; idx < path.length; idx += 1) {
-      const segment = path[idx];
-      if (method[segment] !== undefined) {
-        method = method[segment];
-      } else {
-        const entries = Object.entries(method);
-        if (entries.length !== 1) {
-          method = undefined;
-          break;
-        }
-        const [key, target] = entries[0];
-        const pathParameter = get(key.match(/^{(.*?)\+?}$/), [1]);
-        if (!pathParameter) {
-          method = undefined;
-          break;
-        }
-        method = target;
-        if (key.endsWith('+}')) {
-          Object.assign(pathParameters, { [pathParameter]: path.slice(idx, -1).join('/') });
-          method = get(method, '__fn');
-          break;
-        }
-        Object.assign(pathParameters, { [pathParameter]: segment });
-      }
-    }
-    return typeof method === 'function'
-      ? method(Object.assign(event, { pathParameters }), ...args)
-      : Promise.resolve({
+    const matchedRoutes = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
+    if (!matchedRoutes) {
+      return Promise.resolve({
         statusCode: 403,
         body: JSON.stringify({ message: 'Method / Route not allowed' })
       });
+    }
+    return matchedRoutes[0].handler(Object.assign(event, { pathParameters: matchedRoutes[0].params }), ...args);
   };
 
   const generateDifference = (swaggerFile, serverlessFile, serverlessVars) => {
@@ -208,7 +199,7 @@ const Api = (options = {}) => {
   return Object.assign({
     wrap,
     rollbar,
-    router,
+    router: routerFn,
     generateSwagger: (existing = {}) => swagger(endpoints, existing),
     generateDifference
   }, staticExports);
