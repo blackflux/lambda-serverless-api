@@ -137,14 +137,14 @@ const Api = (options = {}) => {
           .catch(err => generateResponse(err, null, rb, { defaultHeaders }));
       });
 
-    const path = request.split(/[\s|/]/g);
+    const path = request.split(/[\s|/]/g).concat('__fn');
     assert(get(handlers, path) === undefined, `Path re-defined: ${request}`);
     set(handlers, path, wrappedHandler);
     // ensure no path parameter collisions
-    assert(path.reduce(
-      (p, c) => (c !== false && (!/^{.*?}$/.test(c) || Object.keys(p).length === 1) ? p[c] : false),
-      handlers
-    ) !== false, `Path parameter collision: ${request}`);
+    assert(path.reduce((p, c) => (p !== false && (
+      !/^{.*?}$/.test(c)
+      || Object.keys(p).filter(e => e !== '__fn').length === 1
+    ) ? p[c] : false), handlers) !== false, `Path parameter collision: ${request}`);
 
     return wrappedHandler;
   };
@@ -154,7 +154,7 @@ const Api = (options = {}) => {
       return Promise.resolve('OK - No API Gateway call detected.');
     }
 
-    const path = [event.httpMethod, ...get(event, 'path', '').split('/')]
+    const path = [event.httpMethod, ...get(event, 'path', '').split('/'), '__fn']
       .filter(e => typeof e === 'string' && e.length > 0);
     let method = handlers;
     const pathParameters = {};
@@ -177,7 +177,8 @@ const Api = (options = {}) => {
         }
         method = target;
         if (key.endsWith('+}')) {
-          Object.assign(pathParameters, { [pathParameter]: path.slice(idx).join('/') });
+          Object.assign(pathParameters, { [pathParameter]: path.slice(idx, -1).join('/') });
+          method = get(method, '__fn');
           break;
         }
         Object.assign(pathParameters, { [pathParameter]: segment });
