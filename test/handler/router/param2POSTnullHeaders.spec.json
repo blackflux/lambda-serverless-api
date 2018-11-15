@@ -1,0 +1,19 @@
+{
+  "handler": "router",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 200,
+      "body": "{\"username\":\"default\",\"email\":\"default\",\"xCustomHeader\":null}"
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "path": "/param2",
+    "httpMethod": "POST",
+    "headers": null
+  }
+}
