@@ -138,18 +138,14 @@ const Api = (options = {}) => {
           .catch(err => generateResponse(err, null, rb, { defaultHeaders }));
       });
 
-    // test for route collisions (has to be different in at least one part where both are static)
+    // test for route collisions
     const routeSignature = request.split(/[\s/]/g).map(e => e.replace(/^{.*?}$/, ':param'));
     routeSignatures.forEach((signature) => {
       if (routeSignature.length !== signature.length) {
         return;
       }
       for (let idx = 0; idx < signature.length; idx += 1) {
-        if (
-          signature[idx] !== ':param'
-          && routeSignature[idx] !== ':param'
-          && signature[idx] !== routeSignature[idx]
-        ) {
+        if (signature[idx] !== routeSignature[idx]) {
           return;
         }
       }
