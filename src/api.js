@@ -137,6 +137,7 @@ const Api = (options = {}) => {
           .then(payload => generateResponse(null, payload, rb, { defaultHeaders }))
           .catch(err => generateResponse(err, null, rb, { defaultHeaders }));
       });
+    wrappedHandler.isApiEndpoint = true;
 
     // test for route collisions
     const routeSignature = request.split(/[\s/]/g).map(e => e.replace(/^{.*?}$/, ':param'));
