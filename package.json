@@ -63,7 +63,7 @@
     "lib"
   ],
   "dependencies": {
-    "joi": "14.1.0",
+    "joi": "14.3.0",
     "js-yaml": "3.12.0",
     "lambda-rate-limiter": "2.4.6",
     "lambda-rollbar": "1.9.11",
