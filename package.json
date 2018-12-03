@@ -21,7 +21,7 @@
     "lambda-tdd": "2.0.2",
     "nock": "10.0.2",
     "nyc": "13.1.0",
-    "semantic-release": "15.12.0",
+    "semantic-release": "15.12.3",
     "@babel/register": "7.0.0",
     "@babel/core": "7.1.6",
     "@babel/cli": "7.1.5",
