@@ -1,0 +1,23 @@
+{
+  "handler": "param",
+  "success": true,
+  "timeout": 2000,
+  "expect(body|JSON.parse)": {
+    "to.deep.equal()": {
+      "username": "username",
+      "customParam": "customParamResult"
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "httpMethod": "POST",
+    "body|JSON.stringify": {
+      "username": "username"
+    },
+    "queryStringParameters": {
+      "customParam": "customParam"
+    }
+  }
+}

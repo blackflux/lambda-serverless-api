@@ -1,3 +1,4 @@
+const https = require('https');
 const api = require('./../src/api').Api();
 
 module.exports.error = api.wrap('GET error', [], process.env.RATE_LIMIT, () => {
@@ -16,6 +17,17 @@ module.exports.proxy = api.wrap('GET proxy/{proxy+}', [
   api.Str('proxy+', 'path')
 ], process.env.RATE_LIMIT, ({ proxy }) => api.JsonResponse({ path: proxy }));
 
+const externalRequest = value => (value === undefined
+  ? undefined
+  : new Promise(resolve => https.get('https://foo.com', (resp) => {
+    let data = '';
+    resp.on('data', (chunk) => {
+      data += chunk;
+    });
+    resp.on('end', () => {
+      resolve(data);
+    });
+  })));
 module.exports.param = api.wrap('POST param', [
   api.Str('username', 'json'),
   api.Email('email', 'json', false),
@@ -41,7 +53,8 @@ module.exports.param = api.wrap('POST param', [
   api.GeoRect('geoRectParam', 'query', false),
   api.GeoShape('geoShapeParam', {}, 'query', false),
   api.Json('jsonParam', api.Joi.object().required(), 'json', false),
-  api.Json('jsonParam', api.Joi.object().required(), 'query', false)
+  api.Json('jsonParam', api.Joi.object().required(), 'query', false),
+  api.Custom('customParam', value => /[a-z]+/.test(value), externalRequest, 'string', 'query', false)
 ], process.env.RATE_LIMIT, params => api.JsonResponse(params));
 
 module.exports.param2 = api.wrap('POST param2', [

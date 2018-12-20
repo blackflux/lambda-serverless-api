@@ -418,3 +418,25 @@ class NumberParam extends Json {
   }
 }
 module.exports.Number = (...args) => new NumberParam(...args);
+
+class Custom extends Param {
+  constructor(name, validator, getter, type, ...args) {
+    super(name, ...args);
+    this.type = type;
+    this.validator = validator;
+    this.getter = getter;
+  }
+
+  validate(value) {
+    let valid = super.validate(value);
+    if (valid && !(this.validator(value))) {
+      valid = false;
+    }
+    return valid;
+  }
+
+  async get(event) {
+    return this.getter(super.get(event));
+  }
+}
+module.exports.Custom = (...args) => new Custom(...args);

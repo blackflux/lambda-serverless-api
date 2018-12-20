@@ -1,0 +1,29 @@
+{
+  "handler": "param",
+  "success": true,
+  "timeout": 2000,
+  "expect(statusCode)": {
+    "to.equal()": 400
+  },
+  "expect(body|JSON.parse)": {
+    "to.deep.equal()": {
+      "message": "Invalid Value for query-Parameter \"customParam\" provided.",
+      "messageId": 99003,
+      "context": {
+        "value": "123"
+      }
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "httpMethod": "POST",
+    "body|JSON.stringify": {
+      "username": "username"
+    },
+    "queryStringParameters": {
+      "customParam": "123"
+    }
+  }
+}

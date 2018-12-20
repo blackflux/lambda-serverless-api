@@ -46,11 +46,14 @@ const parse = (request, params, eventRaw) => {
     });
   }
 
-  return Promise.resolve(params
-    .reduce((prev, cur) => Object.assign(prev, {
-      [cur.name
-        .replace(/(?:^\w|[A-Z]|\b\w)/g, (l, idx) => (idx === 0 ? l.toLowerCase() : l.toUpperCase()))
-        .replace(/[^a-zA-Z0-9]+/g, '')]: cur.get(event)
+  return Promise.all(params.map(async (curParam) => {
+    const paramResult = await curParam.get(event);
+    return [curParam.name
+      .replace(/(?:^\w|[A-Z]|\b\w)/g, (l, idx) => (idx === 0 ? l.toLowerCase() : l.toUpperCase()))
+      .replace(/[^a-zA-Z0-9]+/g, ''), paramResult];
+  }))
+    .then(resolvedParams => resolvedParams.reduce((prev, [key, value]) => Object.assign(prev, {
+      [key]: value
     }), {}));
 };
 
@@ -103,7 +106,8 @@ const staticExports = {
   NumberList: param.NumberList,
   GeoPoint: param.GeoPoint,
   GeoRect: param.GeoRect,
-  GeoShape: param.GeoShape
+  GeoShape: param.GeoShape,
+  Custom: param.Custom
 };
 
 const Api = (options = {}) => {
