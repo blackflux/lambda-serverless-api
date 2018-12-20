@@ -435,7 +435,7 @@ class Custom extends Param {
     return valid;
   }
 
-  async get(event) {
+  get(event) {
     return this.getter(super.get(event));
   }
 }
