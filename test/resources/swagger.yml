@@ -112,7 +112,7 @@ paths:
           type: string
           format: Json
           in: query
-        - name: customParam
+        - name: paramWithGetter
           required: false
           type: string
           format: Str

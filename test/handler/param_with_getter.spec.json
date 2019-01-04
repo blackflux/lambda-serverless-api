@@ -5,7 +5,7 @@
   "expect(body|JSON.parse)": {
     "to.deep.equal()": {
       "username": "username",
-      "customParam": "customParamResult"
+      "paramWithGetter": "customParamResult"
     }
   },
   "logs": {
@@ -17,7 +17,7 @@
       "username": "username"
     },
     "queryStringParameters": {
-      "customParam": "customParam"
+      "paramWithGetter": "customParam"
     }
   }
 }
