@@ -115,7 +115,7 @@ paths:
         - name: customParam
           required: false
           type: string
-          format: Custom
+          format: Str
           in: query
         - in: body
           name: bodyParamData

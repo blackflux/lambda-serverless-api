@@ -14,7 +14,7 @@ const positionMapping = {
 };
 
 class Param {
-  constructor(name, position = 'query', required = true, { nullable = false } = {}) {
+  constructor(name, position = 'query', required = true, { nullable = false, getter = null } = {}) {
     assert(Object.keys(positionMapping).includes(position), `Unknown Parameter Position: ${position}`);
     assert(
       nullable === false || ['json', 'context'].includes(position),
@@ -26,6 +26,7 @@ class Param {
     this.stringInput = !['json', 'context'].includes(position);
     this.required = required;
     this.nullable = nullable;
+    this.getter = getter;
     this.type = null;
   }
 
@@ -55,7 +56,7 @@ class Param {
         value: result
       });
     }
-    return result;
+    return this.getter !== null && ![undefined, null].includes(result) ? this.getter(result) : result;
   }
 }
 
@@ -418,25 +419,3 @@ class NumberParam extends Json {
   }
 }
 module.exports.Number = (...args) => new NumberParam(...args);
-
-class Custom extends Param {
-  constructor(name, validator, getter, type, ...args) {
-    super(name, ...args);
-    this.type = type;
-    this.validator = validator;
-    this.getter = getter;
-  }
-
-  validate(value) {
-    let valid = super.validate(value);
-    if (valid && !(this.validator(value))) {
-      valid = false;
-    }
-    return valid;
-  }
-
-  get(event) {
-    return this.getter(super.get(event));
-  }
-}
-module.exports.Custom = (...args) => new Custom(...args);

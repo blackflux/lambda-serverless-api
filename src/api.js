@@ -106,8 +106,7 @@ const staticExports = {
   NumberList: param.NumberList,
   GeoPoint: param.GeoPoint,
   GeoRect: param.GeoRect,
-  GeoShape: param.GeoShape,
-  Custom: param.Custom
+  GeoShape: param.GeoShape
 };
 
 const Api = (options = {}) => {
