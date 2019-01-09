@@ -24,7 +24,7 @@
     "chai": "4.2.0",
     "coveralls": "3.0.2",
     "js-gardener": "1.33.0",
-    "lambda-tdd": "2.0.2",
+    "lambda-tdd": "2.1.0",
     "nock": "10.0.2",
     "nyc": "13.1.0",
     "request-promise": "4.2.2",
