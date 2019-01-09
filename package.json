@@ -25,7 +25,7 @@
     "coveralls": "3.0.2",
     "js-gardener": "1.33.0",
     "lambda-tdd": "2.0.2",
-    "nock": "10.0.2",
+    "nock": "10.0.6",
     "nyc": "13.1.0",
     "request-promise": "4.2.2",
     "semantic-release": "15.12.0"
