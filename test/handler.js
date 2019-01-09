@@ -1,3 +1,4 @@
+const request = require('request-promise');
 const api = require('./../src/api').Api();
 
 module.exports.error = api.wrap('GET error', [], process.env.RATE_LIMIT, () => {
@@ -41,7 +42,8 @@ module.exports.param = api.wrap('POST param', [
   api.GeoRect('geoRectParam', 'query', false),
   api.GeoShape('geoShapeParam', {}, 'query', false),
   api.Json('jsonParam', api.Joi.object().required(), 'json', false),
-  api.Json('jsonParam', api.Joi.object().required(), 'query', false)
+  api.Json('jsonParam', api.Joi.object().required(), 'query', false),
+  api.Str('paramWithGetter', 'query', false, { getter: () => request({ uri: 'https://foo.com', json: true }) })
 ], process.env.RATE_LIMIT, params => api.JsonResponse(params));
 
 module.exports.param2 = api.wrap('POST param2', [

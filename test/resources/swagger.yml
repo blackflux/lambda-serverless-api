@@ -112,6 +112,11 @@ paths:
           type: string
           format: Json
           in: query
+        - name: paramWithGetter
+          required: false
+          type: string
+          format: Str
+          in: query
         - in: body
           name: bodyParamData
           schema:
