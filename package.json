@@ -13,6 +13,12 @@
   ],
   "author": "Lukas Siemon",
   "devDependencies": {
+    "@babel/cli": "7.1.5",
+    "@babel/core": "7.1.6",
+    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
+    "@babel/plugin-transform-flow-comments": "7.0.0",
+    "@babel/preset-flow": "7.0.0",
+    "@babel/register": "7.0.0",
     "app-root-path": "2.1.0",
     "babel-eslint": "10.0.1",
     "chai": "4.2.0",
@@ -21,13 +27,8 @@
     "lambda-tdd": "2.0.2",
     "nock": "10.0.2",
     "nyc": "13.1.0",
-    "semantic-release": "15.12.0",
-    "@babel/register": "7.0.0",
-    "@babel/core": "7.1.6",
-    "@babel/cli": "7.1.5",
-    "@babel/plugin-transform-flow-comments": "7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
-    "@babel/preset-flow": "7.0.0"
+    "request-promise": "4.2.2",
+    "semantic-release": "15.12.0"
   },
   "version": "0.0.0-development",
   "scripts": {

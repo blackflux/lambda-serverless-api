@@ -59,6 +59,50 @@ The `defaultHeaders` are returned with every request that isn't an unexpected cr
 
 Parameter names are converted to camel case. E.g. `X-Custom-Header` would be passed as `xCustomHeader`.
 
+## Options
+
+All parameter types support the following options:
+
+#### options.nullable
+
+Allow input value to be `null`.<br> 
+_Note: Parameter position must be in [json, context]_
+
+Type: `boolean`
+
+Default: `false`
+
+*Example*
+<!-- eslint-disable no-undef, no-console -->
+```javascript
+/* { "name": null } */
+module.exports = api.wrap('POST name', [
+  api.Str('name', 'json', false, { nullable: true })
+], ({ name }) => {
+  console.log(name); // null
+});
+```
+
+#### options.getter
+
+Optionally asynchronous custom "getting" of variables.<br>
+Getter function takes raw input from event, IE a `query` parameter will always pass String values into the `getter` function.<br>
+
+Type: `Function`
+
+Default: `null`
+
+*Example*
+<!-- eslint-disable no-undef, no-console -->
+```javascript
+/* { "name": "  John   "} */
+module.exports = api.wrap('POST name', [
+  api.Str('name', 'json', true, { getter: input => input.trim() })
+], ({ name }) => {
+  console.log(name); // "John"
+});
+```
+
 ## Swagger Documentation
 
 To generate swagger documentation we can call `api.generateSwagger()` after the api is initialized with routes.

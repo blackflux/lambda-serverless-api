@@ -1,4 +1,4 @@
-const https = require('https');
+const request = require('request-promise');
 const api = require('./../src/api').Api();
 
 module.exports.error = api.wrap('GET error', [], process.env.RATE_LIMIT, () => {
@@ -17,15 +17,6 @@ module.exports.proxy = api.wrap('GET proxy/{proxy+}', [
   api.Str('proxy+', 'path')
 ], process.env.RATE_LIMIT, ({ proxy }) => api.JsonResponse({ path: proxy }));
 
-const externalRequest = () => new Promise(resolve => https.get('https://foo.com', (resp) => {
-  let data = '';
-  resp.on('data', (chunk) => {
-    data += chunk;
-  });
-  resp.on('end', () => {
-    resolve(data);
-  });
-}));
 module.exports.param = api.wrap('POST param', [
   api.Str('username', 'json'),
   api.Email('email', 'json', false),
@@ -52,7 +43,7 @@ module.exports.param = api.wrap('POST param', [
   api.GeoShape('geoShapeParam', {}, 'query', false),
   api.Json('jsonParam', api.Joi.object().required(), 'json', false),
   api.Json('jsonParam', api.Joi.object().required(), 'query', false),
-  api.Str('paramWithGetter', 'query', false, { getter: externalRequest })
+  api.Str('paramWithGetter', 'query', false, { getter: () => request({ uri: 'https://foo.com', json: true }) })
 ], process.env.RATE_LIMIT, params => api.JsonResponse(params));
 
 module.exports.param2 = api.wrap('POST param2', [
