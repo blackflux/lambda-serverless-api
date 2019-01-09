@@ -12,7 +12,11 @@ const param = require('./param');
 const response = require('./response');
 const swagger = require('./swagger');
 
-const parse = (request, params, eventRaw) => {
+const normalizeName = name => name
+  .replace(/(?:^\w|[A-Z]|\b\w)/g, (l, idx) => (idx === 0 ? l.toLowerCase() : l.toUpperCase()))
+  .replace(/[^a-zA-Z0-9]+/g, '');
+
+const parse = async (request, params, eventRaw) => {
   const expectedRequestMethod = request.split(' ')[0];
   const receivedRequestMethod = get(eventRaw, 'httpMethod');
   assert(receivedRequestMethod === expectedRequestMethod, 'Request Method Mismatch');
@@ -45,16 +49,11 @@ const parse = (request, params, eventRaw) => {
       value: invalidJsonParams
     });
   }
-
-  return Promise.all(params.map(async (curParam) => {
-    const paramResult = await curParam.get(event);
-    return [curParam.name
-      .replace(/(?:^\w|[A-Z]|\b\w)/g, (l, idx) => (idx === 0 ? l.toLowerCase() : l.toUpperCase()))
-      .replace(/[^a-zA-Z0-9]+/g, ''), paramResult];
-  }))
-    .then(resolvedParams => resolvedParams.reduce((prev, [key, value]) => Object.assign(prev, {
-      [key]: value
-    }), {}));
+  const resolvedParams = await Promise.all(params.map(async curParam => [
+    normalizeName(curParam.name),
+    await curParam.get(event)
+  ]));
+  return resolvedParams.reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {});
 };
 
 const generateResponse = (err, resp, rb, options) => {
