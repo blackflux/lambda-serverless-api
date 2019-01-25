@@ -24,6 +24,7 @@ module.exports.param = api.wrap('POST param', [
   api.RegEx('notification', '^(1|0)$', 'query', false),
   api.Str('authorizer', 'context', false),
   api.Str('authorizer', 'header', false),
+  api.IsoDate('isoDateParam', 'json', false),
   api.UUID('uuidParam', 'json', false),
   api.List('listParam', 'json', false),
   api.StrList('strListParam', 'json', false),
