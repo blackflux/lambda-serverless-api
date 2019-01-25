@@ -95,6 +95,7 @@ const staticExports = {
   Email: param.Email,
   RegEx: param.RegEx,
   UUID: param.UUID,
+  IsoDate: param.IsoDate,
   Bool: param.Bool,
   Int: param.Int,
   List: param.List,
