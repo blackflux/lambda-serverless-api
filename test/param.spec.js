@@ -40,7 +40,7 @@ describe('Testing Params', () => {
       queryStringParameters: {
         value: '2008-09-15T15:53:00+05:00'
       }
-    })).to.equal(1221475980000);
+    })).to.equal('2008-09-15T15:53:00+05:00');
     expect(() => param.get({
       queryStringParameters: {
         value: '2009-02-30T15:53:00+05:00'
@@ -59,7 +59,7 @@ describe('Testing Params', () => {
       body: {
         value: '2008-09-15T15:53:00+05:00'
       }
-    })).to.equal(1221475980000);
+    })).to.equal('2008-09-15T15:53:00+05:00');
     expect(() => param.get({
       body: {
         value: '2009-02-30T15:53:00+05:00'

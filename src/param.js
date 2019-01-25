@@ -123,14 +123,6 @@ class IsoDate extends RegEx {
     }
     return valid;
   }
-
-  get(event) {
-    const result = super.get(event);
-    if ([undefined, null].includes(result)) {
-      return result;
-    }
-    return Date.parse(result);
-  }
 }
 module.exports.IsoDate = (...args) => new IsoDate(...args);
 
