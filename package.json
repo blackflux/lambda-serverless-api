@@ -13,22 +13,22 @@
   ],
   "author": "Lukas Siemon",
   "devDependencies": {
-    "@babel/cli": "7.1.5",
-    "@babel/core": "7.1.6",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
-    "@babel/plugin-transform-flow-comments": "7.0.0",
+    "@babel/cli": "7.2.3",
+    "@babel/core": "7.2.2",
+    "@babel/plugin-proposal-object-rest-spread": "7.3.1",
+    "@babel/plugin-transform-flow-comments": "7.2.0",
     "@babel/preset-flow": "7.0.0",
     "@babel/register": "7.0.0",
     "app-root-path": "2.1.0",
     "babel-eslint": "10.0.1",
     "chai": "4.2.0",
     "coveralls": "3.0.2",
-    "js-gardener": "1.33.0",
-    "lambda-tdd": "2.0.2",
-    "nock": "10.0.2",
+    "js-gardener": "1.34.2",
+    "lambda-tdd": "2.1.0",
+    "nock": "10.0.6",
     "nyc": "13.1.0",
     "request-promise": "4.2.2",
-    "semantic-release": "15.12.0"
+    "semantic-release": "15.13.3"
   },
   "version": "0.0.0-development",
   "scripts": {
@@ -64,8 +64,8 @@
     "lib"
   ],
   "dependencies": {
-    "joi": "14.1.0",
-    "js-yaml": "3.12.0",
+    "joi": "14.3.1",
+    "js-yaml": "3.12.1",
     "lambda-rate-limiter": "2.4.6",
     "lambda-rollbar": "1.9.11",
     "lodash.defaultsdeep": "4.6.0",
@@ -73,11 +73,12 @@
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
     "lodash.xor": "4.5.0",
+    "moment": "2.24.0",
     "obj-paths": "1.2.1",
-    "object-scan": "2.0.4",
+    "object-scan": "2.1.0",
     "route-recognizer": "0.3.4",
-    "swagger-parser": "6.0.2",
-    "yaml-boost": "1.8.1"
+    "swagger-parser": "6.0.3",
+    "yaml-boost": "1.8.2"
   },
   "peerDependencies": {},
   "nyc": {

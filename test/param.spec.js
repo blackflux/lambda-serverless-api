@@ -34,6 +34,51 @@ describe('Testing Params', () => {
     })).to.throw('Invalid Value for query-Parameter "value" provided.');
   });
 
+  it('Testing IsoDate Parameter (query)', () => {
+    const param = api.IsoDate('value');
+    expect(param.get({
+      queryStringParameters: {
+        value: '2008-09-15T15:53:00+05:00'
+      }
+    })).to.equal(1221475980000);
+    expect(() => param.get({
+      queryStringParameters: {
+        value: '2009-02-30T15:53:00+05:00'
+      }
+    })).to.throw('Invalid Value for query-Parameter "value" provided.');
+    expect(() => param.get({
+      queryStringParameters: {
+        value: '2008-09-15T15:53:00'
+      }
+    })).to.throw('Invalid Value for query-Parameter "value" provided.');
+  });
+
+  it('Testing IsoDate Parameter (json)', () => {
+    const param = api.IsoDate('value', 'json');
+    expect(param.get({
+      body: {
+        value: '2008-09-15T15:53:00+05:00'
+      }
+    })).to.equal(1221475980000);
+    expect(() => param.get({
+      body: {
+        value: '2009-02-30T15:53:00+05:00'
+      }
+    })).to.throw('Invalid Value for json-Parameter "value" provided.');
+    expect(() => param.get({
+      body: {
+        value: '2008-09-15T15:53:00'
+      }
+    })).to.throw('Invalid Value for json-Parameter "value" provided.');
+  });
+
+  it('Testing IsoDate Parameter Undefined (json)', () => {
+    const param = api.IsoDate('value', 'json', false);
+    expect(param.get({
+      body: {}
+    })).to.equal(undefined);
+  });
+
   it('Testing Bool Parameter (query)', () => {
     const param = api.Bool('enabled');
     expect(param.get({
