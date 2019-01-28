@@ -77,7 +77,7 @@
     "obj-paths": "1.2.1",
     "object-scan": "2.1.0",
     "route-recognizer": "0.3.4",
-    "swagger-parser": "6.0.3",
+    "swagger-parser": "6.0.5",
     "yaml-boost": "1.8.2"
   },
   "peerDependencies": {},
