@@ -75,7 +75,7 @@ const generateResponse = (err, resp, rb, options) => {
     return Object.assign(
       {
         statusCode: resp.statusCode,
-        body: resp.payload
+        body: get(resp, 'isJsonResponse') === true ? JSON.stringify(resp.payload) : resp.payload
       },
       Object.keys(headers).length === 0 ? {} : { headers }
     );

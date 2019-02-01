@@ -26,8 +26,9 @@ module.exports.ApiResponse = (...args) => new ApiResponse(...args);
 // --------------------------
 
 class JsonResponse extends ApiResponse {
-  constructor(payload, ...args) {
-    super(JSON.stringify(payload), ...args);
+  constructor(...args) {
+    super(...args);
+    this.isJsonResponse = true;
   }
 }
 module.exports.JsonResponseClass = JsonResponse;
