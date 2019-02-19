@@ -16,9 +16,20 @@ describe('Testing Response', () => {
   });
 
   it('Testing Multi Methods for Options Request', (done) => {
+    api = Api({ preflightCheck: args => args });
     api.wrap('GET path', [], 10);
     api.wrap('DELETE path', [], 10);
-    done();
+    api.router({ httpMethod: 'OPTIONS', path: '/path' }, {}, (err, resp) => {
+      expect(err).to.equal(null);
+      expect(resp).to.deep.equal({
+        statusCode: 200,
+        headers: {
+          path: 'path',
+          allowedMethods: ['OPTIONS', 'GET', 'DELETE']
+        }
+      });
+      done();
+    });
   });
 
   it('Testing Default Options Request Fails', (done) => {
