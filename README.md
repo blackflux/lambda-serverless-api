@@ -110,11 +110,14 @@ module.exports = api.wrap('POST name', [
 
 ## Preflight Requests
 
-When the API is exposed for web clients one needs to deal with preflight "OPTIONS" requests. By default all OPTIONS requests
-are allowed, but denied. To customize this one needs to overwrite the `preflightCheck` option.
+When the API is exposed for web clients one needs to deal with preflight 
+"OPTIONS" requests. By default all OPTIONS requests are denied. To 
+customize this one needs to overwrite the `preflightCheck` option.
 
-An example implementation of this can be found in `handler.js`. The response is expected to be an object on success (otherwise false)
-that contains all headers that should be returned. The passed parameters are 
+An example implementation of this can be found in `test/handler.js`.
+The response is expected to be an object on success and otherwise false.
+The object is expected to contains all headers that should be returned. 
+The parameters passed into the function are 
 `origin, allowedMethods, accessControlRequestMethod, accessControlRequestHeaders, path`.
 
 ## Swagger Documentation
