@@ -116,6 +116,8 @@ const Api = (options = {}) => {
   const rollbar = Rollbar(get(options, 'rollbar', {}));
   const limiter = Limiter(get(options, 'limiter', {}));
   const defaultHeaders = get(options, 'defaultHeaders', {});
+  const preflightCheck = get(options, 'preflightCheck', () => false);
+  const preflightHandlers = {};
 
   const wrap = (request, params, limit, handler) => {
     if (request.startsWith('GET ') && params.filter(p => p.position === 'json').length !== 0) {
@@ -157,13 +159,43 @@ const Api = (options = {}) => {
     });
     routeSignatures.push(routeSignature);
 
+    const pathSegments = request.split(/[\s/]/g).map(e => e.replace(
+      /^{(.*?)(\+)?}$/,
+      (_, name, type) => `${type === '+' ? '*' : ':'}${name}`
+    ));
     router.add([{
-      path: request.split(/[\s/]/g).map(e => e.replace(
-        /^{(.*?)(\+)?}$/,
-        (_, name, type) => `${type === '+' ? '*' : ':'}${name}`
-      )).join('/'),
+      path: pathSegments.join('/'),
       handler: wrappedHandler
     }]);
+    const optionsPath = ['OPTIONS', ...pathSegments.slice(1)].join('/');
+    if (preflightHandlers[optionsPath] === undefined) {
+      preflightHandlers[optionsPath] = ['OPTIONS'];
+      router.add([{
+        path: optionsPath,
+        // IMPORTANT: Never return from this vanilla lambda function
+        handler: async (event, context, cb) => {
+          const headersRelevant = Object.entries(event.headers || {})
+            .map(([h, v]) => [normalizeName(h), v])
+            .filter(([h, v]) => [
+              'accessControlRequestMethod',
+              'accessControlRequestHeaders',
+              'origin'
+            ].includes(h))
+            .reduce((p, [h, v]) => Object.assign(p, { [h]: v }), {});
+          const preflightHandlerParams = Object.assign({
+            path: pathSegments.slice(1).join('/'),
+            allowedMethods: preflightHandlers[optionsPath]
+          }, headersRelevant);
+          const preflightHandlerResponse = await preflightCheck(preflightHandlerParams);
+          const pass = preflightHandlerResponse instanceof Object && !Array.isArray(preflightHandlerResponse);
+          cb(null, {
+            statusCode: pass ? 200 : 403,
+            headers: pass ? preflightHandlerResponse : {}
+          });
+        }
+      }]);
+    }
+    preflightHandlers[optionsPath].push(pathSegments[0].toUpperCase());
 
     return wrappedHandler;
   };
