@@ -110,7 +110,7 @@ module.exports = api.wrap('POST name', [
 
 ## Preflight Requests
 
-When the API is exposed for web clients one needs to deal with preflight 
+When the API is exposed to web clients one needs to deal with preflight 
 "OPTIONS" requests. By default all OPTIONS requests are denied. To 
 customize this one needs to overwrite the `preflightCheck` option.
 
