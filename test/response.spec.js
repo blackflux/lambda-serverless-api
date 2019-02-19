@@ -15,6 +15,24 @@ describe('Testing Response', () => {
     done();
   });
 
+  it('Testing Multi Methods for Options Request', (done) => {
+    api.wrap('GET path', [], 10);
+    api.wrap('DELETE path', [], 10);
+    done();
+  });
+
+  it('Testing Default Options Request Fails', (done) => {
+    api.wrap('GET path', [], 10);
+    api.router({ httpMethod: 'OPTIONS', path: '/path' }, {}, (err, resp) => {
+      expect(err).to.equal(null);
+      expect(resp).to.deep.equal({
+        statusCode: 403,
+        headers: {}
+      });
+      done();
+    });
+  });
+
   it('Testing ApiError', (done) => {
     const apiError = response.ApiError();
     expect(apiError instanceof response.ApiErrorClass).to.equal(true);

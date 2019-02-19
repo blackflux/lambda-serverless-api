@@ -1,5 +1,39 @@
 const request = require('request-promise');
-const api = require('./../src/api').Api();
+const api = require('./../src/api').Api({
+  preflightCheck: ({
+    origin, allowedMethods, accessControlRequestMethod, accessControlRequestHeaders
+  }) => {
+    const allowedHeaders = [
+      'Origin',
+      'X-Requested-With',
+      'Content-Type',
+      'X-Amz-Date',
+      'Authorization',
+      'X-Api-Key',
+      'X-Amz-Security-Token',
+      'X-Amz-User-Agent'
+    ].map(h => h.toLowerCase());
+    const allowedOrigins = [
+      'https://test.com'
+    ];
+
+    if (!allowedMethods.includes(accessControlRequestMethod)) {
+      return false;
+    }
+    if (!accessControlRequestHeaders.split(', ').map(h => h.toLowerCase()).every(h => allowedHeaders.includes(h))) {
+      return false;
+    }
+    if (!allowedOrigins.includes(origin)) {
+      return false;
+    }
+
+    return {
+      'Access-Control-Allow-Origin': origin,
+      'Access-Control-Allow-Headers': allowedHeaders.join(','),
+      'Access-Control-Allow-Methods': allowedMethods.join(',')
+    };
+  }
+});
 
 module.exports.error = api.wrap('GET error', [], process.env.RATE_LIMIT, () => {
   throw api.ApiError('Some Error', 400, 2341);
