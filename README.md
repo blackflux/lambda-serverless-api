@@ -108,6 +108,23 @@ module.exports = api.wrap('POST name', [
 });
 ```
 
+## Preflight Requests
+
+When the API is exposed to web clients one needs to deal with preflight 
+"OPTIONS" requests. By default all OPTIONS requests are denied. To 
+customize this one needs to overwrite the `preflightCheck` option.
+
+An example implementation of this can be found in `test/handler.js`.
+The response is expected to be an object on success and otherwise false.
+The object is expected to contains all headers that should be returned. 
+The parameters passed into the function are 
+`origin, allowedMethods, accessControlRequestMethod, accessControlRequestHeaders, path`.
+
+## Default Headers
+
+Can be defined as a static object, or as a function taking in the request headers. This is e.g. useful for 
+returning the correct origin for cross origin requests with multiple allowed origins.
+
 ## Swagger Documentation
 
 To generate swagger documentation we can call `api.generateSwagger()` after the api is initialized with routes.

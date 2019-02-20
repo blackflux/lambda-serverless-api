@@ -15,6 +15,64 @@ describe('Testing Response', () => {
     done();
   });
 
+  it('Testing defaultHeaders function (echo)', (done) => {
+    api = Api({ defaultHeaders: headers => headers });
+    api.wrap('GET path', [], 10, () => api.JsonResponse({}));
+    api.router({ httpMethod: 'GET', path: '/path', headers: { some: 'header' } }, {}, (err, resp) => {
+      expect(err).to.equal(null);
+      expect(resp).to.deep.equal({
+        statusCode: 200,
+        body: '{}',
+        headers: { some: 'header' }
+      });
+      done();
+    });
+  });
+
+  it('Testing defaultHeaders function (empty)', (done) => {
+    api = Api({ defaultHeaders: headers => headers });
+    api.wrap('GET path', [], 10, () => api.JsonResponse({}));
+    api.router({ httpMethod: 'GET', path: '/path' }, {}, (err, resp) => {
+      expect(err).to.equal(null);
+      expect(resp).to.deep.equal({
+        statusCode: 200,
+        body: '{}'
+      });
+      done();
+    });
+  });
+
+  it('Testing Multi Methods for Options Request', (done) => {
+    api = Api({ preflightCheck: args => args });
+    api.wrap('GET path', [], 10);
+    api.wrap('DELETE path', [], 10);
+    api.router({ httpMethod: 'OPTIONS', path: '/path' }, {}, (err, resp) => {
+      expect(err).to.equal(null);
+      expect(resp).to.deep.equal({
+        statusCode: 200,
+        body: '',
+        headers: {
+          path: 'path',
+          allowedMethods: ['OPTIONS', 'GET', 'DELETE']
+        }
+      });
+      done();
+    });
+  });
+
+  it('Testing Default Options Request Fails', (done) => {
+    api.wrap('GET path', [], 10);
+    api.router({ httpMethod: 'OPTIONS', path: '/path' }, {}, (err, resp) => {
+      expect(err).to.equal(null);
+      expect(resp).to.deep.equal({
+        statusCode: 403,
+        body: '',
+        headers: { 'X-Custom-Header': 'header-value' }
+      });
+      done();
+    });
+  });
+
   it('Testing ApiError', (done) => {
     const apiError = response.ApiError();
     expect(apiError instanceof response.ApiErrorClass).to.equal(true);

@@ -116,6 +116,12 @@ const Api = (options = {}) => {
   const rollbar = Rollbar(get(options, 'rollbar', {}));
   const limiter = Limiter(get(options, 'limiter', {}));
   const defaultHeaders = get(options, 'defaultHeaders', {});
+  const preflightCheck = get(options, 'preflightCheck', () => false);
+  const preflightHandlers = {};
+
+  const generateDefaultHeaders = inputHeaders => (typeof defaultHeaders === 'function'
+    ? defaultHeaders(inputHeaders || {})
+    : defaultHeaders);
 
   const wrap = (request, params, limit, handler) => {
     if (request.startsWith('GET ') && params.filter(p => p.position === 'json').length !== 0) {
@@ -125,21 +131,34 @@ const Api = (options = {}) => {
       throw new Error('Path Parameter not defined in given path.');
     }
     endpoints[request] = params;
-    const wrappedHandler = rollbar
-      .wrap((event, context, rb) => {
-        if (!event.httpMethod) {
-          return Promise.resolve('OK - No API Gateway call detected.');
-        }
-        return limiter
+
+    const wrapHandler = ({ event, rb, hdl }) => {
+      if (!event.httpMethod) {
+        return Promise.resolve('OK - No API Gateway call detected.');
+      }
+      return hdl
+        .reduce((p, c) => p.then(c), limiter
           .check(limit, get(event, 'requestContext.identity.sourceIp'))
           .catch(() => {
             throw response.ApiError('Rate limit exceeded.', 429);
-          })
-          .then(() => parse(request, params, event))
-          .then(paramsOut => handler(paramsOut, context, rb, event))
-          .then(payload => generateResponse(null, payload, rb, { defaultHeaders }))
-          .catch(err => generateResponse(err, null, rb, { defaultHeaders }));
-      });
+          }))
+        .then(async payload => generateResponse(null, payload, rb, {
+          defaultHeaders: await generateDefaultHeaders(event.headers)
+        }))
+        .catch(async err => generateResponse(err, null, rb, {
+          defaultHeaders: await generateDefaultHeaders(event.headers)
+        }));
+    };
+
+    const wrappedHandler = rollbar
+      .wrap((event, context, rb) => wrapHandler({
+        event,
+        rb,
+        hdl: [
+          () => parse(request, params, event),
+          paramsOut => handler(paramsOut, context, rb, event)
+        ]
+      }));
     wrappedHandler.isApiEndpoint = true;
 
     // test for route collisions
@@ -157,13 +176,46 @@ const Api = (options = {}) => {
     });
     routeSignatures.push(routeSignature);
 
+    const pathSegments = request.split(/[\s/]/g).map(e => e.replace(
+      /^{(.*?)(\+)?}$/,
+      (_, name, type) => `${type === '+' ? '*' : ':'}${name}`
+    ));
     router.add([{
-      path: request.split(/[\s/]/g).map(e => e.replace(
-        /^{(.*?)(\+)?}$/,
-        (_, name, type) => `${type === '+' ? '*' : ':'}${name}`
-      )).join('/'),
+      path: pathSegments.join('/'),
       handler: wrappedHandler
     }]);
+    const optionsPath = ['OPTIONS', ...pathSegments.slice(1)].join('/');
+    if (preflightHandlers[optionsPath] === undefined) {
+      preflightHandlers[optionsPath] = ['OPTIONS'];
+
+      const optionsHandler = rollbar
+        .wrap((event, context, rb) => wrapHandler({
+          event,
+          rb,
+          hdl: [
+            async () => {
+              const headersRelevant = Object.entries(event.headers || {})
+                .map(([h, v]) => [normalizeName(h), v])
+                .filter(([h, v]) => [
+                  'accessControlRequestMethod',
+                  'accessControlRequestHeaders',
+                  'origin'
+                ].includes(h))
+                .reduce((p, [h, v]) => Object.assign(p, { [h]: v }), {});
+              const preflightHandlerParams = Object.assign({
+                path: pathSegments.slice(1).join('/'),
+                allowedMethods: preflightHandlers[optionsPath]
+              }, headersRelevant);
+              const preflightHandlerResponse = await preflightCheck(preflightHandlerParams);
+              const pass = preflightHandlerResponse instanceof Object && !Array.isArray(preflightHandlerResponse);
+              return response.ApiResponse('', pass ? 200 : 403, pass ? preflightHandlerResponse : {});
+            }
+          ]
+        }));
+      optionsHandler.isApiEndpoint = true;
+      router.add([{ path: optionsPath, handler: optionsHandler }]);
+    }
+    preflightHandlers[optionsPath].push(pathSegments[0].toUpperCase());
 
     return wrappedHandler;
   };

@@ -1,0 +1,23 @@
+{
+  "handler": "router",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 403,
+      "body": ""
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "path": "/json",
+    "httpMethod": "OPTIONS",
+    "headers": {
+      "Access-Control-Request-Method": "GET",
+      "Access-Control-Request-Headers": "origin, x-requested-with",
+      "Origin": "https://other.com"
+    }
+  }
+}
