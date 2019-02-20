@@ -119,6 +119,10 @@ const Api = (options = {}) => {
   const preflightCheck = get(options, 'preflightCheck', () => false);
   const preflightHandlers = {};
 
+  const generateDefaultHeaders = inputHeaders => (typeof defaultHeaders === 'function'
+    ? defaultHeaders(inputHeaders || {})
+    : defaultHeaders);
+
   const wrap = (request, params, limit, handler) => {
     if (request.startsWith('GET ') && params.filter(p => p.position === 'json').length !== 0) {
       throw new Error('Can not use JSON parameter with GET requests.');
@@ -138,8 +142,12 @@ const Api = (options = {}) => {
           .catch(() => {
             throw response.ApiError('Rate limit exceeded.', 429);
           }))
-        .then(payload => generateResponse(null, payload, rb, { defaultHeaders }))
-        .catch(err => generateResponse(err, null, rb, { defaultHeaders }));
+        .then(async payload => generateResponse(null, payload, rb, {
+          defaultHeaders: await generateDefaultHeaders(event.headers)
+        }))
+        .catch(async err => generateResponse(err, null, rb, {
+          defaultHeaders: await generateDefaultHeaders(event.headers)
+        }));
     };
 
     const wrappedHandler = rollbar
