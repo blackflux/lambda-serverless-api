@@ -5,7 +5,7 @@
   "expect": {
     "to.deep.equal()": {
       "statusCode": 403,
-      "headers": {}
+      "body": ""
     }
   },
   "logs": {

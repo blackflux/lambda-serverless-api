@@ -23,6 +23,7 @@ describe('Testing Response', () => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 200,
+        body: '',
         headers: {
           path: 'path',
           allowedMethods: ['OPTIONS', 'GET', 'DELETE']
@@ -38,7 +39,8 @@ describe('Testing Response', () => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 403,
-        headers: {}
+        body: '',
+        headers: { 'X-Custom-Header': 'header-value' }
       });
       done();
     });

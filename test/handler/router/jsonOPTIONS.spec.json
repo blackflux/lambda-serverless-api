@@ -5,6 +5,7 @@
   "expect": {
     "to.deep.equal()": {
       "statusCode": 200,
+      "body": "",
       "headers": {
         "Access-Control-Allow-Origin": "https://test.com",
         "Access-Control-Allow-Headers": "origin,x-requested-with,content-type,x-amz-date,authorization,x-api-key,x-amz-security-token,x-amz-user-agent",
