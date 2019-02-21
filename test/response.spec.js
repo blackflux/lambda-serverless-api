@@ -18,12 +18,18 @@ describe('Testing Response', () => {
   it('Testing defaultHeaders function (echo)', (done) => {
     api = Api({ defaultHeaders: headers => headers });
     api.wrap('GET path', [], 10, () => api.JsonResponse({}));
-    api.router({ httpMethod: 'GET', path: '/path', headers: { some: 'header' } }, {}, (err, resp) => {
+    api.router({
+      httpMethod: 'GET',
+      path: '/path',
+      headers: {
+        'X-Custom-Header': 'header-value'
+      }
+    }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 200,
         body: '{}',
-        headers: { some: 'header' }
+        headers: { xCustomHeader: 'header-value' }
       });
       done();
     });

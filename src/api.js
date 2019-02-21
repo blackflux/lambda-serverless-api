@@ -120,7 +120,9 @@ const Api = (options = {}) => {
   const preflightHandlers = {};
 
   const generateDefaultHeaders = inputHeaders => (typeof defaultHeaders === 'function'
-    ? defaultHeaders(inputHeaders || {})
+    ? defaultHeaders(Object
+      .entries(inputHeaders || {})
+      .reduce((p, [k, v]) => Object.assign(p, { [normalizeName(k)]: v }), {}))
     : defaultHeaders);
 
   const wrap = (request, params, limit, handler) => {

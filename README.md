@@ -125,6 +125,8 @@ The parameters passed into the function are
 Can be defined as a static object, or as a function taking in the request headers. This is e.g. useful for 
 returning the correct origin for cross origin requests with multiple allowed origins.
 
+Note that the request headers are normalized to lower camel case.
+
 ## Swagger Documentation
 
 To generate swagger documentation we can call `api.generateSwagger()` after the api is initialized with routes.
