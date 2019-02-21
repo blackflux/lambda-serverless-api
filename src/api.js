@@ -240,6 +240,7 @@ const Api = (options = {}) => {
       }
     }
   };
+  routerFn.isApiEndpoint = true;
 
   const generateDifference = (swaggerFile, serverlessFile, serverlessVars) => {
     const serverlessData = yaml.load(serverlessFile, serverlessVars);
