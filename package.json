@@ -22,7 +22,7 @@
     "app-root-path": "2.1.0",
     "babel-eslint": "10.0.1",
     "chai": "4.2.0",
-    "coveralls": "3.0.2",
+    "coveralls": "3.0.3",
     "js-gardener": "1.37.3",
     "lambda-tdd": "2.1.2",
     "nock": "10.0.6",
