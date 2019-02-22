@@ -31,7 +31,11 @@ First we need to wrap our lambda endpoint. Inside the lambda function we can the
 const api = require('lambda-serverless-api').Api({
   limiter: {},
   rollbar: {},
-  defaultHeaders: {}
+  defaultHeaders: {},
+  preflightCheck: () => false,
+  preRequestHook: (event, context, rb) => {
+    // log or throw error here
+  }
 });
 
 module.exports = api.wrap('POST register', [
@@ -126,6 +130,12 @@ Can be defined as a static object, or as a function taking in the request header
 returning the correct origin for cross origin requests with multiple allowed origins.
 
 Note that the request headers are normalized to lower camel case.
+
+## Pre Request Hook
+
+Can define a `preRequestHook` function. This can be used to log events or throw api errors generically.
+
+Takes parameters `event` (raw lambda function event), `context` (raw lambda function context) and `rb` (rollbar logger).
 
 ## Swagger Documentation
 

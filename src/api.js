@@ -118,6 +118,7 @@ const Api = (options = {}) => {
   const defaultHeaders = get(options, 'defaultHeaders', {});
   const preflightCheck = get(options, 'preflightCheck', () => false);
   const preflightHandlers = {};
+  const preRequestHook = get(options, 'preRequestHook');
 
   const generateDefaultHeaders = inputHeaders => (typeof defaultHeaders === 'function'
     ? defaultHeaders(Object
@@ -134,16 +135,22 @@ const Api = (options = {}) => {
     }
     endpoints[request] = params;
 
-    const wrapHandler = ({ event, rb, hdl }) => {
+    const wrapHandler = ({
+      event, context, rb, hdl
+    }) => {
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
-      return hdl
-        .reduce((p, c) => p.then(c), limiter
+      return [
+        () => (typeof preRequestHook === 'function' ? preRequestHook(event, context, rb) : Promise.resolve()),
+        () => limiter
           .check(limit, get(event, 'requestContext.identity.sourceIp'))
           .catch(() => {
             throw response.ApiError('Rate limit exceeded.', 429);
-          }))
+          }),
+        ...hdl
+      ]
+        .reduce((p, c) => p.then(c), Promise.resolve())
         .then(async payload => generateResponse(null, payload, rb, {
           defaultHeaders: await generateDefaultHeaders(event.headers)
         }))
@@ -155,6 +162,7 @@ const Api = (options = {}) => {
     const wrappedHandler = rollbar
       .wrap((event, context, rb) => wrapHandler({
         event,
+        context,
         rb,
         hdl: [
           () => parse(request, params, event),
@@ -193,6 +201,7 @@ const Api = (options = {}) => {
       const optionsHandler = rollbar
         .wrap((event, context, rb) => wrapHandler({
           event,
+          context,
           rb,
           hdl: [
             async () => {

@@ -15,6 +15,48 @@ describe('Testing Response', () => {
     done();
   });
 
+  it('Testing preRequestHook (log)', (done) => {
+    let lastEvent = null;
+    api = Api({
+      preRequestHook: (event) => {
+        lastEvent = event;
+      }
+    });
+    api.wrap('GET path', [], 10, () => api.JsonResponse({}));
+    api.router({ httpMethod: 'GET', path: '/path' }, {}, (err, resp) => {
+      expect(lastEvent).to.deep.equal({
+        httpMethod: 'GET',
+        path: '/path',
+        pathParameters: {}
+      });
+      expect(err).to.equal(null);
+      expect(resp).to.deep.equal({
+        statusCode: 200,
+        body: '{}'
+      });
+      done();
+    });
+  });
+
+  it('Testing preRequestHook (error)', (done) => {
+    api = Api({
+      preRequestHook: () => {
+        throw api.ApiError('Some Error');
+      }
+    });
+    api.wrap('GET path', [], 10);
+    api.router({ httpMethod: 'GET', path: '/path' }, {
+      getRemainingTimeInMillis: () => 0
+    }, (err, resp) => {
+      expect(err).to.equal(null);
+      expect(resp).to.deep.equal({
+        statusCode: 400,
+        body: '{"message":"Some Error"}'
+      });
+      done();
+    });
+  });
+
   it('Testing defaultHeaders function (echo)', (done) => {
     api = Api({ defaultHeaders: headers => headers });
     api.wrap('GET path', [], 10, () => api.JsonResponse({}));
