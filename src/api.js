@@ -170,6 +170,7 @@ const Api = (options = {}) => {
         ]
       }));
     wrappedHandler.isApiEndpoint = true;
+    wrappedHandler.request = request;
 
     // test for route collisions
     const routeSignature = request.split(/[\s/]/g).map(e => e.replace(/^{.*?}$/, ':param'));
@@ -224,6 +225,7 @@ const Api = (options = {}) => {
           ]
         }));
       optionsHandler.isApiEndpoint = true;
+      optionsHandler.request = optionsPath;
       router.add([{ path: optionsPath, handler: optionsHandler }]);
     }
     preflightHandlers[optionsPath].push(pathSegments[0].toUpperCase());
@@ -250,6 +252,7 @@ const Api = (options = {}) => {
     }
   };
   routerFn.isApiEndpoint = true;
+  routerFn.request = 'ANY';
 
   const generateDifference = (swaggerFile, serverlessFile, serverlessVars) => {
     const serverlessData = yaml.load(serverlessFile, serverlessVars);
