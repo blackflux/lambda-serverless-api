@@ -20,7 +20,8 @@ const api = require('./../src/api').Api({
     if (!allowedMethods.includes(accessControlRequestMethod)) {
       return false;
     }
-    if (!accessControlRequestHeaders.split(', ').map(h => h.toLowerCase()).every(h => allowedHeaders.includes(h))) {
+    if (!accessControlRequestHeaders.split(',').map(h => h
+      .trim().toLowerCase()).every(h => allowedHeaders.includes(h))) {
       return false;
     }
     if (!allowedOrigins.includes(origin)) {
