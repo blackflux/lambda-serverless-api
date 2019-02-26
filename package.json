@@ -23,7 +23,7 @@
     "babel-eslint": "10.0.1",
     "chai": "4.2.0",
     "coveralls": "3.0.3",
-    "js-gardener": "1.37.3",
+    "js-gardener": "1.37.4",
     "lambda-tdd": "2.1.2",
     "nock": "10.0.6",
     "nyc": "13.3.0",
@@ -65,7 +65,7 @@
   ],
   "dependencies": {
     "joi": "14.3.1",
-    "js-yaml": "3.12.1",
+    "js-yaml": "3.12.2",
     "lambda-rate-limiter": "2.4.8",
     "lambda-rollbar": "1.10.3",
     "lodash.defaultsdeep": "4.6.0",
@@ -75,7 +75,7 @@
     "lodash.xor": "4.5.0",
     "moment": "2.24.0",
     "obj-paths": "1.2.2",
-    "object-scan": "2.1.2",
+    "object-scan": "3.0.0",
     "route-recognizer": "0.3.4",
     "swagger-parser": "6.0.5",
     "yaml-boost": "1.8.3"
