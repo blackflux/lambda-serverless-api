@@ -75,7 +75,7 @@
     "lodash.xor": "4.5.0",
     "moment": "2.24.0",
     "obj-paths": "1.2.3",
-    "object-scan": "5.0.1",
+    "object-scan": "5.0.2",
     "route-recognizer": "0.3.4",
     "swagger-parser": "6.0.5",
     "yaml-boost": "1.8.4"
