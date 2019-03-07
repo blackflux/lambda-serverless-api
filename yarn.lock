@@ -3758,10 +3758,10 @@ lambda-rollbar@1.10.4:
     lodash.omit "4.5.0"
     rollbar "2.5.2"
 
-lambda-tdd@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.3.0.tgz#372d373c425af0835fb57cc0aa87c4d4fad8950d"
-  integrity sha512-F7k+TBU0deBUN3OIHowH2ENd6gjYrVg0GXxBWHxqdk76idc66ln6uTuazvGf7ANpafWA8hu4Z1ti0OOtmRnP/g==
+lambda-tdd@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.3.1.tgz#5158ab30603cb7a9b2332b92955505a08e07ae64"
+  integrity sha512-r2MDj3PINZXDP6VIE6bd6n6KFdb+m/R1Bga0ApshAVaeR13Q6YzN6A17ihDBXxF1N04FfJNwvUdnuQcG3scPQQ==
   dependencies:
     app-root-path "2.1.0"
     chai "4.2.0"
