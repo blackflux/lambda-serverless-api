@@ -91,6 +91,7 @@ const staticExports = {
   ApiResponseClass: response.ApiResponseClass,
   JsonResponse: response.JsonResponse,
   JsonResponseClass: response.JsonResponseClass,
+  fieldProjection: response.fieldProjection,
   Str: param.Str,
   Email: param.Email,
   RegEx: param.RegEx,

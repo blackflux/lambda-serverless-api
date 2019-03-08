@@ -3956,7 +3956,7 @@ lodash.capitalize@^4.2.1:
   resolved "https://registry.yarnpkg.com/lodash.capitalize/-/lodash.capitalize-4.2.1.tgz#f826c9b4e2a8511d84e3aca29db05e1a4f3b72a9"
   integrity sha1-+CbJtOKoUR2E46yinbBeGk87cqk=
 
-lodash.clonedeep@~4.5.0:
+lodash.clonedeep@4.5.0, lodash.clonedeep@~4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
@@ -5042,6 +5042,13 @@ object-keys@^1.0.11, object-keys@^1.0.12:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.0.tgz#11bd22348dd2e096a045ab06f6c85bcc340fa032"
   integrity sha512-6OO5X1+2tYkNyNEx6TsCxEqFfRWaqx6EtMiSbGrw8Ob8v9Ne+Hl8rBAgLBZn5wjEz3s/s6U1WXFUFOcxxAwUpg==
+
+object-rewrite@2.1.12:
+  version "2.1.12"
+  resolved "https://registry.yarnpkg.com/object-rewrite/-/object-rewrite-2.1.12.tgz#44cabf93196ee2bfb8dfc7df4583cdb00af78d6f"
+  integrity sha512-X23Ko0OYx9n/cDBrfDIkaSQc6qsKPttCQ6cush3TZcAtnAhuEjhW/O3w6denexmV4/OVZvYCbXVSJbk30pgKXg==
+  dependencies:
+    object-scan "5.0.2"
 
 object-scan@5.0.2:
   version "5.0.2"

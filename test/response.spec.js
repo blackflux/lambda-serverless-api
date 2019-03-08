@@ -177,4 +177,15 @@ describe('Testing Response', () => {
       done();
     });
   });
+
+  it('Testing field projection', () => {
+    expect(api.fieldProjection({
+      k1: {
+        k2: {
+          k3: 'v1',
+          k4: 'v2'
+        }
+      }
+    }, 'k1.k2.k3')).to.deep.equal({ k1: { k2: { k3: 'v1' } } });
+  });
 });

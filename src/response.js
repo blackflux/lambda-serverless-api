@@ -1,3 +1,7 @@
+const objectRewrite = require('object-rewrite');
+const objPaths = require('obj-paths');
+const cloneDeep = require('lodash.clonedeep');
+
 class ApiError extends Error {
   constructor(message, statusCode = 400, messageId = undefined, context = undefined) {
     super(message);
@@ -33,3 +37,9 @@ class JsonResponse extends ApiResponse {
 }
 module.exports.JsonResponseClass = JsonResponse;
 module.exports.JsonResponse = (...args) => new JsonResponse(...args);
+
+module.exports.fieldProjection = (obj, projectionFields) => {
+  const result = cloneDeep(obj);
+  objectRewrite({ retain: objPaths.split(projectionFields) })(result);
+  return result;
+};
