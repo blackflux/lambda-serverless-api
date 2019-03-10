@@ -127,7 +127,6 @@ const Api = (options = {}) => {
   const preflightCheck = get(options, 'preflightCheck', () => false);
   const preflightHandlers = {};
   const preRequestHook = get(options, 'preRequestHook');
-  const pruneResponse = get(options, 'pruneResponse', true);
 
   const generateDefaultHeaders = inputHeaders => (typeof defaultHeaders === 'function'
     ? defaultHeaders(Object
@@ -181,8 +180,7 @@ const Api = (options = {}) => {
           () => parse(request, params, event),
           async (paramsOut) => {
             const result = await handler(paramsOut, context, rb, event);
-            result.fields = (pruneResponse === true
-              && rawAutoPruneFieldsParam !== undefined
+            result.fields = (rawAutoPruneFieldsParam !== undefined
               && paramsOut[rawAutoPruneFieldsParam.name] !== undefined)
               ? objectPaths.split(paramsOut[rawAutoPruneFieldsParam.name])
               : null;
