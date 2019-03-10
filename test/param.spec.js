@@ -20,6 +20,15 @@ describe('Testing Params', () => {
     done();
   });
 
+  it('Testing only one FieldsParam per request', (done) => {
+    expect(() => api.wrap('GET route', [
+      api.FieldsParam('fields1', ['id']),
+      api.FieldsParam('fields2', ['id'])
+    ], 1))
+      .to.throw('Only one "FieldsParam" per endpoint.');
+    done();
+  });
+
   it('Testing UUID param', () => {
     const param = api.UUID('value');
     expect(param.get({

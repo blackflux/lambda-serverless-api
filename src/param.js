@@ -226,6 +226,7 @@ class FieldsParam extends Str {
   constructor(name, paths, ...args) {
     super(name, ...args);
     this.paths = paths;
+    this.isFieldsParam = true;
   }
 
   validate(value) {

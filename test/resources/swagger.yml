@@ -153,9 +153,6 @@ paths:
                 format: StrList
                 items:
                   type: string
-              fieldsParam:
-                type: string
-                format: FieldsParam
               numberParam:
                 type: number
                 format: NumberParam

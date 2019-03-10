@@ -8,6 +8,8 @@ const yaml = require('yaml-boost');
 const Rollbar = require('lambda-rollbar');
 const Limiter = require('lambda-rate-limiter');
 const Router = require('route-recognizer');
+const objectPaths = require('obj-paths');
+const objectRewrite = require('object-rewrite');
 const param = require('./param');
 const response = require('./response');
 const swagger = require('./swagger');
@@ -72,6 +74,11 @@ const generateResponse = (err, resp, rb, options) => {
   }
   if (get(resp, 'isApiResponse') === true) {
     const headers = Object.assign({}, options.defaultHeaders, resp.headers);
+    if (options.fields !== null) {
+      objectRewrite({
+        retain: options.fields
+      })(resp.payload);
+    }
     return Object.assign(
       {
         statusCode: resp.statusCode,
@@ -119,6 +126,7 @@ const Api = (options = {}) => {
   const preflightCheck = get(options, 'preflightCheck', () => false);
   const preflightHandlers = {};
   const preRequestHook = get(options, 'preRequestHook');
+  const pruneResponse = get(options, 'pruneResponse', true);
 
   const generateDefaultHeaders = inputHeaders => (typeof defaultHeaders === 'function'
     ? defaultHeaders(Object
@@ -133,7 +141,11 @@ const Api = (options = {}) => {
     if (params.filter(p => p.position === 'path').some(p => request.indexOf(`{${p.nameOriginal}}`) === -1)) {
       throw new Error('Path Parameter not defined in given path.');
     }
+    if (params.filter(p => p.isFieldsParam).length > 1) {
+      throw new Error('Only one "FieldsParam" per endpoint.');
+    }
     endpoints[request] = params;
+    const rawFieldsParam = params.find(p => p.isFieldsParam === true);
 
     const wrapHandler = ({
       event, context, rb, hdl
@@ -151,8 +163,9 @@ const Api = (options = {}) => {
         ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
-        .then(async payload => generateResponse(null, payload, rb, {
-          defaultHeaders: await generateDefaultHeaders(event.headers)
+        .then(async ([payload, fields]) => generateResponse(null, payload, rb, {
+          defaultHeaders: await generateDefaultHeaders(event.headers),
+          fields
         }))
         .catch(async err => generateResponse(err, null, rb, {
           defaultHeaders: await generateDefaultHeaders(event.headers)
@@ -166,7 +179,12 @@ const Api = (options = {}) => {
         rb,
         hdl: [
           () => parse(request, params, event),
-          paramsOut => handler(paramsOut, context, rb, event)
+          async paramsOut => [
+            await handler(paramsOut, context, rb, event),
+            pruneResponse === true && rawFieldsParam !== undefined && paramsOut[rawFieldsParam.name] !== undefined
+              ? objectPaths.split(paramsOut[rawFieldsParam.name])
+              : null
+          ]
         ]
       }));
     wrappedHandler.isApiEndpoint = true;
@@ -220,7 +238,7 @@ const Api = (options = {}) => {
               }, headersRelevant);
               const preflightHandlerResponse = await preflightCheck(preflightHandlerParams);
               const pass = preflightHandlerResponse instanceof Object && !Array.isArray(preflightHandlerResponse);
-              return response.ApiResponse('', pass ? 200 : 403, pass ? preflightHandlerResponse : {});
+              return [response.ApiResponse('', pass ? 200 : 403, pass ? preflightHandlerResponse : {}), null];
             }
           ]
         }));

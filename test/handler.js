@@ -63,7 +63,6 @@ module.exports.param = api.wrap('POST param', [
   api.UUID('uuidParam', 'json', false),
   api.List('listParam', 'json', false),
   api.StrList('strListParam', 'json', false),
-  api.FieldsParam('fieldsParam', 'id', 'json', false),
   api.Number('numberParam', {}, 'json', false),
   api.NumberList('numberListParam', 'json', false),
   api.GeoPoint('geoPointParam', 'json', false),
