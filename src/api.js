@@ -74,9 +74,10 @@ const generateResponse = (err, resp, rb, options) => {
   }
   if (get(resp, 'isApiResponse') === true) {
     const headers = Object.assign({}, options.defaultHeaders, resp.headers);
-    if (options.fields !== null) {
+    if (get(resp, 'fields', null) !== null) {
+      assert(get(resp, 'isJsonResponse') === true, 'Can only auto prune JsonResponse.');
       objectRewrite({
-        retain: options.fields
+        retain: resp.fields
       })(resp.payload);
     }
     return Object.assign(
@@ -141,11 +142,11 @@ const Api = (options = {}) => {
     if (params.filter(p => p.position === 'path').some(p => request.indexOf(`{${p.nameOriginal}}`) === -1)) {
       throw new Error('Path Parameter not defined in given path.');
     }
-    if (params.filter(p => p.isFieldsParam).length > 1) {
-      throw new Error('Only one "FieldsParam" per endpoint.');
+    if (params.filter(p => param.isAutoPrune(p)).length > 1) {
+      throw new Error('Only one auto pruning "FieldsParam" per endpoint.');
     }
     endpoints[request] = params;
-    const rawFieldsParam = params.find(p => p.isFieldsParam === true);
+    const rawAutoPruneFieldsParam = params.find(p => param.isAutoPrune(p) === true);
 
     const wrapHandler = ({
       event, context, rb, hdl
@@ -163,9 +164,8 @@ const Api = (options = {}) => {
         ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
-        .then(async ([payload, fields]) => generateResponse(null, payload, rb, {
-          defaultHeaders: await generateDefaultHeaders(event.headers),
-          fields
+        .then(async payload => generateResponse(null, payload, rb, {
+          defaultHeaders: await generateDefaultHeaders(event.headers)
         }))
         .catch(async err => generateResponse(err, null, rb, {
           defaultHeaders: await generateDefaultHeaders(event.headers)
@@ -179,12 +179,15 @@ const Api = (options = {}) => {
         rb,
         hdl: [
           () => parse(request, params, event),
-          async paramsOut => [
-            await handler(paramsOut, context, rb, event),
-            pruneResponse === true && rawFieldsParam !== undefined && paramsOut[rawFieldsParam.name] !== undefined
-              ? objectPaths.split(paramsOut[rawFieldsParam.name])
-              : null
-          ]
+          async (paramsOut) => {
+            const result = await handler(paramsOut, context, rb, event);
+            result.fields = (pruneResponse === true
+              && rawAutoPruneFieldsParam !== undefined
+              && paramsOut[rawAutoPruneFieldsParam.name] !== undefined)
+              ? objectPaths.split(paramsOut[rawAutoPruneFieldsParam.name])
+              : null;
+            return result;
+          }
         ]
       }));
     wrappedHandler.isApiEndpoint = true;
@@ -238,7 +241,7 @@ const Api = (options = {}) => {
               }, headersRelevant);
               const preflightHandlerResponse = await preflightCheck(preflightHandlerParams);
               const pass = preflightHandlerResponse instanceof Object && !Array.isArray(preflightHandlerResponse);
-              return [response.ApiResponse('', pass ? 200 : 403, pass ? preflightHandlerResponse : {}), null];
+              return response.ApiResponse('', pass ? 200 : 403, pass ? preflightHandlerResponse : {});
             }
           ]
         }));

@@ -22,10 +22,10 @@ describe('Testing Params', () => {
 
   it('Testing only one FieldsParam per request', (done) => {
     expect(() => api.wrap('GET route', [
-      api.FieldsParam('fields1', ['id']),
-      api.FieldsParam('fields2', ['id'])
+      api.FieldsParam('fields1', { paths: ['id'], autoPrune: true }),
+      api.FieldsParam('fields2', { paths: ['id'], autoPrune: true })
     ], 1))
-      .to.throw('Only one "FieldsParam" per endpoint.');
+      .to.throw('Only one auto pruning "FieldsParam" per endpoint.');
     done();
   });
 
@@ -442,7 +442,7 @@ describe('Testing Params', () => {
   });
 
   it('Testing Fields Parameter (query)', () => {
-    const param = api.FieldsParam('param', ['id', 'user.id', 'user.name']);
+    const param = api.FieldsParam('param', { paths: ['id', 'user.id', 'user.name'] });
     expect(param.get({
       queryStringParameters: {
         param: 'id,user.id,user.name'
@@ -456,7 +456,7 @@ describe('Testing Params', () => {
   });
 
   it('Testing Fields Parameter (json)', () => {
-    const param = api.FieldsParam('param', () => 'id,user(id,name)', 'json');
+    const param = api.FieldsParam('param', { paths: () => 'id,user(id,name)' }, 'json');
     expect(param.get({
       body: {
         param: 'id,user.id,user.name'

@@ -180,7 +180,7 @@ describe('Testing Response', () => {
 
   it('Testing auto field pruning', (done) => {
     api.wrap('GET test', [
-      api.FieldsParam('fields', ['foo'], 'query')
+      api.FieldsParam('fields', { paths: ['foo'], autoPrune: true }, 'query')
     ], 10, (event, context, rb) => rb.warning('123')
       .then(() => api.JsonResponse({
         foo: 'bar',
@@ -205,42 +205,8 @@ describe('Testing Response', () => {
   });
 
   it('Testing pruneResponse false', (done) => {
-    api = Api({
-      defaultHeaders: { 'X-Custom-Header': 'header-value' },
-      pruneResponse: false
-    });
     api.wrap('GET test', [
-      api.FieldsParam('fields', ['foo'], 'query')
-    ], 10, (event, context, rb) => rb.warning('123')
-      .then(() => api.JsonResponse({
-        foo: 'bar',
-        baz: 'quz'
-      }))
-      .catch(done.fail))({
-      httpMethod: 'GET',
-      queryStringParameters: {
-        fields: 'foo'
-      }
-    }, {
-      getRemainingTimeInMillis: () => 0
-    }, (err, resp) => {
-      expect(err).to.be.a('null');
-      expect(resp).to.deep.equal({
-        statusCode: 200,
-        body: '{"foo":"bar","baz":"quz"}',
-        headers: { 'X-Custom-Header': 'header-value' }
-      });
-      done();
-    });
-  });
-
-  it('Testing only one fieldsParam per endpoint', (done) => {
-    api = Api({
-      defaultHeaders: { 'X-Custom-Header': 'header-value' },
-      pruneResponse: false
-    });
-    api.wrap('GET test', [
-      api.FieldsParam('fields', ['foo'], 'query')
+      api.FieldsParam('fields', { paths: ['foo'], autoPrune: false }, 'query')
     ], 10, (event, context, rb) => rb.warning('123')
       .then(() => api.JsonResponse({
         foo: 'bar',
