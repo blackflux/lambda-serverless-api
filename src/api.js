@@ -76,9 +76,7 @@ const generateResponse = (err, resp, rb, options) => {
     const headers = Object.assign({}, options.defaultHeaders, resp.headers);
     if (get(resp, 'fields', null) !== null) {
       assert(get(resp, 'isJsonResponse') === true, 'Can only auto prune JsonResponse.');
-      objectRewrite({
-        retain: resp.fields
-      })(resp.payload);
+      objectRewrite({ retain: resp.fields })(resp.payload);
     }
     return Object.assign(
       {

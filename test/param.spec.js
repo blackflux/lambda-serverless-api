@@ -20,7 +20,7 @@ describe('Testing Params', () => {
     done();
   });
 
-  it('Testing only one FieldsParam per request', (done) => {
+  it('Testing only one autoPrune FieldsParam per request', (done) => {
     expect(() => api.wrap('GET route', [
       api.FieldsParam('fields1', { paths: ['id'], autoPrune: true }),
       api.FieldsParam('fields2', { paths: ['id'], autoPrune: true })
