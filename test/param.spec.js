@@ -447,7 +447,7 @@ describe('Testing Params', () => {
   });
 
   it('Testing Fields Parameter (json)', () => {
-    const param = api.FieldsParam('param', 'id,user(id,name)', 'json');
+    const param = api.FieldsParam('param', () => 'id,user(id,name)', 'json');
     expect(param.get({
       body: {
         param: 'id,user.id,user.name'
