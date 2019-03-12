@@ -215,14 +215,22 @@ class List extends Param {
 module.exports.List = (...args) => new List(...args);
 
 class FieldsParam extends Str {
+  static evaluatePaths(paths) {
+    let result = paths;
+    if (typeof result === 'function') {
+      result = result();
+    }
+    return typeof result === 'string' ? objectPaths.split(result) : result;
+  }
+
   constructor(name, paths, ...args) {
     super(name, ...args);
-    this.paths = Array.isArray(paths) ? paths : objectPaths.split(paths);
+    this.paths = paths;
   }
 
   validate(value) {
     let valid = super.validate(value);
-    if (valid && difference(objectPaths.split(value), this.paths).length !== 0) {
+    if (valid && difference(objectPaths.split(value), FieldsParam.evaluatePaths(this.paths)).length !== 0) {
       valid = false;
     }
     return valid;
