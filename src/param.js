@@ -231,6 +231,7 @@ class FieldsParam extends Str {
     this.paths = paths;
     this.isFieldsParam = true;
     assert(typeof autoPrune === 'boolean');
+    this.autoPrune = autoPrune === true ? AUTO_PRUNE : null;
     Object.defineProperty(this, AUTO_PRUNE, { value: autoPrune, writable: false });
     this.paths = Array.isArray(paths) ? paths : objectPaths.split(paths);
   }

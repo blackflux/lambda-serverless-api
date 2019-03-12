@@ -74,10 +74,6 @@ const generateResponse = (err, resp, rb, options) => {
   }
   if (get(resp, 'isApiResponse') === true) {
     const headers = Object.assign({}, options.defaultHeaders, resp.headers);
-    if (get(resp, 'fields', null) !== null) {
-      assert(get(resp, 'isJsonResponse') === true, 'Can only auto prune JsonResponse.');
-      objectRewrite({ retain: resp.fields })(resp.payload);
-    }
     return Object.assign(
       {
         statusCode: resp.statusCode,
@@ -178,10 +174,10 @@ const Api = (options = {}) => {
           () => parse(request, params, event),
           async (paramsOut) => {
             const result = await handler(paramsOut, context, rb, event);
-            result.fields = (rawAutoPruneFieldsParam !== undefined
-              && paramsOut[rawAutoPruneFieldsParam.name] !== undefined)
-              ? objectPaths.split(paramsOut[rawAutoPruneFieldsParam.name])
-              : null;
+            if (rawAutoPruneFieldsParam !== undefined && paramsOut[rawAutoPruneFieldsParam.name] !== undefined) {
+              assert(get(result, 'isJsonResponse') === true, 'Can only auto prune JsonResponse.');
+              objectRewrite({ retain: objectPaths.split(paramsOut[rawAutoPruneFieldsParam.name]) })(result.payload);
+            }
             return result;
           }
         ]
