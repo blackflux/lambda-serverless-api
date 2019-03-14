@@ -204,6 +204,34 @@ describe('Testing Response', () => {
     });
   });
 
+  it('Testing auto field pruning with path', (done) => {
+    api.wrap('GET test', [
+      api.FieldsParam('fields', { paths: ['foo'], autoPrune: true, autoPrunePath: 'payload' }, 'query')
+    ], 10, (event, context, rb) => rb.warning('123')
+      .then(() => api.JsonResponse({
+        payload: {
+          foo: 'bar',
+          baz: 'quz'
+        }
+      }))
+      .catch(done.fail))({
+      httpMethod: 'GET',
+      queryStringParameters: {
+        fields: 'foo'
+      }
+    }, {
+      getRemainingTimeInMillis: () => 0
+    }, (err, resp) => {
+      expect(err).to.be.a('null');
+      expect(resp).to.deep.equal({
+        statusCode: 200,
+        body: '{"payload":{"foo":"bar"}}',
+        headers: { 'X-Custom-Header': 'header-value' }
+      });
+      done();
+    });
+  });
+
   it('Testing pruneResponse false', (done) => {
     api.wrap('GET test', [
       api.FieldsParam('fields', { paths: ['foo'], autoPrune: false }, 'query')

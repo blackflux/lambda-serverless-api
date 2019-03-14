@@ -5042,6 +5042,13 @@ object-keys@^1.0.11, object-keys@^1.0.12:
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.0.tgz#11bd22348dd2e096a045ab06f6c85bcc340fa032"
   integrity sha512-6OO5X1+2tYkNyNEx6TsCxEqFfRWaqx6EtMiSbGrw8Ob8v9Ne+Hl8rBAgLBZn5wjEz3s/s6U1WXFUFOcxxAwUpg==
 
+object-rewrite@2.1.13:
+  version "2.1.13"
+  resolved "https://registry.yarnpkg.com/object-rewrite/-/object-rewrite-2.1.13.tgz#31f0cf57dd894f489f51ebb486796be9eb9a8a2a"
+  integrity sha512-Hmt9omRMv8B2wKfO8/ltw3cYUguTPfuwmAcCM9wwWkMGpijsLz0gKX+XmTluEL/DxSeSb06MWC9v4u4xWj+idA==
+  dependencies:
+    object-scan "5.0.3"
+
 object-scan@5.0.3:
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-5.0.3.tgz#041c9a3d930cc0938752b71e3a126b8e137205ca"

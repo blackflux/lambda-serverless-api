@@ -135,11 +135,11 @@ const Api = (options = {}) => {
     if (params.filter(p => p.position === 'path').some(p => request.indexOf(`{${p.nameOriginal}}`) === -1)) {
       throw new Error('Path Parameter not defined in given path.');
     }
-    if (params.filter(p => param.isAutoPrune(p)).length > 1) {
+    if (params.filter(p => p.autoPrune === true).length > 1) {
       throw new Error('Only one auto pruning "FieldsParam" per endpoint.');
     }
     endpoints[request] = params;
-    const rawAutoPruneFieldsParam = params.find(p => param.isAutoPrune(p) === true);
+    const rawAutoPruneFieldsParam = params.find(p => p.autoPrune === true);
 
     const wrapHandler = ({
       event, context, rb, hdl
@@ -176,7 +176,12 @@ const Api = (options = {}) => {
             const result = await handler(paramsOut, context, rb, event);
             if (rawAutoPruneFieldsParam !== undefined && paramsOut[rawAutoPruneFieldsParam.name] !== undefined) {
               assert(get(result, 'isJsonResponse') === true, 'Can only auto prune JsonResponse.');
-              objectRewrite({ retain: objectPaths.split(paramsOut[rawAutoPruneFieldsParam.name]) })(result.payload);
+              const autoPrunePath = rawAutoPruneFieldsParam.autoPrunePath;
+              objectRewrite({
+                retain: objectPaths.split(paramsOut[rawAutoPruneFieldsParam.name])
+              })(autoPrunePath !== null
+                ? get(result.payload, rawAutoPruneFieldsParam.autoPrunePath)
+                : result.payload);
             }
             return result;
           }

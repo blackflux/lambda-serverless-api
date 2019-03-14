@@ -214,9 +214,6 @@ class List extends Param {
 }
 module.exports.List = (...args) => new List(...args);
 
-const AUTO_PRUNE = Symbol('AUTO_PRUNE');
-const isAutoPrune = input => input[AUTO_PRUNE] === true;
-module.exports.isAutoPrune = isAutoPrune;
 class FieldsParam extends Str {
   static evaluatePaths(paths) {
     let result = paths;
@@ -226,14 +223,12 @@ class FieldsParam extends Str {
     return typeof result === 'string' ? objectPaths.split(result) : result;
   }
 
-  constructor(name, { paths, autoPrune = true }, ...args) {
+  constructor(name, { paths, autoPrune = true, autoPrunePath = null }, ...args) {
     super(name, ...args);
-    this.paths = paths;
-    this.isFieldsParam = true;
     assert(typeof autoPrune === 'boolean');
-    this.autoPrune = autoPrune === true ? AUTO_PRUNE : null;
-    Object.defineProperty(this, AUTO_PRUNE, { value: autoPrune, writable: false });
-    this.paths = Array.isArray(paths) ? paths : objectPaths.split(paths);
+    this.paths = paths;
+    this.autoPrune = autoPrune;
+    this.autoPrunePath = autoPrunePath;
   }
 
   validate(value) {
