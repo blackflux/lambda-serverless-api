@@ -1,167 +1,25 @@
 const assert = require('assert');
 const get = require('lodash.get');
-const difference = require('lodash.difference');
-const moment = require('moment');
 const Joi = require('joi');
-const objectPaths = require('obj-paths');
-const objectRewrite = require('object-rewrite');
 const Param = require('./params/param');
 const Str = require('./params/str');
 const RegEx = require('./params/regex');
 const Email = require('./params/email');
+const UUID = require('./params/uuid');
+const IsoDate = require('./params/isodate');
+const Bool = require('./params/bool');
+const Int = require('./params/int');
+const List = require('./params/list');
+const FieldsParam = require('./params/fields-param');
 
 module.exports.Str = (...args) => new Str(...args);
 module.exports.RegEx = (...args) => new RegEx(...args);
 module.exports.Email = (...args) => new Email(...args);
-
-class UUID extends RegEx {
-  constructor(name, ...args) {
-    super(name, /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/, ...args);
-  }
-}
 module.exports.UUID = (...args) => new UUID(...args);
-
-class IsoDate extends RegEx {
-  constructor(name, ...args) {
-    super(name, new RegExp(
-      /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|/.source
-      + /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|/.source
-      + /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/.source
-    ), ...args);
-  }
-
-  validate(value) {
-    let valid = super.validate(value);
-    if (valid && !moment(value).isValid()) {
-      valid = false;
-    }
-    return valid;
-  }
-}
 module.exports.IsoDate = (...args) => new IsoDate(...args);
-
-class Bool extends Param {
-  constructor(...args) {
-    super(...args);
-    this.type = 'boolean';
-  }
-
-  validate(value) {
-    let valid = super.validate(value);
-    if (valid && this.stringInput ? !value.match(/^(0|1|true|false)$/) : typeof value !== 'boolean') {
-      valid = false;
-    }
-    return valid;
-  }
-
-  get(event) {
-    const result = super.get(event);
-    if ([undefined, null].includes(result)) {
-      return result;
-    }
-    return this.stringInput ? ['1', 'true'].indexOf(result) !== -1 : result === true;
-  }
-}
 module.exports.Bool = (...args) => new Bool(...args);
-
-class Int extends Param {
-  constructor(...args) {
-    super(...args);
-    this.type = 'integer';
-  }
-
-  validate(value) {
-    let valid = super.validate(value);
-    if (valid && this.stringInput ? !value.match(/^(-?[1-9]+\d*)$|^0$/) : typeof value !== 'number') {
-      valid = false;
-    }
-    return valid;
-  }
-
-  get(event) {
-    const result = super.get(event);
-    if ([undefined, null].includes(result)) {
-      return result;
-    }
-    return this.stringInput ? Number(result) : result;
-  }
-}
 module.exports.Int = (...args) => new Int(...args);
-
-class List extends Param {
-  constructor(...args) {
-    super(...args);
-    this.type = 'array';
-    this.items = {
-      allOf: [
-        { type: 'string' },
-        { type: 'number' },
-        { type: 'integer' },
-        { type: 'boolean' }
-      ]
-    };
-  }
-
-  validate(value) {
-    let valid = super.validate(value);
-    let valueParsed = value;
-    if (valid && this.stringInput) {
-      try {
-        valueParsed = JSON.parse(value);
-      } catch (e) {
-        valid = false;
-      }
-    }
-    if (valid && !Array.isArray(valueParsed)) {
-      valid = false;
-    }
-    return valid;
-  }
-
-  get(event) {
-    const result = super.get(event);
-    if ([undefined, null].includes(result)) {
-      return result;
-    }
-    return this.stringInput ? JSON.parse(result) : result;
-  }
-}
 module.exports.List = (...args) => new List(...args);
-
-class FieldsParam extends Str {
-  static evaluatePaths(paths) {
-    let result = paths;
-    if (typeof result === 'function') {
-      result = result();
-    }
-    return typeof result === 'string' ? objectPaths.split(result) : result;
-  }
-
-  constructor(name, { paths, autoPrune = true, autoPrunePath = null }, ...args) {
-    assert(typeof autoPrune === 'boolean');
-    assert(typeof autoPrunePath === 'string' || autoPrunePath === null);
-    super(name, ...args);
-    this.paramType = 'FieldsParam';
-    this.paths = paths;
-    this.autoPrune = autoPrune;
-    this.autoPrunePath = autoPrunePath;
-  }
-
-  pruneFields(apiResponse, parsedFields) {
-    assert(apiResponse.isJsonResponse === true, 'Can only prune JsonResponse');
-    objectRewrite({
-      retain: parsedFields
-    })(this.autoPrunePath !== null ? get(apiResponse.payload, this.autoPrunePath) : apiResponse.payload);
-  }
-
-  validate(value) {
-    let valid = super.validate(value);
-    if (valid && difference(objectPaths.split(value), FieldsParam.evaluatePaths(this.paths)).length !== 0) {
-      valid = false;
-    }
-    return valid;
-  }
-}
 module.exports.FieldsParam = (...args) => new FieldsParam(...args);
 
 class StrList extends List {
