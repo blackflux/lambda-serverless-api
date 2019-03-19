@@ -74,34 +74,6 @@ describe('Testing Params', () => {
     })).to.equal(undefined);
   });
 
-  it('Testing List Parameter (query)', () => {
-    const param = api.List('list');
-    expect(param.get({
-      queryStringParameters: {
-        list: '["123","345"]'
-      }
-    })).to.deep.equal(['123', '345']);
-    expect(() => param.get({
-      queryStringParameters: {
-        list: 'invalid'
-      }
-    })).to.throw('Invalid Value for query-Parameter "list" provided.');
-  });
-
-  it('Testing List Parameter (json)', () => {
-    const param = api.List('list', 'json');
-    expect(param.get({
-      body: {
-        list: ['123', 123]
-      }
-    })).to.deep.equal(['123', 123]);
-    expect(() => param.get({
-      body: {
-        list: {}
-      }
-    })).to.throw('Invalid Value for json-Parameter "list" provided.');
-  });
-
   it('Testing StrList Parameter (query)', () => {
     const param = api.StrList('list');
     expect(param.get({
