@@ -1,6 +1,6 @@
-const Param = require('./param');
+const Abstract = require('./_abstract');
 
-class Bool extends Param {
+class Bool extends Abstract {
   constructor(...args) {
     super(...args);
     this.type = 'boolean';
