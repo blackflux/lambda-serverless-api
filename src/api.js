@@ -133,7 +133,11 @@ const Api = (options = {}) => {
     if (params.filter(p => p.position === 'path').some(p => request.indexOf(`{${p.nameOriginal}}`) === -1)) {
       throw new Error('Path Parameter not defined in given path.');
     }
+    if (params.filter(p => p.paramType === 'FieldsParam' && p.autoPrune === true).length > 1) {
+      throw new Error('Only one auto pruning "FieldsParam" per endpoint.');
+    }
     endpoints[request] = params;
+    const rawAutoPruneFieldsParam = params.find(p => p.paramType === 'FieldsParam' && p.autoPrune === true);
 
     const wrapHandler = ({
       event, context, rb, hdl
@@ -166,7 +170,13 @@ const Api = (options = {}) => {
         rb,
         hdl: [
           () => parse(request, params, event),
-          paramsOut => handler(paramsOut, context, rb, event)
+          async (paramsOut) => {
+            const result = await handler(paramsOut, context, rb, event);
+            if (rawAutoPruneFieldsParam !== undefined && paramsOut[rawAutoPruneFieldsParam.name] !== undefined) {
+              rawAutoPruneFieldsParam.pruneFields(result, paramsOut[rawAutoPruneFieldsParam.name]);
+            }
+            return result;
+          }
         ]
       }));
     wrappedHandler.isApiEndpoint = true;

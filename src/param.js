@@ -4,6 +4,7 @@ const difference = require('lodash.difference');
 const moment = require('moment');
 const Joi = require('joi');
 const objectPaths = require('obj-paths');
+const objectRewrite = require('object-rewrite');
 const response = require('./response');
 
 const positionMapping = {
@@ -223,9 +224,21 @@ class FieldsParam extends Str {
     return typeof result === 'string' ? objectPaths.split(result) : result;
   }
 
-  constructor(name, paths, ...args) {
+  constructor(name, { paths, autoPrune = true, autoPrunePath = null }, ...args) {
+    assert(typeof autoPrune === 'boolean');
+    assert(typeof autoPrunePath === 'string' || autoPrunePath === null);
     super(name, ...args);
+    this.paramType = 'FieldsParam';
     this.paths = paths;
+    this.autoPrune = autoPrune;
+    this.autoPrunePath = autoPrunePath;
+  }
+
+  pruneFields(apiResponse, parsedFields) {
+    assert(apiResponse.isJsonResponse === true, 'Can only prune JsonResponse');
+    objectRewrite({
+      retain: parsedFields
+    })(this.autoPrunePath !== null ? get(apiResponse.payload, this.autoPrunePath) : apiResponse.payload);
   }
 
   validate(value) {
