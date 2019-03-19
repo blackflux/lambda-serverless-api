@@ -227,6 +227,7 @@ class FieldsParam extends Str {
   constructor(name, { paths, autoPrune = true, autoPrunePath = null }, ...args) {
     super(name, ...args);
     assert(typeof autoPrune === 'boolean');
+    assert(typeof autoPrunePath === 'string' || autoPrunePath === null);
     this.paramType = 'FieldsParam';
     this.paths = paths;
     this.autoPrune = autoPrune;
