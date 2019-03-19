@@ -74,51 +74,6 @@ describe('Testing Params', () => {
     })).to.equal(undefined);
   });
 
-  it('Testing Bool Parameter (query)', () => {
-    const param = api.Bool('enabled');
-    expect(param.get({
-      queryStringParameters: {
-        enabled: 'true'
-      }
-    })).to.equal(true);
-    expect(param.get({
-      queryStringParameters: {
-        enabled: 'false'
-      }
-    })).to.equal(false);
-    expect(() => param.get({
-      queryStringParameters: {
-        enabled: 'invalid'
-      }
-    })).to.throw('Invalid Value for query-Parameter "enabled" provided.');
-  });
-
-  it('Testing Bool Parameter (json)', () => {
-    const param = api.Bool('enabled', 'json');
-    expect(param.get({
-      body: {
-        enabled: true
-      }
-    })).to.equal(true);
-    expect(param.get({
-      body: {
-        enabled: false
-      }
-    })).to.equal(false);
-    expect(() => param.get({
-      body: {
-        enabled: 1
-      }
-    })).to.throw('Invalid Value for json-Parameter "enabled" provided.');
-  });
-
-  it('Testing Bool Parameter Undefined (json)', () => {
-    const param = api.Bool('enabled', 'json', false);
-    expect(param.get({
-      body: {}
-    })).to.equal(undefined);
-  });
-
   it('Testing List Parameter (query)', () => {
     const param = api.List('list');
     expect(param.get({
