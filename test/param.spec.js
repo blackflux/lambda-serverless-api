@@ -29,34 +29,6 @@ describe('Testing Params', () => {
     done();
   });
 
-  it('Testing GeoPoint Parameter (query)', () => {
-    const param = api.GeoPoint('geoPoint');
-    expect(param.get({
-      queryStringParameters: {
-        geoPoint: '[-119.491,49.892]'
-      }
-    })).to.deep.equal([-119.491, 49.892]);
-    ['[-181,0]', '[181,0]', '[0,-91]', '[0,91]', '[0,0,0]'].forEach((geoPoint) => {
-      expect(() => param.get({
-        queryStringParameters: { geoPoint }
-      }), `GeoPoint: ${geoPoint}`).to.throw('Invalid Value for query-Parameter "geoPoint" provided.');
-    });
-  });
-
-  it('Testing GeoPoint Parameter (json)', () => {
-    const param = api.GeoPoint('geoPoint', 'json');
-    expect(param.get({
-      body: {
-        geoPoint: [-119.491, 49.892]
-      }
-    })).to.deep.equal([-119.491, 49.892]);
-    [[-181, 0], [181, 0], [0, -91], [0, 91], [0, 0, 0], '0,0'].forEach((geoPoint) => {
-      expect(() => param.get({
-        body: { geoPoint }
-      }), `GeoPoint: ${geoPoint}`).to.throw('Invalid Value for json-Parameter "geoPoint" provided.');
-    });
-  });
-
   it('Testing GeoRect Parameter (query)', () => {
     const param = api.GeoRect('geoRect');
     expect(param.get({
