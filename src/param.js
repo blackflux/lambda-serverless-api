@@ -6,44 +6,12 @@ const Joi = require('joi');
 const objectPaths = require('obj-paths');
 const objectRewrite = require('object-rewrite');
 const Param = require('./params/param');
+const Str = require('./params/str');
+const RegEx = require('./params/regex');
+const Email = require('./params/email');
 
-class Str extends Param {
-  constructor(...args) {
-    super(...args);
-    this.type = 'string';
-  }
-
-  validate(value) {
-    let valid = super.validate(value);
-    if (valid && !(typeof value === 'string' || value instanceof String)) {
-      valid = false;
-    }
-    return valid;
-  }
-}
 module.exports.Str = (...args) => new Str(...args);
-
-class RegEx extends Str {
-  constructor(name, regex, ...args) {
-    super(name, ...args);
-    this.regex = regex;
-  }
-
-  validate(value) {
-    let valid = super.validate(value);
-    if (valid && !value.match(this.regex)) {
-      valid = false;
-    }
-    return valid;
-  }
-}
 module.exports.RegEx = (...args) => new RegEx(...args);
-
-class Email extends RegEx {
-  constructor(name, ...args) {
-    super(name, /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/, ...args);
-  }
-}
 module.exports.Email = (...args) => new Email(...args);
 
 class UUID extends RegEx {
