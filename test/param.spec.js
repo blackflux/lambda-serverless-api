@@ -119,41 +119,6 @@ describe('Testing Params', () => {
     })).to.equal(undefined);
   });
 
-  it('Testing Int Parameter (query)', () => {
-    const param = api.Int('value');
-    expect(param.get({
-      queryStringParameters: {
-        value: '-43'
-      }
-    })).to.equal(-43);
-    expect(() => param.get({
-      queryStringParameters: {
-        value: 'invalid'
-      }
-    })).to.throw('Invalid Value for query-Parameter "value" provided.');
-  });
-
-  it('Testing Int Parameter (json)', () => {
-    const param = api.Int('value', 'json');
-    expect(param.get({
-      body: {
-        value: -43
-      }
-    })).to.equal(-43);
-    expect(() => param.get({
-      body: {
-        value: 'invalid'
-      }
-    })).to.throw('Invalid Value for json-Parameter "value" provided.');
-  });
-
-  it('Testing Int Parameter Undefined (json)', () => {
-    const param = api.Int('value', 'json', false);
-    expect(param.get({
-      body: {}
-    })).to.equal(undefined);
-  });
-
   it('Testing List Parameter (query)', () => {
     const param = api.List('list');
     expect(param.get({
