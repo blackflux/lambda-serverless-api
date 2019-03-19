@@ -4,7 +4,7 @@ const api = require('../../src/api').Api();
 describe('Testing UUID Parameter', () => {
   const queryParam = api.UUID('value');
 
-  it('Testing UUID valid query parameter', () => {
+  it('Testing valid query parameter', () => {
     expect(queryParam.get({
       queryStringParameters: {
         value: '9d09d573-173e-4919-b823-70d406242040'
@@ -12,7 +12,7 @@ describe('Testing UUID Parameter', () => {
     })).to.equal('9d09d573-173e-4919-b823-70d406242040');
   });
 
-  it('Testing UUID invalid query parameter', () => {
+  it('Testing invalid query parameter', () => {
     expect(() => queryParam.get({
       queryStringParameters: {
         value: 'invalid'

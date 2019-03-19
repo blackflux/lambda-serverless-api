@@ -361,34 +361,6 @@ describe('Testing Params', () => {
     });
   });
 
-  it('Testing Json Parameter (query)', () => {
-    const param = api.Json('param', api.Joi.object().required());
-    expect(param.get({
-      queryStringParameters: {
-        param: '{"key": "value"}'
-      }
-    })).to.deep.equal({ key: 'value' });
-    expect(() => param.get({
-      queryStringParameters: {
-        param: 'invalid'
-      }
-    })).to.throw('Invalid Value for query-Parameter "param" provided.');
-  });
-
-  it('Testing Json Parameter (json)', () => {
-    const param = api.Json('param', api.Joi.object().required(), 'json');
-    expect(param.get({
-      body: {
-        param: { key: 'value' }
-      }
-    })).to.deep.equal({ key: 'value' });
-    expect(() => param.get({
-      body: {
-        param: 'string'
-      }
-    })).to.throw('Invalid Value for json-Parameter "param" provided.');
-  });
-
   it('Testing Number Parameter (query)', () => {
     const param = api.Number('number');
     expect(param.get({ queryStringParameters: { number: '-12.34' } })).to.equal(-12.34);
