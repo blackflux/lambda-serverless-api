@@ -1,0 +1,28 @@
+{
+  "handler": "router",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "body": "",
+      "headers": {
+        "Access-Control-Allow-Headers": "origin,x-requested-with,content-type,x-amz-date,authorization,x-api-key,x-amz-security-token,x-amz-user-agent",
+        "Access-Control-Allow-Methods": "OPTIONS,GET",
+        "Access-Control-Allow-Origin": "https://test.com"
+      },
+      "statusCode": 200
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "path": "/proxy/123/456",
+    "httpMethod": "OPTIONS",
+    "headers": {
+      "Access-Control-Request-Method": "GET",
+      "Access-Control-Request-Headers": "origin, x-requested-with",
+      "Origin": "https://test.com"
+    }
+  }
+}
