@@ -2,9 +2,9 @@ const expect = require('chai').expect;
 const api = require('../../src/api').Api();
 
 describe('Testing Int Parameter', () => {
-  const queryParam = api.Int('value');
+  const queryParam = api.Int('value', 'query');
   const jsonParam = api.Int('value', 'json');
-  const jsonParamOptional = api.Int('value', 'json', false);
+  const jsonParamOptional = api.Int('value', 'json', { required: false });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({

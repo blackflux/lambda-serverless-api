@@ -1,9 +1,11 @@
+const assert = require('assert');
 const Str = require('./str');
 
 class RegEx extends Str {
-  constructor(name, regex, ...args) {
-    super(name, ...args);
-    this.regex = regex;
+  constructor(name, position, opts) {
+    super(name, position, opts);
+    assert(opts.regex !== undefined, 'Missing Regex Option');
+    this.regex = opts.regex;
   }
 
   validate(value) {

@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const api = require('../../src/api').Api();
 
 describe('Testing List Parameter', () => {
-  const queryParam = api.List('list');
+  const queryParam = api.List('list', 'query');
   const jsonParam = api.List('list', 'json');
 
   it('Testing valid query parameter', () => {

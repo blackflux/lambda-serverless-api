@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const api = require('../../src/api').Api();
 
 describe('Testing GeoShape Parameter', () => {
-  const queryParam = api.GeoShape('geoShape');
+  const queryParam = api.GeoShape('geoShape', {}, 'query');
   const jsonParam = api.GeoShape('geoShape', {}, 'json');
 
   it('Testing valid query parameter', () => {

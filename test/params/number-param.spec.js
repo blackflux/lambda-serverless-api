@@ -2,8 +2,8 @@ const expect = require('chai').expect;
 const api = require('../../src/api').Api();
 
 describe('Testing Number Parameter', () => {
-  const queryParam = api.Number('number');
-  const queryParamRestricted = api.Number('number', { min: 0, max: 10 });
+  const queryParam = api.Number('number', {}, 'query');
+  const queryParamRestricted = api.Number('number', { min: 0, max: 10 }, 'query');
   const jsonParam = api.Number('number', {}, 'json');
   const jsonParamRestricted = api.Number('number', { min: 0, max: 10 }, 'json');
 
