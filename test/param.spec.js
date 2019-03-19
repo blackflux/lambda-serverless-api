@@ -29,34 +29,6 @@ describe('Testing Params', () => {
     done();
   });
 
-  it('Testing NumberList Parameter (query)', () => {
-    const param = api.NumberList('list');
-    expect(param.get({
-      queryStringParameters: {
-        list: '[123.123,345.234]'
-      }
-    })).to.deep.equal([123.123, 345.234]);
-    expect(() => param.get({
-      queryStringParameters: {
-        list: 'invalid'
-      }
-    })).to.throw('Invalid Value for query-Parameter "list" provided.');
-  });
-
-  it('Testing NumberList Parameter (json)', () => {
-    const param = api.NumberList('list', 'json');
-    expect(param.get({
-      body: {
-        list: [123.123, 345.234]
-      }
-    })).to.deep.equal([123.123, 345.234]);
-    expect(() => param.get({
-      body: {
-        list: ['123', 213]
-      }
-    })).to.throw('Invalid Value for json-Parameter "list" provided.');
-  });
-
   it('Testing GeoPoint Parameter (query)', () => {
     const param = api.GeoPoint('geoPoint');
     expect(param.get({
