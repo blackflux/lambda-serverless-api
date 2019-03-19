@@ -1,9 +1,9 @@
 const assert = require('assert');
 const get = require('lodash.get');
 const Joi = require('joi');
-const Param = require('./_abstract');
+const Abstract = require('./_abstract');
 
-class Json extends Param {
+class Json extends Abstract {
   constructor(name, schema, ...args) {
     super(name, ...args);
     assert(get(schema, 'isJoi') === true, 'Joi Schema required');

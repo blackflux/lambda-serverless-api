@@ -1,6 +1,6 @@
-const Param = require('./_abstract');
+const Abstract = require('./_abstract');
 
-class List extends Param {
+class List extends Abstract {
   constructor(...args) {
     super(...args);
     this.type = 'array';

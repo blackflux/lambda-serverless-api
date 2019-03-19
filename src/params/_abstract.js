@@ -10,7 +10,7 @@ const positionMapping = {
   context: 'requestContext'
 };
 
-class _abstract {
+class Abstract {
   constructor(name, position = 'query', required = true, { nullable = false, getter = null } = {}) {
     assert(Object.keys(positionMapping).includes(position), `Unknown Parameter Position: ${position}`);
     assert(
@@ -57,4 +57,4 @@ class _abstract {
   }
 }
 
-module.exports = _abstract;
+module.exports = Abstract;

@@ -1,6 +1,6 @@
-const Param = require('./_abstract');
+const Abstract = require('./_abstract');
 
-class Int extends Param {
+class Int extends Abstract {
   constructor(...args) {
     super(...args);
     this.type = 'integer';
