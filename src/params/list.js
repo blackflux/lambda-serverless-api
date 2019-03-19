@@ -1,4 +1,4 @@
-const Param = require('./param');
+const Param = require('./_abstract');
 
 class List extends Param {
   constructor(...args) {

@@ -1,7 +1,7 @@
 const assert = require('assert');
 const get = require('lodash.get');
 const Joi = require('joi');
-const Param = require('./param');
+const Param = require('./_abstract');
 
 class Json extends Param {
   constructor(name, schema, ...args) {
