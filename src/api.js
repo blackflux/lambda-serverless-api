@@ -8,8 +8,6 @@ const yaml = require('yaml-boost');
 const Rollbar = require('lambda-rollbar');
 const Limiter = require('lambda-rate-limiter');
 const Router = require('route-recognizer');
-const objectPaths = require('obj-paths');
-const objectRewrite = require('object-rewrite');
 const param = require('./param');
 const response = require('./response');
 const swagger = require('./swagger');
@@ -175,11 +173,7 @@ const Api = (options = {}) => {
           async (paramsOut) => {
             const result = await handler(paramsOut, context, rb, event);
             if (rawAutoPruneFieldsParam !== undefined && paramsOut[rawAutoPruneFieldsParam.name] !== undefined) {
-              assert(get(result, 'isJsonResponse') === true, 'Can only auto prune JsonResponse.');
-              const autoPrunePath = rawAutoPruneFieldsParam.autoPrunePath;
-              objectRewrite({
-                retain: objectPaths.split(paramsOut[rawAutoPruneFieldsParam.name])
-              })(autoPrunePath !== null ? get(result.payload, autoPrunePath) : result.payload);
+              rawAutoPruneFieldsParam.pruneFields(result, paramsOut[rawAutoPruneFieldsParam.name]);
             }
             return result;
           }
