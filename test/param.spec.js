@@ -19,41 +19,4 @@ describe('Testing Params', () => {
       .to.throw('Unknown Parameter Position: unknown');
     done();
   });
-
-  it('Testing only one autoPrune FieldsParam per request', (done) => {
-    expect(() => api.wrap('GET route', [
-      api.FieldsParam('fields1', { paths: ['id'], autoPrune: true }),
-      api.FieldsParam('fields2', { paths: ['id'], autoPrune: true })
-    ], 1))
-      .to.throw('Only one auto pruning "FieldsParam" per endpoint.');
-    done();
-  });
-
-  it('Testing Fields Parameter (query)', () => {
-    const param = api.FieldsParam('param', { paths: ['id', 'user.id', 'user.name'] });
-    expect(param.get({
-      queryStringParameters: {
-        param: 'id,user.id,user.name'
-      }
-    })).to.deep.equal('id,user.id,user.name');
-    expect(() => param.get({
-      queryStringParameters: {
-        param: 'invalid'
-      }
-    })).to.throw('Invalid Value for query-Parameter "param" provided.');
-  });
-
-  it('Testing Fields Parameter (json)', () => {
-    const param = api.FieldsParam('param', { paths: () => 'id,user(id,name)' }, 'json');
-    expect(param.get({
-      body: {
-        param: 'id,user.id,user.name'
-      }
-    })).to.deep.equal('id,user.id,user.name');
-    expect(() => param.get({
-      body: {
-        param: 'invalid'
-      }
-    })).to.throw('Invalid Value for json-Parameter "param" provided.');
-  });
 });
