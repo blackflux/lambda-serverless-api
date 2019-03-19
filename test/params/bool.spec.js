@@ -2,9 +2,9 @@ const expect = require('chai').expect;
 const api = require('../../src/api').Api();
 
 describe('Testing Bool Parameter', () => {
-  const queryParam = api.Bool('enabled');
+  const queryParam = api.Bool('enabled', 'query');
   const jsonParam = api.Bool('enabled', 'json');
-  const jsonParamOptional = api.Bool('enabled', 'json', false);
+  const jsonParamOptional = api.Bool('enabled', 'json', { required: false });
 
   it('Testing valid query parameter (true)', () => {
     expect(queryParam.get({

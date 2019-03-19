@@ -2,10 +2,10 @@ const expect = require('chai').expect;
 const api = require('../../src/api').Api();
 
 describe('Testing Number Parameter', () => {
-  const queryParam = api.Number('number');
-  const queryParamRestricted = api.Number('number', { min: 0, max: 10 });
-  const jsonParam = api.Number('number', {}, 'json');
-  const jsonParamRestricted = api.Number('number', { min: 0, max: 10 }, 'json');
+  const queryParam = api.Number('number', 'query');
+  const queryParamRestricted = api.Number('number', 'query', { min: 0, max: 10 });
+  const jsonParam = api.Number('number', 'json');
+  const jsonParamRestricted = api.Number('number', 'json', { min: 0, max: 10 });
 
   it('Testing valid query param', () => {
     expect(queryParam.get({ queryStringParameters: { number: '-12.34' } })).to.equal(-12.34);

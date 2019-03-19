@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const api = require('../../src/api').Api();
 
 describe('Testing GeoPoint Parameter', () => {
-  const queryParam = api.GeoPoint('geoPoint');
+  const queryParam = api.GeoPoint('geoPoint', 'query');
   const jsonParam = api.GeoPoint('geoPoint', 'json');
 
   it('Testing valid query parameter', () => {

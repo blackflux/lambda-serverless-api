@@ -2,9 +2,9 @@ const expect = require('chai').expect;
 const api = require('../../src/api').Api();
 
 describe('Testing IsoDate Parameter', () => {
-  const queryParam = api.IsoDate('value');
+  const queryParam = api.IsoDate('value', 'query');
   const jsonParam = api.IsoDate('value', 'json');
-  const jsonParamOptional = api.IsoDate('value', 'json', false);
+  const jsonParamOptional = api.IsoDate('value', 'json', { required: false });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({

@@ -2,7 +2,8 @@ const Joi = require('joi');
 const Json = require('./json');
 
 class GeoShape extends Json {
-  constructor(name, { maxPoints, clockwise } = {}, ...args) {
+  constructor(name, position, opts = {}) {
+    const { maxPoints, clockwise } = opts;
     let schema = Joi.array().items(Joi.array().ordered([
       Joi.number().min(-180).max(180).required(),
       Joi.number().min(-90).max(90).required()
@@ -10,7 +11,7 @@ class GeoShape extends Json {
     if (maxPoints !== undefined) {
       schema = schema.max(maxPoints);
     }
-    super(name, schema, ...args);
+    super(name, position, Object.assign({}, opts, { schema }));
     this.clockwise = clockwise;
     this.type = 'array';
     this.items = { type: 'array', items: { type: 'number' } };

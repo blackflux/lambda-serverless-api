@@ -14,10 +14,11 @@ class FieldsParam extends Str {
     return typeof result === 'string' ? objectPaths.split(result) : result;
   }
 
-  constructor(name, { paths, autoPrune = true, autoPrunePath = null }, ...args) {
+  constructor(name, position, opts) {
+    super(name, position, opts);
+    const { paths, autoPrune, autoPrunePath } = Object.assign({ autoPrune: false, autoPrunePath: null }, opts);
     assert(typeof autoPrune === 'boolean');
     assert(typeof autoPrunePath === 'string' || autoPrunePath === null);
-    super(name, ...args);
     this.paramType = 'FieldsParam';
     this.paths = paths;
     this.autoPrune = autoPrune;

@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const api = require('../../src/api').Api();
 
 describe('Testing UUID Parameter', () => {
-  const queryParam = api.UUID('value');
+  const queryParam = api.UUID('value', 'query');
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({

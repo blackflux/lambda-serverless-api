@@ -148,7 +148,7 @@ const Api = (options = {}) => {
       return [
         () => (typeof preRequestHook === 'function' ? preRequestHook(event, context, rb) : Promise.resolve()),
         () => limiter
-          .check(limit, get(event, 'requestContext.identity.sourceIp'))
+          .check(limit, `${get(event, 'requestContext.identity.sourceIp')}/${request}`)
           .catch(() => {
             throw response.ApiError('Rate limit exceeded.', 429);
           }),
