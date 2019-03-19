@@ -2,8 +2,8 @@ const expect = require('chai').expect;
 const api = require('../../src/api').Api();
 
 describe('Testing Json Parameter', () => {
-  const queryParam = api.Json('param', api.Joi.object().required(), 'query');
-  const jsonParam = api.Json('param', api.Joi.object().required(), 'json');
+  const queryParam = api.Json('param', 'query', { schema: api.Joi.object().required() });
+  const jsonParam = api.Json('param', 'json', { schema: api.Joi.object().required() });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({

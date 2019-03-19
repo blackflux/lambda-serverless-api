@@ -2,7 +2,8 @@ const Joi = require('joi');
 const Json = require('./json');
 
 class NumberParam extends Json {
-  constructor(name, { min, max } = {}, ...args) {
+  constructor(name, position, opts = {}) {
+    const { min, max } = opts;
     let schema = Joi.number();
     if (min !== undefined) {
       schema = schema.min(min);
@@ -10,7 +11,7 @@ class NumberParam extends Json {
     if (max !== undefined) {
       schema = schema.max(max);
     }
-    super(name, schema, ...args);
+    super(name, position, Object.assign({ schema }, opts));
     this.type = 'number';
   }
 

@@ -4,8 +4,9 @@ const Joi = require('joi');
 const Abstract = require('./_abstract');
 
 class Json extends Abstract {
-  constructor(name, schema, ...args) {
-    super(name, ...args);
+  constructor(name, position, opts) {
+    super(name, position, opts);
+    const { schema } = opts;
     assert(get(schema, 'isJoi') === true, 'Joi Schema required');
     this.type = this.stringInput ? 'string' : 'object';
     this.schema = schema;

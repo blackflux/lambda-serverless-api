@@ -2,8 +2,8 @@ const expect = require('chai').expect;
 const api = require('../../src/api').Api();
 
 describe('Testing GeoShape Parameter', () => {
-  const queryParam = api.GeoShape('geoShape', {}, 'query');
-  const jsonParam = api.GeoShape('geoShape', {}, 'json');
+  const queryParam = api.GeoShape('geoShape', 'query');
+  const jsonParam = api.GeoShape('geoShape', 'json');
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({
@@ -49,21 +49,21 @@ describe('Testing GeoShape Parameter', () => {
   });
 
   it('Testing invalid json parameter (too large)', () => {
-    const param = api.GeoShape('geoShape', { maxPoints: 6 }, 'json');
+    const param = api.GeoShape('geoShape', 'json', { maxPoints: 6 });
     expect(() => param.get({
       body: { geoShape: [[0, 0], [0, 1], [1, 1], [1.1, 1.1], [1.2, 1.2], [1.3, 1.3], [1, 0], [0, 0]] }
     })).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
   });
 
   it('Testing invalid json parameter (not clockwise)', () => {
-    const param = api.GeoShape('geoShape', { clockwise: true }, 'json');
+    const param = api.GeoShape('geoShape', 'json', { clockwise: true });
     expect(() => param.get({
       body: { geoShape: [[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]] }
     })).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
   });
 
   it('Testing invalid json parameter (not counter clockwise)', () => {
-    const param = api.GeoShape('geoShape', { clockwise: false }, 'json');
+    const param = api.GeoShape('geoShape', 'json', { clockwise: false });
     expect(() => param.get({
       body: { geoShape: [[0, 0], [0, 1], [1, 1], [1, 0], [0, 0]] }
     })).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
