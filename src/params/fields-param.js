@@ -16,7 +16,7 @@ class FieldsParam extends Str {
 
   constructor(name, position, opts) {
     super(name, position, opts);
-    const { paths, autoPrune, autoPrunePath } = Object.assign({ autoPrune: true, autoPrunePath: null }, opts);
+    const { paths, autoPrune, autoPrunePath } = Object.assign({}, opts, { autoPrune: true, autoPrunePath: null });
     assert(typeof autoPrune === 'boolean');
     assert(typeof autoPrunePath === 'string' || autoPrunePath === null);
     this.paramType = 'FieldsParam';

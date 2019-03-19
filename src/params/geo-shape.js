@@ -11,7 +11,7 @@ class GeoShape extends Json {
     if (maxPoints !== undefined) {
       schema = schema.max(maxPoints);
     }
-    super(name, position, Object.assign({ schema }, opts));
+    super(name, position, Object.assign({}, opts, { schema }));
     this.clockwise = clockwise;
     this.type = 'array';
     this.items = { type: 'array', items: { type: 'number' } };
