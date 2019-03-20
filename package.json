@@ -66,7 +66,7 @@
   ],
   "dependencies": {
     "joi": "14.3.1",
-    "js-yaml": "3.12.2",
+    "js-yaml": "3.13.0",
     "lambda-rate-limiter": "2.4.9",
     "lambda-rollbar": "1.10.4",
     "lodash.defaultsdeep": "4.6.0",
@@ -80,7 +80,7 @@
     "object-scan": "5.0.3",
     "route-recognizer": "0.3.4",
     "swagger-parser": "6.0.5",
-    "yaml-boost": "1.8.4"
+    "yaml-boost": "1.9.0"
   },
   "peerDependencies": {},
   "nyc": {
