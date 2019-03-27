@@ -25,7 +25,7 @@
     "coveralls": "3.0.3",
     "eslint": "5.15.3",
     "js-gardener": "1.38.6",
-    "lambda-tdd": "2.5.0",
+    "lambda-tdd": "2.6.0",
     "nock": "10.0.6",
     "nyc": "13.3.0",
     "request-promise": "4.2.4",
