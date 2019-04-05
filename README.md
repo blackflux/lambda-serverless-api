@@ -96,6 +96,7 @@ Warnings:
 * If used with `{ nullable: true }`, if a rawInput is passed as `null`, or if a non-required parameter is not sent, the `getter` function will _not_ be used.
 * Some params (such as Bool, Int, Json, etc) do extra processing _after_ the `getter` function has returned, and may return inconsistent results. Thorough testing is recommended.
 
+Takes unresolved parameters as second parameter. Simple parameters can be accessed directly, unresolved can be resolved by using `await`.
 
 Type: `Function`
 
@@ -106,7 +107,7 @@ Default: `null`
 ```javascript
 /* { "name": "  John   "} */
 module.exports = api.wrap('POST name', [
-  api.Str('name', 'json', true, { getter: input => input.trim() })
+  api.Str('name', 'json', true, { getter: (input, params) => input.trim() })
 ], ({ name }) => {
   console.log(name); // "John"
 });
