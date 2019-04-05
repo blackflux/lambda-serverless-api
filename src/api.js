@@ -49,10 +49,11 @@ const parse = async (request, params, eventRaw) => {
       value: invalidJsonParams
     });
   }
-  const resolvedParams = await Promise.all(params.map(async curParam => [
-    normalizeName(curParam.name),
-    await curParam.get(event)
-  ]));
+
+  const paramsPending = params.map(curParam => [normalizeName(curParam.name), curParam.get(event)]);
+  const paramsPendingObj = paramsPending.reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {});
+  const resolvedParams = await Promise.all(paramsPending
+    .map(async ([name, value]) => [name, typeof value === 'function' ? await value(paramsPendingObj) : value]));
   return resolvedParams.reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {});
 };
 
