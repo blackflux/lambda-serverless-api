@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const response = require('../src/response');
-const { Api } = require('../src/api');
+const { Api } = require('../src/index');
 
 describe('Testing Response', () => {
   let api;
