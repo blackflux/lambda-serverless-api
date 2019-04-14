@@ -9,7 +9,7 @@ const lambdaTester = require('lambda-tdd')({
   envVarYml: path.join(__dirname, 'env.yml'),
   testFolder: path.join(__dirname, 'handler')
 });
-const api = require('../src/api');
+const api = require('../src/index');
 
 lambdaTester.execute((process.argv.slice(2).find(e => e.startsWith('--filter=')) || '').substring(9));
 
