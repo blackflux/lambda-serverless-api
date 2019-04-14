@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const api = require('../../src/api').Api();
+const api = require('../../src/index').Api();
 
 describe('Testing UUID Parameter', () => {
   const queryParam = api.UUID('value', 'query');

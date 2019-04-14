@@ -1,7 +1,7 @@
 {
   "name": "lambda-serverless-api",
   "description": "Basic Api Wrapper for Serverless Framework.",
-  "main": "lib/api.js",
+  "main": "lib/index.js",
   "keywords": [
     "serverless",
     "lambda",
@@ -16,16 +16,16 @@
     "@babel/cli": "7.4.3",
     "@babel/core": "7.4.3",
     "@babel/plugin-proposal-object-rest-spread": "7.4.3",
-    "@babel/plugin-transform-flow-comments": "7.4.0",
-    "@babel/preset-flow": "7.0.0",
     "@babel/register": "7.4.0",
+    "@blackflux/eslint-plugin-rules": "1.0.2",
+    "@blackflux/robo-config-plugin": "1.3.2",
     "app-root-path": "2.2.1",
     "babel-eslint": "10.0.1",
     "chai": "4.2.0",
     "coveralls": "3.0.3",
     "eslint": "5.16.0",
-    "js-gardener": "1.38.6",
-    "lambda-tdd": "2.7.0",
+    "js-gardener": "2.0.2",
+    "lambda-tdd": "2.7.1",
     "nock": "10.0.6",
     "nyc": "13.3.0",
     "request": "2.88.0",
@@ -34,15 +34,14 @@
   },
   "version": "0.0.0-development",
   "scripts": {
-    "test": "npm run clean && npm run gardener && npm run test-simple",
-    "coveralls": "node ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info",
-    "semantic-release": "npm run build-artifact && npm run clean-build && npx semantic-release",
     "clean": "rm -rf lib",
     "build": "npx babel src --out-dir lib --source-maps inline --copy-files --include-dotfiles",
-    "clean-build": "npm run clean && npm run build",
+    "build-clean": "npm run clean && npm run build",
     "test-simple": "nyc mocha \"./test/**/*.spec.js\"",
-    "gardener": "node gardener",
-    "build-artifact": "npm run clean-build && tar -zxvf $(npm pack) && rm *-0.0.0-development.tgz && cd package && tar -zcvf ../release.tar.gz . && cd .. && rm -rf package"
+    "test": "npm run clean && npm run gardener && npm run test-simple",
+    "coveralls": "node ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info",
+    "semantic-release": "npm run build-clean && npx semantic-release",
+    "gardener": "node gardener"
   },
   "homepage": "https://github.com/blackflux/lambda-serverless-api#readme",
   "license": "MIT",
@@ -76,12 +75,12 @@
     "lodash.set": "4.3.2",
     "lodash.xor": "4.5.0",
     "moment": "2.24.0",
-    "obj-paths": "1.2.3",
+    "obj-paths": "1.2.4",
     "object-rewrite": "2.1.14",
     "object-scan": "5.0.4",
     "route-recognizer": "0.3.4",
     "swagger-parser": "6.0.5",
-    "yaml-boost": "1.9.0"
+    "yaml-boost": "1.9.1"
   },
   "peerDependencies": {},
   "nyc": {
@@ -100,7 +99,6 @@
       "gardener.js",
       "node_modules/*",
       "coverage/*",
-      "flow-typed/*",
       "lib/*"
     ],
     "reporter": [
