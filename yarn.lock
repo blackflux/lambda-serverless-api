@@ -3792,14 +3792,14 @@ lambda-rollbar@1.10.4:
     lodash.omit "4.5.0"
     rollbar "2.5.2"
 
-lambda-tdd@2.7.0:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.7.0.tgz#ef334fd870eb77278f819e88d128e7d9c3c52164"
-  integrity sha512-aBMGw0fCz8xAVSVQnYb93Zz2L/vu0FGMWFnOA0D4TL7oi9hMuXFGjMK+OBVTYklzz8u8ps1hXvZsofYGivP0jQ==
+lambda-tdd@2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.7.1.tgz#afe5e8a1bb725cb9b47d61f52782a89485ba7bde"
+  integrity sha512-piwvHQVLMHVGFqpYaDIhRiAlvpq/+6HCpaaiga5oyIrb5f14d09PnsbA+sKAs1WqZj93AYSCont6gp1uVQi0MA==
   dependencies:
     app-root-path "2.2.1"
     glob "7.1.3"
-    js-yaml "3.13.0"
+    js-yaml "3.13.1"
     lambda-wrapper "0.3.0"
     lodash.defaults "4.2.0"
     lodash.get "4.4.2"
