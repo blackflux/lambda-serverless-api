@@ -77,7 +77,7 @@
     "lodash.xor": "4.5.0",
     "moment": "2.24.0",
     "obj-paths": "1.2.3",
-    "object-rewrite": "2.1.13",
+    "object-rewrite": "2.1.14",
     "object-scan": "5.0.4",
     "route-recognizer": "0.3.4",
     "swagger-parser": "6.0.5",
