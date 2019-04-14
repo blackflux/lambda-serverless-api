@@ -78,7 +78,7 @@
     "moment": "2.24.0",
     "obj-paths": "1.2.3",
     "object-rewrite": "2.1.13",
-    "object-scan": "5.0.3",
+    "object-scan": "5.0.4",
     "route-recognizer": "0.3.4",
     "swagger-parser": "6.0.5",
     "yaml-boost": "1.9.0"
