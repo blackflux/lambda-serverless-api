@@ -131,14 +131,14 @@ const Api = (options = {}) => {
       .reduce((p, [k, v]) => Object.assign(p, { [normalizeName(k)]: v }), {}))
     : defaultHeaders);
 
-  const wrap = (request, params, p3, p4) => {
-    const hasOptions = p4 !== undefined;
-    const handler = hasOptions ? p4 : p3;
+  const wrap = (request, params, optionsOrHandler, handlerOrUndefined) => {
+    const hasOptions = handlerOrUndefined !== undefined;
+    const handler = hasOptions ? handlerOrUndefined : optionsOrHandler;
     const opt = Object.assign(
       {
         limit: get(options, 'limit', 100)
       },
-      hasOptions ? p3 : {}
+      hasOptions ? optionsOrHandler : {}
     );
 
     if (request.startsWith('GET ') && params.filter(p => p.position === 'json').length !== 0) {
