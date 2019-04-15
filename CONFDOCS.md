@@ -12,6 +12,7 @@ Documents configuration tasks managed by [robo-config](https://github.com/blackf
     - <a name="blackfluxrobo-config-plugin-task-idx-ref-structtemplate-index">:clipboard:</a> <a href="#blackfluxrobo-config-plugin-task-ref-structtemplate-index">`struct/template-index`</a>
     - <a name="blackfluxrobo-config-plugin-task-idx-ref-structtemplate-eslintrc">:clipboard:</a> <a href="#blackfluxrobo-config-plugin-task-ref-structtemplate-eslintrc">`struct/template-eslintrc`</a>
     - <a name="blackfluxrobo-config-plugin-task-idx-ref-structtemplate-babelrc">:clipboard:</a> <a href="#blackfluxrobo-config-plugin-task-ref-structtemplate-babelrc">`struct/template-babelrc`</a>
+    - <a name="blackfluxrobo-config-plugin-task-idx-ref-structforce-gardener">:clipboard:</a> <a href="#blackfluxrobo-config-plugin-task-ref-structforce-gardener">`struct/force-gardener`</a>
   - <a name="blackfluxrobo-config-plugin-task-idx-ref-semantic-releasenpm-opensource">:open_file_folder:</a> <a href="#blackfluxrobo-config-plugin-task-ref-semantic-releasenpm-opensource">`semantic-release/#npm-opensource`</a>
     - <a name="blackfluxrobo-config-plugin-task-idx-ref-semantic-releasecommit-conventions">:clipboard:</a> <a href="#blackfluxrobo-config-plugin-task-ref-semantic-releasecommit-conventions">`semantic-release/commit-conventions`</a>
   - <a name="blackfluxrobo-config-plugin-task-idx-ref-packagenpm-opensource">:open_file_folder:</a> <a href="#blackfluxrobo-config-plugin-task-ref-packagenpm-opensource">`package/#npm-opensource`</a>
@@ -75,6 +76,7 @@ Manage various configuration files for an open source npm package on github.
 <code>│&nbsp;&nbsp;└─&nbsp;${projectName}.iml</code><br/>
 <code>├─&nbsp;.npmignore</code><br/>
 <code>├─&nbsp;.releaserc.json</code><br/>
+<code>├─&nbsp;gardener.js</code><br/>
 <code>├─&nbsp;LICENSE</code><br/>
 <code>├─&nbsp;package.json</code><br/>
 <code>├─&nbsp;README.md</code><br/>
@@ -92,6 +94,7 @@ Manage various configuration files for an open source npm package on github.
           <li><a href="#blackfluxrobo-config-plugin-req-ref-chai">chai</a></li>
           <li><a href="#blackfluxrobo-config-plugin-req-ref-eslint">eslint</a></li>
           <li><a href="#blackfluxrobo-config-plugin-req-ref-babel">babel</a></li>
+          <li><a href="#blackfluxrobo-config-plugin-req-ref-js-gardener">js-gardener</a></li>
           <li><a href="#blackfluxrobo-config-plugin-req-ref-semantic-release">semantic-release</a></li>
           <li><a href="#blackfluxrobo-config-plugin-req-ref-npm">npm</a></li>
           <li><a href="#blackfluxrobo-config-plugin-req-ref-jetbrains">jetbrains</a></li>
@@ -104,7 +107,6 @@ Manage various configuration files for an open source npm package on github.
           <li><a href="#blackfluxrobo-config-plugin-req-ref-yarn">yarn</a></li>
           <li><a href="#blackfluxrobo-config-plugin-req-ref-coveralls">coveralls</a></li>
           <li><a href="#blackfluxrobo-config-plugin-req-ref-npm-published">npm-published</a></li>
-          <li><a href="#blackfluxrobo-config-plugin-req-ref-js-gardener">js-gardener</a></li>
           <li><a href="#blackfluxrobo-config-plugin-req-ref-david-dm">david-dm</a></li>
         </ul>
       </td>
@@ -139,6 +141,7 @@ Manage basic project structure for npm open source package on github.
 <code>project</code><br/>
 <code>├─&nbsp;.babelrc</code><br/>
 <code>├─&nbsp;.eslintrc.json</code><br/>
+<code>├─&nbsp;gardener.js</code><br/>
 <code>├─&nbsp;README.md</code><br/>
 <code>├─&nbsp;src</code><br/>
 <code>│&nbsp;&nbsp;└─&nbsp;index.js</code><br/>
@@ -154,6 +157,7 @@ Manage basic project structure for npm open source package on github.
           <li><a href="#blackfluxrobo-config-plugin-req-ref-chai">chai</a></li>
           <li><a href="#blackfluxrobo-config-plugin-req-ref-eslint">eslint</a></li>
           <li><a href="#blackfluxrobo-config-plugin-req-ref-babel">babel</a></li>
+          <li><a href="#blackfluxrobo-config-plugin-req-ref-js-gardener">js-gardener</a></li>
         </ul>
       </td>
       <td align="left" valign="top">
@@ -334,6 +338,35 @@ _Updating `.babelrc` using <a href="#blackfluxrobo-config-plugin-strat-ref-merge
         <ul>
           <li><a href="#blackfluxrobo-config-plugin-req-ref-javascript">javascript</a></li>
           <li><a href="#blackfluxrobo-config-plugin-req-ref-babel">babel</a></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+##### :clipboard: <a name="blackfluxrobo-config-plugin-task-ref-structforce-gardener">struct/force-gardener</a> (<a href="#blackfluxrobo-config-plugin-task-idx-ref-structforce-gardener">`index`</a>)
+
+_Updating `gardener.js` using <a href="#blackfluxrobo-config-plugin-strat-ref-overwrite">overwrite</a>._
+
+- Manage gardener.js file for js-gardener.
+
+<table>
+  <tbody>
+    <tr>
+      <th>Targets</th>
+      <th>Requires</th>
+    </tr>
+    <tr>
+      <td align="left" valign="top">
+        <ul>
+<code>project</code><br/>
+<code>└─&nbsp;gardener.js</code><br/>
+        </ul>
+      </td>
+      <td align="left" valign="top">
+        <ul>
+          <li><a href="#blackfluxrobo-config-plugin-req-ref-javascript">javascript</a></li>
+          <li><a href="#blackfluxrobo-config-plugin-req-ref-js-gardener">js-gardener</a></li>
         </ul>
       </td>
     </tr>
@@ -1443,6 +1476,14 @@ checking if JavaScript source code complies with coding rules.
 Babel is a toolchain that is mainly used to convert ECMAScript 2015+ code into a backwards
 compatible version of JavaScript in current and older browsers or environments.
 
+### <a name="blackfluxrobo-config-plugin-req-ref-js-gardener">js-gardener</a> ([`link`](https://github.com/blackflux/js-gardener#readme)) 
+
+*NodeJs Project Management.*
+
+Enforces and helps setting up best practices around NodeJs projects.
+Enforces highest code quality and minimizes package setup and maintenance complexity - so you can focus on writing code.
+Highly recommended if you are getting started with a new package and extremely useful if you are maintaining multiple packages.
+
 ### <a name="blackfluxrobo-config-plugin-req-ref-semantic-release">semantic-release</a> ([`link`](https://github.com/semantic-release/semantic-release)) 
 
 *Automates npm package release workflow.*
@@ -1525,14 +1566,6 @@ Furthermore allows anyone to easily drill down into missing coverage or coverage
 *Javascript package repository published.*
 
 Requires the project to be published to npm either as a private or public package.
-
-### <a name="blackfluxrobo-config-plugin-req-ref-js-gardener">js-gardener</a> ([`link`](https://github.com/blackflux/js-gardener#readme)) 
-
-*NodeJs Project Management.*
-
-Enforces and helps setting up best practices around NodeJs projects.
-Enforces highest code quality and minimizes package setup and maintenance complexity - so you can focus on writing code.
-Highly recommended if you are getting started with a new package and extremely useful if you are maintaining multiple packages.
 
 ### <a name="blackfluxrobo-config-plugin-req-ref-david-dm">david-dm</a> ([`link`](https://david-dm.org/)) 
 
