@@ -29,6 +29,7 @@ First we need to wrap our lambda endpoint. Inside the lambda function we can the
 <!-- eslint-disable import/no-unresolved -->
 ```js
 const api = require('lambda-serverless-api').Api({
+  limit: 100, // default limit for routes
   limiter: {},
   rollbar: {},
   defaultHeaders: {},
@@ -42,7 +43,7 @@ module.exports = api.wrap('POST register', [
   api.Str('name', 'json', false),
   api.Email('email', 'json'),
   api.Str('password', 'json')
-], process.env.RATE_LIMIT_PER_IP, ({ name = null, email = null, password = null }, context, rb, event) => {
+], /* options, */ ({ name = null, email = null, password = null }, context, rb, event) => {
   // handle registration logic here ...
   if (new Date().getHours() === 4) {
     throw api.ApiError('I am a teapot', 418);
@@ -51,7 +52,7 @@ module.exports = api.wrap('POST register', [
 });
 
 ```
-where `RATE_LIMIT_PER_IP` allows to set different limits per endpoint. Rate limiting is explained below.
+where options can contain `limit` which allows overwrite of limit per endpoint. Rate limiting is explained below.
 
 The first `api.wrap` parameter defines the route and is re-declared in `serverless.yml`. 
 

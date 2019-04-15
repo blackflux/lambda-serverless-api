@@ -12,6 +12,8 @@ const param = require('./param');
 const response = require('./response');
 const swagger = require('./swagger');
 
+// todo: separate functions out and generify
+
 const normalizeName = name => name
   .replace(/(?:^\w|[A-Z]|\b\w)/g, (l, idx) => (idx === 0 ? l.toLowerCase() : l.toUpperCase()))
   .replace(/[^a-zA-Z0-9]+/g, '');
@@ -111,6 +113,8 @@ const staticExports = {
 };
 
 const Api = (options = {}) => {
+  // todo: verify options against joi schema
+
   const endpoints = {};
   const router = new Router();
   const routeSignatures = [];
@@ -127,7 +131,16 @@ const Api = (options = {}) => {
       .reduce((p, [k, v]) => Object.assign(p, { [normalizeName(k)]: v }), {}))
     : defaultHeaders);
 
-  const wrap = (request, params, limit, handler) => {
+  const wrap = (request, params, optionsOrHandler, handlerOrUndefined) => {
+    const hasOptions = handlerOrUndefined !== undefined;
+    const handler = hasOptions ? handlerOrUndefined : optionsOrHandler;
+    const opt = Object.assign(
+      {
+        limit: get(options, 'limit', 100)
+      },
+      hasOptions ? optionsOrHandler : {}
+    );
+
     if (request.startsWith('GET ') && params.filter(p => p.position === 'json').length !== 0) {
       throw new Error('Can not use JSON parameter with GET requests.');
     }
@@ -148,11 +161,11 @@ const Api = (options = {}) => {
       }
       return [
         () => (typeof preRequestHook === 'function' ? preRequestHook(event, context, rb) : Promise.resolve()),
-        () => limiter
-          .check(limit, `${get(event, 'requestContext.identity.sourceIp')}/${request}`)
+        () => (opt.limit === null ? Promise.resolve() : limiter
+          .check(opt.limit, `${get(event, 'requestContext.identity.sourceIp')}/${request}`)
           .catch(() => {
             throw response.ApiError('Rate limit exceeded.', 429);
-          }),
+          })),
         ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
