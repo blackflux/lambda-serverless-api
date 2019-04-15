@@ -36,21 +36,22 @@ const api = require('./../src/index').Api({
   }
 });
 
-module.exports.error = api.wrap('GET error', [], process.env.RATE_LIMIT, () => {
+module.exports.error = api.wrap('GET error', [], () => {
   throw api.ApiError('Some Error', 400, 2341);
 });
 
-module.exports.exception = api.wrap('GET exception', [], process.env.RATE_LIMIT, () => {
+module.exports.exception = api.wrap('GET exception', [], { limit: null }, () => {
   throw Error('Some Exception');
 });
 
-module.exports.text = api.wrap('GET text', [], process.env.RATE_LIMIT, () => api.ApiResponse('some text'));
+module.exports.text = api.wrap('GET text', [], () => api.ApiResponse('some text'));
 
-module.exports.json = api.wrap('GET json', [], process.env.RATE_LIMIT, () => api.JsonResponse({ some: 'json' }));
+module.exports.json = api
+  .wrap('GET json', [], { limit: process.env.RATE_LIMIT }, () => api.JsonResponse({ some: 'json' }));
 
 module.exports.proxy = api.wrap('GET proxy/{proxy+}', [
   api.Str('proxy+', 'path')
-], process.env.RATE_LIMIT, ({ proxy }) => api.JsonResponse({ path: proxy }));
+], ({ proxy }) => api.JsonResponse({ path: proxy }));
 
 module.exports.param = api.wrap('POST param', [
   api.Str('username', 'json'),
@@ -83,13 +84,13 @@ module.exports.param = api.wrap('POST param', [
     required: false,
     getter: () => request({ uri: 'https://foo.com', json: true })
   })
-], process.env.RATE_LIMIT, params => api.JsonResponse(params));
+], params => api.JsonResponse(params));
 
 module.exports.param2 = api.wrap('POST param2', [
   api.Str('username', 'json', { required: false }),
   api.Email('email', 'json', { required: false, nullable: true }),
   api.Str('X-Custom-Header', 'header', { required: false })
-], process.env.RATE_LIMIT, ({
+], ({
   username = 'default',
   email = 'default',
   xCustomHeader = null
@@ -99,8 +100,8 @@ module.exports.internalApi = api;
 
 module.exports.pathParam = api.wrap('POST path/{param}', [
   api.Str('param', 'path')
-], process.env.RATE_LIMIT, ({ param }) => api.JsonResponse({ param }));
+], ({ param }) => api.JsonResponse({ param }));
 
-module.exports.path = api.wrap('GET some/path', [], process.env.RATE_LIMIT, () => api.JsonResponse({}));
+module.exports.path = api.wrap('GET some/path', [], () => api.JsonResponse({}));
 
 module.exports.router = api.router;
