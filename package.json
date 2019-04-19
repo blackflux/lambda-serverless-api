@@ -80,7 +80,7 @@
     "object-scan": "5.0.8",
     "route-recognizer": "0.3.4",
     "swagger-parser": "6.0.5",
-    "yaml-boost": "1.9.1"
+    "yaml-boost": "1.9.2"
   },
   "peerDependencies": {},
   "nyc": {
