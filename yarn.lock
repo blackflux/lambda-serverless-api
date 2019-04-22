@@ -4970,10 +4970,10 @@ oauth-sign@~0.9.0:
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"
   integrity sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ==
 
-obj-paths@1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/obj-paths/-/obj-paths-1.2.5.tgz#4b377574ee9107018b202f4818a891fba765586f"
-  integrity sha512-9BSzzxCJ88FT3GEUpMH/Dh+SD7rt+8RW6169vf5dEaJApie/ThiFAdJdDvvs8C6hqL1AYFpTGy0XB+LQNAyUUA==
+obj-paths@1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/obj-paths/-/obj-paths-1.2.6.tgz#20765ccb53b43623ebe757861a8954fbaa6ffd9c"
+  integrity sha512-ffYoJnEzxsAOgVQzOZ8xv/azJJEyyRN2ZHTrpR/gyY6lNyJ0T0JZrh/nUEAJIDskj8/JGAQxOSgERRGgv/8Itw==
 
 object-assign@^4.0.1, object-assign@^4.1.0:
   version "4.1.1"
