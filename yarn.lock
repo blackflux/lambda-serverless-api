@@ -5006,11 +5006,6 @@ object-rewrite@2.1.23:
   dependencies:
     object-scan "7.0.2"
 
-object-scan@7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-7.0.1.tgz#13549951db44076b80c743ba7ad309250c24229c"
-  integrity sha512-AICaN/gBEcXRLKbEEp0Tyf0WN2elFhcBoHIe+KUp/NXle3nWOsIUeHgvxM7Cl53CNVZXfxDGu5XD6y3bEwXZdg==
-
 object-scan@7.0.2:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-7.0.2.tgz#eceeaaf92652933db8d25c0ad1d3e4132f3504f4"
