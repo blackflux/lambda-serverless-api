@@ -75,7 +75,7 @@
     "lodash.set": "4.3.2",
     "lodash.xor": "4.5.0",
     "moment": "2.24.0",
-    "obj-paths": "1.2.7",
+    "obj-paths": "1.2.8",
     "object-rewrite": "2.1.28",
     "object-scan": "9.0.1",
     "route-recognizer": "0.3.4",
