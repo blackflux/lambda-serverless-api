@@ -168,17 +168,17 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@blackflux/eslint-plugin-rules@1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@blackflux/eslint-plugin-rules/-/eslint-plugin-rules-1.0.9.tgz#bebf9062b50d3306c59dfecd82e70b04bd100073"
-  integrity sha512-HVXpQAjje8Kh7yapnbrXkCwIQx2bMnMdlvABTtBqS1uZzTkAJ/4tucDH2DN230Xb53hrxsUeSZrtFeDYi5tp/w==
+"@blackflux/eslint-plugin-rules@1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@blackflux/eslint-plugin-rules/-/eslint-plugin-rules-1.0.10.tgz#a497990b93ff8b5be8729c0067bfe84638346263"
+  integrity sha512-M22vdFJXNtr3PodqJQBnN/auWAycpPD4v9wquYPgxWzvz20sc3gruLNziDtxIbxudd6e59AHeSynodXJDDcoVA==
   dependencies:
-    smart-fs "1.7.2"
+    smart-fs "1.7.3"
 
-"@blackflux/robo-config-plugin@1.7.7":
-  version "1.7.7"
-  resolved "https://registry.yarnpkg.com/@blackflux/robo-config-plugin/-/robo-config-plugin-1.7.7.tgz#77a757bc69a790fb9fbcb5d3d42ea9ab2bff41c4"
-  integrity sha512-DGK6PvHyGIgnVXzbY69sAr0eiAdoV1iHC27uYrvwLTwPFK6CXA/cHhK0XVGri3DqUHpxhGhwy2fuZCx6sTjlkQ==
+"@blackflux/robo-config-plugin@1.7.8":
+  version "1.7.8"
+  resolved "https://registry.yarnpkg.com/@blackflux/robo-config-plugin/-/robo-config-plugin-1.7.8.tgz#5c0f3573aa7eea4e04f1ee8dc677a6a79b91d477"
+  integrity sha512-/8ntvdztqzJL3OMXCW1/8tloWA7l/8vhMrgc/9wN9s04EMztUawwqvAlgt3eyqhKfeGqpmZO5FLA47iPkVL8Bw==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -3687,27 +3687,27 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
   integrity sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==
 
-lambda-rate-limiter@2.4.12:
-  version "2.4.12"
-  resolved "https://registry.yarnpkg.com/lambda-rate-limiter/-/lambda-rate-limiter-2.4.12.tgz#f525e1f1a2ad373faad7d964215b8488fb3272c2"
-  integrity sha512-mukh2QdCzczx6XOfQ3qJq3hpydUYgSMCJkUk7ad2zyWmY+16yDYIeSngFaOpJObhcgCmr8W6RyBPRSdFdQskHg==
+lambda-rate-limiter@2.4.13:
+  version "2.4.13"
+  resolved "https://registry.yarnpkg.com/lambda-rate-limiter/-/lambda-rate-limiter-2.4.13.tgz#7a5dd2f223fc8d835aaf0fb4e20d4d6038ec44b4"
+  integrity sha512-+nJ/v5/bDa6tfqbwcbpp6VaY+EfIAAqMJ8Ox6Oec749guM6wcAF3YJdpvHG90i932uAPMR9wfEnwcVbCiD0rPQ==
   dependencies:
     lru-cache "5.1.1"
 
-lambda-rollbar@1.10.9:
-  version "1.10.9"
-  resolved "https://registry.yarnpkg.com/lambda-rollbar/-/lambda-rollbar-1.10.9.tgz#417610a1a1ac9b7965cbe2ae7c892afa94c1c56d"
-  integrity sha512-W5NOhj4n+JhsCuU+LBkV3Jb1pgpsv452fAP8HhFnDZHBWqlpkBnw8JT1q0Vmlbubrsr293AhFxtEJ4wnACbz4Q==
+lambda-rollbar@1.10.10:
+  version "1.10.10"
+  resolved "https://registry.yarnpkg.com/lambda-rollbar/-/lambda-rollbar-1.10.10.tgz#ff5e3824b37371b51e3dcbc648113a467597bc12"
+  integrity sha512-O+h+SJkVU6CvcMV0OmbsGPxWCjm82C69A5EhAOdHqAtMIqz9zeU2RodSwSUp1FIL1nWcbGRFAjt/hD1qaQwGIw==
   dependencies:
     fast-safe-stringify "2.0.6"
     lodash.get "4.4.2"
     lodash.omit "4.5.0"
     rollbar "2.6.1"
 
-lambda-tdd@2.7.4:
-  version "2.7.4"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.7.4.tgz#395711238070952df265925ba72026765affe8bb"
-  integrity sha512-J8gl0p0nxlJDwp4XAaV6cKaCtWW8WXmrmLJ6DDpsBHWc+0fPqLFL7YKVUKBlrQlB4Y9nPaJ6bB1mNDWfNMvikg==
+lambda-tdd@2.7.5:
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.7.5.tgz#62c51da5dc90d52354dabacfe6d885a6cfc7fbff"
+  integrity sha512-pkE8JXDnLBS9S33F3xlB+ryP1yDe8YfkRzAtMuN1OHfsKQlXdGYE6soPw7dSm3LeoXeLRMyfKIpWaKDQZtYv5A==
   dependencies:
     app-root-path "2.2.1"
     glob "7.1.3"
@@ -4970,10 +4970,10 @@ oauth-sign@~0.9.0:
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"
   integrity sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ==
 
-obj-paths@1.2.7:
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/obj-paths/-/obj-paths-1.2.7.tgz#8ca4bcd95ac5618a932ede12a596a453518eeb8a"
-  integrity sha512-CTBr4JwNAltfzD4uS3/eF1R/KGk8s7/kcchRWXXefzO3dOA5LUjm1s1xNqbr8DS3F+HGXsk/svmgcaiahQx1/Q==
+obj-paths@1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/obj-paths/-/obj-paths-1.2.8.tgz#800e236840c1cb986b91d890e7cf7df3ea7b96f7"
+  integrity sha512-Tmw+ArXxtQXHNwbI4oJeGE8M4SyCCntfP1NjqAcbw/s/7W9kQbdshGAbLS+a8HhiG23GTRa01o/CzVZCLTjjvQ==
 
 object-assign@^4.0.1, object-assign@^4.1.0:
   version "4.1.1"
@@ -6379,6 +6379,18 @@ smart-fs@1.7.2:
     xml-js "1.6.11"
     yaml-boost "1.9.3"
 
+smart-fs@1.7.3:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/smart-fs/-/smart-fs-1.7.3.tgz#558b2128898997b9f10dc53c0b92f83b237d5a81"
+  integrity sha512-k71F2gDfMVkrRUFBsAvi163DPsgpz+q+mBCL/kV2IMDWMQf0UNxGCA9gCIfNFkgwT+MF5kUQwjQGhUrna+DZmA==
+  dependencies:
+    fs-extra "7.0.1"
+    json-stringify-pretty-compact "2.0.0"
+    lodash.clonedeep "4.5.0"
+    lodash.isequal "4.5.0"
+    xml-js "1.6.11"
+    yaml-boost "1.9.3"
+
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
@@ -7505,6 +7517,16 @@ yaml-boost@1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/yaml-boost/-/yaml-boost-1.9.3.tgz#106c1b0ae95acfbe7253e1c820e2e38b58ab9d50"
   integrity sha512-HJXHd+FtqR0M8KyM+6G08aHUXzi5vzodc7mEmxciohX9vsoFPH7Cwufp1yFIBqIhIX90sepBGHLc5WMhV9utsg==
+  dependencies:
+    js-yaml "3.13.1"
+    lodash.get "4.4.2"
+    lodash.mergewith "4.6.1"
+    lodash.set "4.3.2"
+
+yaml-boost@1.9.4:
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/yaml-boost/-/yaml-boost-1.9.4.tgz#827563d1c9c315dc6ad3fc139ccf43d8edc8d176"
+  integrity sha512-vL7RwkUdp06LqBFfszqlnraCnJhLHNKWp8QN2j2v9aLo8hoVouwZYL9wgW7AHBylzMtdnH9fZpjv0gCz32fyEA==
   dependencies:
     js-yaml "3.13.1"
     lodash.get "4.4.2"
