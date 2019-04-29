@@ -3694,10 +3694,10 @@ lambda-rate-limiter@2.4.14:
   dependencies:
     lru-cache "5.1.1"
 
-lambda-rollbar@1.10.10:
-  version "1.10.10"
-  resolved "https://registry.yarnpkg.com/lambda-rollbar/-/lambda-rollbar-1.10.10.tgz#ff5e3824b37371b51e3dcbc648113a467597bc12"
-  integrity sha512-O+h+SJkVU6CvcMV0OmbsGPxWCjm82C69A5EhAOdHqAtMIqz9zeU2RodSwSUp1FIL1nWcbGRFAjt/hD1qaQwGIw==
+lambda-rollbar@1.10.11:
+  version "1.10.11"
+  resolved "https://registry.yarnpkg.com/lambda-rollbar/-/lambda-rollbar-1.10.11.tgz#67fe6ad1a4af76b42093f54f4bb77b9da2c4390e"
+  integrity sha512-RoxOghVUkWNW+wqtq02+4AS7GxT66tE0cPD0As1ne1SNPIPkHdJlK6gYHPAw9CNpdJV0ctY92m3NX1MPN25IgA==
   dependencies:
     fast-safe-stringify "2.0.6"
     lodash.get "4.4.2"
