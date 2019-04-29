@@ -4999,17 +4999,22 @@ object-keys@^1.0.11, object-keys@^1.0.12:
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
-object-rewrite@2.1.30:
-  version "2.1.30"
-  resolved "https://registry.yarnpkg.com/object-rewrite/-/object-rewrite-2.1.30.tgz#f7aa318d52b857d74395cdd54f65cdbb603f7fac"
-  integrity sha512-X9IgpIH9TMrfmuW+c51+pRcP7BpFHl/LQb0hnl2r/62gxjnymgvyYAegKU5AV68razGIKcjb4hvl8g2rNSl4Wg==
+object-rewrite@2.1.31:
+  version "2.1.31"
+  resolved "https://registry.yarnpkg.com/object-rewrite/-/object-rewrite-2.1.31.tgz#6dbdd8860feca84554dc8c637d918e89b82fc89e"
+  integrity sha512-vA+aF64dK/Rf/ZgURndNP3bXWWLXtxKWbzlNo0odS0l6pytZ+w3uUdTpy7c8KXRUui4WxQR6aWFRee6YwqEHnw==
   dependencies:
-    object-scan "9.0.2"
+    object-scan "9.0.3"
 
 object-scan@9.0.2:
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-9.0.2.tgz#28f4e6a296b97d641652c4dc9130f9d1b466d4f7"
   integrity sha512-hS6eCBVMJq7d8P4mbDEZr+wsz41e5RtCyXXrkAEo2BLL72YIoqgXT7cjt74iKZPcxkIcHX24haeFI3VQQBdsvw==
+
+object-scan@9.0.3:
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-9.0.3.tgz#11236cede9116e850c9784dd261538a531ab7c51"
+  integrity sha512-FyAY4F18f3beH8iAFWDWA4NaW1pxQUqTMt/baTgPBmpE9wyNBpg3f518CsvPnO9fYaXoiiohRgoh+WljV/eRfQ==
 
 object-treeify@1.1.9:
   version "1.1.9"
