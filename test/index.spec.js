@@ -14,7 +14,7 @@ const api = require('../src/index');
 lambdaTester.execute((process.argv.slice(2).find(e => e.startsWith('--filter=')) || '').substring(9));
 
 it('Testing Exports Synchronized.', () => {
-  expect(difference(Object.keys(api), Object.keys(api.Api()))).to.deep.equal(['Api']);
+  expect(difference(Object.keys(api), Object.keys(api.Api()))).to.deep.equal(['Api', 'logger']);
   expect(difference(Object.keys(api.Api()), Object.keys(api)).sort()).to.deep.equal([
     'generateDifference',
     'generateSwagger',
@@ -22,4 +22,5 @@ it('Testing Exports Synchronized.', () => {
     'router',
     'wrap'
   ]);
+  expect(Object.keys(api.logger)).to.deep.equal(['debug', 'info', 'warning', 'error', 'critical']);
 });

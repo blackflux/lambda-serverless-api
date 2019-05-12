@@ -11,6 +11,7 @@ const Router = require('route-recognizer');
 const param = require('./param');
 const response = require('./response');
 const swagger = require('./swagger');
+const logger = require('./util/logger');
 
 // todo: separate functions out and generify
 
@@ -300,4 +301,4 @@ const Api = (options = {}) => {
   }, staticExports);
 };
 
-module.exports = Object.assign({ Api }, staticExports);
+module.exports = Object.assign({ Api, logger }, staticExports);
