@@ -64,6 +64,20 @@ The `defaultHeaders` are returned with every request that isn't an unexpected cr
 
 Parameter names are converted to camel case. E.g. `X-Custom-Header` would be passed as `xCustomHeader`.
 
+## Logging
+
+This library also provides a simple logger.
+
+<!-- eslint-disable import/no-unresolved -->
+```js
+const { logger } = require('lambda-serverless-api');
+
+logger.info('Hello');
+
+```
+
+The logger is designed to work in combination with [lambda-monitor](https://github.com/blackflux/lambda-monitor).
+
 ## Options
 
 All parameter types support the following options:
