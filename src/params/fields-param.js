@@ -6,8 +6,8 @@ const objectRewrite = require('object-rewrite');
 const Str = require('./str');
 
 class FieldsParam extends Str {
-  static evaluatePaths(paths) {
-    let result = paths;
+  static evaluatePaths(allowedFields) {
+    let result = allowedFields;
     if (typeof result === 'function') {
       result = result();
     }
@@ -16,11 +16,11 @@ class FieldsParam extends Str {
 
   constructor(name, position, opts) {
     super(name, position, opts);
-    const { paths, autoPrune, autoPrunePath } = Object.assign({ autoPrune: false, autoPrunePath: null }, opts);
+    const { allowedFields, autoPrune, autoPrunePath } = Object.assign({ autoPrune: false, autoPrunePath: null }, opts);
     assert(typeof autoPrune === 'boolean');
     assert(typeof autoPrunePath === 'string' || autoPrunePath === null);
     this.paramType = 'FieldsParam';
-    this.paths = paths;
+    this.allowedFields = allowedFields;
     this.autoPrune = autoPrune;
     this.autoPrunePath = autoPrunePath;
   }
@@ -34,7 +34,7 @@ class FieldsParam extends Str {
 
   validate(value) {
     let valid = super.validate(value);
-    if (valid && difference(objectPaths.split(value), FieldsParam.evaluatePaths(this.paths)).length !== 0) {
+    if (valid && difference(objectPaths.split(value), FieldsParam.evaluatePaths(this.allowedFields)).length !== 0) {
       valid = false;
     }
     return valid;
