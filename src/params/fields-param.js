@@ -1,7 +1,7 @@
 const assert = require('assert');
 const get = require('lodash.get');
 const difference = require('lodash.difference');
-const objectPaths = require('obj-paths');
+const objectFields = require('object-fields');
 const objectRewrite = require('object-rewrite');
 const Str = require('./str');
 
@@ -11,7 +11,7 @@ class FieldsParam extends Str {
     if (typeof result === 'function') {
       result = result();
     }
-    return typeof result === 'string' ? objectPaths.split(result) : result;
+    return typeof result === 'string' ? objectFields.split(result) : result;
   }
 
   constructor(name, position, opts) {
@@ -34,7 +34,7 @@ class FieldsParam extends Str {
 
   validate(value) {
     let valid = super.validate(value);
-    if (valid && difference(objectPaths.split(value), FieldsParam.evaluatePaths(this.allowedFields)).length !== 0) {
+    if (valid && difference(objectFields.split(value), FieldsParam.evaluatePaths(this.allowedFields)).length !== 0) {
       valid = false;
     }
     return valid;
