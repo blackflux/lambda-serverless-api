@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('joi-strict');
 const Json = require('./json');
 
 class NumberParam extends Json {

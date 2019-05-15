@@ -1,26 +1,26 @@
 const assert = require('assert');
 const get = require('lodash.get');
 const difference = require('lodash.difference');
-const objectPaths = require('obj-paths');
+const objectFields = require('object-fields');
 const objectRewrite = require('object-rewrite');
 const Str = require('./str');
 
 class FieldsParam extends Str {
-  static evaluatePaths(paths) {
-    let result = paths;
+  static evaluatePaths(fields) {
+    let result = fields;
     if (typeof result === 'function') {
       result = result();
     }
-    return typeof result === 'string' ? objectPaths.split(result) : result;
+    return typeof result === 'string' ? objectFields.split(result) : result;
   }
 
   constructor(name, position, opts) {
     super(name, position, opts);
-    const { paths, autoPrune, autoPrunePath } = Object.assign({ autoPrune: false, autoPrunePath: null }, opts);
+    const { fields, autoPrune, autoPrunePath } = Object.assign({ autoPrune: false, autoPrunePath: null }, opts);
     assert(typeof autoPrune === 'boolean');
     assert(typeof autoPrunePath === 'string' || autoPrunePath === null);
     this.paramType = 'FieldsParam';
-    this.paths = paths;
+    this.fields = fields;
     this.autoPrune = autoPrune;
     this.autoPrunePath = autoPrunePath;
   }
@@ -34,7 +34,7 @@ class FieldsParam extends Str {
 
   validate(value) {
     let valid = super.validate(value);
-    if (valid && difference(objectPaths.split(value), FieldsParam.evaluatePaths(this.paths)).length !== 0) {
+    if (valid && difference(objectFields.split(value), FieldsParam.evaluatePaths(this.fields)).length !== 0) {
       valid = false;
     }
     return valid;

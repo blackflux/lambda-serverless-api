@@ -2,8 +2,8 @@ const expect = require('chai').expect;
 const api = require('../../src/index').Api();
 
 describe('Testing FieldsParam Parameter', () => {
-  const queryParam = api.FieldsParam('param', 'query', { paths: ['id', 'user.id', 'user.name'] });
-  const jsonParam = api.FieldsParam('param', 'json', { paths: () => 'id,user(id,name)' });
+  const queryParam = api.FieldsParam('param', 'query', { fields: ['id', 'user.id', 'user.name'] });
+  const jsonParam = api.FieldsParam('param', 'json', { fields: () => 'id,user(id,name)' });
 
   it('Testing valid query param', () => {
     expect(queryParam.get({
