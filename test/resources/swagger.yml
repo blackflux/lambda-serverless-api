@@ -57,7 +57,7 @@ paths:
           type: string
           format: RegEx
           in: query
-          pattern: ^(1|0)$
+          pattern: /^(1|0)$/
         - name: authorizer
           required: false
           type: string
