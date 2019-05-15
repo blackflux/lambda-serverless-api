@@ -4,7 +4,7 @@ const Str = require('./str');
 class RegEx extends Str {
   constructor(name, position, opts) {
     super(name, position, opts);
-    assert(opts.regex instanceof RegExp, 'Missing Regex Option');
+    assert(opts.regex instanceof RegExp, 'Invalid Regex Option');
     this.regex = opts.regex;
   }
 
