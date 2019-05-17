@@ -2,7 +2,6 @@ const assert = require('assert');
 const get = require('lodash.get');
 const difference = require('lodash.difference');
 const objectFields = require('object-fields');
-const objectRewrite = require('object-rewrite');
 const Str = require('./str');
 
 class FieldsParam extends Str {
@@ -27,9 +26,10 @@ class FieldsParam extends Str {
 
   pruneFields(apiResponse, parsedFields) {
     assert(apiResponse.isJsonResponse === true, 'Can only prune JsonResponse');
-    objectRewrite({
-      retain: parsedFields
-    })(this.autoPrunePath !== null ? get(apiResponse.payload, this.autoPrunePath) : apiResponse.payload);
+    objectFields.retain(
+      this.autoPrunePath !== null ? get(apiResponse.payload, this.autoPrunePath) : apiResponse.payload,
+      parsedFields
+    );
   }
 
   validate(value) {
