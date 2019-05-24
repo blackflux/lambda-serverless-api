@@ -4,6 +4,8 @@ const api = require('../../src/index').Api();
 describe('Testing StrList Parameter', () => {
   const queryParam = api.StrList('list', 'query');
   const jsonParam = api.StrList('list', 'json');
+  const enumBody = api.StrList('list', 'json', { enums: ['enumOne', 'enumTwo', 'enumThree'] });
+  const enumParam = api.StrList('list', 'query', { enums: ['enumOne', 'enumTwo', 'enumThree'] });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({
@@ -35,5 +37,21 @@ describe('Testing StrList Parameter', () => {
         list: ['123', 213]
       }
     })).to.throw('Invalid Value for json-Parameter "list" provided.');
+  });
+
+  it('Testing enums json parameter', () => {
+    expect(enumBody.get({
+      body: {
+        list: ['enumOne', 'enumTwo']
+      }
+    })).to.deep.equal(['enumOne', 'enumTwo']);
+  });
+
+  it('Testing valid enum query parameter', () => {
+    expect(() => enumParam.get({
+      queryStringParameters: {
+        list: '["enumOne", "enumTwo", "enumFour"]'
+      }
+    })).to.throw('Invalid Value for query-Parameter "list" provided.');
   });
 });
