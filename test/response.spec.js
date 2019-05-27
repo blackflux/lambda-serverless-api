@@ -178,7 +178,7 @@ describe('Testing Response', () => {
     });
   });
 
-  it('Testing auto field pruning', (done) => {
+  it('Testing auto field pruning top level', (done) => {
     api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: '' })
     ], 10, (event, context, rb) => rb.warning('123')
