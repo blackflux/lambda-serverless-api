@@ -69,7 +69,7 @@
     "joi-strict": "1.0.1",
     "js-yaml": "3.13.1",
     "lambda-rate-limiter": "2.4.16",
-    "lambda-rollbar": "1.10.12",
+    "lambda-rollbar": "1.10.13",
     "lodash.defaultsdeep": "4.6.0",
     "lodash.difference": "4.5.0",
     "lodash.get": "4.4.2",
