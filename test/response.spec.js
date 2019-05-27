@@ -232,7 +232,7 @@ describe('Testing Response', () => {
     });
   });
 
-  it('Testing with no pruneResponse', (done) => {
+  it('Testing without autoPrune', (done) => {
     api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'] })
     ], 10, (event, context, rb) => rb.warning('123')
