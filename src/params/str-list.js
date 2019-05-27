@@ -5,7 +5,7 @@ class StrList extends List {
   constructor(name, position, opts) {
     super(name, position, opts);
     this.items = { type: 'string' };
-    if (opts !== undefined && opts.enums) {
+    if (opts !== undefined && opts.enums !== undefined) {
       assert(Array.isArray(opts.enums));
       this.enums = new Set(opts.enums);
     }
@@ -13,16 +13,16 @@ class StrList extends List {
 
   validate(value) {
     let valid = super.validate(value);
-    if (valid) {
-      const strList = this.stringInput ? JSON.parse(value) : value;
-      if (strList.some(e => typeof e !== 'string')) {
-        valid = false;
-      }
-      if (this.enums !== undefined && !strList.every(val => this.enums.has(val))) {
-        valid = false;
-      }
+    let valueParsed = value;
+    if (valid && this.stringInput) {
+      valueParsed = JSON.parse(value);
     }
-
+    if (valid && valueParsed.some(e => typeof e !== 'string')) {
+      valid = false;
+    }
+    if (valid && this.enums !== undefined && !valueParsed.every(val => this.enums.has(val))) {
+      valid = false;
+    }
     return valid;
   }
 }
