@@ -168,12 +168,12 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@blackflux/eslint-plugin-rules@1.0.15":
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/@blackflux/eslint-plugin-rules/-/eslint-plugin-rules-1.0.15.tgz#4dbe831c320bda0bffb6a575a262a940272d9914"
-  integrity sha512-Fe1tTSwuLZzZJtJIFke86rvCydtCZ5ZsoHN+O7PhEdXzLtm2HyP2jEq5qZG469Mv80jW4mdic8uDGvJ8McuIsw==
+"@blackflux/eslint-plugin-rules@1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@blackflux/eslint-plugin-rules/-/eslint-plugin-rules-1.0.16.tgz#a808629bc1be17dd41d00ad251df7ecb940df026"
+  integrity sha512-NRFZB07cOjwi8PbU9WH/sNPJarnG6riTX00QtOYx3l+4vwZxgq5gsNtY98EhP/kmR+sH906kWq5qCawBkA9/6A==
   dependencies:
-    smart-fs "1.7.6"
+    smart-fs "1.7.7"
 
 "@blackflux/robo-config-plugin@1.10.3":
   version "1.10.3"
@@ -5093,12 +5093,12 @@ object-deep-contain@1.0.9:
   resolved "https://registry.yarnpkg.com/object-deep-contain/-/object-deep-contain-1.0.9.tgz#3c0836931fccb93feba8c240826fd74708b5c414"
   integrity sha512-SQaD4PpgJSWOPkVWaeddfqtVD3faLhx5QqH9ZwXDmPcxfI8HydgX/GFIoSlJbiFmNIFC5a2rLkGgIgdKjslyFg==
 
-object-fields@1.3.6:
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/object-fields/-/object-fields-1.3.6.tgz#69f2efd85b1e65f0c8f184f5e7a5724135556128"
-  integrity sha512-+D+gf1hc4rMO4aKat1hhAR27EN4XbzFRXPPcq8i8kfbjW0W/BClut1u2Ti5BBkOc1GH30j5q7uF5hWPXlF6FNw==
+object-fields@1.3.7:
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/object-fields/-/object-fields-1.3.7.tgz#141428f6a0425f1f53733b4ef0bfb80d8072ba99"
+  integrity sha512-ixu4OoAIwkRMG7Dk0dP702X7KQB/FSqsDAeVJzDzoDTHgbLQqRYRrlqeX1Z+pRxhCxC2fUUVo08unSaPNhi8Gg==
   dependencies:
-    object-scan "10.0.1"
+    object-scan "10.0.2"
 
 object-keys@^1.0.11, object-keys@^1.0.12:
   version "1.1.1"
@@ -5109,6 +5109,11 @@ object-scan@10.0.1:
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-10.0.1.tgz#76e4d702ba092a73bc8573462640b5005cd4eb36"
   integrity sha512-4tdCSictL1g5hDr7i6Ppb60ZLI5VMtyJ6Ikq9ndnEAs6+U7vaoWsCtgjHqCza03G+j/TMXeJusEY8dCpieHM8g==
+
+object-scan@10.0.2:
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-10.0.2.tgz#97b1ad931d48b0ebab3d7b7f750b5cac569428b0"
+  integrity sha512-xgRCWPP6c6l2zE5fYz+cAg/gPTDV3WsCU5XfAXNNEigGfO2hpghoui+4LWtuIupnjaj1I2vFuo3ekpXC3LPDVA==
 
 object-scan@10.0.3:
   version "10.0.3"
@@ -6502,6 +6507,18 @@ smart-fs@1.7.6:
   version "1.7.6"
   resolved "https://registry.yarnpkg.com/smart-fs/-/smart-fs-1.7.6.tgz#44ec5bdd761e82a8018af3bc74d8c90c10ef2ef2"
   integrity sha512-xomXsiBJt8ASGxJN+aiVwP1IKlVnD8xrP9Wvm9ZiyMXqOCzTozo54FKTHFBCL+Xlvlm4Ucp6HgjEarK0J/c/5A==
+  dependencies:
+    fs-extra "7.0.1"
+    json-stringify-pretty-compact "2.0.0"
+    lodash.clonedeep "4.5.0"
+    lodash.isequal "4.5.0"
+    xml-js "1.6.11"
+    yaml-boost "1.9.5"
+
+smart-fs@1.7.7:
+  version "1.7.7"
+  resolved "https://registry.yarnpkg.com/smart-fs/-/smart-fs-1.7.7.tgz#13e59aafd6acbf88f12ba8e5abd898beabe9ef2e"
+  integrity sha512-HJaKlif3Yg5xK7d3TuWhvTf2NHlGViME1/eaR3WHtIhBTF2VneMcgvdRxdAYG8ZGU8UYdxwKPOBJLZ02FQEKAA==
   dependencies:
     fs-extra "7.0.1"
     json-stringify-pretty-compact "2.0.0"
