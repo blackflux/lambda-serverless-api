@@ -178,9 +178,9 @@ describe('Testing Response', () => {
     });
   });
 
-  it('Testing auto field pruning', (done) => {
+  it('Testing auto field pruning top level', (done) => {
     api.wrap('GET test', [
-      api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: true })
+      api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: '' })
     ], 10, (event, context, rb) => rb.warning('123')
       .then(() => api.JsonResponse({
         foo: 'bar',
@@ -206,7 +206,7 @@ describe('Testing Response', () => {
 
   it('Testing auto field pruning with path', (done) => {
     api.wrap('GET test', [
-      api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: true, autoPrunePath: 'payload' })
+      api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: 'payload' })
     ], 10, (event, context, rb) => rb.warning('123')
       .then(() => api.JsonResponse({
         payload: {
@@ -232,9 +232,9 @@ describe('Testing Response', () => {
     });
   });
 
-  it('Testing pruneResponse false', (done) => {
+  it('Testing without autoPrune', (done) => {
     api.wrap('GET test', [
-      api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: false })
+      api.FieldsParam('fields', 'query', { fields: ['foo'] })
     ], 10, (event, context, rb) => rb.warning('123')
       .then(() => api.JsonResponse({
         foo: 'bar',

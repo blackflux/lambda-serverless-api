@@ -39,8 +39,8 @@ describe('Testing FieldsParam Parameter', () => {
 
   it('Testing only one autoPrune FieldsParam per request', (done) => {
     expect(() => api.wrap('GET route', [
-      api.FieldsParam('fields1', 'query', { paths: ['id'], autoPrune: true }),
-      api.FieldsParam('fields2', 'query', { paths: ['id'], autoPrune: true })
+      api.FieldsParam('fields1', 'query', { paths: ['id'], autoPrune: '' }),
+      api.FieldsParam('fields2', 'query', { paths: ['id'], autoPrune: '' })
     ], 1))
       .to.throw('Only one auto pruning "FieldsParam" per endpoint.');
     done();
