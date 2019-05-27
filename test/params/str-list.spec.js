@@ -4,8 +4,8 @@ const api = require('../../src/index').Api();
 describe('Testing StrList Parameter', () => {
   const queryParam = api.StrList('list', 'query');
   const jsonParam = api.StrList('list', 'json');
-  const enumBody = api.StrList('list', 'json', { enums: ['enumOne', 'enumTwo', 'enumThree'] });
-  const enumParam = api.StrList('list', 'query', { enums: ['enumOne', 'enumTwo', 'enumThree'] });
+  const bodyParamEnum = api.StrList('list', 'json', { enums: ['enumOne', 'enumTwo', 'enumThree'] });
+  const queryParamEnum = api.StrList('list', 'query', { enums: ['enumOne', 'enumTwo', 'enumThree'] });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({
@@ -40,15 +40,15 @@ describe('Testing StrList Parameter', () => {
   });
 
   it('Testing enums json parameter', () => {
-    expect(enumBody.get({
+    expect(bodyParamEnum.get({
       body: {
         list: ['enumOne', 'enumTwo']
       }
     })).to.deep.equal(['enumOne', 'enumTwo']);
   });
 
-  it('Testing valid enum query parameter', () => {
-    expect(() => enumParam.get({
+  it('Testing invalid enum query params', () => {
+    expect(() => queryParamEnum.get({
       queryStringParameters: {
         list: '["enumOne", "enumTwo", "enumFour"]'
       }
