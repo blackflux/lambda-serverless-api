@@ -39,7 +39,7 @@ describe('Testing StrList Parameter', () => {
     })).to.throw('Invalid Value for json-Parameter "list" provided.');
   });
 
-  it('Testing enums json parameter', () => {
+  it('Testing valid enums json parameter', () => {
     expect(bodyParamEnum.get({
       body: {
         list: ['enumOne', 'enumTwo']
@@ -47,7 +47,23 @@ describe('Testing StrList Parameter', () => {
     })).to.deep.equal(['enumOne', 'enumTwo']);
   });
 
-  it('Testing invalid enum query params', () => {
+  it('Testing invalid enums json parameter', () => {
+    expect(() => bodyParamEnum.get({
+      body: {
+        list: ['enumOne', 'enumTwo', 'enumFour']
+      }
+    })).to.throw('Invalid Value for json-Parameter "list" provided.');
+  });
+
+  it('Testing valid enums query parameter', () => {
+    expect(queryParamEnum.get({
+      queryStringParameters: {
+        list: '["enumOne", "enumTwo"]'
+      }
+    })).to.deep.equal(['enumOne', 'enumTwo']);
+  });
+
+  it('Testing invalid enums query parameter', () => {
     expect(() => queryParamEnum.get({
       queryStringParameters: {
         list: '["enumOne", "enumTwo", "enumFour"]'
