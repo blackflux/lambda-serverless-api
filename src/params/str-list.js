@@ -2,11 +2,12 @@ const assert = require('assert');
 const List = require('./list');
 
 class StrList extends List {
-  constructor(name, position, opts) {
+  constructor(name, position, opts = {}) {
     super(name, position, opts);
     this.items = { type: 'string' };
-    if (opts !== undefined && opts.enums !== undefined) {
+    if (opts.enums !== undefined) {
       assert(Array.isArray(opts.enums));
+      assert(opts.enums.every(e => typeof e === 'string'));
       this.enums = new Set(opts.enums);
     }
   }
