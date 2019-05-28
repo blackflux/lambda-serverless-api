@@ -3591,10 +3591,10 @@ jmespath@0.15.0:
   resolved "https://registry.yarnpkg.com/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
   integrity sha1-o/Iiqarp+Wb10nx5ZRDigJF2Qhc=
 
-joi-strict@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.0.1.tgz#18892226dc3c1735c1e6d8128653fba726403287"
-  integrity sha512-6xcN01OWwaICx6sojA7jflh+EqAUIbGPlNFo7C7OG5NWbrljSq+aww8+Z7Ho85ikBhDitVLZelZObnI4mlpBXQ==
+joi-strict@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.0.2.tgz#cb0bd00cfc3260d6a259324367acef76fcc433ae"
+  integrity sha512-IHOFYARRhGFk8iAbTI0rvYVsXBYW39dSKNLAxrdPC4SYYYE4hrEVNluXwy+8td/p+K8COyhQLm42osBlBpz4GQ==
 
 joi@14.3.1:
   version "14.3.1"
