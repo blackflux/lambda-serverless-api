@@ -18,7 +18,7 @@
     "@babel/plugin-proposal-object-rest-spread": "7.4.4",
     "@babel/register": "7.4.4",
     "@blackflux/eslint-plugin-rules": "1.0.16",
-    "@blackflux/robo-config-plugin": "1.10.3",
+    "@blackflux/robo-config-plugin": "1.10.4",
     "app-root-path": "2.2.1",
     "babel-eslint": "10.0.1",
     "chai": "4.2.0",
@@ -80,7 +80,7 @@
     "object-scan": "10.0.3",
     "route-recognizer": "0.3.4",
     "swagger-parser": "6.0.5",
-    "yaml-boost": "1.9.6"
+    "yaml-boost": "1.9.7"
   },
   "peerDependencies": {},
   "nyc": {
