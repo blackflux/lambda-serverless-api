@@ -73,6 +73,9 @@ paths:
           type: string
           format: StrList
           in: query
+          enum:
+            - enum1
+            - enum2
         - name: fieldsParam
           required: false
           type: string

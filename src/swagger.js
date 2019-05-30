@@ -34,6 +34,10 @@ module.exports = (endpoints, existing) => {
         },
         p.regex === undefined ? {} : { pattern: p.regex.toString() },
         p.items === undefined ? {} : { type: 'string' },
+        p.enums === undefined ? {} : {
+          type: 'string',
+          enum: [...p.enums]
+        },
         p.minItems === undefined ? {} : { minItems: p.minItems },
         p.maxItems === undefined ? {} : { maxItems: p.maxItems }
       ));
