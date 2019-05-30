@@ -71,7 +71,7 @@ module.exports.param = api.wrap('POST param', [
   api.GeoRect('geoRectParam', 'json', { required: false }),
   api.GeoShape('geoShapeParam', 'json', { required: false }),
   api.List('listParam', 'query', { required: false }),
-  api.StrList('strListParam', 'query', { required: false }),
+  api.StrList('strListParam', 'query', { required: false, enums: ['enum1', 'enum2'] }),
   api.FieldsParam('fieldsParam', 'query', { required: false, fields: 'id' }),
   api.Number('numberParam', 'query', { required: false }),
   api.NumberList('numberListParam', 'query', { required: false }),
