@@ -133,7 +133,9 @@ const Api = (options = {}) => {
 
   const wrap = (request, params, optionsOrHandler, handlerOrUndefined) => {
     const hasOptions = handlerOrUndefined !== undefined;
+    assert(!hasOptions || (optionsOrHandler instanceof Object && !Array.isArray(optionsOrHandler)));
     const handler = hasOptions ? handlerOrUndefined : optionsOrHandler;
+    assert(typeof handler === 'function');
     const opt = Object.assign(
       {
         limit: get(options, 'limit', 100)
