@@ -38,6 +38,9 @@ module.exports = (endpoints, existing) => {
           type: 'string',
           enum: [...p.enums]
         },
+        p.minListItemLength === undefined ? {} : { minLength: p.minListItemLength },
+        p.maxListItemLength === undefined ? {} : { maxLength: p.maxListItemLength },
+        p.maxListLength === undefined ? {} : { maxItems: p.maxListLength },
         p.minItems === undefined ? {} : { minItems: p.minItems },
         p.maxItems === undefined ? {} : { maxItems: p.maxItems }
       ));
