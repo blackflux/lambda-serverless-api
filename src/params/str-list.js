@@ -10,18 +10,15 @@ class StrList extends List {
       assert(opts.enums.every(e => typeof e === 'string'));
       this.enums = new Set(opts.enums);
     }
-    if (opts.minListItemLength !== undefined) {
-      assert(typeof opts.minListItemLength === 'number');
-      this.minListItemLength = opts.minListItemLength;
-    }
-    if (opts.maxListItemLength !== undefined) {
-      assert(typeof opts.maxListItemLength === 'number');
-      this.maxListItemLength = opts.maxListItemLength;
-    }
-    if (opts.maxListLength !== undefined) {
-      assert(typeof opts.maxListLength === 'number');
-      this.maxListLength = opts.maxListLength;
-    }
+
+    assert(opts.minListItemLength === undefined || Number.isInteger(opts.minListItemLength));
+    this.minListItemLength = opts.minListItemLength;
+
+    assert(opts.maxListItemLength === undefined || Number.isInteger(opts.maxListItemLength));
+    this.maxListItemLength = opts.maxListItemLength;
+
+    assert(opts.maxListLength === undefined || Number.isInteger(opts.maxListLength));
+    this.maxListLength = opts.maxListLength;
   }
 
   validate(value) {

@@ -63,7 +63,7 @@ module.exports.param = api.wrap('POST param', [
   api.IsoDate('isoDateParam', 'json', { required: false }),
   api.UUID('uuidParam', 'json', { required: false }),
   api.List('listParam', 'json', { required: false }),
-  api.StrList('strListParam', 'json', { required: false, enums: ['enum1', 'enum2'] }),
+  api.StrList('strListParam', 'json', { required: false }),
   api.FieldsParam('fieldsParam', 'json', { required: false, fields: 'id', autoPrune: null }),
   api.Number('numberParam', 'json', { required: false }),
   api.NumberList('numberListParam', 'json', { required: false }),
