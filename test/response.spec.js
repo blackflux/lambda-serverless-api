@@ -1,6 +1,8 @@
 const expect = require('chai').expect;
 const response = require('../src/response');
 const { Api } = require('../src/index');
+const { identity } = require('./misc');
+
 
 describe('Testing Response', () => {
   let api;
@@ -9,8 +11,8 @@ describe('Testing Response', () => {
   });
 
   it('Testing Redefined Endpoint', (done) => {
-    api.wrap('GET path/{p1}', [], 10);
-    expect(() => api.wrap('GET path/{p2}', [], 10))
+    api.wrap('GET path/{p1}', [], identity(api));
+    expect(() => api.wrap('GET path/{p2}', [], identity(api)))
       .to.throw('Path collision: GET path/{p2}');
     done();
   });
@@ -22,7 +24,7 @@ describe('Testing Response', () => {
         lastEvent = event;
       }
     });
-    api.wrap('GET path', [], 10, () => api.JsonResponse({}));
+    api.wrap('GET path', [], identity(api));
     api.router({ httpMethod: 'GET', path: '/path' }, {}, (err, resp) => {
       expect(lastEvent).to.deep.equal({
         httpMethod: 'GET',
@@ -44,7 +46,7 @@ describe('Testing Response', () => {
         throw api.ApiError('Some Error');
       }
     });
-    api.wrap('GET path', [], 10);
+    api.wrap('GET path', [], identity(api));
     api.router({ httpMethod: 'GET', path: '/path' }, {
       getRemainingTimeInMillis: () => 0
     }, (err, resp) => {
@@ -59,7 +61,7 @@ describe('Testing Response', () => {
 
   it('Testing defaultHeaders function (echo)', (done) => {
     api = Api({ defaultHeaders: headers => headers });
-    api.wrap('GET path', [], 10, () => api.JsonResponse({}));
+    api.wrap('GET path', [], identity(api));
     api.router({
       httpMethod: 'GET',
       path: '/path',
@@ -79,7 +81,7 @@ describe('Testing Response', () => {
 
   it('Testing defaultHeaders function (empty)', (done) => {
     api = Api({ defaultHeaders: headers => headers });
-    api.wrap('GET path', [], 10, () => api.JsonResponse({}));
+    api.wrap('GET path', [], identity(api));
     api.router({ httpMethod: 'GET', path: '/path' }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
@@ -92,8 +94,8 @@ describe('Testing Response', () => {
 
   it('Testing Multi Methods for Options Request', (done) => {
     api = Api({ preflightCheck: args => args });
-    api.wrap('GET path', [], 10);
-    api.wrap('DELETE path', [], 10);
+    api.wrap('GET path', [], identity(api));
+    api.wrap('DELETE path', [], identity(api));
     api.router({ httpMethod: 'OPTIONS', path: '/path' }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
@@ -109,7 +111,7 @@ describe('Testing Response', () => {
   });
 
   it('Testing Default Options Request Fails', (done) => {
-    api.wrap('GET path', [], 10);
+    api.wrap('GET path', [], identity(api));
     api.router({ httpMethod: 'OPTIONS', path: '/path' }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
@@ -128,7 +130,7 @@ describe('Testing Response', () => {
   });
 
   it('Testing ApiResponse Integration', (done) => {
-    api.wrap('GET test', [], 10, (event, context, rb) => rb.warning('123')
+    api.wrap('GET test', [], (event, context, rb) => rb.warning('123')
       .then(() => api.ApiResponse('promiseResponse')).catch(done.fail))({
       httpMethod: 'GET'
     }, {
@@ -145,7 +147,7 @@ describe('Testing Response', () => {
   });
 
   it('Testing ApiError Integration', (done) => {
-    api.wrap('GET test', [], 10, (event, context, rb) => rb.warning('123').then(() => {
+    api.wrap('GET test', [], (event, context, rb) => rb.warning('123').then(() => {
       throw api.ApiError('promiseError');
     }).catch(done.fail))({
       httpMethod: 'GET'
@@ -165,7 +167,7 @@ describe('Testing Response', () => {
 
   it('Testing Error Integration', (done) => {
     const error = new Error('other');
-    api.wrap('GET test', [], 10, (event, context, rb) => rb.warning('123').then(() => {
+    api.wrap('GET test', [], (event, context, rb) => rb.warning('123').then(() => {
       throw error;
     }).catch(done.fail))({
       httpMethod: 'GET'
@@ -181,7 +183,7 @@ describe('Testing Response', () => {
   it('Testing auto field pruning top level', (done) => {
     api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: '' })
-    ], 10, (event, context, rb) => rb.warning('123')
+    ], (event, context, rb) => rb.warning('123')
       .then(() => api.JsonResponse({
         foo: 'bar',
         baz: 'quz'
@@ -207,7 +209,7 @@ describe('Testing Response', () => {
   it('Testing auto field pruning with path', (done) => {
     api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: 'payload' })
-    ], 10, (event, context, rb) => rb.warning('123')
+    ], (event, context, rb) => rb.warning('123')
       .then(() => api.JsonResponse({
         payload: {
           foo: 'bar',
@@ -235,7 +237,7 @@ describe('Testing Response', () => {
   it('Testing without autoPrune', (done) => {
     api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'] })
-    ], 10, (event, context, rb) => rb.warning('123')
+    ], (event, context, rb) => rb.warning('123')
       .then(() => api.JsonResponse({
         foo: 'bar',
         baz: 'quz'

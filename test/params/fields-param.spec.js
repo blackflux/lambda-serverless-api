@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
 const api = require('../../src/index').Api();
+const { identity } = require('../misc');
 
 describe('Testing FieldsParam Parameter', () => {
   const queryParam = api.FieldsParam('param', 'query', { fields: ['id', 'user.id', 'user.name'] });
@@ -41,7 +42,7 @@ describe('Testing FieldsParam Parameter', () => {
     expect(() => api.wrap('GET route', [
       api.FieldsParam('fields1', 'query', { paths: ['id'], autoPrune: '' }),
       api.FieldsParam('fields2', 'query', { paths: ['id'], autoPrune: '' })
-    ], 1))
+    ], identity(api)))
       .to.throw('Only one auto pruning "FieldsParam" per endpoint.');
     done();
   });
