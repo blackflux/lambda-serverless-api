@@ -41,6 +41,20 @@ paths:
       responses:
         default:
           description: Unexpected Error
+  '/proxy/{proxy+}':
+    get:
+      consumes:
+        - application/json
+      description: ''
+      parameters:
+        - name: proxy+
+          required: true
+          type: string
+          format: Str
+          in: path
+      responses:
+        default:
+          description: Unexpected Error
   /param:
     post:
       consumes:
@@ -76,6 +90,10 @@ paths:
           enum:
             - enum1
             - enum2
+          minLength: 1
+          maxLength: 2
+          minItems: 1
+          maxItems: 3
         - name: fieldsParam
           required: false
           type: string
@@ -219,20 +237,6 @@ paths:
                 type: string
                 format: Email
                 pattern: '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/'
-      responses:
-        default:
-          description: Unexpected Error
-  '/proxy/{proxy+}':
-    get:
-      consumes:
-        - application/json
-      description: ''
-      parameters:
-        - name: proxy+
-          required: true
-          type: string
-          format: Str
-          in: path
       responses:
         default:
           description: Unexpected Error
