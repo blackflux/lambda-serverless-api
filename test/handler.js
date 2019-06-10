@@ -74,9 +74,9 @@ module.exports.param = api.wrap('POST param', [
   api.StrList('strListParam', 'query', {
     required: false,
     enums: ['enum1', 'enum2'],
-    minListItemLength: 1,
-    maxListItemLength: 2,
-    maxListLength: 3
+    minItemLength: 1,
+    maxItemLength: 2,
+    maxLength: 3
   }),
   api.FieldsParam('fieldsParam', 'query', { required: false, fields: 'id' }),
   api.Number('numberParam', 'query', { required: false }),

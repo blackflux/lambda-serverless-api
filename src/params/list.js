@@ -1,8 +1,9 @@
+const assert = require('assert');
 const Abstract = require('./_abstract');
 
 class List extends Abstract {
-  constructor(...args) {
-    super(...args);
+  constructor(name, position, opts = {}) {
+    super(name, position, opts);
     this.type = 'array';
     this.items = {
       allOf: [
@@ -12,6 +13,9 @@ class List extends Abstract {
         { type: 'boolean' }
       ]
     };
+
+    assert(opts.maxLength === undefined || Number.isInteger(opts.maxLength));
+    this.maxLength = opts.maxLength;
   }
 
   validate(value) {
@@ -25,6 +29,9 @@ class List extends Abstract {
       }
     }
     if (valid && !Array.isArray(valueParsed)) {
+      valid = false;
+    }
+    if (valid && this.maxLength !== undefined && valueParsed.length > this.maxLength) {
       valid = false;
     }
     return valid;

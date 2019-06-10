@@ -11,14 +11,11 @@ class StrList extends List {
       this.enums = new Set(opts.enums);
     }
 
-    assert(opts.minListItemLength === undefined || Number.isInteger(opts.minListItemLength));
-    this.minListItemLength = opts.minListItemLength;
+    assert(opts.minItemLength === undefined || Number.isInteger(opts.minItemLength));
+    this.minItemLength = opts.minItemLength;
 
-    assert(opts.maxListItemLength === undefined || Number.isInteger(opts.maxListItemLength));
-    this.maxListItemLength = opts.maxListItemLength;
-
-    assert(opts.maxListLength === undefined || Number.isInteger(opts.maxListLength));
-    this.maxListLength = opts.maxListLength;
+    assert(opts.maxItemLength === undefined || Number.isInteger(opts.maxItemLength));
+    this.maxItemLength = opts.maxItemLength;
   }
 
   validate(value) {
@@ -30,13 +27,10 @@ class StrList extends List {
     if (valid && valueParsed.some(e => typeof e !== 'string')) {
       valid = false;
     }
-    if (valid && this.maxListLength !== undefined && valueParsed.length > this.maxListLength) {
+    if (valid && this.minItemLength !== undefined && valueParsed.some(e => e.length < this.minItemLength)) {
       valid = false;
     }
-    if (valid && this.minListItemLength !== undefined && valueParsed.some(e => e.length < this.minListItemLength)) {
-      valid = false;
-    }
-    if (valid && this.maxListItemLength !== undefined && valueParsed.some(e => e.length > this.maxListItemLength)) {
+    if (valid && this.maxItemLength !== undefined && valueParsed.some(e => e.length > this.maxItemLength)) {
       valid = false;
     }
     if (valid && this.enums !== undefined && !valueParsed.every(val => this.enums.has(val))) {

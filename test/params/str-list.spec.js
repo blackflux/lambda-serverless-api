@@ -72,8 +72,8 @@ describe('Testing StrList Parameter', () => {
   });
 
   describe('Testing optional parameter "minListItemLength"', () => {
-    const queryParamInValidMin = api.StrList('list', 'query', { minListItemLength: 1 });
-    const bodyParamInValidMin = api.StrList('list', 'json', { minListItemLength: 1 });
+    const queryParamInValidMin = api.StrList('list', 'query', { minItemLength: 1 });
+    const bodyParamInValidMin = api.StrList('list', 'json', { minItemLength: 1 });
 
     it('Testing invalid min-length of list item in query param', () => {
       expect(() => queryParamInValidMin.get({
@@ -93,8 +93,8 @@ describe('Testing StrList Parameter', () => {
   });
 
   describe('Testing optional parameter "maxListItemLength"', () => {
-    const queryParamInValidMax = api.StrList('list', 'query', { maxListItemLength: 5 });
-    const bodyParamInValidMax = api.StrList('list', 'json', { maxListItemLength: 5 });
+    const queryParamInValidMax = api.StrList('list', 'query', { maxItemLength: 5 });
+    const bodyParamInValidMax = api.StrList('list', 'json', { maxItemLength: 5 });
 
     it('Testing invalid max-length of list item in query param', () => {
       expect(() => queryParamInValidMax.get({
@@ -114,8 +114,8 @@ describe('Testing StrList Parameter', () => {
   });
 
   describe('Testing optional parameter "maxListLength"', () => {
-    const queryParamInValidLength = api.StrList('list', 'query', { maxListLength: 2 });
-    const bodyParamInValidLength = api.StrList('list', 'json', { maxListLength: 2 });
+    const queryParamInValidLength = api.StrList('list', 'query', { maxLength: 2 });
+    const bodyParamInValidLength = api.StrList('list', 'json', { maxLength: 2 });
 
     it('Testing invalid length of list in query param', () => {
       expect(() => queryParamInValidLength.get({
