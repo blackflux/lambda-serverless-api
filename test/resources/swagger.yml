@@ -77,6 +77,13 @@ paths:
           type: string
           format: Str
           in: header
+        - name: number
+          required: false
+          type: integer
+          format: Int
+          in: query
+          minimum: 10
+          maximum: 20
         - name: listParam
           required: false
           type: string
@@ -185,6 +192,9 @@ paths:
                 format: NumberList
                 items:
                   type: number
+              number:
+                type: integer
+                format: Int
               geoPointParam:
                 type: array
                 format: GeoPoint
