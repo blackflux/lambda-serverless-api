@@ -70,4 +70,46 @@ describe('Testing StrList Parameter', () => {
       }
     })).to.throw('Invalid Value for json-Parameter "list" provided.');
   });
+
+  describe('Testing optional parameter "minItemLength"', () => {
+    const queryParamInValidMin = api.StrList('list', 'query', { minItemLength: 1 });
+    const bodyParamInValidMin = api.StrList('list', 'json', { minItemLength: 1 });
+
+    it('Testing invalid min-length of list item in query param', () => {
+      expect(() => queryParamInValidMin.get({
+        queryStringParameters: {
+          list: '["123", ""]'
+        }
+      })).to.throw('Invalid Value for query-Parameter "list" provided.');
+    });
+
+    it('Testing invalid min-length of list item in json param', () => {
+      expect(() => bodyParamInValidMin.get({
+        body: {
+          list: ['123', '']
+        }
+      })).to.throw('Invalid Value for json-Parameter "list" provided.');
+    });
+  });
+
+  describe('Testing optional parameter "maxItemLength"', () => {
+    const queryParamInValidMax = api.StrList('list', 'query', { maxItemLength: 5 });
+    const bodyParamInValidMax = api.StrList('list', 'json', { maxItemLength: 5 });
+
+    it('Testing invalid max-length of list item in query param', () => {
+      expect(() => queryParamInValidMax.get({
+        queryStringParameters: {
+          list: '["123", "123456"]'
+        }
+      })).to.throw('Invalid Value for query-Parameter "list" provided.');
+    });
+
+    it('Testing invalid max-length of list item in json param', () => {
+      expect(() => bodyParamInValidMax.get({
+        body: {
+          list: ['123', '123456']
+        }
+      })).to.throw('Invalid Value for json-Parameter "list" provided.');
+    });
+  });
 });
