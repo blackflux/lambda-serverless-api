@@ -66,13 +66,13 @@ describe('Testing Int Parameter', () => {
   });
 
   describe('Testing optional parameter "min"', () => {
-    const queryParamInvalidMin = api.Int('value', 'query', { min: 2 });
-    const bodyParamInvalidMin = api.Int('value', 'json', { min: 2 });
+    const queryParamInvalidMin = api.Int('value', 'query', { min: -1 });
+    const bodyParamInvalidMin = api.Int('value', 'json', { min: -1 });
 
     it('testing invalid min query parameter', () => {
       expect(() => queryParamInvalidMin.get({
         queryStringParameters: {
-          value: '1'
+          value: '-2'
         }
       })).to.throw('Invalid Value for query-Parameter "value" provided.');
     });
@@ -80,7 +80,7 @@ describe('Testing Int Parameter', () => {
     it('testing invalid min json parameter', () => {
       expect(() => bodyParamInvalidMin.get({
         body: {
-          value: 1
+          value: -2
         }
       })).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
