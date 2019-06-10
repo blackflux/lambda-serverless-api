@@ -67,6 +67,8 @@ module.exports.param = api.wrap('POST param', [
   api.FieldsParam('fieldsParam', 'json', { required: false, fields: 'id', autoPrune: null }),
   api.Number('numberParam', 'json', { required: false }),
   api.NumberList('numberListParam', 'json', { required: false }),
+  api.Int('number', 'json', { required: false, min: 10, max: 20 }),
+  api.Int('number', 'query', { required: false, min: 10, max: 20 }),
   api.GeoPoint('geoPointParam', 'json', { required: false }),
   api.GeoRect('geoRectParam', 'json', { required: false }),
   api.GeoShape('geoShapeParam', 'json', { required: false }),
