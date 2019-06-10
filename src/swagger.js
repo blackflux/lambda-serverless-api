@@ -41,7 +41,9 @@ module.exports = (endpoints, existing) => {
         p.minItemLength === undefined ? {} : { minLength: p.minItemLength },
         p.maxItemLength === undefined ? {} : { maxLength: p.maxItemLength },
         p.minItems === undefined ? {} : { minItems: p.minItems },
-        p.maxItems === undefined ? {} : { maxItems: p.maxItems }
+        p.maxItems === undefined ? {} : { maxItems: p.maxItems },
+        p.min === undefined ? {} : { minimum: p.min },
+        p.max === undefined ? {} : { maximum: p.max }
       ));
 
     const jsonParams = endpoints[request]
