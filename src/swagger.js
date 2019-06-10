@@ -40,7 +40,6 @@ module.exports = (endpoints, existing) => {
         },
         p.minItemLength === undefined ? {} : { minLength: p.minItemLength },
         p.maxItemLength === undefined ? {} : { maxLength: p.maxItemLength },
-        p.maxLength === undefined ? {} : { maxItems: p.maxLength },
         p.minItems === undefined ? {} : { minItems: p.minItems },
         p.maxItems === undefined ? {} : { maxItems: p.maxItems }
       ));

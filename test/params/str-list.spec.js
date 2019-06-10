@@ -71,7 +71,7 @@ describe('Testing StrList Parameter', () => {
     })).to.throw('Invalid Value for json-Parameter "list" provided.');
   });
 
-  describe('Testing optional parameter "minListItemLength"', () => {
+  describe('Testing optional parameter "minItemLength"', () => {
     const queryParamInValidMin = api.StrList('list', 'query', { minItemLength: 1 });
     const bodyParamInValidMin = api.StrList('list', 'json', { minItemLength: 1 });
 
@@ -92,7 +92,7 @@ describe('Testing StrList Parameter', () => {
     });
   });
 
-  describe('Testing optional parameter "maxListItemLength"', () => {
+  describe('Testing optional parameter "maxItemLength"', () => {
     const queryParamInValidMax = api.StrList('list', 'query', { maxItemLength: 5 });
     const bodyParamInValidMax = api.StrList('list', 'json', { maxItemLength: 5 });
 
@@ -113,9 +113,9 @@ describe('Testing StrList Parameter', () => {
     });
   });
 
-  describe('Testing optional parameter "maxListLength"', () => {
-    const queryParamInValidLength = api.StrList('list', 'query', { maxLength: 2 });
-    const bodyParamInValidLength = api.StrList('list', 'json', { maxLength: 2 });
+  describe('Testing optional parameter "maxItems"', () => {
+    const queryParamInValidLength = api.StrList('list', 'query', { maxItems: 2 });
+    const bodyParamInValidLength = api.StrList('list', 'json', { maxItems: 2 });
 
     it('Testing invalid length of list in query param', () => {
       expect(() => queryParamInValidLength.get({
@@ -129,6 +129,27 @@ describe('Testing StrList Parameter', () => {
       expect(() => bodyParamInValidLength.get({
         body: {
           list: ['123', '456', '789']
+        }
+      })).to.throw('Invalid Value for json-Parameter "list" provided.');
+    });
+  });
+
+  describe('Testing optional parameter "minItems"', () => {
+    const queryParamInValidLength = api.StrList('list', 'query', { minItems: 2 });
+    const bodyParamInValidLength = api.StrList('list', 'json', { minItems: 2 });
+
+    it('Testing invalid min length of list in query param', () => {
+      expect(() => queryParamInValidLength.get({
+        queryStringParameters: {
+          list: '["123"]'
+        }
+      })).to.throw('Invalid Value for query-Parameter "list" provided.');
+    });
+
+    it('Testing invalid min length of list in json param', () => {
+      expect(() => bodyParamInValidLength.get({
+        body: {
+          list: ['123']
         }
       })).to.throw('Invalid Value for json-Parameter "list" provided.');
     });

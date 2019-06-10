@@ -92,6 +92,7 @@ paths:
             - enum2
           minLength: 1
           maxLength: 2
+          minItems: 1
           maxItems: 3
         - name: fieldsParam
           required: false

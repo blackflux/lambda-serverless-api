@@ -14,8 +14,11 @@ class List extends Abstract {
       ]
     };
 
-    assert(opts.maxLength === undefined || Number.isInteger(opts.maxLength));
-    this.maxLength = opts.maxLength;
+    assert(opts.maxItems === undefined || Number.isInteger(opts.maxItems));
+    this.maxItems = opts.maxItems;
+
+    assert(opts.minItems === undefined || Number.isInteger(opts.minItems));
+    this.minItems = opts.minItems;
   }
 
   validate(value) {
@@ -31,7 +34,10 @@ class List extends Abstract {
     if (valid && !Array.isArray(valueParsed)) {
       valid = false;
     }
-    if (valid && this.maxLength !== undefined && valueParsed.length > this.maxLength) {
+    if (valid && this.maxItems !== undefined && valueParsed.length > this.maxItems) {
+      valid = false;
+    }
+    if (valid && this.minItems !== undefined && valueParsed.length < this.minItems) {
       valid = false;
     }
     return valid;
