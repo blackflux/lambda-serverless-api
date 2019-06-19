@@ -165,7 +165,7 @@ paths:
               dateParam:
                 type: string
                 format: Date
-                pattern: '/^(\d{4})-(\d{2})-(\d{2})$/'
+                pattern: '/^\d{4}-\d{2}-\d{2}$/'
               uuidParam:
                 type: string
                 format: UUID
