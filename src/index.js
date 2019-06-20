@@ -99,6 +99,7 @@ const staticExports = {
   RegEx: param.RegEx,
   UUID: param.UUID,
   IsoDate: param.IsoDate,
+  Date: param.Date,
   Bool: param.Bool,
   Int: param.Int,
   List: param.List,

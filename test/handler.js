@@ -61,6 +61,7 @@ module.exports.param = api.wrap('POST param', [
   api.Str('authorizer', 'context', { required: false }),
   api.Str('authorizer', 'header', { required: false }),
   api.IsoDate('isoDateParam', 'json', { required: false }),
+  api.Date('dateParam', 'json', { required: false }),
   api.UUID('uuidParam', 'json', { required: false }),
   api.List('listParam', 'json', { required: false }),
   api.StrList('strListParam', 'json', { required: false }),
