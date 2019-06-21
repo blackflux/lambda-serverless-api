@@ -3,45 +3,45 @@ const api = require('../../src/index').Api();
 
 describe('Testing Strinct Parameter', () => {
   describe('Testing query param', () => {
-    const queryParam = api.Strinct('name', 'query');
+    const queryParam = api.Strinct('value', 'query');
     it('Testing valid query parameter', () => {
       expect(queryParam.get({
         queryStringParameters: {
-          name: 'name'
+          value: 'value'
         }
-      })).to.equal('name');
+      })).to.equal('value');
     });
 
     it('Testing invalid query parameter (rejected string)', () => {
       expect(() => queryParam.get({
         queryStringParameters: {
-          name: ''
+          value: ''
         }
-      })).to.throw('Invalid Value for query-Parameter "name" provided.');
+      })).to.throw('Invalid Value for query-Parameter "value" provided.');
     });
   });
 
   describe('Testing json param', () => {
-    const jsonParam = api.Strinct('name', 'json');
+    const jsonParam = api.Strinct('value', 'json');
     it('Testing valid json parameter', () => {
       expect(jsonParam.get({
         body: {
-          name: 'name'
+          value: 'value'
         }
-      })).to.equal('name');
+      })).to.equal('value');
     });
 
     it('Testing invalid json parameter (rejected string)', () => {
       expect(() => jsonParam.get({
         body: {
-          name: 'undefined'
+          value: 'undefined'
         }
-      })).to.throw('Invalid Value for json-Parameter "name" provided.');
+      })).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
   });
 
   describe('Testing optional param', () => {
-    const jsonParamOptional = api.Strinct('name', 'json', { required: false });
+    const jsonParamOptional = api.Strinct('value', 'json', { required: false });
     it('Testing optional json parameter', () => {
       expect(jsonParamOptional.get({
         body: {}
