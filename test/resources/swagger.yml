@@ -101,6 +101,12 @@ paths:
           maxLength: 2
           minItems: 1
           maxItems: 3
+        - name: strinctParam
+          required: false
+          type: string
+          format: Strinct
+          in: query
+          pattern: /^(|undefined|undef|null|NULL)$/
         - name: fieldsParam
           required: false
           type: string
