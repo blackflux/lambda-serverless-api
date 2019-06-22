@@ -106,7 +106,9 @@ paths:
           type: string
           format: Strinct
           in: query
-          pattern: /^(|undefined|undef|null|NULL)$/
+          pattern: >-
+            /^(|undefined|undef|null|NULL|(null)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|-Infinity|"|'|""|''|
+            |_|-|NUL)$/
         - name: fieldsParam
           required: false
           type: string

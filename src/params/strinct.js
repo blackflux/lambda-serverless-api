@@ -5,7 +5,28 @@ const rejectedStrings = [
   'undefined',
   'undef',
   'null',
-  'NULL'
+  'NULL',
+  '(null)',
+  'nil',
+  'NIL',
+  'true',
+  'false',
+  'True',
+  'False',
+  'TRUE',
+  'FALSE',
+  'None',
+  'NaN',
+  'Infinity',
+  '-Infinity',
+  '"',
+  '\'',
+  '""',
+  '\'\'',
+  ' ',
+  '_',
+  '-',
+  'NUL'
 ];
 
 class Strinct extends Str {
