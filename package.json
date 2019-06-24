@@ -23,7 +23,7 @@
     "babel-eslint": "10.0.2",
     "chai": "4.2.0",
     "coveralls": "3.0.4",
-    "eslint": "5.16.0",
+    "eslint": "6.0.0",
     "js-gardener": "2.0.40",
     "lambda-tdd": "2.7.10",
     "nock": "10.0.6",
@@ -65,7 +65,7 @@
     "lib"
   ],
   "dependencies": {
-    "@hapi/joi": "15.0.3",
+    "@hapi/joi": "15.1.0",
     "joi-strict": "1.0.2",
     "js-yaml": "3.13.1",
     "lambda-rate-limiter": "2.4.16",
@@ -79,7 +79,7 @@
     "object-fields": "1.3.8",
     "object-scan": "10.0.3",
     "route-recognizer": "0.3.4",
-    "swagger-parser": "7.0.0",
+    "swagger-parser": "8.0.0",
     "yaml-boost": "1.9.7"
   },
   "peerDependencies": {},
