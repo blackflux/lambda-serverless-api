@@ -1,6 +1,6 @@
 const Str = require('./str');
 
-const escapeRegExp = arr => arr.map(s => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'));
+const escapeRegExp = s => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 
 const rejectedStrings = [
   '',
@@ -38,7 +38,7 @@ const rejectedStrings = [
 class Strinct extends Str {
   constructor(...args) {
     super(...args);
-    this.regex = new RegExp(`^(${escapeRegExp(rejectedStrings).join('|')})$`);
+    this.regex = new RegExp(`^(${rejectedStrings.map(s => escapeRegExp(s)).join('|')})$`);
   }
 
   validate(value) {
