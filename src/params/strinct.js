@@ -37,7 +37,7 @@ const rejectedStrings = [
 class Strinct extends Str {
   constructor(...args) {
     super(...args);
-    this.regex = new RegExp(`^(${rejectedStrings.map(s => escapeRegExp(s)).join('|')})$`);
+    this.regex = new RegExp(`!?^(${rejectedStrings.map(s => escapeRegExp(s)).join('|')})$`);
   }
 
   validate(value) {

@@ -107,7 +107,7 @@ paths:
           format: Strinct
           in: query
           pattern: >-
-            /^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
+            /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
             |%|_|\-|\-\-|NUL)$/
         - name: fieldsParam
           required: false
