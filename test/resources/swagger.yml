@@ -108,7 +108,7 @@ paths:
           in: query
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
-            |%|_|\-|\-\-|NUL)$/
+            |%|_|\-|\-\-|NUL|\[object Object\])$/
         - name: fieldsParam
           required: false
           type: string
