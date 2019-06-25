@@ -31,7 +31,8 @@ const rejectedStrings = [
   '_',
   '-',
   '--',
-  'NUL'
+  'NUL',
+  '[object Object]'
 ];
 
 class Strinct extends Str {
