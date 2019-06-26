@@ -52,6 +52,9 @@ paths:
           type: string
           format: Str
           in: path
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
+            |%|_|\-|\-\-|NUL|\[object Object\])$/
       responses:
         default:
           description: Unexpected Error
@@ -66,6 +69,9 @@ paths:
           type: string
           format: Str
           in: query
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
+            |%|_|\-|\-\-|NUL|\[object Object\])$/
         - name: notification
           required: false
           type: string
@@ -77,6 +83,9 @@ paths:
           type: string
           format: Str
           in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
+            |%|_|\-|\-\-|NUL|\[object Object\])$/
         - name: number
           required: false
           type: integer
@@ -101,19 +110,14 @@ paths:
           maxLength: 2
           minItems: 1
           maxItems: 3
-        - name: strinctParam
-          required: false
-          type: string
-          format: Strinct
-          in: query
-          pattern: >-
-            /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
-            |%|_|\-|\-\-|NUL|\[object Object\])$/
         - name: fieldsParam
           required: false
           type: string
           format: FieldsParam
           in: query
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
+            |%|_|\-|\-\-|NUL|\[object Object\])$/
         - name: numberParam
           required: false
           type: number
@@ -153,6 +157,9 @@ paths:
           type: string
           format: Str
           in: query
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
+            |%|_|\-|\-\-|NUL|\[object Object\])$/
         - in: body
           name: bodyParamData
           schema:
@@ -161,6 +168,9 @@ paths:
               username:
                 type: string
                 format: Str
+                pattern: >-
+                  /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
+                  |%|_|\-|\-\-|NUL|\[object Object\])$/
               email:
                 type: string
                 format: Email
@@ -196,6 +206,9 @@ paths:
               fieldsParam:
                 type: string
                 format: FieldsParam
+                pattern: >-
+                  /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
+                  |%|_|\-|\-\-|NUL|\[object Object\])$/
               numberParam:
                 type: number
                 format: NumberParam
@@ -247,6 +260,9 @@ paths:
           type: string
           format: Str
           in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
+            |%|_|\-|\-\-|NUL|\[object Object\])$/
         - in: body
           name: bodyParamData
           schema:
@@ -255,6 +271,9 @@ paths:
               username:
                 type: string
                 format: Str
+                pattern: >-
+                  /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
+                  |%|_|\-|\-\-|NUL|\[object Object\])$/
               email:
                 type: string
                 format: Email
@@ -273,6 +292,9 @@ paths:
           type: string
           format: Str
           in: path
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|
+            |%|_|\-|\-\-|NUL|\[object Object\])$/
       responses:
         default:
           description: Unexpected Error
