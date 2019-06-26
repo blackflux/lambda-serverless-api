@@ -43,7 +43,7 @@ class Str extends Abstract {
     this.type = 'string';
     this.relaxed = get(opts, 'relaxed', false);
     assert(typeof this.relaxed === 'boolean');
-    if (!this.relaxed) {
+    if (this.relaxed !== true) {
       this.regex = new RegExp(`!?^(${rejectedStrings.map(s => escapeRegExp(s)).join('|')})$`);
     }
   }
@@ -53,7 +53,7 @@ class Str extends Abstract {
     if (valid && !(typeof value === 'string' || value instanceof String)) {
       valid = false;
     }
-    if (valid && !this.relaxed && rejectedStrings.includes(value)) {
+    if (valid && this.relaxed !== true && rejectedStrings.includes(value)) {
       valid = false;
     }
     return valid;
