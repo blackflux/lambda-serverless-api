@@ -40,17 +40,15 @@ describe('Testing Str Parameter', () => {
     });
   });
 
-  describe('Testing optional param', () => {
+  describe('Testing options params', () => {
     const jsonParamOptional = api.Str('value', 'json', { required: false });
+    const jsonParamRelaxed = api.Str('value', 'json', { relaxed: true });
     it('Testing optional json parameter', () => {
       expect(jsonParamOptional.get({
         body: {}
       })).to.equal(undefined);
     });
-  });
 
-  describe('Testing relaxed param', () => {
-    const jsonParamRelaxed = api.Str('value', 'json', { relaxed: true });
     it('Testing relaxed json parameter', () => {
       expect(jsonParamRelaxed.get({
         body: {
