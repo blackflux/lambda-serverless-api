@@ -1,9 +1,9 @@
 const expect = require('chai').expect;
 const api = require('../../src/index').Api();
 
-describe('Testing Strinct Parameter', () => {
+describe('Testing Str Parameter', () => {
   describe('Testing query param', () => {
-    const queryParam = api.Strinct('value', 'query');
+    const queryParam = api.Str('value', 'query');
     it('Testing valid query parameter', () => {
       expect(queryParam.get({
         queryStringParameters: {
@@ -22,7 +22,7 @@ describe('Testing Strinct Parameter', () => {
   });
 
   describe('Testing json param', () => {
-    const jsonParam = api.Strinct('value', 'json');
+    const jsonParam = api.Str('value', 'json');
     it('Testing valid json parameter', () => {
       expect(jsonParam.get({
         body: {
@@ -40,12 +40,21 @@ describe('Testing Strinct Parameter', () => {
     });
   });
 
-  describe('Testing optional param', () => {
-    const jsonParamOptional = api.Strinct('value', 'json', { required: false });
+  describe('Testing options params', () => {
+    const jsonParamOptional = api.Str('value', 'json', { required: false });
+    const jsonParamRelaxed = api.Str('value', 'json', { relaxed: true });
     it('Testing optional json parameter', () => {
       expect(jsonParamOptional.get({
         body: {}
       })).to.equal(undefined);
+    });
+
+    it('Testing relaxed json parameter', () => {
+      expect(jsonParamRelaxed.get({
+        body: {
+          value: 'undefined'
+        }
+      })).to.equal('undefined');
     });
   });
 });
