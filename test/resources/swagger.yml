@@ -54,7 +54,7 @@ paths:
           in: path
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
-            Object\]|\^ | \$)$/
+            Object\])$/
       responses:
         default:
           description: Unexpected Error
@@ -71,7 +71,7 @@ paths:
           in: query
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
-            Object\]|\^ | \$)$/
+            Object\])$/
         - name: notification
           required: false
           type: string
@@ -85,7 +85,7 @@ paths:
           in: header
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
-            Object\]|\^ | \$)$/
+            Object\])$/
         - name: number
           required: false
           type: integer
@@ -117,7 +117,7 @@ paths:
           in: query
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
-            Object\]|\^ | \$)$/
+            Object\])$/
         - name: numberParam
           required: false
           type: number
@@ -159,7 +159,7 @@ paths:
           in: query
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
-            Object\]|\^ | \$)$/
+            Object\])$/
         - in: body
           name: bodyParamData
           schema:
@@ -170,7 +170,7 @@ paths:
                 format: Str
                 pattern: >-
                   /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
-                  Object\]|\^ | \$)$/
+                  Object\])$/
               email:
                 type: string
                 format: Email
@@ -208,7 +208,7 @@ paths:
                 format: FieldsParam
                 pattern: >-
                   /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
-                  Object\]|\^ | \$)$/
+                  Object\])$/
               numberParam:
                 type: number
                 format: NumberParam
@@ -262,7 +262,7 @@ paths:
           in: header
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
-            Object\]|\^ | \$)$/
+            Object\])$/
         - in: body
           name: bodyParamData
           schema:
@@ -273,7 +273,7 @@ paths:
                 format: Str
                 pattern: >-
                   /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
-                  Object\]|\^ | \$)$/
+                  Object\])$/
               email:
                 type: string
                 format: Email
@@ -294,7 +294,7 @@ paths:
           in: path
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
-            Object\]|\^ | \$)$/
+            Object\])$/
       responses:
         default:
           description: Unexpected Error

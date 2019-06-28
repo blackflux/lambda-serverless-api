@@ -38,22 +38,6 @@ describe('Testing Str Parameter', () => {
         }
       })).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
-
-    it('Testing invalid json parameter (starts with empty space)', () => {
-      expect(() => jsonParam.get({
-        body: {
-          value: ' value'
-        }
-      })).to.throw('Invalid Value for json-Parameter "value" provided.');
-    });
-
-    it('Testing invalid json parameter (ends with empty space)', () => {
-      expect(() => jsonParam.get({
-        body: {
-          value: 'value '
-        }
-      })).to.throw('Invalid Value for json-Parameter "value" provided.');
-    });
   });
 
   describe('Testing options params', () => {
