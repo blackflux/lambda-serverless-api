@@ -43,7 +43,7 @@ class Str extends Abstract {
     this.relaxed = get(opts, 'relaxed', false);
     assert(typeof this.relaxed === 'boolean');
     if (this.relaxed !== true) {
-      this.regex = new RegExp(`!?^(${[...rejectedStrings, '^ ', ' $'].map(s => escapeRegExp(s)).join('|')})$`);
+      this.regex = new RegExp(`!?^(${rejectedStrings.map(s => escapeRegExp(s)).join('|')})$`);
     }
   }
 
@@ -53,12 +53,6 @@ class Str extends Abstract {
       valid = false;
     }
     if (valid && this.relaxed !== true && rejectedStrings.includes(value)) {
-      valid = false;
-    }
-    if (valid && this.relaxed !== true && value.startsWith(' ')) {
-      valid = false;
-    }
-    if (valid && this.relaxed !== true && value.endsWith(' ')) {
       valid = false;
     }
     return valid;
