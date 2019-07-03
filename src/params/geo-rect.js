@@ -4,10 +4,10 @@ const NumberList = require('./number-list');
 
 class GeoRect extends NumberList {
   constructor(name, position, opts = {}) {
+    assert(opts.relaxed === undefined || typeof opts.relaxed === 'boolean');
     super(name, position, opts);
     this.minItems = 4;
     this.maxItems = 4;
-    assert(opts.relaxed === undefined || typeof opts.relaxed === 'boolean');
     this.relaxed = get(opts, 'relaxed', false);
   }
 

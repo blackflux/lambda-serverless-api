@@ -4,10 +4,10 @@ const NumberList = require('./number-list');
 
 class GeoPoint extends NumberList {
   constructor(name, position, opts = {}) {
+    assert(opts.relaxed === undefined || typeof opts.relaxed === 'boolean');
     super(name, position, opts);
     this.minItems = 2;
     this.maxItems = 2;
-    assert(opts.relaxed === undefined || typeof opts.relaxed === 'boolean');
     this.relaxed = get(opts, 'relaxed', false);
   }
 
@@ -24,7 +24,7 @@ class GeoPoint extends NumberList {
       ) {
         valid = false;
       }
-      if (this.relaxed === false && (valueParsed[0] === 0 || valueParsed[1] === 0)) {
+      if (valid && this.relaxed === false && (valueParsed[0] === 0 || valueParsed[1] === 0)) {
         valid = false;
       }
     }
