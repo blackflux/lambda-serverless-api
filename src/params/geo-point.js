@@ -1,10 +1,14 @@
+const assert = require('assert');
+const get = require('lodash.get');
 const NumberList = require('./number-list');
 
 class GeoPoint extends NumberList {
-  constructor(...args) {
-    super(...args);
+  constructor(name, position, opts = {}) {
+    super(name, position, opts);
     this.minItems = 2;
     this.maxItems = 2;
+    assert(opts.relaxed === undefined || typeof opts.relaxed === 'boolean');
+    this.relaxed = get(opts, 'relaxed', false);
   }
 
   validate(value) {
@@ -18,6 +22,9 @@ class GeoPoint extends NumberList {
         || valueParsed[1] < -90
         || valueParsed[1] > 90
       ) {
+        valid = false;
+      }
+      if (this.relaxed === false && (valueParsed[0] === 0 || valueParsed[1] === 0)) {
         valid = false;
       }
     }

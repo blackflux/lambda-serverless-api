@@ -1,9 +1,10 @@
+const assert = require('assert');
 const Joi = require('joi-strict');
 const Json = require('./json');
 
 class GeoShape extends Json {
   constructor(name, position, opts = {}) {
-    const { maxPoints, clockwise } = opts;
+    const { maxPoints, clockwise, relaxed } = opts;
     let schema = Joi.array().items(Joi.array().ordered([
       Joi.number().min(-180).max(180),
       Joi.number().min(-90).max(90)
@@ -15,6 +16,8 @@ class GeoShape extends Json {
     this.clockwise = clockwise;
     this.type = 'array';
     this.items = { type: 'array', items: { type: 'number' } };
+    assert(relaxed === undefined || typeof relaxed === 'boolean');
+    this.relaxed = relaxed === true;
   }
 
   static isDirectional(arr, clockwise) {
@@ -44,6 +47,9 @@ class GeoShape extends Json {
     }
     // ensure non-degenerate polygon
     if (valid && new Set(valueParsed.map(p => `${p[0]}${p[1]}`)).size !== valueParsed.length - 1) {
+      valid = false;
+    }
+    if (valid && this.relaxed === false && valueParsed.some(p => p[0] === 0 || p[1] === 0)) {
       valid = false;
     }
     return valid;

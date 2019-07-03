@@ -2,8 +2,8 @@ const expect = require('chai').expect;
 const api = require('../../src/index').Api();
 
 describe('Testing GeoShape Parameter', () => {
-  const queryParam = api.GeoShape('geoShape', 'query');
-  const jsonParam = api.GeoShape('geoShape', 'json');
+  const queryParam = api.GeoShape('geoShape', 'query', { relaxed: true });
+  const jsonParam = api.GeoShape('geoShape', 'json', { relaxed: true });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({
@@ -49,23 +49,30 @@ describe('Testing GeoShape Parameter', () => {
   });
 
   it('Testing invalid json parameter (too large)', () => {
-    const param = api.GeoShape('geoShape', 'json', { maxPoints: 6 });
+    const param = api.GeoShape('geoShape', 'json', { maxPoints: 6, relaxed: true });
     expect(() => param.get({
       body: { geoShape: [[0, 0], [0, 1], [1, 1], [1.1, 1.1], [1.2, 1.2], [1.3, 1.3], [1, 0], [0, 0]] }
     })).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
   });
 
   it('Testing invalid json parameter (not clockwise)', () => {
-    const param = api.GeoShape('geoShape', 'json', { clockwise: true });
+    const param = api.GeoShape('geoShape', 'json', { clockwise: true, relaxed: true });
     expect(() => param.get({
       body: { geoShape: [[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]] }
     })).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
   });
 
   it('Testing invalid json parameter (not counter clockwise)', () => {
-    const param = api.GeoShape('geoShape', 'json', { clockwise: false });
+    const param = api.GeoShape('geoShape', 'json', { clockwise: false, relaxed: true });
     expect(() => param.get({
       body: { geoShape: [[0, 0], [0, 1], [1, 1], [1, 0], [0, 0]] }
+    })).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
+  });
+
+  it('Testing invalid json parameter (relaxed disabled)', () => {
+    const param = api.GeoShape('geoShape', 'json');
+    expect(() => param.get({
+      body: { geoShape: [[1, 0], [1, 1], [2, 1], [1, 0]] }
     })).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
   });
 });
