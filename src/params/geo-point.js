@@ -13,20 +13,20 @@ class GeoPoint extends NumberList {
 
   validate(value) {
     let valid = super.validate(value);
-    if (valid) {
-      const valueParsed = (this.stringInput ? JSON.parse(value) : value);
-      if (
-        valueParsed.length !== 2
-        || valueParsed[0] < -180
-        || valueParsed[0] > 180
-        || valueParsed[1] < -90
-        || valueParsed[1] > 90
-      ) {
-        valid = false;
-      }
-      if (valid && this.relaxed === false && (valueParsed[0] === 0 || valueParsed[1] === 0)) {
-        valid = false;
-      }
+    let valueParsed = value;
+    if (valid && this.stringInput) {
+      valueParsed = JSON.parse(value);
+    }
+    if (valid && (valueParsed.length !== 2
+      || valueParsed[0] < -180
+      || valueParsed[0] > 180
+      || valueParsed[1] < -90
+      || valueParsed[1] > 90)
+    ) {
+      valid = false;
+    }
+    if (valid && this.relaxed === false && (valueParsed[0] === 0 || valueParsed[1] === 0)) {
+      valid = false;
     }
     return valid;
   }

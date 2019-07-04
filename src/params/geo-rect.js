@@ -13,27 +13,27 @@ class GeoRect extends NumberList {
 
   validate(value) {
     let valid = super.validate(value);
-    if (valid) {
-      const valueParsed = (this.stringInput ? JSON.parse(value) : value);
-      if (
-        valueParsed.length !== 4
-        // check bounds
-        || valueParsed[0] < -180
-        || valueParsed[0] > 180
-        || valueParsed[1] < -90
-        || valueParsed[1] > 90
-        || valueParsed[2] < -180
-        || valueParsed[2] > 180
-        || valueParsed[3] < -90
-        || valueParsed[3] > 90
-        // check latitude (longitude always valid because rect covering anti-meridian valid in es)
-        || valueParsed[1] < valueParsed[3]
-      ) {
-        valid = false;
-      }
-      if (valid && this.relaxed === false && valueParsed.some(p => p === 0)) {
-        valid = false;
-      }
+    let valueParsed = value;
+    if (valid && this.stringInput) {
+      valueParsed = JSON.parse(value);
+    }
+    if (valid && (valueParsed.length !== 4
+      // check bounds
+      || valueParsed[0] < -180
+      || valueParsed[0] > 180
+      || valueParsed[1] < -90
+      || valueParsed[1] > 90
+      || valueParsed[2] < -180
+      || valueParsed[2] > 180
+      || valueParsed[3] < -90
+      || valueParsed[3] > 90
+      // check latitude (longitude always valid because rect covering anti-meridian valid in es)
+      || valueParsed[1] < valueParsed[3])
+    ) {
+      valid = false;
+    }
+    if (valid && this.relaxed === false && valueParsed.some(p => p === 0)) {
+      valid = false;
     }
     return valid;
   }
