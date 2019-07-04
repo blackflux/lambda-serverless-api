@@ -49,7 +49,7 @@ class GeoShape extends Json {
     if (valid && new Set(valueParsed.map(p => `${p[0]}${p[1]}`)).size !== valueParsed.length - 1) {
       valid = false;
     }
-    if (valid && this.relaxed === false && valueParsed.some(p => p[0] === 0 || p[1] === 0)) {
+    if (valid && this.relaxed !== true && valueParsed.some(p => p[0] === 0 || p[1] === 0)) {
       valid = false;
     }
     return valid;

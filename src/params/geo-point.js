@@ -17,15 +17,16 @@ class GeoPoint extends NumberList {
     if (valid && this.stringInput) {
       valueParsed = JSON.parse(value);
     }
-    if (valid && (valueParsed.length !== 2
+    if (valid && (
+      valueParsed.length !== 2
       || valueParsed[0] < -180
       || valueParsed[0] > 180
       || valueParsed[1] < -90
-      || valueParsed[1] > 90)
-    ) {
+      || valueParsed[1] > 90
+    )) {
       valid = false;
     }
-    if (valid && this.relaxed === false && (valueParsed[0] === 0 || valueParsed[1] === 0)) {
+    if (valid && this.relaxed !== true && (valueParsed[0] === 0 || valueParsed[1] === 0)) {
       valid = false;
     }
     return valid;

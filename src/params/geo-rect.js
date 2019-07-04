@@ -17,7 +17,8 @@ class GeoRect extends NumberList {
     if (valid && this.stringInput) {
       valueParsed = JSON.parse(value);
     }
-    if (valid && (valueParsed.length !== 4
+    if (valid && (
+      valueParsed.length !== 4
       // check bounds
       || valueParsed[0] < -180
       || valueParsed[0] > 180
@@ -28,11 +29,11 @@ class GeoRect extends NumberList {
       || valueParsed[3] < -90
       || valueParsed[3] > 90
       // check latitude (longitude always valid because rect covering anti-meridian valid in es)
-      || valueParsed[1] < valueParsed[3])
-    ) {
+      || valueParsed[1] < valueParsed[3]
+    )) {
       valid = false;
     }
-    if (valid && this.relaxed === false && valueParsed.some(p => p === 0)) {
+    if (valid && this.relaxed !== true && valueParsed.some(p => p === 0)) {
       valid = false;
     }
     return valid;
