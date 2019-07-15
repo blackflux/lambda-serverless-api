@@ -26,7 +26,7 @@
     "eslint": "6.0.1",
     "js-gardener": "2.0.42",
     "lambda-tdd": "2.7.13",
-    "nock": "v11.0.0-beta.23",
+    "nock": "v11.0.0-beta.25",
     "nyc": "14.1.1",
     "request": "2.88.0",
     "request-promise": "4.2.4",
@@ -66,7 +66,7 @@
   ],
   "dependencies": {
     "@hapi/joi": "15.1.0",
-    "joi-strict": "1.0.2",
+    "joi-strict": "1.0.3",
     "js-yaml": "3.13.1",
     "lambda-rate-limiter": "2.4.17",
     "lambda-rollbar": "1.10.14",
