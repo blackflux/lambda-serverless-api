@@ -3649,6 +3649,11 @@ joi-strict@1.0.2:
   resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.0.2.tgz#cb0bd00cfc3260d6a259324367acef76fcc433ae"
   integrity sha512-IHOFYARRhGFk8iAbTI0rvYVsXBYW39dSKNLAxrdPC4SYYYE4hrEVNluXwy+8td/p+K8COyhQLm42osBlBpz4GQ==
 
+joi-strict@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.0.3.tgz#a00636fdb677815a2134e3c5035c71a40dad9177"
+  integrity sha512-fTepIytNXkt+LwDET9bQildo8MrQGQtmPd3586dj4JtWbyIK98nk4+cxmcZBg8Rk/NLhHWMpwrrO9x+71mnHpA==
+
 js-gardener@2.0.42:
   version "2.0.42"
   resolved "https://registry.yarnpkg.com/js-gardener/-/js-gardener-2.0.42.tgz#1f3f9c92dac175a0197c6f9b32e6b3163de328a3"
