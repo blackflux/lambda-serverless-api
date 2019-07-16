@@ -168,12 +168,12 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@blackflux/eslint-plugin-rules@1.0.21":
-  version "1.0.21"
-  resolved "https://registry.yarnpkg.com/@blackflux/eslint-plugin-rules/-/eslint-plugin-rules-1.0.21.tgz#319740cbf20b3c9a6a1a2e63a58dd939b4600ebd"
-  integrity sha512-R5jw8eLUi2+w7MgVXqwx1CJxH8EsvEippe6DyEL8PG3wrk0dcvbRylHs9DIVU0/HNNjUT/IHQ5QVGZRWDUN1Mg==
+"@blackflux/eslint-plugin-rules@1.0.22":
+  version "1.0.22"
+  resolved "https://registry.yarnpkg.com/@blackflux/eslint-plugin-rules/-/eslint-plugin-rules-1.0.22.tgz#b167dd8c7643b6314575b94c1944e0d63c447626"
+  integrity sha512-ZZz9dKuzZZxOiF2FqKXbHhM5QSofdYWF+FlkPIEcTgxYjHB7/yrD1e/xck+vpNm/ocEomcLNe05VnD8sKwryaQ==
   dependencies:
-    smart-fs "1.8.2"
+    smart-fs "1.8.3"
 
 "@blackflux/robo-config-plugin@2.0.1":
   version "2.0.1"
@@ -5123,6 +5123,11 @@ object-align@1.0.0:
   resolved "https://registry.yarnpkg.com/object-align/-/object-align-1.0.0.tgz#b3a32e8ca6e0fc4bf827e88eadaa64268c050a39"
   integrity sha512-bb2pxv0UCIZ+g7sMarmX7xKE9hmGE2lUOadwVswbIvEI51dRSmLsq7TmJwbd7FMH9PL+HMGbGcaEL35+yu0IDA==
 
+object-align@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/object-align/-/object-align-1.0.1.tgz#91eba86ed342a011e13ff1534a48b9ce0298cff2"
+  integrity sha512-rBfg93vNLK4thCFXK9ioC8zbnZwb5jK7f4AV8A8aF7z4ohiZe73lxqT1YQRREdWFiE/D/EdodI19mjaA/bZLYw==
+
 object-assign@^4.0.1, object-assign@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
@@ -6598,6 +6603,19 @@ smart-fs@1.8.2:
     object-align "1.0.0"
     xml-js "1.6.11"
     yaml-boost "1.9.8"
+
+smart-fs@1.8.3:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/smart-fs/-/smart-fs-1.8.3.tgz#b747bcffaff96594a8a0bb3d1d247354bbd3e2eb"
+  integrity sha512-mug/XC2FxJ/c0N5zmlIwKeEQf4oIrSfNVBYNah8x4uxIOuE0Jz563LD6NstVCoiDCVFuArOFHFVPzAyc3LnxrA==
+  dependencies:
+    fs-extra "8.1.0"
+    json-stringify-pretty-compact "2.0.0"
+    lodash.clonedeep "4.5.0"
+    lodash.isequal "4.5.0"
+    object-align "1.0.1"
+    xml-js "1.6.11"
+    yaml-boost "1.9.9"
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
