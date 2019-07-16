@@ -3802,10 +3802,10 @@ lambda-rollbar@1.10.14:
     lodash.omit "4.5.0"
     rollbar "2.8.1"
 
-lambda-tdd@2.7.13:
-  version "2.7.13"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.7.13.tgz#e4b2ddcd2aedbb4a0b66201c7333fe030551f90c"
-  integrity sha512-o77m5ZK7a1rjDfbQeVJfgAsliggvmyF6HBsP0BzGquMXJ1iphJLD+UxY8vGbQkawF/0/G/dwNmx7yi6xUH8rXw==
+lambda-tdd@2.7.14:
+  version "2.7.14"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.7.14.tgz#22e92c19dabf00c4205902563ab0957de0367935"
+  integrity sha512-KaNqKXo1Fgp9tSpIlD62f5zBsEV61f8SieRgIyUECVpwuocPFh3PxqUei8DFGZym08Z31/fyjUwboTm5g+Qy2g==
   dependencies:
     app-root-path "2.2.1"
     glob "7.1.4"
@@ -3814,7 +3814,7 @@ lambda-tdd@2.7.13:
     lodash.defaults "4.2.0"
     lodash.get "4.4.2"
     lodash.pick "4.4.0"
-    smart-fs "1.8.2"
+    smart-fs "1.8.3"
     timekeeper "2.2.0"
 
 lambda-wrapper@0.3.0:
