@@ -66,7 +66,7 @@
   "files": ["lib"],
   "dependencies": {
     "@hapi/joi": "15.1.0",
-    "joi-strict": "1.0.3",
+    "joi-strict": "1.0.4",
     "js-yaml": "3.13.1",
     "lambda-rate-limiter": "2.4.17",
     "lambda-rollbar": "1.10.14",
