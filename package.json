@@ -24,7 +24,7 @@
     "chai": "4.2.0",
     "coveralls": "3.0.5",
     "eslint": "6.1.0",
-    "js-gardener": "2.0.52",
+    "js-gardener": "2.0.53",
     "lambda-tdd": "2.7.15",
     "nock": "v11.0.0-beta.27",
     "nyc": "14.1.1",
