@@ -3669,10 +3669,10 @@ joi-strict@1.0.4:
   resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.0.4.tgz#8bf55f7b4d6accd5b530ac98276131b59e982254"
   integrity sha512-ChSFFa+Z3iD9x9QsBFMEHwXrwt2Gq2OD1fg+Mgje1Tx+Pqt7ma+LXgMdzVoC7GHCxhO3ySDVBtDumES/yycMXg==
 
-js-gardener@2.0.53:
-  version "2.0.53"
-  resolved "https://registry.yarnpkg.com/js-gardener/-/js-gardener-2.0.53.tgz#ea2e3fb9b5f4195b6dcf93a43f2f0792cc079055"
-  integrity sha512-HO3kCR1q4bCwP3XBFMU0MEpbJyJSrH+X8zb3bh7o5NYF/cCXAs3aHkmL3iGr8AiN2FCqWQSmO8qFe8XJg/QRuQ==
+js-gardener@2.0.54:
+  version "2.0.54"
+  resolved "https://registry.yarnpkg.com/js-gardener/-/js-gardener-2.0.54.tgz#67cf9933d382cb1c397ce897416d592cf605e997"
+  integrity sha512-6gK0ylnGQqrWg7fXKbehshtQ5NLXGsXPz6S4MZfQzYT7H3Gu/rmjMVmwgCkODxfifXWVooMI9QUNdHWTPsFnJQ==
   dependencies:
     "@hapi/joi" "15.1.0"
     chalk "2.4.2"
@@ -3685,7 +3685,7 @@ js-gardener@2.0.53:
     eslint-plugin-mocha "6.0.0"
     fancy-log "1.3.3"
     glob "7.1.4"
-    joi-strict "1.0.3"
+    joi-strict "1.0.4"
     js-yaml "3.13.1"
     lodash.difference "4.5.0"
     lodash.get "4.4.2"
@@ -5200,12 +5200,12 @@ object-deep-contain@1.0.12:
   resolved "https://registry.yarnpkg.com/object-deep-contain/-/object-deep-contain-1.0.12.tgz#5bc86a9b84952ef7c3790f20955bcd69bb005a45"
   integrity sha512-Ec77vo98lDXd+6IKvrZD93HnJc0+kpZ1lkLmqXsPkpgMzTutgVlDSX2K3QENL02SEnDMom/a8uiAJPkUE+dzWw==
 
-object-fields@1.3.11:
-  version "1.3.11"
-  resolved "https://registry.yarnpkg.com/object-fields/-/object-fields-1.3.11.tgz#0fc9b86f95f531bd07ccd7ceb4fee41c6aa002ca"
-  integrity sha512-Tm/LKLQYbJcGzYxds7Fmsy5O37Sds6JGXJmMz/le7gesdLhQqnzY7Fq/17reUfnBi8WZX5i+RRZh03RS75JZBA==
+object-fields@1.3.12:
+  version "1.3.12"
+  resolved "https://registry.yarnpkg.com/object-fields/-/object-fields-1.3.12.tgz#7edba9455a1f431b676c37a0c980404fb1559d2f"
+  integrity sha512-EoLCpsnVKshwolD0132b+WOIStPoSWZ1+peN2G5zNN4m39cSuA3pYko1AuRSPurh8bahcPnK4YzdbdfANWr+zA==
   dependencies:
-    object-scan "10.0.4"
+    object-scan "10.0.5"
 
 object-keys@^1.0.11, object-keys@^1.0.12:
   version "1.1.1"
