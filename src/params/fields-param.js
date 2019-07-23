@@ -41,7 +41,7 @@ class FieldsParam extends Str {
 
   get(event) {
     const result = super.get(event);
-    return typeof result === 'string' ? result.split(',') : result;
+    return typeof result === 'string' ? objectFields.split(result) : result;
   }
 }
 module.exports = FieldsParam;
