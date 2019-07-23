@@ -11,7 +11,7 @@ describe('Testing FieldsParam Parameter', () => {
       queryStringParameters: {
         param: 'id,user.id,user.name'
       }
-    })).to.deep.equal('id,user.id,user.name');
+    })).to.deep.equal(['id', 'user.id', 'user.name']);
   });
 
   it('Testing invalid query param', () => {
@@ -27,7 +27,7 @@ describe('Testing FieldsParam Parameter', () => {
       body: {
         param: 'id,user.id,user.name'
       }
-    })).to.deep.equal('id,user.id,user.name');
+    })).to.deep.equal(['id', 'user.id', 'user.name']);
   });
 
   it('Testing invalid json param', () => {
