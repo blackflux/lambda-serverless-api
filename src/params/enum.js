@@ -1,6 +1,5 @@
 const assert = require('assert');
 const Str = require('./str');
-const escapeRegExp = require('../util/escape-reg-exp');
 
 class Enum extends Str {
   constructor(name, position, enums, opts = {}) {
@@ -9,7 +8,6 @@ class Enum extends Str {
     assert(Array.isArray(enums));
     assert(enums.every(e => typeof e === 'string'));
     this.enums = new Set(enums);
-    this.regex = new RegExp(`^(${enums.map(s => escapeRegExp(s)).join('|')})$`);
   }
 
   validate(value) {

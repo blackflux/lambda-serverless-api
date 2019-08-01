@@ -115,7 +115,9 @@ paths:
           type: string
           format: Enum
           in: query
-          pattern: /^(enum1|enum2)$/
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
           enum:
             - enum1
             - enum2
