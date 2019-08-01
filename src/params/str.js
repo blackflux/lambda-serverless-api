@@ -1,8 +1,7 @@
 const assert = require('assert');
 const get = require('lodash.get');
 const Abstract = require('./_abstract');
-
-const escapeRegExp = s => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+const escapeRegExp = require('../util/escape-reg-exp');
 
 const rejectedStrings = [
   '',
