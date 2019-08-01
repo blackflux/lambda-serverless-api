@@ -82,8 +82,9 @@ module.exports.param = api.wrap('POST param', [
     maxItems: 3,
     minItems: 1
   }),
-  api.Enum('enumParam', 'query', ['enum1', 'enum2'], {
-    required: false
+  api.Enum('enumParam', 'query', {
+    required: false,
+    enums: ['enum1', 'enum2']
   }),
   api.FieldsParam('fieldsParam', 'query', { required: false, fields: 'id' }),
   api.Number('numberParam', 'query', { required: false }),
