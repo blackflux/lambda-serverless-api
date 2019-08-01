@@ -3,7 +3,7 @@ const api = require('../../src/index').Api();
 
 describe('Testing Enum Parameter', () => {
   describe('Testing query param', () => {
-    const queryParam = api.Enum('value', 'query', { enums: ['value', 'item'] });
+    const queryParam = api.Enum('value', 'query', ['value', 'item']);
     it('Testing valid query parameter', () => {
       expect(queryParam.get({
         queryStringParameters: {
@@ -22,7 +22,7 @@ describe('Testing Enum Parameter', () => {
   });
 
   describe('Testing json param', () => {
-    const jsonParam = api.Enum('value', 'json', { enums: ['value', 'item'] });
+    const jsonParam = api.Enum('value', 'json', ['value', 'item']);
     it('Testing valid json parameter', () => {
       expect(jsonParam.get({
         body: {
