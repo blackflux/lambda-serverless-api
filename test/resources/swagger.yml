@@ -110,6 +110,17 @@ paths:
           maxLength: 2
           minItems: 1
           maxItems: 3
+        - name: enumParam
+          required: false
+          type: string
+          format: Enum
+          in: query
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - enum1
+            - enum2
         - name: fieldsParam
           required: false
           type: string

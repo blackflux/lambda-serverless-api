@@ -101,6 +101,7 @@ const staticExports = {
   IsoDate: param.IsoDate,
   Date: param.Date,
   Bool: param.Bool,
+  Enum: param.Enum,
   Int: param.Int,
   List: param.List,
   StrList: param.StrList,
