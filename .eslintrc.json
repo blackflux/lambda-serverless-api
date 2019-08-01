@@ -92,7 +92,8 @@
           "balanced": true
         }
       }
-    ]
+    ],
+    "@blackflux/rules/prevent-typeof-object": 1
   },
   "env": {
     "es6": true,
