@@ -2,12 +2,12 @@ const assert = require('assert');
 const Str = require('./str');
 
 class Enum extends Str {
-  constructor(name, position, enums, opts = {}) {
+  constructor(name, position, opts) {
     super(name, position, opts);
-    assert(enums !== undefined, 'Enums are required.');
-    assert(Array.isArray(enums));
-    assert(enums.every(e => typeof e === 'string'));
-    this.enums = new Set(enums);
+    assert(opts.enums !== undefined, 'Enums are required.');
+    assert(Array.isArray(opts.enums));
+    assert(opts.enums.every(e => typeof e === 'string'));
+    this.enums = new Set(opts.enums);
   }
 
   validate(value) {
