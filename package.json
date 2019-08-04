@@ -57,13 +57,19 @@
       "url": "https://github.com/blackflux/lambda-serverless-api/blob/master/LICENSE"
     }
   ],
-  "engines": {"node": ">= 6.10.3"},
+  "engines": {
+    "node": ">= 6.10.3"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/blackflux/lambda-serverless-api.git"
   },
-  "bugs": {"url": "https://github.com/blackflux/lambda-serverless-api/issues"},
-  "files": ["lib"],
+  "bugs": {
+    "url": "https://github.com/blackflux/lambda-serverless-api/issues"
+  },
+  "files": [
+    "lib"
+  ],
   "dependencies": {
     "@hapi/joi": "15.1.0",
     "joi-strict": "1.0.4",
@@ -92,10 +98,22 @@
     "statements": 100,
     "functions": 100,
     "branches": 100,
-    "include": ["**/*.js"],
-    "exclude": ["gardener.js", "node_modules/*", "coverage/*", "lib/*"],
-    "reporter": ["lcov", "text-summary"],
-    "require": ["@babel/register"],
+    "include": [
+      "**/*.js"
+    ],
+    "exclude": [
+      "gardener.js",
+      "node_modules/*",
+      "coverage/*",
+      "lib/*"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "require": [
+      "@babel/register"
+    ],
     "extension": [],
     "cache": true,
     "all": true,
