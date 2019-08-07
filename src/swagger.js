@@ -1,17 +1,7 @@
 const get = require('lodash.get');
-const difference = require('lodash.difference');
 const SwaggerParser = require('swagger-parser');
-const objectScan = require('object-scan');
-const merge = require('./util/merge')([
-  'swagger',
-  'produces',
-  'paths.*.*.parameters',
-  'paths.*.*.consumes'
-], [
-  'paths.*.*.description'
-]);
 
-module.exports = (endpoints, existing) => {
+module.exports = (endpoints) => {
   const data = {
     swagger: '2.0',
     produces: ['application/json'],
@@ -94,11 +84,5 @@ module.exports = (endpoints, existing) => {
     });
   });
 
-  const result = JSON.parse(JSON.stringify(existing));
-  const unexpected = difference(objectScan(['paths.*.*'])(result), objectScan(['paths.*.*'])(data));
-  if (unexpected.length !== 0) {
-    throw new Error(`Unexpected swagger endpoint(s) detected: ${unexpected.join(', ')}`);
-  }
-  merge(result, data);
-  return SwaggerParser.validate(result);
+  return SwaggerParser.validate(data);
 };
