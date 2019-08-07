@@ -1,10 +1,7 @@
 const assert = require('assert');
-const xor = require('lodash.xor');
 const get = require('lodash.get');
 const difference = require('lodash.difference');
 const Joi = require('joi-strict');
-const objectScan = require('object-scan');
-const yaml = require('yaml-boost');
 const Rollbar = require('lambda-rollbar');
 const Limiter = require('lambda-rate-limiter');
 const Router = require('route-recognizer');
@@ -282,25 +279,11 @@ const Api = (options = {}) => {
   routerFn.isApiEndpoint = true;
   routerFn.request = 'ANY';
 
-  const generateDifference = (swaggerFile, serverlessFile, serverlessVars) => {
-    const serverlessData = yaml.load(serverlessFile, serverlessVars);
-    const swaggerData = yaml.load(swaggerFile);
-
-    const serverlessRequests = objectScan(['functions.*.events[*].http'], { joined: false })(serverlessData)
-      .map(k => get(serverlessData, k))
-      .map(e => `${e.method.toUpperCase()} ${e.path}`);
-    const swaggerRequests = objectScan(['paths.*.*'], { joined: false })(swaggerData)
-      .map(e => `${e[2].toUpperCase()} ${e[1].substring(1)}`);
-
-    return xor(serverlessRequests, swaggerRequests);
-  };
-
   return Object.assign({
     wrap,
     rollbar,
     router: routerFn,
-    generateSwagger: (existing = {}) => swagger(endpoints, existing),
-    generateDifference
+    generateSwagger: () => swagger(endpoints)
   }, staticExports);
 };
 

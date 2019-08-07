@@ -16,7 +16,6 @@ lambdaTester.execute((process.argv.slice(2).find(e => e.startsWith('--filter='))
 it('Testing Exports Synchronized.', () => {
   expect(difference(Object.keys(api), Object.keys(api.Api()))).to.deep.equal(['Api']);
   expect(difference(Object.keys(api.Api()), Object.keys(api)).sort()).to.deep.equal([
-    'generateDifference',
     'generateSwagger',
     'rollbar',
     'router',

@@ -143,10 +143,6 @@ Takes parameters `event` (raw lambda function event), `context` (raw lambda func
 
 To generate swagger documentation we can call `api.generateSwagger()` after the api is initialized with routes.
 
-To validate that your swagger documentation matches your `serverless.yml` you can run `api.generateDifference()`.
-
-Examples can be found [here](test/test_swagger.js).
-
 ## Custom Error Messages
 
 You can pass an additional `messageId` and `context` to the `ApiError` constructor.
