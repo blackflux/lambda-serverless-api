@@ -4,7 +4,7 @@ const { identity } = require('../misc');
 
 describe('Testing FieldsParam Parameter', () => {
   const queryParam = api.FieldsParam('param', 'query', { fields: ['id', 'user.id', 'user.name'] });
-  const jsonParam = api.FieldsParam('param', 'json', { fields: () => 'id,user(id,name)' });
+  const jsonParam = api.FieldsParam('param', 'json', { fields: () => ['id', 'user.id', 'user.name'] });
 
   it('Testing valid query param', () => {
     expect(queryParam.get({
@@ -40,8 +40,8 @@ describe('Testing FieldsParam Parameter', () => {
 
   it('Testing only one autoPrune FieldsParam per request', (done) => {
     expect(() => api.wrap('GET route', [
-      api.FieldsParam('fields1', 'query', { paths: ['id'], autoPrune: '' }),
-      api.FieldsParam('fields2', 'query', { paths: ['id'], autoPrune: '' })
+      api.FieldsParam('fields1', 'query', { paths: ['id'], autoPrune: '', fields: ['id'] }),
+      api.FieldsParam('fields2', 'query', { paths: ['id'], autoPrune: '', fields: ['id'] })
     ], identity(api)))
       .to.throw('Only one auto pruning "FieldsParam" per endpoint.');
     done();
