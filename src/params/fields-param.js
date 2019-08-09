@@ -10,13 +10,15 @@ class FieldsParam extends Str {
     if (typeof result === 'function') {
       result = result();
     }
-    return typeof result === 'string' ? objectFields.split(result) : result;
+    assert(Array.isArray(result));
+    return result;
   }
 
   constructor(name, position, opts) {
     super(name, position, opts);
     const { fields, autoPrune } = Object.assign({ autoPrune: null }, opts);
     assert(typeof autoPrune === 'string' || autoPrune === null);
+    assert(typeof fields === 'function' || Array.isArray(fields));
     this.paramType = 'FieldsParam';
     this.fields = fields;
     this.autoPrune = autoPrune;

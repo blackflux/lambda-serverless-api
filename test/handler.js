@@ -65,7 +65,7 @@ module.exports.param = api.wrap('POST param', [
   api.UUID('uuidParam', 'json', { required: false }),
   api.List('listParam', 'json', { required: false }),
   api.StrList('strListParam', 'json', { required: false }),
-  api.FieldsParam('fieldsParam', 'json', { required: false, fields: 'id', autoPrune: null }),
+  api.FieldsParam('fieldsParam', 'json', { required: false, fields: ['id'], autoPrune: null }),
   api.Number('numberParam', 'json', { required: false }),
   api.NumberList('numberListParam', 'json', { required: false }),
   api.Int('number', 'json', { required: false, min: 10, max: 20 }),
@@ -86,7 +86,7 @@ module.exports.param = api.wrap('POST param', [
     required: false,
     enums: ['enum1', 'enum2']
   }),
-  api.FieldsParam('fieldsParam', 'query', { required: false, fields: 'id' }),
+  api.FieldsParam('fieldsParam', 'query', { required: false, fields: ['id'] }),
   api.Number('numberParam', 'query', { required: false }),
   api.NumberList('numberListParam', 'query', { required: false }),
   api.GeoPoint('geoPointParam', 'query', { required: false }),
