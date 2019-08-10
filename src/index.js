@@ -146,7 +146,8 @@ const Api = (options = {}) => {
       throw new Error('Only one auto pruning "FieldsParam" per endpoint.');
     }
     endpoints[request] = params;
-    const rawAutoPruneFieldsParam = params.find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
+    const rawAutoPruneFieldsParam = params
+      .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
 
     const wrapHandler = ({
       event, context, rb, hdl
