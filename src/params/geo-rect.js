@@ -33,7 +33,7 @@ class GeoRect extends NumberList {
     )) {
       valid = false;
     }
-    if (valid && this.relaxed !== true && valueParsed.some(p => p === 0)) {
+    if (valid && this.relaxed !== true && valueParsed.some((p) => p === 0)) {
       valid = false;
     }
     return valid;

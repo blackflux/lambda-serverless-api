@@ -6,7 +6,7 @@ class Enum extends Str {
     super(name, position, opts);
     assert(opts.enums !== undefined, 'Enums are required.');
     assert(Array.isArray(opts.enums));
-    assert(opts.enums.every(e => typeof e === 'string'));
+    assert(opts.enums.every((e) => typeof e === 'string'));
     this.enums = new Set(opts.enums);
   }
 
