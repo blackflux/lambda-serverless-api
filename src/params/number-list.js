@@ -8,7 +8,7 @@ class NumberList extends List {
 
   validate(value) {
     let valid = super.validate(value);
-    if (valid && (this.stringInput ? JSON.parse(value) : value).some(e => typeof e !== 'number')) {
+    if (valid && (this.stringInput ? JSON.parse(value) : value).some((e) => typeof e !== 'number')) {
       valid = false;
     }
     return valid;

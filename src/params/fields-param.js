@@ -16,7 +16,7 @@ class FieldsParam extends Str {
 
   constructor(name, position, opts) {
     super(name, position, opts);
-    const { fields, autoPrune } = Object.assign({ autoPrune: null }, opts);
+    const { fields, autoPrune } = { autoPrune: null, ...opts };
     assert(typeof autoPrune === 'string' || autoPrune === null);
     assert(typeof fields === 'function' || Array.isArray(fields));
     this.paramType = 'FieldsParam';

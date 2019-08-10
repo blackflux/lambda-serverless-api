@@ -1,1 +1,1 @@
-module.exports.identity = api => args => api.JsonResponse(args);
+module.exports.identity = (api) => (args) => api.JsonResponse(args);

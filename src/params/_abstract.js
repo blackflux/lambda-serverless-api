@@ -54,7 +54,7 @@ class Abstract {
       });
     }
     return this.getter !== null && ![undefined, null].includes(result)
-      ? params => this.getter(result, params)
+      ? (params) => this.getter(result, params)
       : result;
   }
 }

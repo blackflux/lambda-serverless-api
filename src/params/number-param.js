@@ -11,7 +11,7 @@ class NumberParam extends Json {
     if (max !== undefined) {
       schema = schema.max(max);
     }
-    super(name, position, Object.assign({}, opts, { schema }));
+    super(name, position, { ...opts, schema });
     this.type = 'number';
   }
 
