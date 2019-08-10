@@ -42,7 +42,7 @@ class Str extends Abstract {
     this.relaxed = get(opts, 'relaxed', false);
     assert(typeof this.relaxed === 'boolean');
     if (this.relaxed !== true) {
-      this.regex = new RegExp(`!?^(${rejectedStrings.map(s => escapeRegExp(s)).join('|')})$`);
+      this.regex = new RegExp(`!?^(${rejectedStrings.map((s) => escapeRegExp(s)).join('|')})$`);
     }
   }
 

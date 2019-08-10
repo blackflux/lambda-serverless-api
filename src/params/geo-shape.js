@@ -12,7 +12,7 @@ class GeoShape extends Json {
     if (maxPoints !== undefined) {
       schema = schema.max(maxPoints);
     }
-    super(name, position, Object.assign({}, opts, { schema }));
+    super(name, position, { ...opts, schema });
     assert(relaxed === undefined || typeof relaxed === 'boolean');
     this.clockwise = clockwise;
     this.type = 'array';
@@ -46,10 +46,10 @@ class GeoShape extends Json {
       valid = false;
     }
     // ensure non-degenerate polygon
-    if (valid && new Set(valueParsed.map(p => `${p[0]}${p[1]}`)).size !== valueParsed.length - 1) {
+    if (valid && new Set(valueParsed.map((p) => `${p[0]}${p[1]}`)).size !== valueParsed.length - 1) {
       valid = false;
     }
-    if (valid && this.relaxed !== true && valueParsed.some(p => p[0] === 0 || p[1] === 0)) {
+    if (valid && this.relaxed !== true && valueParsed.some((p) => p[0] === 0 || p[1] === 0)) {
       valid = false;
     }
     return valid;

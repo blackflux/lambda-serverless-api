@@ -12,7 +12,7 @@ const api = require('./../src/index').Api({
       'X-Api-Key',
       'X-Amz-Security-Token',
       'X-Amz-User-Agent'
-    ].map(h => h.toLowerCase());
+    ].map((h) => h.toLowerCase());
     const allowedOrigins = [
       'https://test.com'
     ];
@@ -20,8 +20,8 @@ const api = require('./../src/index').Api({
     if (!allowedMethods.includes(accessControlRequestMethod)) {
       return false;
     }
-    if (!accessControlRequestHeaders.split(',').map(h => h
-      .trim().toLowerCase()).every(h => allowedHeaders.includes(h))) {
+    if (!accessControlRequestHeaders.split(',').map((h) => h
+      .trim().toLowerCase()).every((h) => allowedHeaders.includes(h))) {
       return false;
     }
     if (!allowedOrigins.includes(origin)) {
@@ -98,7 +98,7 @@ module.exports.param = api.wrap('POST param', [
     required: false,
     getter: () => request({ uri: 'https://foo.com', json: true })
   })
-], params => api.JsonResponse(params));
+], (params) => api.JsonResponse(params));
 
 module.exports.param2 = api.wrap('POST param2', [
   api.Str('username', 'json', { required: false }),

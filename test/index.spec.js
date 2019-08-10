@@ -11,7 +11,7 @@ const lambdaTester = require('lambda-tdd')({
 });
 const api = require('../src/index');
 
-lambdaTester.execute((process.argv.slice(2).find(e => e.startsWith('--filter=')) || '').substring(9));
+lambdaTester.execute((process.argv.slice(2).find((e) => e.startsWith('--filter=')) || '').substring(9));
 
 it('Testing Exports Synchronized.', () => {
   expect(difference(Object.keys(api), Object.keys(api.Api()))).to.deep.equal(['Api']);
