@@ -129,7 +129,7 @@ The parameters passed into the function are
 ## Prefix routes
 
 To prefix routes with a specific path, you can use the `routePrefix` option. This is handy when the api is not
-deployed under the domain root.g Example `prefix/path/`.
+deployed under the domain root. Example `prefix/path/`.
 
 ## Default Headers
 
