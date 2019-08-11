@@ -72,7 +72,7 @@
   ],
   "dependencies": {
     "@hapi/joi": "15.1.0",
-    "joi-strict": "1.0.4",
+    "joi-strict": "1.0.5",
     "lambda-rate-limiter": "2.4.19",
     "lambda-rollbar": "1.10.18",
     "lodash.difference": "4.5.0",
