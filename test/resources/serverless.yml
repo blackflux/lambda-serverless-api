@@ -1,2 +1,0 @@
-functions:
-  ${file(./${opt:functionFile, 'functions'}.yml):functions}

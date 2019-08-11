@@ -113,6 +113,7 @@ const Api = (options = {}) => {
   const endpoints = {};
   const router = new Router();
   const routeSignatures = [];
+  const routePrefix = get(options, 'routePrefix', '');
   const rollbar = Rollbar(get(options, 'rollbar', {}));
   const limiter = Limiter(get(options, 'limiter', {}));
   const defaultHeaders = get(options, 'defaultHeaders', {});
@@ -276,7 +277,11 @@ const Api = (options = {}) => {
   routerFn.request = 'ANY';
 
   return {
-    wrap,
+    wrap: (request, ...args) => {
+      const requestParsed = /^([A-Z]+)\s(.+)$/.exec(request);
+      assert(Array.isArray(requestParsed) && requestParsed.length === 3);
+      return wrap(`${requestParsed[1]} ${routePrefix}${requestParsed[2]}`, ...args);
+    },
     rollbar,
     router: routerFn,
     generateSwagger: () => swagger(endpoints),
