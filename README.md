@@ -126,6 +126,11 @@ The object is expected to contains all headers that should be returned.
 The parameters passed into the function are 
 `origin, allowedMethods, accessControlRequestMethod, accessControlRequestHeaders, path`.
 
+## Prefix routes
+
+To prefix routes with a specific path, you can use the `routePrefix` option. This is handy when the api is not
+deployed under the domain root.g Example `prefix/path/`.
+
 ## Default Headers
 
 Can be defined as a static object, or as a function taking in the request headers. This is e.g. useful for 
