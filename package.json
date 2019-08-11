@@ -30,7 +30,7 @@
     "request": "2.88.0",
     "request-promise": "4.2.4",
     "semantic-release": "15.13.19",
-    "smart-fs": "1.9.3"
+    "smart-fs": "1.9.5"
   },
   "version": "0.0.0-development",
   "scripts": {
