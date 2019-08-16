@@ -71,7 +71,7 @@
     "lib"
   ],
   "dependencies": {
-    "@hapi/joi": "15.1.0",
+    "@hapi/joi": "15.1.1",
     "joi-strict": "1.0.5",
     "lambda-rate-limiter": "2.4.20",
     "lambda-rollbar": "1.10.19",
