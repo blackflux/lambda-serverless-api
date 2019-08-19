@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('smart-fs');
 const expect = require('chai').expect;
-const api = require('./../src/index');
+const api = require('../src/index');
 const testApi = require('./handler').internalApi;
 
 describe('Testing Swagger', () => {
