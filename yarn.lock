@@ -3824,10 +3824,10 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
   integrity sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==
 
-lambda-rate-limiter@2.4.21:
-  version "2.4.21"
-  resolved "https://registry.yarnpkg.com/lambda-rate-limiter/-/lambda-rate-limiter-2.4.21.tgz#5769f634eab7894decb6fac6af044ba2a4d1aced"
-  integrity sha512-sg615xpbs6uR+juQHQJowfoe4XUsTwaoh1PBbb3ej3foscqtsrexfMK9iNCJG/T0B0RJWQFWi8laQPz3qlAekQ==
+lambda-rate-limiter@2.4.22:
+  version "2.4.22"
+  resolved "https://registry.yarnpkg.com/lambda-rate-limiter/-/lambda-rate-limiter-2.4.22.tgz#203aba36b3a4a01235626a99af6b1a0063d3c8b4"
+  integrity sha512-2BMN9OB3YPzMkfFYCfZYI6JZIeR9+NvS8NnZQ4xuYRTvEsz1FifAzDQlFczgec9mea1wCvDdi/qoRBe30xrVCw==
   dependencies:
     lru-cache "5.1.1"
 
