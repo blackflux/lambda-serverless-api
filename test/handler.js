@@ -1,5 +1,5 @@
 const request = require('request-promise');
-const api = require('./../src/index').Api({
+const api = require('../src/index').Api({
   preflightCheck: ({
     origin, allowedMethods, accessControlRequestMethod, accessControlRequestHeaders
   }) => {
