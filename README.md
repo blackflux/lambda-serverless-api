@@ -159,6 +159,8 @@ Rate limiting uses [lambda-rate-limiter](https://github.com/blackflux/lambda-rat
 
 To customize rate limiting, the package options are passed as `limiter` into the constructor.
 
+To specify a custom path to a value in the event that will be used for rate limiting, pass `rateLimitTokenPath` option in the constructor. Error will be thrown if `rateLimitTokenPath` is not a string. (`requestContext.identity.sourceIp`) 
+
 ## Logging Api Errors / Exceptions
 
 To monitor api errors and exceptions [lambda-rollbar](https://github.com/blackflux/lambda-rollbar) can be enabled. Options are passed by putting them as `rollbar` into the constructor.
