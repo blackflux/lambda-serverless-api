@@ -1,9 +1,14 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing NumberList Parameter', () => {
-  const queryParam = api.NumberList('list', 'query');
-  const jsonParam = api.NumberList('list', 'json');
+  let queryParam;
+  let jsonParam;
+  before(() => {
+    queryParam = api.NumberList('list', 'query');
+    jsonParam = api.NumberList('list', 'json');
+  });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({

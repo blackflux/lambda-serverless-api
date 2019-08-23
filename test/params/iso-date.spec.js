@@ -1,10 +1,16 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing IsoDate Parameter', () => {
-  const queryParam = api.IsoDate('value', 'query');
-  const jsonParam = api.IsoDate('value', 'json');
-  const jsonParamOptional = api.IsoDate('value', 'json', { required: false });
+  let queryParam;
+  let jsonParam;
+  let jsonParamOptional;
+  before(() => {
+    queryParam = api.IsoDate('value', 'query');
+    jsonParam = api.IsoDate('value', 'json');
+    jsonParamOptional = api.IsoDate('value', 'json', { required: false });
+  });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({
