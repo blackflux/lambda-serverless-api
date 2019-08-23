@@ -260,4 +260,12 @@ describe('Testing Response', () => {
       done();
     });
   });
+
+  it('Testing "rateLimitTokenPath" error', () => {
+    try {
+      Api({ rateLimitTokenPath: null });
+    } catch (e) {
+      expect(e.message).to.equal('"rateLimitTokenPath" must be a String');
+    }
+  });
 });

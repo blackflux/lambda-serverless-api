@@ -120,6 +120,11 @@ const Api = (options = {}) => {
   const preflightCheck = get(options, 'preflightCheck', () => false);
   const preflightHandlers = {};
   const preRequestHook = get(options, 'preRequestHook');
+  const rateLimitTokenPath = get(options, 'rateLimitTokenPath', 'requestContext.identity.sourceIp');
+
+  if (typeof rateLimitTokenPath !== 'string') {
+    throw new Error('"rateLimitTokenPath" must be a String');
+  }
 
   const generateDefaultHeaders = (inputHeaders) => (typeof defaultHeaders === 'function'
     ? defaultHeaders(Object
@@ -159,7 +164,7 @@ const Api = (options = {}) => {
       return [
         () => (typeof preRequestHook === 'function' ? preRequestHook(event, context, rb) : Promise.resolve()),
         () => (opt.limit === null ? Promise.resolve() : limiter
-          .check(opt.limit, `${get(event, 'requestContext.identity.sourceIp')}/${request}`)
+          .check(opt.limit, `${get(event, rateLimitTokenPath)}/${request}`)
           .catch(() => {
             throw response.ApiError('Rate limit exceeded.', 429);
           })),
