@@ -1,9 +1,14 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing Str Parameter', () => {
   describe('Testing query param', () => {
-    const queryParam = api.Str('value', 'query');
+    let queryParam;
+    before(() => {
+      queryParam = api.Str('value', 'query');
+    });
+
     it('Testing valid query parameter', () => {
       expect(queryParam.get({
         queryStringParameters: {
@@ -22,7 +27,11 @@ describe('Testing Str Parameter', () => {
   });
 
   describe('Testing json param', () => {
-    const jsonParam = api.Str('value', 'json');
+    let jsonParam;
+    before(() => {
+      jsonParam = api.Str('value', 'json');
+    });
+
     it('Testing valid json parameter', () => {
       expect(jsonParam.get({
         body: {
@@ -41,8 +50,13 @@ describe('Testing Str Parameter', () => {
   });
 
   describe('Testing options params', () => {
-    const jsonParamOptional = api.Str('value', 'json', { required: false });
-    const jsonParamRelaxed = api.Str('value', 'json', { relaxed: true });
+    let jsonParamOptional;
+    let jsonParamRelaxed;
+    before(() => {
+      jsonParamOptional = api.Str('value', 'json', { required: false });
+      jsonParamRelaxed = api.Str('value', 'json', { relaxed: true });
+    });
+
     it('Testing optional json parameter', () => {
       expect(jsonParamOptional.get({
         body: {}

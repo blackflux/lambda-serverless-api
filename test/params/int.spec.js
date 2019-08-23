@@ -1,10 +1,16 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing Int Parameter', () => {
-  const queryParam = api.Int('value', 'query');
-  const jsonParam = api.Int('value', 'json');
-  const jsonParamOptional = api.Int('value', 'json', { required: false });
+  let queryParam;
+  let jsonParam;
+  let jsonParamOptional;
+  before(() => {
+    queryParam = api.Int('value', 'query');
+    jsonParam = api.Int('value', 'json');
+    jsonParamOptional = api.Int('value', 'json', { required: false });
+  });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({
@@ -45,8 +51,12 @@ describe('Testing Int Parameter', () => {
   });
 
   describe('Testing optional parameter "max"', () => {
-    const queryParamInvalidMax = api.Int('value', 'query', { max: 10 });
-    const bodyParamInvalidMax = api.Int('value', 'json', { max: 10 });
+    let queryParamInvalidMax;
+    let bodyParamInvalidMax;
+    before(() => {
+      queryParamInvalidMax = api.Int('value', 'query', { max: 10 });
+      bodyParamInvalidMax = api.Int('value', 'json', { max: 10 });
+    });
 
     it('testing invalid max query parameter', () => {
       expect(() => queryParamInvalidMax.get({
@@ -66,8 +76,12 @@ describe('Testing Int Parameter', () => {
   });
 
   describe('Testing optional parameter "min"', () => {
-    const queryParamInvalidMin = api.Int('value', 'query', { min: -1 });
-    const bodyParamInvalidMin = api.Int('value', 'json', { min: -1 });
+    let queryParamInvalidMin;
+    let bodyParamInvalidMin;
+    before(() => {
+      queryParamInvalidMin = api.Int('value', 'query', { min: -1 });
+      bodyParamInvalidMin = api.Int('value', 'json', { min: -1 });
+    });
 
     it('testing invalid min query parameter', () => {
       expect(() => queryParamInvalidMin.get({

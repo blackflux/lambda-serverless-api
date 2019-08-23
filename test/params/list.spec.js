@@ -1,9 +1,14 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing List Parameter', () => {
-  const queryParam = api.List('list', 'query');
-  const jsonParam = api.List('list', 'json');
+  let queryParam;
+  let jsonParam;
+  before(() => {
+    queryParam = api.List('list', 'query');
+    jsonParam = api.List('list', 'json');
+  });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({
@@ -38,8 +43,12 @@ describe('Testing List Parameter', () => {
   });
 
   describe('Testing optional parameter "maxItems"', () => {
-    const queryParamInValidLength = api.StrList('list', 'query', { maxItems: 2 });
-    const bodyParamInValidLength = api.StrList('list', 'json', { maxItems: 2 });
+    let queryParamInValidLength;
+    let bodyParamInValidLength;
+    before(() => {
+      queryParamInValidLength = api.StrList('list', 'query', { maxItems: 2 });
+      bodyParamInValidLength = api.StrList('list', 'json', { maxItems: 2 });
+    });
 
     it('Testing invalid length of list in query param', () => {
       expect(() => queryParamInValidLength.get({
@@ -59,8 +68,12 @@ describe('Testing List Parameter', () => {
   });
 
   describe('Testing optional parameter "minItems"', () => {
-    const queryParamInValidLength = api.StrList('list', 'query', { minItems: 2 });
-    const bodyParamInValidLength = api.StrList('list', 'json', { minItems: 2 });
+    let queryParamInValidLength;
+    let bodyParamInValidLength;
+    before(() => {
+      queryParamInValidLength = api.StrList('list', 'query', { minItems: 2 });
+      bodyParamInValidLength = api.StrList('list', 'json', { minItems: 2 });
+    });
 
     it('Testing invalid min length of list in query param', () => {
       expect(() => queryParamInValidLength.get({

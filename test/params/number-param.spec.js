@@ -1,11 +1,18 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing Number Parameter', () => {
-  const queryParam = api.Number('number', 'query');
-  const queryParamRestricted = api.Number('number', 'query', { min: 0, max: 10 });
-  const jsonParam = api.Number('number', 'json');
-  const jsonParamRestricted = api.Number('number', 'json', { min: 0, max: 10 });
+  let queryParam;
+  let queryParamRestricted;
+  let jsonParam;
+  let jsonParamRestricted;
+  before(() => {
+    queryParam = api.Number('number', 'query');
+    queryParamRestricted = api.Number('number', 'query', { min: 0, max: 10 });
+    jsonParam = api.Number('number', 'json');
+    jsonParamRestricted = api.Number('number', 'json', { min: 0, max: 10 });
+  });
 
   it('Testing valid query param', () => {
     expect(queryParam.get({ queryStringParameters: { number: '-12.34' } })).to.equal(-12.34);
