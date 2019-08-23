@@ -1,9 +1,14 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing GeoShape Parameter', () => {
-  const queryParam = api.GeoShape('geoShape', 'query');
-  const jsonParam = api.GeoShape('geoShape', 'json');
+  let queryParam;
+  let jsonParam;
+  before(() => {
+    queryParam = api.GeoShape('geoShape', 'query');
+    jsonParam = api.GeoShape('geoShape', 'json');
+  });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({

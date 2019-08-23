@@ -1,9 +1,14 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing Date Parameter', () => {
   describe('Testing query param', () => {
-    const queryParam = api.Date('value', 'query');
+    let queryParam;
+    before(() => {
+      queryParam = api.Date('value', 'query');
+    });
+
     it('Testing valid query parameter', () => {
       expect(queryParam.get({
         queryStringParameters: {
@@ -30,7 +35,11 @@ describe('Testing Date Parameter', () => {
   });
 
   describe('Testing json param', () => {
-    const jsonParam = api.Date('value', 'json');
+    let jsonParam;
+    before(() => {
+      jsonParam = api.Date('value', 'json');
+    });
+
     it('Testing valid json parameter', () => {
       expect(jsonParam.get({
         body: {
@@ -57,7 +66,11 @@ describe('Testing Date Parameter', () => {
   });
 
   describe('Testing optional param', () => {
-    const jsonParamOptional = api.Date('value', 'json', { required: false });
+    let jsonParamOptional;
+    before(() => {
+      jsonParamOptional = api.Date('value', 'json', { required: false });
+    });
+
     it('Testing optional json param', () => {
       expect(jsonParamOptional.get({
         body: {}

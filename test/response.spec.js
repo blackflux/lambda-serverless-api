@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const response = require('../src/response');
 const { Api } = require('../src/index');
 const { identity } = require('./misc');

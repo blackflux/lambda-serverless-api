@@ -1,10 +1,16 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing Bool Parameter', () => {
-  const queryParam = api.Bool('enabled', 'query');
-  const jsonParam = api.Bool('enabled', 'json');
-  const jsonParamOptional = api.Bool('enabled', 'json', { required: false });
+  let queryParam;
+  let jsonParam;
+  let jsonParamOptional;
+  before(() => {
+    queryParam = api.Bool('enabled', 'query');
+    jsonParam = api.Bool('enabled', 'json');
+    jsonParamOptional = api.Bool('enabled', 'json', { required: false });
+  });
 
   it('Testing valid query parameter (true)', () => {
     expect(queryParam.get({

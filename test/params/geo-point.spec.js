@@ -1,10 +1,16 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing GeoPoint Parameter', () => {
-  const queryParam = api.GeoPoint('geoPoint', 'query');
-  const jsonParam = api.GeoPoint('geoPoint', 'json');
-  const jsonParamRelaxed = api.GeoPoint('geoPoint', 'json', { relaxed: true });
+  let queryParam;
+  let jsonParam;
+  let jsonParamRelaxed;
+  before(() => {
+    queryParam = api.GeoPoint('geoPoint', 'query');
+    jsonParam = api.GeoPoint('geoPoint', 'json');
+    jsonParamRelaxed = api.GeoPoint('geoPoint', 'json', { relaxed: true });
+  });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({
