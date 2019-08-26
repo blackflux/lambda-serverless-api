@@ -108,7 +108,18 @@ const staticExports = {
 };
 
 const Api = (options = {}) => {
-  // todo: verify options against joi schema
+  Joi.assert(options, Joi.object().keys({
+    routePrefix: Joi.string().optional(),
+    rollbar: Joi.object().optional(),
+    limiter: Joi.object().optional(),
+    defaultHeaders: Joi.alternatives().try(
+      Joi.object(),
+      Joi.func()
+    ).optional(),
+    preflightCheck: Joi.func().optional(),
+    preRequestHook: Joi.func().optional(),
+    rateLimitTokenPath: Joi.string().optional()
+  }));
 
   const endpoints = {};
   const router = new Router();
@@ -121,10 +132,6 @@ const Api = (options = {}) => {
   const preflightHandlers = {};
   const preRequestHook = get(options, 'preRequestHook');
   const rateLimitTokenPath = get(options, 'rateLimitTokenPath', 'requestContext.identity.sourceIp');
-
-  if (typeof rateLimitTokenPath !== 'string') {
-    throw new Error('"rateLimitTokenPath" must be a String');
-  }
 
   const generateDefaultHeaders = (inputHeaders) => (typeof defaultHeaders === 'function'
     ? defaultHeaders(Object

@@ -159,7 +159,7 @@ Rate limiting uses [lambda-rate-limiter](https://github.com/blackflux/lambda-rat
 
 To customize rate limiting, the package options are passed as `limiter` into the constructor.
 
-To specify a custom path to a value in the event that will be used for rate limiting, pass `rateLimitTokenPath` option in the constructor. Error will be thrown if `rateLimitTokenPath` is not a string. (`requestContext.identity.sourceIp`) 
+By default rate limiting uses the client ip (`requestContext.identity.sourceIp`). This can be customized by using `rateLimitTokenPath` to target a different key on the lambda event. 
 
 ## Logging Api Errors / Exceptions
 
