@@ -118,7 +118,7 @@ const Api = (options = {}) => {
     ).optional(),
     preflightCheck: Joi.func().optional(),
     preRequestHook: Joi.func().optional(),
-    rateLimitTokenPath: Joi.string().optional()
+    rateLimitTokenPaths: Joi.array().items(Joi.string()).optional()
   }));
 
   const endpoints = {};
@@ -131,7 +131,7 @@ const Api = (options = {}) => {
   const preflightCheck = get(options, 'preflightCheck', () => false);
   const preflightHandlers = {};
   const preRequestHook = get(options, 'preRequestHook');
-  const rateLimitTokenPath = get(options, 'rateLimitTokenPath', 'requestContext.identity.sourceIp');
+  const rateLimitTokenPaths = get(options, 'rateLimitTokenPaths', ['requestContext.identity.sourceIp']);
 
   const generateDefaultHeaders = (inputHeaders) => (typeof defaultHeaders === 'function'
     ? defaultHeaders(Object
@@ -170,11 +170,18 @@ const Api = (options = {}) => {
       }
       return [
         () => (typeof preRequestHook === 'function' ? preRequestHook(event, context, rb) : Promise.resolve()),
-        () => (opt.limit === null ? Promise.resolve() : limiter
-          .check(opt.limit, `${get(event, rateLimitTokenPath)}/${request}`)
-          .catch(() => {
-            throw response.ApiError('Rate limit exceeded.', 429);
-          })),
+        () => {
+          const rateLimitPath = rateLimitTokenPaths.find((p) => get(event, p) !== undefined);
+          const rateLimitToken = get(event, rateLimitPath);
+          if (typeof rateLimitToken !== 'string') {
+            throw new Error('Invalid rate limit token');
+          }
+          return (opt.limit === null ? Promise.resolve() : limiter
+            .check(opt.limit, `${rateLimitToken}/${request}`)
+            .catch(() => {
+              throw response.ApiError('Rate limit exceeded.', 429);
+            }));
+        },
         ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())

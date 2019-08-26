@@ -13,6 +13,11 @@
   },
   "event": {
     "body": "{\"username\": \"Anja Smith\", \"email\": \"invalid@email\"}",
-    "httpMethod": "POST"
+    "httpMethod": "POST",
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    }
   }
 }

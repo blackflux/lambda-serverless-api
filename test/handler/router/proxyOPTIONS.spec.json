@@ -23,6 +23,11 @@
       "Access-Control-Request-Method": "GET",
       "Access-Control-Request-Headers": "origin, x-requested-with",
       "Origin": "https://test.com"
+    },
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
     }
   }
 }

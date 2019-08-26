@@ -26,10 +26,15 @@ describe('Testing Response', () => {
       }
     });
     api.wrap('GET path', [], identity(api));
-    api.router({ httpMethod: 'GET', path: '/path' }, {}, (err, resp) => {
+    api.router({
+      httpMethod: 'GET',
+      path: '/path',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
+    }, {}, (err, resp) => {
       expect(lastEvent).to.deep.equal({
         httpMethod: 'GET',
         path: '/path',
+        requestContext: { identity: { sourceIp: '127.0.0.1' } },
         pathParameters: {}
       });
       expect(err).to.equal(null);
@@ -68,7 +73,8 @@ describe('Testing Response', () => {
       path: '/path',
       headers: {
         'X-Custom-Header': 'header-value'
-      }
+      },
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
@@ -83,7 +89,11 @@ describe('Testing Response', () => {
   it('Testing defaultHeaders function (empty)', (done) => {
     api = Api({ defaultHeaders: (headers) => headers });
     api.wrap('GET path', [], identity(api));
-    api.router({ httpMethod: 'GET', path: '/path' }, {}, (err, resp) => {
+    api.router({
+      httpMethod: 'GET',
+      path: '/path',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
+    }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 200,
@@ -97,7 +107,11 @@ describe('Testing Response', () => {
     api = Api({ preflightCheck: (args) => args });
     api.wrap('GET path', [], identity(api));
     api.wrap('DELETE path', [], identity(api));
-    api.router({ httpMethod: 'OPTIONS', path: '/path' }, {}, (err, resp) => {
+    api.router({
+      httpMethod: 'OPTIONS',
+      path: '/path',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
+    }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 200,
@@ -113,7 +127,11 @@ describe('Testing Response', () => {
 
   it('Testing Default Options Request Fails', (done) => {
     api.wrap('GET path', [], identity(api));
-    api.router({ httpMethod: 'OPTIONS', path: '/path' }, {}, (err, resp) => {
+    api.router({
+      httpMethod: 'OPTIONS',
+      path: '/path',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
+    }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 403,
@@ -133,7 +151,8 @@ describe('Testing Response', () => {
   it('Testing ApiResponse Integration', (done) => {
     api.wrap('GET test', [], (event, context, rb) => rb.warning('123')
       .then(() => api.ApiResponse('promiseResponse')).catch(done.fail))({
-      httpMethod: 'GET'
+      httpMethod: 'GET',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {
       getRemainingTimeInMillis: () => 0
     }, (err, resp) => {
@@ -151,7 +170,8 @@ describe('Testing Response', () => {
     api.wrap('GET test', [], (event, context, rb) => rb.warning('123').then(() => {
       throw api.ApiError('promiseError');
     }).catch(done.fail))({
-      httpMethod: 'GET'
+      httpMethod: 'GET',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {
       getRemainingTimeInMillis: () => 0
     }, (err, resp) => {
@@ -171,7 +191,8 @@ describe('Testing Response', () => {
     api.wrap('GET test', [], (event, context, rb) => rb.warning('123').then(() => {
       throw error;
     }).catch(done.fail))({
-      httpMethod: 'GET'
+      httpMethod: 'GET',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {
       getRemainingTimeInMillis: () => 0
     }, (err, resp) => {
@@ -193,7 +214,8 @@ describe('Testing Response', () => {
       httpMethod: 'GET',
       queryStringParameters: {
         fields: 'foo'
-      }
+      },
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {
       getRemainingTimeInMillis: () => 0
     }, (err, resp) => {
@@ -221,7 +243,8 @@ describe('Testing Response', () => {
       httpMethod: 'GET',
       queryStringParameters: {
         fields: 'foo'
-      }
+      },
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {
       getRemainingTimeInMillis: () => 0
     }, (err, resp) => {
@@ -247,7 +270,8 @@ describe('Testing Response', () => {
       httpMethod: 'GET',
       queryStringParameters: {
         fields: 'foo'
-      }
+      },
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {
       getRemainingTimeInMillis: () => 0
     }, (err, resp) => {

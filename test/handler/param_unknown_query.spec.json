@@ -20,7 +20,10 @@
     "body": "{\"username\": \"Anja Smith\", \"email\": \"anja@test.ca\"}",
     "httpMethod": "POST",
     "requestContext": {
-      "authorizer": "Auth Info Context"
+      "authorizer": "Auth Info Context",
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
     },
     "headers": {
       "authorizer": "Auth Info Header"
