@@ -173,8 +173,8 @@ const Api = (options = {}) => {
         () => {
           const rateLimitPath = rateLimitTokenPaths.find((p) => get(event, p) !== undefined);
           const rateLimitToken = get(event, rateLimitPath);
-          if (typeof rateLimitToken !== 'string') {
-            throw new Error('Invalid rate limit token');
+          if (rateLimitToken === undefined) {
+            throw new Error(`Rate limit token not found\n${JSON.stringify(event)}`);
           }
           return (opt.limit === null ? Promise.resolve() : limiter
             .check(opt.limit, `${rateLimitToken}/${request}`)

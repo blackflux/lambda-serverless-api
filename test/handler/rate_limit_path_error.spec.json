@@ -3,7 +3,7 @@
   "success": false,
   "timeout": 2000,
   "expect(message)": {
-    "to.equal": "Invalid rate limit token"
+    "to.equal": "Rate limit token not found\n{\"httpMethod\":\"GET\"}"
   },
   "event": {
     "httpMethod": "GET"
