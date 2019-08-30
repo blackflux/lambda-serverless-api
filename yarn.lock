@@ -4694,10 +4694,10 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-nock@11.3.1, nock@v11.3.1:
-  version "11.3.1"
-  resolved "https://registry.yarnpkg.com/nock/-/nock-11.3.1.tgz#3bafe0820a60f0900b948d31ab92b38ea6917b06"
-  integrity sha512-fsFRKNoH6R6hQuaasbAS5vmy4ujVaqKOb/9NCFP0TkhwbH1e5bPN8bn37FCIF9/0ZhayBrClUmSbN6Rm61+WSg==
+nock@11.3.2:
+  version "11.3.2"
+  resolved "https://registry.yarnpkg.com/nock/-/nock-11.3.2.tgz#8f14e690a6cc839c6c585ba22acd0277d128766a"
+  integrity sha512-Bb00vTmuXyucMT9gcnMSiE2n6P5yrRoAyej0eF6ik6VUxG0FKp4RcSx1TzFusEDtY3hMNpsd7ZYUSIvwtNpTrw==
   dependencies:
     chai "^4.1.2"
     debug "^4.1.0"
@@ -4706,10 +4706,10 @@ nock@11.3.1, nock@v11.3.1:
     mkdirp "^0.5.0"
     propagate "^2.0.0"
 
-nock@11.3.2:
-  version "11.3.2"
-  resolved "https://registry.yarnpkg.com/nock/-/nock-11.3.2.tgz#8f14e690a6cc839c6c585ba22acd0277d128766a"
-  integrity sha512-Bb00vTmuXyucMT9gcnMSiE2n6P5yrRoAyej0eF6ik6VUxG0FKp4RcSx1TzFusEDtY3hMNpsd7ZYUSIvwtNpTrw==
+nock@v11.3.1:
+  version "11.3.1"
+  resolved "https://registry.yarnpkg.com/nock/-/nock-11.3.1.tgz#3bafe0820a60f0900b948d31ab92b38ea6917b06"
+  integrity sha512-fsFRKNoH6R6hQuaasbAS5vmy4ujVaqKOb/9NCFP0TkhwbH1e5bPN8bn37FCIF9/0ZhayBrClUmSbN6Rm61+WSg==
   dependencies:
     chai "^4.1.2"
     debug "^4.1.0"
@@ -4784,20 +4784,6 @@ node-pre-gyp@^0.12.0:
     rimraf "^2.6.1"
     semver "^5.3.0"
     tar "^4"
-
-node-tdd@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.2.0.tgz#2e0dc6ba74244877a2d9cad2f8f06393a17b3782"
-  integrity sha512-SrdmqJrCJPgk9MjLhGMYKkTQSniDidgpmDMaNy71s6086rxqpeFqsCn5l/t39dGZ9eGiy04kq/URlL1QEK2hmg==
-  dependencies:
-    "@hapi/joi" "15.1.1"
-    callsites "3.1.0"
-    joi-strict "1.0.8"
-    lodash.get "4.4.2"
-    nock "11.3.1"
-    smart-fs "1.9.10"
-    timekeeper "2.2.0"
-    tmp "0.1.0"
 
 node-tdd@2.2.4:
   version "2.2.4"
