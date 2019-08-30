@@ -13,6 +13,11 @@
   },
   "event": {
     "path": "/unknown",
-    "httpMethod": "GET"
+    "httpMethod": "GET",
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    }
   }
 }

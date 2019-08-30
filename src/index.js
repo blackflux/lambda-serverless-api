@@ -108,7 +108,18 @@ const staticExports = {
 };
 
 const Api = (options = {}) => {
-  // todo: verify options against joi schema
+  Joi.assert(options, Joi.object().keys({
+    routePrefix: Joi.string().optional(),
+    rollbar: Joi.object().optional(),
+    limiter: Joi.object().optional(),
+    defaultHeaders: Joi.alternatives().try(
+      Joi.object(),
+      Joi.func()
+    ).optional(),
+    preflightCheck: Joi.func().optional(),
+    preRequestHook: Joi.func().optional(),
+    rateLimitTokenPaths: Joi.array().items(Joi.string()).optional()
+  }));
 
   const endpoints = {};
   const router = new Router();
@@ -120,6 +131,7 @@ const Api = (options = {}) => {
   const preflightCheck = get(options, 'preflightCheck', () => false);
   const preflightHandlers = {};
   const preRequestHook = get(options, 'preRequestHook');
+  const rateLimitTokenPaths = get(options, 'rateLimitTokenPaths', ['requestContext.identity.sourceIp']);
 
   const generateDefaultHeaders = (inputHeaders) => (typeof defaultHeaders === 'function'
     ? defaultHeaders(Object
@@ -158,11 +170,21 @@ const Api = (options = {}) => {
       }
       return [
         () => (typeof preRequestHook === 'function' ? preRequestHook(event, context, rb) : Promise.resolve()),
-        () => (opt.limit === null ? Promise.resolve() : limiter
-          .check(opt.limit, `${get(event, 'requestContext.identity.sourceIp')}/${request}`)
-          .catch(() => {
+        async () => {
+          if (opt.limit === null) {
+            return;
+          }
+          const rateLimitPath = rateLimitTokenPaths.find((p) => get(event, p) !== undefined);
+          if (rateLimitPath === undefined) {
+            throw new Error(`Rate limit token not found\n${JSON.stringify(event)}`);
+          }
+          const rateLimitToken = get(event, rateLimitPath);
+          try {
+            await limiter.check(opt.limit, `${rateLimitToken}/${request}`);
+          } catch (e) {
             throw response.ApiError('Rate limit exceeded.', 429);
-          })),
+          }
+        },
         ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
