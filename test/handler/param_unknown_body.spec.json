@@ -15,6 +15,11 @@
     "body|JSON.stringify": {
       "unknown": "value"
     },
-    "httpMethod": "POST"
+    "httpMethod": "POST",
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    }
   }
 }

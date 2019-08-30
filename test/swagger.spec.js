@@ -29,14 +29,16 @@ describe('Testing Swagger', () => {
     const docs = await prefixApi.generateSwagger();
     expect(await new Promise((resolve) => prefixApi.router({
       path: '/prefix/uri',
-      httpMethod: 'GET'
+      httpMethod: 'GET',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {}, (_, r) => resolve(r)))).to.deep.equal({
       body: '{}',
       statusCode: 200
     });
     expect(await new Promise((resolve) => prefixApi.router({
       path: '/uri',
-      httpMethod: 'GET'
+      httpMethod: 'GET',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {}, (_, r) => resolve(r)))).to.deep.equal({
       body: '{"message":"Method / Route not allowed"}',
       statusCode: 403

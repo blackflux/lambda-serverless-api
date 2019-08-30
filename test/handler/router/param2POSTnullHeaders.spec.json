@@ -14,6 +14,11 @@
   "event": {
     "path": "/param2",
     "httpMethod": "POST",
-    "headers": null
+    "headers": null,
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    }
   }
 }
