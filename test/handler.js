@@ -116,6 +116,8 @@ module.exports.pathParam = api.wrap('POST path/{param}', [
   api.Str('param', 'path')
 ], ({ param }) => api.JsonResponse({ param }));
 
+module.exports.binary = api.wrap('GET binary', [], () => api.BinaryResponse(Buffer.from('test', 'utf8')));
+
 module.exports.path = api.wrap('GET some/path', [], () => api.JsonResponse({}));
 
 module.exports.router = api.router;

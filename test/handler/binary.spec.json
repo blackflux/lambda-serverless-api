@@ -1,0 +1,23 @@
+{
+  "handler": "binary",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 200,
+      "body": "dGVzdA==",
+      "isBase64Encoded": true
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "httpMethod": "GET",
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    }
+  }
+}
