@@ -318,3 +318,12 @@ paths:
       responses:
         default:
           description: Unexpected Error
+  /binary:
+    get:
+      consumes:
+        - application/json
+      description: ''
+      parameters: []
+      responses:
+        default:
+          description: Unexpected Error
