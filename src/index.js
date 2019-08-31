@@ -70,10 +70,20 @@ const generateResponse = (err, resp, rb, options) => {
   }
   if (get(resp, 'isApiResponse') === true) {
     const headers = { ...options.defaultHeaders, ...resp.headers };
+    let body = resp.payload;
+    const isJsonResponse = get(resp, 'isJsonResponse') === true;
+    if (isJsonResponse) {
+      body = JSON.stringify(body);
+    }
+    const isBinaryResponse = get(resp, 'isBinaryResponse') === true;
+    if (isBinaryResponse) {
+      body = body.toString('base64');
+    }
     return {
       statusCode: resp.statusCode,
-      body: get(resp, 'isJsonResponse') === true ? JSON.stringify(resp.payload) : resp.payload,
-      ...(Object.keys(headers).length === 0 ? {} : { headers })
+      body,
+      ...(Object.keys(headers).length === 0 ? {} : { headers }),
+      ...(isBinaryResponse ? { isBase64Encoded: true } : {})
     };
   }
   throw err;
@@ -87,6 +97,8 @@ const staticExports = {
   ApiResponseClass: response.ApiResponseClass,
   JsonResponse: response.JsonResponse,
   JsonResponseClass: response.JsonResponseClass,
+  BinaryResponse: response.BinaryResponse,
+  BinaryResponseClass: response.BinaryResponseClass,
   Str: param.Str,
   Email: param.Email,
   RegEx: param.RegEx,
