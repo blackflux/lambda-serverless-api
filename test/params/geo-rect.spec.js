@@ -1,10 +1,16 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing GeoRect Parameter', () => {
-  const queryParam = api.GeoRect('geoRect', 'query');
-  const jsonParam = api.GeoRect('geoRect', 'json');
-  const jsonParamRelaxed = api.GeoRect('geoRect', 'json', { relaxed: true });
+  let queryParam;
+  let jsonParam;
+  let jsonParamRelaxed;
+  before(() => {
+    queryParam = api.GeoRect('geoRect', 'query');
+    jsonParam = api.GeoRect('geoRect', 'json');
+    jsonParamRelaxed = api.GeoRect('geoRect', 'json', { relaxed: true });
+  });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({

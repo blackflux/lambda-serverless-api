@@ -1,11 +1,18 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing StrList Parameter', () => {
-  const queryParam = api.StrList('list', 'query');
-  const jsonParam = api.StrList('list', 'json');
-  const queryParamEnum = api.StrList('list', 'query', { enums: ['enumOne', 'enumTwo', 'enumThree'] });
-  const bodyParamEnum = api.StrList('list', 'json', { enums: ['enumOne', 'enumTwo', 'enumThree'] });
+  let queryParam;
+  let jsonParam;
+  let queryParamEnum;
+  let bodyParamEnum;
+  before(() => {
+    queryParam = api.StrList('list', 'query');
+    jsonParam = api.StrList('list', 'json');
+    queryParamEnum = api.StrList('list', 'query', { enums: ['enumOne', 'enumTwo', 'enumThree'] });
+    bodyParamEnum = api.StrList('list', 'json', { enums: ['enumOne', 'enumTwo', 'enumThree'] });
+  });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({
@@ -72,8 +79,12 @@ describe('Testing StrList Parameter', () => {
   });
 
   describe('Testing optional parameter "minItemLength"', () => {
-    const queryParamInValidMin = api.StrList('list', 'query', { minItemLength: 1 });
-    const bodyParamInValidMin = api.StrList('list', 'json', { minItemLength: 1 });
+    let queryParamInValidMin;
+    let bodyParamInValidMin;
+    before(() => {
+      queryParamInValidMin = api.StrList('list', 'query', { minItemLength: 1 });
+      bodyParamInValidMin = api.StrList('list', 'json', { minItemLength: 1 });
+    });
 
     it('Testing invalid min-length of list item in query param', () => {
       expect(() => queryParamInValidMin.get({
@@ -93,8 +104,12 @@ describe('Testing StrList Parameter', () => {
   });
 
   describe('Testing optional parameter "maxItemLength"', () => {
-    const queryParamInValidMax = api.StrList('list', 'query', { maxItemLength: 5 });
-    const bodyParamInValidMax = api.StrList('list', 'json', { maxItemLength: 5 });
+    let queryParamInValidMax;
+    let bodyParamInValidMax;
+    before(() => {
+      queryParamInValidMax = api.StrList('list', 'query', { maxItemLength: 5 });
+      bodyParamInValidMax = api.StrList('list', 'json', { maxItemLength: 5 });
+    });
 
     it('Testing invalid max-length of list item in query param', () => {
       expect(() => queryParamInValidMax.get({

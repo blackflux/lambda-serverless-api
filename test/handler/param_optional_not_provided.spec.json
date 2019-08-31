@@ -17,6 +17,11 @@
     "httpMethod": "POST",
     "headers": {
       "x-custom-header": "value"
+    },
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
     }
   }
 }

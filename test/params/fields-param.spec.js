@@ -1,10 +1,15 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 const { identity } = require('../misc');
 
 describe('Testing FieldsParam Parameter', () => {
-  const queryParam = api.FieldsParam('param', 'query', { fields: ['id', 'user.id', 'user.name'] });
-  const jsonParam = api.FieldsParam('param', 'json', { fields: () => ['id', 'user.id', 'user.name'] });
+  let queryParam;
+  let jsonParam;
+  before(() => {
+    queryParam = api.FieldsParam('param', 'query', { fields: ['id', 'user.id', 'user.name'] });
+    jsonParam = api.FieldsParam('param', 'json', { fields: () => ['id', 'user.id', 'user.name'] });
+  });
 
   it('Testing valid query param', () => {
     expect(queryParam.get({

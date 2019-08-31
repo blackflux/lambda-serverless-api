@@ -1,8 +1,12 @@
 const expect = require('chai').expect;
+const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
 describe('Testing UUID Parameter', () => {
-  const queryParam = api.UUID('value', 'query');
+  let queryParam;
+  before(() => {
+    queryParam = api.UUID('value', 'query');
+  });
 
   it('Testing valid query parameter', () => {
     expect(queryParam.get({
