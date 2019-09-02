@@ -31,7 +31,7 @@
     "js-gardener": "2.0.80",
     "lambda-tdd": "2.9.13",
     "nock": "v11.3.1",
-    "node-tdd": "2.2.4",
+    "node-tdd": "2.3.0",
     "nyc": "14.1.1",
     "request": "2.88.0",
     "request-promise": "4.2.4",
@@ -79,7 +79,7 @@
   "dependencies": {
     "@hapi/joi": "15.1.1",
     "joi-strict": "1.0.9",
-    "lambda-rate-limiter": "2.4.23",
+    "lambda-rate-limiter": "2.4.24",
     "lambda-rollbar": "1.10.26",
     "lodash.difference": "4.5.0",
     "lodash.get": "4.4.2",
