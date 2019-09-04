@@ -86,7 +86,7 @@
     "moment": "2.24.0",
     "object-fields": "1.3.19",
     "route-recognizer": "0.3.4",
-    "swagger-parser": "8.0.0"
+    "swagger-parser": "8.0.1"
   },
   "peerDependencies": {},
   "nyc": {
