@@ -130,7 +130,8 @@ const Api = (options = {}) => {
     ).optional(),
     preflightCheck: Joi.func().optional(),
     preRequestHook: Joi.func().optional(),
-    rateLimitTokenPaths: Joi.array().items(Joi.string()).optional()
+    rateLimitTokenPaths: Joi.array().items(Joi.string()).optional(),
+    limit: Joi.number().min(0).allow(null).optional()
   }));
 
   const endpoints = {};
@@ -139,6 +140,7 @@ const Api = (options = {}) => {
   const routePrefix = get(options, 'routePrefix', '');
   const rollbar = Rollbar(get(options, 'rollbar', {}));
   const limiter = Limiter(get(options, 'limiter', {}));
+  const globalLimit = get(options, 'limit', 100);
   const defaultHeaders = get(options, 'defaultHeaders', {});
   const preflightCheck = get(options, 'preflightCheck', () => false);
   const preflightHandlers = {};
@@ -157,7 +159,7 @@ const Api = (options = {}) => {
     const handler = hasOptions ? handlerOrUndefined : optionsOrHandler;
     assert(typeof handler === 'function');
     const opt = {
-      limit: get(options, 'limit', 100),
+      limit: globalLimit,
       ...(hasOptions ? optionsOrHandler : {})
     };
 
