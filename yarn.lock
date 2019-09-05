@@ -3817,10 +3817,10 @@ lambda-rollbar@1.10.26:
     lodash.omit "4.5.0"
     rollbar "2.12.3"
 
-lambda-tdd@2.9.18:
-  version "2.9.18"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.9.18.tgz#8b1115a8e986768a76c489b87a9fae318b56f586"
-  integrity sha512-d4wASgW0kjNsbH5c1opxhZZCKDrlXd0ym3dvpHy/CK7OIBOk2AYfLZ7yyRidJBvQ8VeEuVqAa53G1J4gfQUwXg==
+lambda-tdd@2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.10.0.tgz#f91d6e79f3d825b10c6bb70c9f781e8f7d21bd27"
+  integrity sha512-3222dkbmGsbngEgQN/6Yfijj1xDV4RLn/92jI7i9B6Zx+Tm2p+ASCgxW05qUwQQ1lCp3f0kws9OUfLzk194CkQ==
   dependencies:
     app-root-path "2.2.1"
     glob "7.1.4"
