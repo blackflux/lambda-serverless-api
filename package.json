@@ -80,7 +80,7 @@
     "@hapi/joi": "15.1.1",
     "joi-strict": "1.0.9",
     "lambda-rate-limiter": "2.4.24",
-    "lambda-rollbar": "1.10.26",
+    "lambda-rollbar": "2.0.0",
     "lodash.difference": "4.5.0",
     "lodash.get": "4.4.2",
     "moment": "2.24.0",
