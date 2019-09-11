@@ -1,6 +1,5 @@
 const expect = require('chai').expect;
 const { describe } = require('node-tdd');
-const { logger } = require('lambda-monitor-logger');
 const response = require('../src/response');
 const { Api } = require('../src/index');
 const { identity } = require('./misc');
@@ -148,10 +147,7 @@ describe('Testing Response', () => {
   });
 
   it('Testing ApiResponse Integration', (done) => {
-    api.wrap('GET test', [], (event, context) => {
-      logger.warning('123');
-      return api.ApiResponse('promiseResponse');
-    })({
+    api.wrap('GET test', [], (event, context) => api.ApiResponse('promiseResponse'))({
       httpMethod: 'GET',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {}, (err, resp) => {
@@ -167,7 +163,6 @@ describe('Testing Response', () => {
 
   it('Testing ApiError Integration', (done) => {
     api.wrap('GET test', [], (event, context) => {
-      logger.warning('123');
       throw api.ApiError('promiseError');
     })({
       httpMethod: 'GET',
@@ -187,7 +182,6 @@ describe('Testing Response', () => {
   it('Testing Error Integration', (done) => {
     const error = new Error('other');
     api.wrap('GET test', [], (event, context) => {
-      logger.warning('123');
       throw error;
     })({
       httpMethod: 'GET',
@@ -202,13 +196,10 @@ describe('Testing Response', () => {
   it('Testing auto field pruning top level', (done) => {
     api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: '' })
-    ], (event, context) => {
-      logger.warning('123');
-      return api.JsonResponse({
-        foo: 'bar',
-        baz: 'quz'
-      });
-    })({
+    ], (event, context) => api.JsonResponse({
+      foo: 'bar',
+      baz: 'quz'
+    }))({
       httpMethod: 'GET',
       queryStringParameters: {
         fields: 'foo'
@@ -228,15 +219,12 @@ describe('Testing Response', () => {
   it('Testing auto field pruning with path', (done) => {
     api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: 'payload' })
-    ], (event, context) => {
-      logger.warning('123');
-      return api.JsonResponse({
-        payload: {
-          foo: 'bar',
-          baz: 'quz'
-        }
-      });
-    })({
+    ], (event, context) => api.JsonResponse({
+      payload: {
+        foo: 'bar',
+        baz: 'quz'
+      }
+    }))({
       httpMethod: 'GET',
       queryStringParameters: {
         fields: 'foo'
@@ -256,13 +244,10 @@ describe('Testing Response', () => {
   it('Testing without autoPrune', (done) => {
     api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'] })
-    ], (event, context) => {
-      logger.warning('123');
-      return api.JsonResponse({
-        foo: 'bar',
-        baz: 'quz'
-      });
-    })({
+    ], (event, context) => api.JsonResponse({
+      foo: 'bar',
+      baz: 'quz'
+    }))({
       httpMethod: 'GET',
       queryStringParameters: {
         fields: 'foo'
