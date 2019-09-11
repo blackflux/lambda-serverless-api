@@ -12,7 +12,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "WARNING: ApiError: Rate limit exceeded."
+    ]
   },
   "event": {
     "httpMethod": "GET",

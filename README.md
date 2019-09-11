@@ -16,7 +16,7 @@ Provides support for:
 - Parameter Validation and Response Generation
 - Generation of [Swagger](https://swagger.io/) Documentation
 - Rate Limiting using [lambda-rate-limiter](https://github.com/blackflux/lambda-rate-limiter)
-- Logging of ApiErrors using [lambda-rollbar](https://github.com/blackflux/lambda-rollbar)
+- Logging of ApiErrors using [lambda-monitor-logger](https://github.com/blackflux/lambda-mnitor-logger)
 
 ## Install
 
@@ -31,10 +31,9 @@ First we need to wrap our lambda endpoint. Inside the lambda function we can the
 const api = require('lambda-serverless-api').Api({
   limit: 100, // default limit for routes
   limiter: {},
-  rollbar: {},
   defaultHeaders: {},
   preflightCheck: () => false,
-  preRequestHook: (event, context, rb) => {
+  preRequestHook: (event, context) => {
     // log or throw error here
   }
 });
@@ -43,7 +42,7 @@ module.exports = api.wrap('POST register', [
   api.Str('name', 'json', false),
   api.Email('email', 'json'),
   api.Str('password', 'json')
-], /* options, */ ({ name = null, email = null, password = null }, context, rb, event) => {
+], /* options, */ ({ name = null, email = null, password = null }, context, event) => {
   // handle registration logic here ...
   if (new Date().getHours() === 4) {
     throw api.ApiError('I am a teapot', 418);
@@ -142,7 +141,7 @@ Note that the request headers are normalized to lower camel case.
 
 Can define a `preRequestHook` function. This can be used to log events or throw api errors generically.
 
-Takes parameters `event` (raw lambda function event), `context` (raw lambda function context) and `rb` (rollbar logger).
+Takes parameters `event` (raw lambda function event) and `context` (raw lambda function context).
 
 ## Swagger Documentation
 
@@ -163,7 +162,7 @@ By default rate limiting uses the client ip (`['requestContext.identity.sourceIp
 
 ## Logging Api Errors / Exceptions
 
-To monitor api errors and exceptions [lambda-rollbar](https://github.com/blackflux/lambda-rollbar) can be enabled. Options are passed by putting them as `rollbar` into the constructor.
+To monitor api errors and exceptions, [lambda-monitor](https://github.com/blackflux/lambda-monitor) should be configured.
 
 ## Loading serverless.yml
 

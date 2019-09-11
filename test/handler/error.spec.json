@@ -9,7 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "WARNING: ApiError: Some Error"
+    ]
   },
   "event": {
     "httpMethod": "GET",

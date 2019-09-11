@@ -9,7 +9,10 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "WARNING: ApiError: Invalid Value for json-Parameter \"username\" provided."
+
+    ]
   },
   "event": {
     "body": "{\"username\": {}}",
