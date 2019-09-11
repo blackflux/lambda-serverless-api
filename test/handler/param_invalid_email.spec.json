@@ -9,7 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal()": []
+    "to.deep.equal()": [
+      "WARNING: ApiError: Invalid Value for json-Parameter \"email\" provided."
+    ]
   },
   "event": {
     "body": "{\"username\": \"Anja Smith\", \"email\": \"invalid@email\"}",

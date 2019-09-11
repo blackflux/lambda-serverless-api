@@ -14,7 +14,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "WARNING: ApiError: Non-nullable json-Parameter \"username\" is null."
+    ]
   },
   "event": {
     "body|JSON.stringify": {

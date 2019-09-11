@@ -9,7 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "WARNING: ApiError: Invalid Json Body detected."
+    ]
   },
   "event": {
     "body": "invalid_json_string",
