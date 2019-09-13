@@ -16,7 +16,7 @@ Provides support for:
 - Parameter Validation and Response Generation
 - Generation of [Swagger](https://swagger.io/) Documentation
 - Rate Limiting using [lambda-rate-limiter](https://github.com/blackflux/lambda-rate-limiter)
-- Logging of ApiErrors using [lambda-monitor-logger](https://github.com/blackflux/lambda-mnitor-logger)
+- Logging of ApiErrors using [lambda-monitor-logger](https://github.com/blackflux/lambda-monitor-logger)
 
 ## Install
 
