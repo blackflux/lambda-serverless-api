@@ -225,6 +225,17 @@
     "@hapi/pinpoint" "1.x.x"
     "@hapi/topo" "3.x.x"
 
+"@hapi/joi@16.0.1":
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/@hapi/joi/-/joi-16.0.1.tgz#37c78878db0bc04c35996515e0aa186c0e2b5398"
+  integrity sha512-5TdjUnNAaK7+lWZ2HRXtgOnxe4VBoJLoX0XOrfkmw+2n4/VJ6wwOJMoD7u/F9alLsP31kOWDbnQhtS0WAKwD4Q==
+  dependencies:
+    "@hapi/address" "2.x.x"
+    "@hapi/formula" "1.x.x"
+    "@hapi/hoek" "8.x.x"
+    "@hapi/pinpoint" "1.x.x"
+    "@hapi/topo" "3.x.x"
+
 "@hapi/pinpoint@1.x.x":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@hapi/pinpoint/-/pinpoint-1.0.2.tgz#025b7a36dbbf4d35bf1acd071c26b20ef41e0d13"
@@ -3685,6 +3696,13 @@ joi-strict@1.0.10:
   integrity sha512-PLcFUzmymaaIrGpQ1H5uvpj7jiW8r+QakCTS1/14BBgoBdyj3XqEJXKHyxRuuCf9d9ux1iBj6OfkWb3GNbFZeg==
   dependencies:
     "@hapi/joi" "16.0.0"
+
+joi-strict@1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.0.11.tgz#33ab93215a96cd56a0b6c694be36757ee2f3bb73"
+  integrity sha512-0Zqzcu1wP67ns4IQapoArKmq1JyOhNNc+W6o2vYby7Fa1YeQHjXuRt1DJW7YE4m14fFhM6goC14KFFUDqXoHiA==
+  dependencies:
+    "@hapi/joi" "16.0.1"
 
 joi-strict@1.0.9:
   version "1.0.9"
