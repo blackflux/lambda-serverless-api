@@ -9,7 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "INFO: {\"event\":{\"queryStringParameters\":null,\"body\":\"{\\\"username\\\": \\\"Anja Smith\\\", \\\"email\\\": \\\"anja@test.ca\\\"}\",\"httpMethod\":\"POST\",\"requestContext\":{\"authorizer\":\"Auth Info Context\",\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"authorizer\":\"Auth Info Header\"}},\"result\":{\"statusCode\":200,\"body\":\"{\\\"username\\\":\\\"Anja Smith\\\",\\\"email\\\":\\\"anja@test.ca\\\",\\\"authorizer\\\":\\\"Auth Info Header\\\"}\"}}"
+    ]
   },
   "event": {
     "queryStringParameters": null,

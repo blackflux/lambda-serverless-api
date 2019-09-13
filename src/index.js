@@ -1,11 +1,14 @@
 const assert = require('assert');
 const get = require('lodash.get');
+const set = require('lodash.set');
+const cloneDeep = require('lodash.clonedeep');
 const difference = require('lodash.difference');
 const Joi = require('joi-strict');
 const { wrap } = require('lambda-async');
 const { logger } = require('lambda-monitor-logger');
 const Limiter = require('lambda-rate-limiter');
 const Router = require('route-recognizer');
+const objectScan = require('object-scan');
 const param = require('./param');
 const response = require('./response');
 const swagger = require('./swagger');
@@ -59,7 +62,6 @@ const parse = async (request, params, eventRaw) => {
 
 const generateResponse = (err, resp, options) => {
   if (get(err, 'isApiError') === true) {
-    logger.warning(err);
     return {
       statusCode: err.statusCode,
       body: JSON.stringify({
@@ -132,7 +134,12 @@ const Api = (options = {}) => {
     preflightCheck: Joi.func().optional(),
     preRequestHook: Joi.func().optional(),
     rateLimitTokenPaths: Joi.array().items(Joi.string()).optional(),
-    limit: Joi.number().min(0).allow(null).optional()
+    limit: Joi.number().min(0).allow(null).optional(),
+    logging: Joi.object().keys({
+      logSuccess: Joi.boolean().optional(),
+      logError: Joi.boolean().optional(),
+      redact: Joi.array().items(Joi.string()).optional()
+    }).optional()
   }));
 
   const endpoints = {};
@@ -146,6 +153,15 @@ const Api = (options = {}) => {
   const preflightHandlers = {};
   const preRequestHook = get(options, 'preRequestHook');
   const rateLimitTokenPaths = get(options, 'rateLimitTokenPaths', ['requestContext.identity.sourceIp']);
+  const logSuccess = get(options, 'logging.logSuccess', true);
+  const logError = get(options, 'logging.logError', true);
+  const loggingRedact = (input) => objectScan(get(options, 'logging.redact', []), {
+    joined: false,
+    useArraySelector: false,
+    filterFn: (key) => {
+      set(input, key, '**redacted**');
+    }
+  })(input);
 
   const generateDefaultHeaders = (inputHeaders) => (typeof defaultHeaders === 'function'
     ? defaultHeaders(Object
@@ -176,13 +192,13 @@ const Api = (options = {}) => {
     const rawAutoPruneFieldsParam = params
       .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
 
-    const wrapHandler = ({
+    const wrapHandler = async ({
       event, context, hdl
     }) => {
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
-      return [
+      const result = await [
         () => (typeof preRequestHook === 'function' ? preRequestHook(event, context) : Promise.resolve()),
         async () => {
           if (opt.limit === null) {
@@ -208,6 +224,14 @@ const Api = (options = {}) => {
         .catch(async (err) => generateResponse(err, null, {
           defaultHeaders: await generateDefaultHeaders(event.headers)
         }));
+      const statusCode = get(result, 'statusCode');
+      const isSuccess = Number.isInteger(statusCode) && statusCode >= 100 && statusCode < 400;
+      if ((!isSuccess && logError) || (isSuccess && logSuccess)) {
+        const toLog = cloneDeep({ event, result });
+        loggingRedact(toLog);
+        logger[isSuccess ? 'info' : 'warn'](JSON.stringify(toLog));
+      }
+      return result;
     };
 
     const wrappedHandler = wrap((event, context) => wrapHandler({

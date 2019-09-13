@@ -8,7 +8,12 @@ const { identity } = require('./misc');
 describe('Testing Response', () => {
   let api;
   beforeEach(() => {
-    api = Api({ defaultHeaders: { 'X-Custom-Header': 'header-value' } });
+    api = Api({
+      defaultHeaders: { 'X-Custom-Header': 'header-value' },
+      logging: {
+        logSuccess: false
+      }
+    });
   });
 
   it('Testing Redefined Endpoint', (done) => {

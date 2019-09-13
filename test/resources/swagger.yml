@@ -327,3 +327,20 @@ paths:
       responses:
         default:
           description: Unexpected Error
+  /echo:
+    get:
+      consumes:
+        - application/json
+      description: ''
+      parameters:
+        - name: name
+          required: true
+          type: string
+          format: Str
+          in: query
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+      responses:
+        default:
+          description: Unexpected Error
