@@ -224,7 +224,7 @@ const Api = (options = {}) => {
         .catch(async (err) => generateResponse(err, null, {
           defaultHeaders: await generateDefaultHeaders(event.headers)
         }));
-      const statusCode = get(result, 'statusCode');
+      const statusCode = result.statusCode;
       const isSuccess = Number.isInteger(statusCode) && statusCode >= 100 && statusCode < 400;
       if ((!isSuccess && logError) || (isSuccess && logSuccess)) {
         const toLog = cloneDeep({ event, result });
