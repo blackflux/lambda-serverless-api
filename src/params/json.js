@@ -21,7 +21,7 @@ class Json extends Abstract {
         valid = false;
       }
     }
-    if (valid && this.schema.validate(valueParsed).error !== undefined) {
+    if (valid && !Joi.test(valueParsed, this.schema)) {
       valid = false;
     }
     return valid;
