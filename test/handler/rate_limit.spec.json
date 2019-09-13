@@ -12,7 +12,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "WARNING: {\"event\":{\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"result\":{\"statusCode\":429,\"body\":\"{\\\"message\\\":\\\"Rate limit exceeded.\\\"}\"}}"
+    ]
   },
   "event": {
     "httpMethod": "GET",

@@ -15,7 +15,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "INFO: {\"event\":{\"body\":\"{\\\"email\\\":null}\",\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"result\":{\"statusCode\":200,\"body\":\"{\\\"username\\\":\\\"default\\\",\\\"email\\\":null,\\\"xCustomHeader\\\":null}\"}}"
+    ]
   },
   "event": {
     "body|JSON.stringify": {

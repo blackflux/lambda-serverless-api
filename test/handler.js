@@ -33,6 +33,9 @@ const api = require('../src/index').Api({
       'Access-Control-Allow-Headers': allowedHeaders.join(','),
       'Access-Control-Allow-Methods': allowedMethods.join(',')
     };
+  },
+  logging: {
+    redact: ['event.requestContext.identity.cognito*']
   }
 });
 
@@ -48,6 +51,10 @@ module.exports.text = api.wrap('GET text', [], () => api.ApiResponse('some text'
 
 module.exports.json = api
   .wrap('GET json', [], { limit: process.env.RATE_LIMIT }, () => api.JsonResponse({ some: 'json' }));
+
+module.exports.echo = api.wrap('GET echo', [
+  api.Str('name', 'query')
+], { limit: process.env.RATE_LIMIT }, ({ name }) => api.JsonResponse({ name }));
 
 module.exports.proxy = api.wrap('GET proxy/{proxy+}', [
   api.Str('proxy+', 'path')

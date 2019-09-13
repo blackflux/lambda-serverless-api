@@ -9,7 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "WARNING: {\"event\":{\"body\":\"{\\\"username\\\": {}}\",\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"result\":{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Invalid Value for json-Parameter \\\\\\\"username\\\\\\\" provided.\\\",\\\"messageId\\\":99003,\\\"context\\\":{\\\"value\\\":{}}}\"}}"
+    ]
   },
   "event": {
     "body": "{\"username\": {}}",

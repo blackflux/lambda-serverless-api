@@ -9,7 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "INFO: {\"event\":{\"httpMethod\":\"GET\",\"pathParameters\":{\"proxy\":\"123\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"result\":{\"statusCode\":200,\"body\":\"{\\\"path\\\":\\\"123\\\"}\"}}"
+    ]
   },
   "event": {
     "httpMethod": "GET",
