@@ -8,7 +8,12 @@ const { identity } = require('./misc');
 describe('Testing Response', () => {
   let api;
   beforeEach(() => {
-    api = Api({ defaultHeaders: { 'X-Custom-Header': 'header-value' } });
+    api = Api({
+      defaultHeaders: { 'X-Custom-Header': 'header-value' },
+      logging: {
+        logSuccess: false
+      }
+    });
   });
 
   it('Testing Redefined Endpoint', (done) => {
@@ -53,9 +58,7 @@ describe('Testing Response', () => {
       }
     });
     api.wrap('GET path', [], identity(api));
-    api.router({ httpMethod: 'GET', path: '/path' }, {
-      getRemainingTimeInMillis: () => 0
-    }, (err, resp) => {
+    api.router({ httpMethod: 'GET', path: '/path' }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 400,
@@ -149,13 +152,10 @@ describe('Testing Response', () => {
   });
 
   it('Testing ApiResponse Integration', (done) => {
-    api.wrap('GET test', [], (event, context, rb) => rb.warning('123')
-      .then(() => api.ApiResponse('promiseResponse')).catch(done.fail))({
+    api.wrap('GET test', [], (event, context) => api.ApiResponse('promiseResponse'))({
       httpMethod: 'GET',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {
-      getRemainingTimeInMillis: () => 0
-    }, (err, resp) => {
+    }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 200,
@@ -167,14 +167,12 @@ describe('Testing Response', () => {
   });
 
   it('Testing ApiError Integration', (done) => {
-    api.wrap('GET test', [], (event, context, rb) => rb.warning('123').then(() => {
+    api.wrap('GET test', [], (event, context) => {
       throw api.ApiError('promiseError');
-    }).catch(done.fail))({
+    })({
       httpMethod: 'GET',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {
-      getRemainingTimeInMillis: () => 0
-    }, (err, resp) => {
+    }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 400,
@@ -188,14 +186,12 @@ describe('Testing Response', () => {
 
   it('Testing Error Integration', (done) => {
     const error = new Error('other');
-    api.wrap('GET test', [], (event, context, rb) => rb.warning('123').then(() => {
+    api.wrap('GET test', [], (event, context) => {
       throw error;
-    }).catch(done.fail))({
+    })({
       httpMethod: 'GET',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {
-      getRemainingTimeInMillis: () => 0
-    }, (err, resp) => {
+    }, {}, (err, resp) => {
       expect(err).to.equal(error);
       expect(resp).to.equal(undefined);
       done();
@@ -205,20 +201,16 @@ describe('Testing Response', () => {
   it('Testing auto field pruning top level', (done) => {
     api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: '' })
-    ], (event, context, rb) => rb.warning('123')
-      .then(() => api.JsonResponse({
-        foo: 'bar',
-        baz: 'quz'
-      }))
-      .catch(done.fail))({
+    ], (event, context) => api.JsonResponse({
+      foo: 'bar',
+      baz: 'quz'
+    }))({
       httpMethod: 'GET',
       queryStringParameters: {
         fields: 'foo'
       },
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {
-      getRemainingTimeInMillis: () => 0
-    }, (err, resp) => {
+    }, {}, (err, resp) => {
       expect(err).to.be.a('null');
       expect(resp).to.deep.equal({
         statusCode: 200,
@@ -232,22 +224,18 @@ describe('Testing Response', () => {
   it('Testing auto field pruning with path', (done) => {
     api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: 'payload' })
-    ], (event, context, rb) => rb.warning('123')
-      .then(() => api.JsonResponse({
-        payload: {
-          foo: 'bar',
-          baz: 'quz'
-        }
-      }))
-      .catch(done.fail))({
+    ], (event, context) => api.JsonResponse({
+      payload: {
+        foo: 'bar',
+        baz: 'quz'
+      }
+    }))({
       httpMethod: 'GET',
       queryStringParameters: {
         fields: 'foo'
       },
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {
-      getRemainingTimeInMillis: () => 0
-    }, (err, resp) => {
+    }, {}, (err, resp) => {
       expect(err).to.be.a('null');
       expect(resp).to.deep.equal({
         statusCode: 200,
@@ -261,20 +249,16 @@ describe('Testing Response', () => {
   it('Testing without autoPrune', (done) => {
     api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'] })
-    ], (event, context, rb) => rb.warning('123')
-      .then(() => api.JsonResponse({
-        foo: 'bar',
-        baz: 'quz'
-      }))
-      .catch(done.fail))({
+    ], (event, context) => api.JsonResponse({
+      foo: 'bar',
+      baz: 'quz'
+    }))({
       httpMethod: 'GET',
       queryStringParameters: {
         fields: 'foo'
       },
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {
-      getRemainingTimeInMillis: () => 0
-    }, (err, resp) => {
+    }, {}, (err, resp) => {
       expect(err).to.be.a('null');
       expect(resp).to.deep.equal({
         statusCode: 200,

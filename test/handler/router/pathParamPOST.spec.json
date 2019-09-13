@@ -9,7 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "INFO: {\"event\":{\"path\":\"/path/test123\",\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{\"param\":\"test123\"}},\"result\":{\"statusCode\":200,\"body\":\"{\\\"param\\\":\\\"test123\\\"}\"}}"
+    ]
   },
   "event": {
     "path": "/path/test123",

@@ -1,10 +1,14 @@
 const assert = require('assert');
 const get = require('lodash.get');
+const set = require('lodash.set');
+const cloneDeep = require('lodash.clonedeep');
 const difference = require('lodash.difference');
 const Joi = require('joi-strict');
-const Rollbar = require('lambda-rollbar');
+const { wrap } = require('lambda-async');
+const { logger } = require('lambda-monitor-logger');
 const Limiter = require('lambda-rate-limiter');
 const Router = require('route-recognizer');
+const objectScan = require('object-scan');
 const param = require('./param');
 const response = require('./response');
 const swagger = require('./swagger');
@@ -56,9 +60,9 @@ const parse = async (request, params, eventRaw) => {
   return resolvedParams.reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {});
 };
 
-const generateResponse = (err, resp, rb, options) => {
+const generateResponse = (err, resp, options) => {
   if (get(err, 'isApiError') === true) {
-    return rb.warning(err).then(() => ({
+    return {
       statusCode: err.statusCode,
       body: JSON.stringify({
         message: err.message,
@@ -66,7 +70,7 @@ const generateResponse = (err, resp, rb, options) => {
         context: err.context
       }),
       ...(Object.keys(options.defaultHeaders).length === 0 ? {} : { headers: options.defaultHeaders })
-    }));
+    };
   }
   if (get(resp, 'isApiResponse') === true) {
     const headers = { ...options.defaultHeaders, ...resp.headers };
@@ -122,7 +126,6 @@ const staticExports = {
 const Api = (options = {}) => {
   Joi.assert(options, Joi.object().keys({
     routePrefix: Joi.string().optional(),
-    rollbar: Joi.object().optional(),
     limiter: Joi.object().optional(),
     defaultHeaders: Joi.alternatives().try(
       Joi.object(),
@@ -131,14 +134,18 @@ const Api = (options = {}) => {
     preflightCheck: Joi.func().optional(),
     preRequestHook: Joi.func().optional(),
     rateLimitTokenPaths: Joi.array().items(Joi.string()).optional(),
-    limit: Joi.number().min(0).allow(null).optional()
+    limit: Joi.number().min(0).allow(null).optional(),
+    logging: Joi.object().keys({
+      logSuccess: Joi.boolean().optional(),
+      logError: Joi.boolean().optional(),
+      redact: Joi.array().items(Joi.string()).optional()
+    }).optional()
   }));
 
   const endpoints = {};
   const router = new Router();
   const routeSignatures = [];
   const routePrefix = get(options, 'routePrefix', '');
-  const rollbar = Rollbar(get(options, 'rollbar', {}));
   const limiter = Limiter(get(options, 'limiter', {}));
   const globalLimit = get(options, 'limit', 100);
   const defaultHeaders = get(options, 'defaultHeaders', {});
@@ -146,6 +153,15 @@ const Api = (options = {}) => {
   const preflightHandlers = {};
   const preRequestHook = get(options, 'preRequestHook');
   const rateLimitTokenPaths = get(options, 'rateLimitTokenPaths', ['requestContext.identity.sourceIp']);
+  const logSuccess = get(options, 'logging.logSuccess', true);
+  const logError = get(options, 'logging.logError', true);
+  const loggingRedact = (input) => objectScan(get(options, 'logging.redact', []), {
+    joined: false,
+    useArraySelector: false,
+    filterFn: (key) => {
+      set(input, key, '**redacted**');
+    }
+  })(input);
 
   const generateDefaultHeaders = (inputHeaders) => (typeof defaultHeaders === 'function'
     ? defaultHeaders(Object
@@ -153,7 +169,7 @@ const Api = (options = {}) => {
       .reduce((p, [k, v]) => Object.assign(p, { [normalizeName(k)]: v }), {}))
     : defaultHeaders);
 
-  const wrap = (request, params, optionsOrHandler, handlerOrUndefined) => {
+  const wrapper = (request, params, optionsOrHandler, handlerOrUndefined) => {
     const hasOptions = handlerOrUndefined !== undefined;
     assert(!hasOptions || (optionsOrHandler instanceof Object && !Array.isArray(optionsOrHandler)));
     const handler = hasOptions ? handlerOrUndefined : optionsOrHandler;
@@ -176,14 +192,14 @@ const Api = (options = {}) => {
     const rawAutoPruneFieldsParam = params
       .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
 
-    const wrapHandler = ({
-      event, context, rb, hdl
+    const wrapHandler = async ({
+      event, context, hdl
     }) => {
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
-      return [
-        () => (typeof preRequestHook === 'function' ? preRequestHook(event, context, rb) : Promise.resolve()),
+      const result = await [
+        () => (typeof preRequestHook === 'function' ? preRequestHook(event, context) : Promise.resolve()),
         async () => {
           if (opt.limit === null) {
             return;
@@ -202,30 +218,36 @@ const Api = (options = {}) => {
         ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
-        .then(async (payload) => generateResponse(null, payload, rb, {
+        .then(async (payload) => generateResponse(null, payload, {
           defaultHeaders: await generateDefaultHeaders(event.headers)
         }))
-        .catch(async (err) => generateResponse(err, null, rb, {
+        .catch(async (err) => generateResponse(err, null, {
           defaultHeaders: await generateDefaultHeaders(event.headers)
         }));
+      const statusCode = result.statusCode;
+      const isSuccess = Number.isInteger(statusCode) && statusCode >= 100 && statusCode < 400;
+      if ((!isSuccess && logError) || (isSuccess && logSuccess)) {
+        const toLog = cloneDeep({ event, result });
+        loggingRedact(toLog);
+        logger[isSuccess ? 'info' : 'warn'](JSON.stringify(toLog));
+      }
+      return result;
     };
 
-    const wrappedHandler = rollbar
-      .wrap((event, context, rb) => wrapHandler({
-        event,
-        context,
-        rb,
-        hdl: [
-          () => parse(request, params, event),
-          async (paramsOut) => {
-            const result = await handler(paramsOut, context, rb, event);
-            if (rawAutoPruneFieldsParam !== undefined && paramsOut[rawAutoPruneFieldsParam.name] !== undefined) {
-              rawAutoPruneFieldsParam.pruneFields(result, paramsOut[rawAutoPruneFieldsParam.name]);
-            }
-            return result;
+    const wrappedHandler = wrap((event, context) => wrapHandler({
+      event,
+      context,
+      hdl: [
+        () => parse(request, params, event),
+        async (paramsOut) => {
+          const result = await handler(paramsOut, context, event);
+          if (rawAutoPruneFieldsParam !== undefined && paramsOut[rawAutoPruneFieldsParam.name] !== undefined) {
+            rawAutoPruneFieldsParam.pruneFields(result, paramsOut[rawAutoPruneFieldsParam.name]);
           }
-        ]
-      }));
+          return result;
+        }
+      ]
+    }));
     wrappedHandler.isApiEndpoint = true;
     wrappedHandler.request = request;
 
@@ -256,32 +278,30 @@ const Api = (options = {}) => {
     if (preflightHandlers[optionsPath] === undefined) {
       preflightHandlers[optionsPath] = ['OPTIONS'];
 
-      const optionsHandler = rollbar
-        .wrap((event, context, rb) => wrapHandler({
-          event,
-          context,
-          rb,
-          hdl: [
-            async () => {
-              const headersRelevant = Object.entries(event.headers || {})
-                .map(([h, v]) => [normalizeName(h), v])
-                .filter(([h, v]) => [
-                  'accessControlRequestMethod',
-                  'accessControlRequestHeaders',
-                  'origin'
-                ].includes(h))
-                .reduce((p, [h, v]) => Object.assign(p, { [h]: v }), {});
-              const preflightHandlerParams = {
-                path: pathSegments.slice(1).join('/'),
-                allowedMethods: preflightHandlers[optionsPath],
-                ...headersRelevant
-              };
-              const preflightHandlerResponse = await preflightCheck(preflightHandlerParams);
-              const pass = preflightHandlerResponse instanceof Object && !Array.isArray(preflightHandlerResponse);
-              return response.ApiResponse('', pass ? 200 : 403, pass ? preflightHandlerResponse : {});
-            }
-          ]
-        }));
+      const optionsHandler = wrap((event, context) => wrapHandler({
+        event,
+        context,
+        hdl: [
+          async () => {
+            const headersRelevant = Object.entries(event.headers || {})
+              .map(([h, v]) => [normalizeName(h), v])
+              .filter(([h, v]) => [
+                'accessControlRequestMethod',
+                'accessControlRequestHeaders',
+                'origin'
+              ].includes(h))
+              .reduce((p, [h, v]) => Object.assign(p, { [h]: v }), {});
+            const preflightHandlerParams = {
+              path: pathSegments.slice(1).join('/'),
+              allowedMethods: preflightHandlers[optionsPath],
+              ...headersRelevant
+            };
+            const preflightHandlerResponse = await preflightCheck(preflightHandlerParams);
+            const pass = preflightHandlerResponse instanceof Object && !Array.isArray(preflightHandlerResponse);
+            return response.ApiResponse('', pass ? 200 : 403, pass ? preflightHandlerResponse : {});
+          }
+        ]
+      }));
       optionsHandler.isApiEndpoint = true;
       optionsHandler.request = optionsPath;
       router.add([{ path: optionsPath, handler: optionsHandler }]);
@@ -316,9 +336,8 @@ const Api = (options = {}) => {
     wrap: (request, ...args) => {
       const requestParsed = /^([A-Z]+)\s(.+)$/.exec(request);
       assert(Array.isArray(requestParsed) && requestParsed.length === 3);
-      return wrap(`${requestParsed[1]} ${routePrefix}${requestParsed[2]}`, ...args);
+      return wrapper(`${requestParsed[1]} ${routePrefix}${requestParsed[2]}`, ...args);
     },
-    rollbar,
     router: routerFn,
     generateSwagger: () => swagger(endpoints),
     ...staticExports

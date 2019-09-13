@@ -10,7 +10,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "INFO: {\"event\":{\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"result\":{\"statusCode\":200,\"body\":\"dGVzdA==\",\"isBase64Encoded\":true}}"
+    ]
   },
   "event": {
     "httpMethod": "GET",

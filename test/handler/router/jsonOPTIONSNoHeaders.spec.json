@@ -9,7 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "WARNING: {\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{}},\"result\":{\"statusCode\":403,\"body\":\"\"}}"
+    ]
   },
   "event": {
     "path": "/json",

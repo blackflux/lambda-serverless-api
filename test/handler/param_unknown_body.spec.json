@@ -9,7 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "WARNING: {\"event\":{\"body\":\"{\\\"unknown\\\":\\\"value\\\"}\",\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"result\":{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Invalid Json Body Param(s) detected.\\\",\\\"messageId\\\":99005,\\\"context\\\":{\\\"value\\\":[\\\"unknown\\\"]}}\"}}"
+    ]
   },
   "event": {
     "body|JSON.stringify": {

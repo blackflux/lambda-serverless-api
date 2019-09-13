@@ -19,7 +19,6 @@ describe('Testing index.js', () => {
     expect(difference(Object.keys(api), Object.keys(api.Api()))).to.deep.equal(['Api']);
     expect(difference(Object.keys(api.Api()), Object.keys(api)).sort()).to.deep.equal([
       'generateSwagger',
-      'rollbar',
       'router',
       'wrap'
     ]);
