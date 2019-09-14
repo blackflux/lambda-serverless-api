@@ -80,7 +80,7 @@
     "joi-strict": "1.1.1",
     "lambda-async": "1.0.1",
     "lambda-monitor-logger": "2.2.0",
-    "lambda-rate-limiter": "2.4.25",
+    "lambda-rate-limiter": "2.4.26",
     "lodash.clonedeep": "4.5.0",
     "lodash.difference": "4.5.0",
     "lodash.get": "4.4.2",
