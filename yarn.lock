@@ -3803,10 +3803,10 @@ lambda-monitor-logger@2.2.0:
   resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.2.0.tgz#e1260ed3886c5cc928ccb958f4f3b57c0272e04b"
   integrity sha512-VNNi+Kmg9PzrzZmb5pmGjvqeGxUHsSCYyHfEvWXYCEDrXvlpNKwGocc2KC5LFtKUiqWzC3LTaqJZrjGpsR4mZg==
 
-lambda-rate-limiter@2.4.24:
-  version "2.4.24"
-  resolved "https://registry.yarnpkg.com/lambda-rate-limiter/-/lambda-rate-limiter-2.4.24.tgz#583f40b8af8f772e94fc04d3bb1e56a383258720"
-  integrity sha512-hQJzTbWHgdphEMLloldnzRF0sEXDH9vTaXns9b2znhY4QKRQzQRnInPakWqmafch7S0ibiX8GjM7NnwRaCVH5g==
+lambda-rate-limiter@2.4.25:
+  version "2.4.25"
+  resolved "https://registry.yarnpkg.com/lambda-rate-limiter/-/lambda-rate-limiter-2.4.25.tgz#a18dd272994975de6bf258f701a67f0a4fc2c9fb"
+  integrity sha512-KFF5OeRvYGCJsNwE3hwJvq3WDJ6z4IDMmkInde/y2zXFzZ3luEsuM0f/71bINLzuZjWVy0IkIYUN0ChHPb/J+Q==
   dependencies:
     lru-cache "5.1.1"
 
