@@ -2098,10 +2098,10 @@ eslint-visitor-keys@^1.0.0, eslint-visitor-keys@^1.1.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.1.0.tgz#e2a82cea84ff246ad6fb57f9bde5b46621459ec2"
   integrity sha512-8y9YjtM1JBJU/A9Kc+SbaOV4y29sSWckBwMHa+FGtVj5gN/sbnKDf6xJUl+8g7FAij9LVaP8C24DUiH/f/2Z9A==
 
-eslint@6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-6.3.0.tgz#1f1a902f67bfd4c354e7288b81e40654d927eb6a"
-  integrity sha512-ZvZTKaqDue+N8Y9g0kp6UPZtS4FSY3qARxBs7p4f0H0iof381XHduqVerFWtK8DPtKmemqbqCFENWSQgPR/Gow==
+eslint@6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-6.4.0.tgz#5aa9227c3fbe921982b2eda94ba0d7fae858611a"
+  integrity sha512-WTVEzK3lSFoXUovDHEbkJqCVPEPwbhCq4trDktNI6ygs7aO41d4cDT0JFAT5MivzZeVLWlg7vHL+bgrQv/t3vA==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.10.0"
@@ -3633,13 +3633,6 @@ jmespath@0.15.0:
   resolved "https://registry.yarnpkg.com/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
   integrity sha1-o/Iiqarp+Wb10nx5ZRDigJF2Qhc=
 
-joi-strict@1.0.11:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.0.11.tgz#33ab93215a96cd56a0b6c694be36757ee2f3bb73"
-  integrity sha512-0Zqzcu1wP67ns4IQapoArKmq1JyOhNNc+W6o2vYby7Fa1YeQHjXuRt1DJW7YE4m14fFhM6goC14KFFUDqXoHiA==
-  dependencies:
-    "@hapi/joi" "16.0.1"
-
 joi-strict@1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.0.9.tgz#9b05887cbf7160e5bff6bd9a901ce0f6af42f57c"
@@ -3810,14 +3803,14 @@ lambda-rate-limiter@2.4.24:
   dependencies:
     lru-cache "5.1.1"
 
-lambda-tdd@2.10.3:
-  version "2.10.3"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.10.3.tgz#2300c264bdbf673842e72037b9e15e44dffcef0d"
-  integrity sha512-tCc69iFUts/DbQgvC0k6WebKROfc2YeGaiZzTyrNWebQpbUuFjgLwmbp1CqY9dZH908SVuTjxc59Nl8OFyDoNQ==
+lambda-tdd@2.10.4:
+  version "2.10.4"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.10.4.tgz#9a61771d51aa991d96abee619867adb67fd9a413"
+  integrity sha512-OC7q/U1bmT/cxcACzFO8EB1d58ikCE3WP2eelwKE6d5hGioCvrBE/DHl8RbpDlC2+oUqTRHltWqHYpbV24GPIQ==
   dependencies:
     app-root-path "2.2.1"
     glob "7.1.4"
-    joi-strict "1.0.11"
+    joi-strict "1.1.0"
     js-yaml "3.13.1"
     lambda-wrapper "0.3.0"
     lodash.get "4.4.2"
