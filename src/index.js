@@ -1,14 +1,12 @@
 const assert = require('assert');
+const path = require('path');
 const get = require('lodash.get');
-const set = require('lodash.set');
-const cloneDeep = require('lodash.clonedeep');
 const difference = require('lodash.difference');
 const Joi = require('joi-strict');
 const { wrap } = require('lambda-async');
-const { logger } = require('lambda-monitor-logger');
 const Limiter = require('lambda-rate-limiter');
 const Router = require('route-recognizer');
-const objectScan = require('object-scan');
+const { Module } = require('./module');
 const param = require('./param');
 const response = require('./response');
 const swagger = require('./swagger');
@@ -153,15 +151,7 @@ const Api = (options = {}) => {
   const preflightHandlers = {};
   const preRequestHook = get(options, 'preRequestHook');
   const rateLimitTokenPaths = get(options, 'rateLimitTokenPaths', ['requestContext.identity.sourceIp']);
-  const logSuccess = get(options, 'logging.logSuccess', true);
-  const logError = get(options, 'logging.logError', true);
-  const loggingRedact = (input) => objectScan(get(options, 'logging.redact', []), {
-    joined: false,
-    useArraySelector: false,
-    filterFn: (key) => {
-      set(input, key, '**redacted**');
-    }
-  })(input);
+  const module = new Module(path.join(__dirname, 'plugin'), options);
 
   const generateDefaultHeaders = (inputHeaders) => (typeof defaultHeaders === 'function'
     ? defaultHeaders(Object
@@ -195,6 +185,7 @@ const Api = (options = {}) => {
     const wrapHandler = async ({
       event, context, hdl
     }) => {
+      module.before({ event, context });
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
@@ -225,12 +216,12 @@ const Api = (options = {}) => {
           defaultHeaders: await generateDefaultHeaders(event.headers)
         }));
       const statusCode = result.statusCode;
-      const isSuccess = Number.isInteger(statusCode) && statusCode >= 100 && statusCode < 400;
-      if ((!isSuccess && logError) || (isSuccess && logSuccess)) {
-        const toLog = cloneDeep({ event, result });
-        loggingRedact(toLog);
-        logger[isSuccess ? 'info' : 'warn'](JSON.stringify(toLog));
-      }
+      module.after({
+        success: Number.isInteger(statusCode) && statusCode >= 100 && statusCode < 400,
+        event,
+        context,
+        result
+      });
       return result;
     };
 
