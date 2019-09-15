@@ -8,8 +8,8 @@ describe('Testing Plugin', () => {
     plugin = new Plugin({});
   });
 
-  it('Testing getOptionPath()', () => {
-    expect(() => Plugin.getOptionPath()).to.throw('Not Implemented!');
+  it('Testing schema()', () => {
+    expect(() => Plugin.schema()).to.throw('Not Implemented!');
   });
 
   it('Testing before', () => {

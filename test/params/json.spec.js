@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+const Joi = require('joi-strict');
 const { describe } = require('node-tdd');
 const api = require('../../src/index').Api();
 
@@ -6,8 +7,8 @@ describe('Testing Json Parameter', () => {
   let queryParam;
   let jsonParam;
   before(() => {
-    queryParam = api.Json('param', 'query', { schema: api.Joi.object() });
-    jsonParam = api.Json('param', 'json', { schema: api.Joi.object() });
+    queryParam = api.Json('param', 'query', { schema: Joi.object() });
+    jsonParam = api.Json('param', 'json', { schema: Joi.object() });
   });
 
   it('Testing valid query parameter', () => {

@@ -1,4 +1,5 @@
 const request = require('request-promise');
+const Joi = require('joi-strict');
 const api = require('../src/index').Api({
   preflightCheck: ({
     origin, allowedMethods, accessControlRequestMethod, accessControlRequestHeaders
@@ -99,8 +100,8 @@ module.exports.param = api.wrap('POST param', [
   api.GeoPoint('geoPointParam', 'query', { required: false }),
   api.GeoRect('geoRectParam', 'query', { required: false }),
   api.GeoShape('geoShapeParam', 'query', { required: false }),
-  api.Json('jsonParam', 'json', { required: false, schema: api.Joi.object() }),
-  api.Json('jsonParam', 'query', { required: false, schema: api.Joi.object() }),
+  api.Json('jsonParam', 'json', { required: false, schema: Joi.object() }),
+  api.Json('jsonParam', 'query', { required: false, schema: Joi.object() }),
   api.Str('paramWithGetter', 'query', {
     required: false,
     getter: () => request({ uri: 'https://foo.com', json: true })

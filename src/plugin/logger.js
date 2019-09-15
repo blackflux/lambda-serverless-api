@@ -1,5 +1,6 @@
 const get = require('lodash.get');
 const set = require('lodash.set');
+const Joi = require('joi-strict');
 const cloneDeep = require('lodash.clonedeep');
 const objectScan = require('object-scan');
 const { logger } = require('lambda-monitor-logger');
@@ -19,10 +20,14 @@ class Logger extends Plugin {
     })(input);
   }
 
-  // todo: add schema
-
-  static getOptionPath() {
-    return 'logging';
+  static schema() {
+    return {
+      logging: Joi.object().keys({
+        logSuccess: Joi.boolean().optional(),
+        logError: Joi.boolean().optional(),
+        redact: Joi.array().items(Joi.string()).optional()
+      }).optional()
+    };
   }
 
   after({ event, response, success }) {

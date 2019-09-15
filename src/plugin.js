@@ -6,9 +6,7 @@ class Plugin {
     this.options = options;
   }
 
-  // todo: schema validation
-
-  static getOptionPath() {
+  static schema() {
     throw new Error('Not Implemented!');
   }
 

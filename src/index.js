@@ -19,6 +19,7 @@ const {
   BinaryResponseClass
 } = require('./response');
 const swagger = require('./swagger');
+const mergeSchemas = require('./util/merge-schemas');
 
 // todo: separate functions out and generify
 
@@ -101,7 +102,6 @@ const generateResponse = (err, resp, options) => {
 };
 
 const staticExports = {
-  Joi,
   ApiError,
   ApiErrorClass,
   ApiResponse,
@@ -131,7 +131,7 @@ const staticExports = {
 };
 
 const Api = (options = {}) => {
-  Joi.assert(options, Joi.object().keys({
+  const schemas = [{
     routePrefix: Joi.string().optional(),
     limiter: Joi.object().optional(),
     defaultHeaders: Joi.alternatives().try(
@@ -141,13 +141,12 @@ const Api = (options = {}) => {
     preflightCheck: Joi.func().optional(),
     preRequestHook: Joi.func().optional(),
     rateLimitTokenPaths: Joi.array().items(Joi.string()).optional(),
-    limit: Joi.number().min(0).allow(null).optional(),
-    logging: Joi.object().keys({
-      logSuccess: Joi.boolean().optional(),
-      logError: Joi.boolean().optional(),
-      redact: Joi.array().items(Joi.string()).optional()
-    }).optional()
-  }));
+    limit: Joi.number().min(0).allow(null).optional()
+  }];
+
+  const module = new Module(path.join(__dirname, 'plugin'), options);
+  schemas.push(...module.getSchemas());
+  Joi.assert(options, mergeSchemas(schemas));
 
   const endpoints = {};
   const router = new Router();
@@ -160,7 +159,6 @@ const Api = (options = {}) => {
   const preflightHandlers = {};
   const preRequestHook = get(options, 'preRequestHook');
   const rateLimitTokenPaths = get(options, 'rateLimitTokenPaths', ['requestContext.identity.sourceIp']);
-  const module = new Module(path.join(__dirname, 'plugin'), options);
 
   const generateDefaultHeaders = (inputHeaders) => (typeof defaultHeaders === 'function'
     ? defaultHeaders(Object
