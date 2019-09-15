@@ -10,7 +10,7 @@ describe('Testing Response', () => {
   beforeEach(() => {
     api = Api({
       defaultHeaders: { 'X-Custom-Header': 'header-value' },
-      logging: {
+      logger: {
         logSuccess: false
       }
     });

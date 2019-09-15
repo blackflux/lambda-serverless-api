@@ -9,7 +9,7 @@
     "api gateway",
     "rate limiter",
     "monitoring",
-    "logging"
+    "logger"
   ],
   "author": "Lukas Siemon",
   "devDependencies": {

@@ -22,7 +22,7 @@ class Logger extends Plugin {
 
   static schema() {
     return {
-      logging: Joi.object().keys({
+      logger: Joi.object().keys({
         logSuccess: Joi.boolean().optional(),
         logError: Joi.boolean().optional(),
         redact: Joi.array().items(Joi.string()).optional()

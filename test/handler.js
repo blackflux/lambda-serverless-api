@@ -35,7 +35,7 @@ const api = require('../src/index').Api({
       'Access-Control-Allow-Methods': allowedMethods.join(',')
     };
   },
-  logging: {
+  logger: {
     redact: ['event.requestContext.identity.cognito*']
   }
 });
