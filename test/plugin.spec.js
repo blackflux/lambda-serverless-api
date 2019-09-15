@@ -12,11 +12,13 @@ describe('Testing Plugin', () => {
     expect(() => Plugin.schema()).to.throw('Not Implemented!');
   });
 
-  it('Testing before', () => {
-    expect(plugin.before({})).to.equal(undefined);
+  it('Testing before()', async ({ capture }) => {
+    const e = await capture(() => plugin.before({}));
+    expect(e.message).to.equal('Not Implemented!');
   });
 
-  it('Testing after', () => {
-    expect(plugin.after({})).to.equal(undefined);
+  it('Testing after()', async ({ capture }) => {
+    const e = await capture(() => plugin.after({}));
+    expect(e.message).to.equal('Not Implemented!');
   });
 });

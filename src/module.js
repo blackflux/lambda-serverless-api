@@ -22,16 +22,18 @@ class Module {
     return this.schemas;
   }
 
-  before({ event }) {
-    this.plugins.forEach((plugin) => {
-      plugin.before({ event });
-    });
+  async before(kwargs) {
+    for (let idx = 0; idx < this.plugins.length; idx += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await this.plugins[idx].before(kwargs);
+    }
   }
 
-  after({ event, response, success }) {
-    this.plugins.forEach((plugin) => {
-      plugin.after({ event, response, success });
-    });
+  async after(kwargs) {
+    for (let idx = 0; idx < this.plugins.length; idx += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await this.plugins[idx].after(kwargs);
+    }
   }
 }
 module.exports.Module = Module;

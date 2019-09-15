@@ -11,11 +11,13 @@ class Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  before({ event, context }) {}
+  async before(kwargs) {
+    throw new Error('Not Implemented!');
+  }
 
   // eslint-disable-next-line class-methods-use-this
-  after({
-    event, context, response, success
-  }) {}
+  async after(kwargs) {
+    throw new Error('Not Implemented!');
+  }
 }
 module.exports.Plugin = Plugin;

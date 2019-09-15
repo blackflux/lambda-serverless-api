@@ -4,7 +4,6 @@ const get = require('lodash.get');
 const difference = require('lodash.difference');
 const Joi = require('joi-strict');
 const { wrap } = require('lambda-async');
-const Limiter = require('lambda-rate-limiter');
 const Router = require('route-recognizer');
 const { Module } = require('./module');
 const param = require('./param');
@@ -133,15 +132,12 @@ const staticExports = {
 const Api = (options = {}) => {
   const schemas = [{
     routePrefix: Joi.string().optional(),
-    limiter: Joi.object().optional(),
     defaultHeaders: Joi.alternatives().try(
       Joi.object(),
       Joi.func()
     ).optional(),
     preflightCheck: Joi.func().optional(),
-    preRequestHook: Joi.func().optional(),
-    rateLimitTokenPaths: Joi.array().items(Joi.string()).optional(),
-    limit: Joi.number().min(0).allow(null).optional()
+    preRequestHook: Joi.func().optional()
   }];
 
   const module = new Module(path.join(__dirname, 'plugin'), options);
@@ -152,13 +148,10 @@ const Api = (options = {}) => {
   const router = new Router();
   const routeSignatures = [];
   const routePrefix = get(options, 'routePrefix', '');
-  const limiter = Limiter(get(options, 'limiter', {}));
-  const globalLimit = get(options, 'limit', 100);
   const defaultHeaders = get(options, 'defaultHeaders', {});
   const preflightCheck = get(options, 'preflightCheck', () => false);
   const preflightHandlers = {};
   const preRequestHook = get(options, 'preRequestHook');
-  const rateLimitTokenPaths = get(options, 'rateLimitTokenPaths', ['requestContext.identity.sourceIp']);
 
   const generateDefaultHeaders = (inputHeaders) => (typeof defaultHeaders === 'function'
     ? defaultHeaders(Object
@@ -171,10 +164,7 @@ const Api = (options = {}) => {
     assert(!hasOptions || (optionsOrHandler instanceof Object && !Array.isArray(optionsOrHandler)));
     const handler = hasOptions ? handlerOrUndefined : optionsOrHandler;
     assert(typeof handler === 'function');
-    const opt = {
-      limit: globalLimit,
-      ...(hasOptions ? optionsOrHandler : {})
-    };
+    const endpointOptions = hasOptions ? optionsOrHandler : {};
 
     if (request.startsWith('GET ') && params.filter((p) => p.position === 'json').length !== 0) {
       throw new Error('Can not use JSON parameter with GET requests.');
@@ -192,27 +182,17 @@ const Api = (options = {}) => {
     const wrapHandler = async ({
       event, context, hdl
     }) => {
-      module.before({ event, context });
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
       const response = await [
         () => (typeof preRequestHook === 'function' ? preRequestHook(event, context) : Promise.resolve()),
-        async () => {
-          if (opt.limit === null) {
-            return;
-          }
-          const rateLimitPath = rateLimitTokenPaths.find((p) => get(event, p) !== undefined);
-          if (rateLimitPath === undefined) {
-            throw new Error(`Rate limit token not found\n${JSON.stringify(event)}`);
-          }
-          const rateLimitToken = get(event, rateLimitPath);
-          try {
-            await limiter.check(opt.limit, `${rateLimitToken}/${request}`);
-          } catch (e) {
-            throw ApiError('Rate limit exceeded.', 429);
-          }
-        },
+        () => module.before({
+          event,
+          context,
+          request,
+          options: endpointOptions
+        }),
         ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
@@ -223,11 +203,13 @@ const Api = (options = {}) => {
           defaultHeaders: await generateDefaultHeaders(event.headers)
         }));
       const statusCode = response.statusCode;
-      module.after({
+      await module.after({
         success: Number.isInteger(statusCode) && statusCode >= 100 && statusCode < 400,
         event,
         context,
-        response
+        request,
+        response,
+        options: endpointOptions
       });
       return response;
     };
