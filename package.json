@@ -29,7 +29,7 @@
     "eslint-plugin-markdown": "1.0.0",
     "eslint-plugin-mocha": "6.1.1",
     "js-gardener": "2.0.89",
-    "lambda-tdd": "2.10.4",
+    "lambda-tdd": "2.10.5",
     "nock": "11.3.4",
     "node-tdd": "2.5.4",
     "nyc": "14.1.1",
@@ -77,10 +77,10 @@
     "lib"
   ],
   "dependencies": {
-    "joi-strict": "1.1.1",
+    "joi-strict": "1.1.2",
     "lambda-async": "1.0.1",
-    "lambda-monitor-logger": "2.2.0",
-    "lambda-rate-limiter": "2.4.25",
+    "lambda-monitor-logger": "2.2.1",
+    "lambda-rate-limiter": "2.4.26",
     "lodash.clonedeep": "4.5.0",
     "lodash.difference": "4.5.0",
     "lodash.get": "4.4.2",
