@@ -17,7 +17,7 @@ class Plugin {
 
   // eslint-disable-next-line class-methods-use-this
   after({
-    event, context, result, success
+    event, context, response, success
   }) {}
 }
 module.exports.Plugin = Plugin;

@@ -8,7 +8,16 @@ const Limiter = require('lambda-rate-limiter');
 const Router = require('route-recognizer');
 const { Module } = require('./module');
 const param = require('./param');
-const response = require('./response');
+const {
+  ApiError,
+  ApiErrorClass,
+  ApiResponse,
+  ApiResponseClass,
+  JsonResponse,
+  JsonResponseClass,
+  BinaryResponse,
+  BinaryResponseClass
+} = require('./response');
 const swagger = require('./swagger');
 
 // todo: separate functions out and generify
@@ -25,7 +34,7 @@ const parse = async (request, params, eventRaw) => {
   try {
     body = JSON.parse(get(eventRaw, 'body', '{}'));
   } catch (e) {
-    throw response.ApiError('Invalid Json Body detected.', 400, 99001, {
+    throw ApiError('Invalid Json Body detected.', 400, 99001, {
       value: get(eventRaw, 'body')
     });
   }
@@ -36,7 +45,7 @@ const parse = async (request, params, eventRaw) => {
     params.filter((p) => p.position === 'query').map((p) => p.name)
   );
   if (invalidQsParams.length !== 0) {
-    throw response.ApiError('Invalid Query Param(s) detected.', 400, 99004, {
+    throw ApiError('Invalid Query Param(s) detected.', 400, 99004, {
       value: invalidQsParams
     });
   }
@@ -46,7 +55,7 @@ const parse = async (request, params, eventRaw) => {
     params.filter((p) => p.position === 'json').map((p) => p.name)
   );
   if (invalidJsonParams.length !== 0) {
-    throw response.ApiError('Invalid Json Body Param(s) detected.', 400, 99005, {
+    throw ApiError('Invalid Json Body Param(s) detected.', 400, 99005, {
       value: invalidJsonParams
     });
   }
@@ -93,14 +102,14 @@ const generateResponse = (err, resp, options) => {
 
 const staticExports = {
   Joi,
-  ApiError: response.ApiError,
-  ApiErrorClass: response.ApiErrorClass,
-  ApiResponse: response.ApiResponse,
-  ApiResponseClass: response.ApiResponseClass,
-  JsonResponse: response.JsonResponse,
-  JsonResponseClass: response.JsonResponseClass,
-  BinaryResponse: response.BinaryResponse,
-  BinaryResponseClass: response.BinaryResponseClass,
+  ApiError,
+  ApiErrorClass,
+  ApiResponse,
+  ApiResponseClass,
+  JsonResponse,
+  JsonResponseClass,
+  BinaryResponse,
+  BinaryResponseClass,
   Str: param.Str,
   Email: param.Email,
   RegEx: param.RegEx,
@@ -189,7 +198,7 @@ const Api = (options = {}) => {
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
-      const result = await [
+      const response = await [
         () => (typeof preRequestHook === 'function' ? preRequestHook(event, context) : Promise.resolve()),
         async () => {
           if (opt.limit === null) {
@@ -203,7 +212,7 @@ const Api = (options = {}) => {
           try {
             await limiter.check(opt.limit, `${rateLimitToken}/${request}`);
           } catch (e) {
-            throw response.ApiError('Rate limit exceeded.', 429);
+            throw ApiError('Rate limit exceeded.', 429);
           }
         },
         ...hdl
@@ -215,14 +224,14 @@ const Api = (options = {}) => {
         .catch(async (err) => generateResponse(err, null, {
           defaultHeaders: await generateDefaultHeaders(event.headers)
         }));
-      const statusCode = result.statusCode;
+      const statusCode = response.statusCode;
       module.after({
         success: Number.isInteger(statusCode) && statusCode >= 100 && statusCode < 400,
         event,
         context,
-        result
+        response
       });
-      return result;
+      return response;
     };
 
     const wrappedHandler = wrap((event, context) => wrapHandler({
@@ -289,7 +298,7 @@ const Api = (options = {}) => {
             };
             const preflightHandlerResponse = await preflightCheck(preflightHandlerParams);
             const pass = preflightHandlerResponse instanceof Object && !Array.isArray(preflightHandlerResponse);
-            return response.ApiResponse('', pass ? 200 : 403, pass ? preflightHandlerResponse : {});
+            return ApiResponse('', pass ? 200 : 403, pass ? preflightHandlerResponse : {});
           }
         ]
       }));

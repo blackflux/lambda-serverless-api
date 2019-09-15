@@ -17,10 +17,9 @@ class Module {
     });
   }
 
-  // todo: change result to response
-  after({ event, result, success }) {
+  after({ event, response, success }) {
     this.plugins.forEach((plugin) => {
-      plugin.after({ event, result, success });
+      plugin.after({ event, response, success });
     });
   }
 }

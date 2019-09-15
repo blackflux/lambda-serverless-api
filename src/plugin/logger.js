@@ -25,9 +25,9 @@ class Logger extends Plugin {
     return 'logging';
   }
 
-  after({ event, result, success }) {
+  after({ event, response, success }) {
     if ((!success && this.logError) || (success && this.logSuccess)) {
-      const toLog = cloneDeep({ event, result });
+      const toLog = cloneDeep({ event, response });
       this.redactor(toLog);
       logger[success ? 'info' : 'warn'](JSON.stringify(toLog));
     }
