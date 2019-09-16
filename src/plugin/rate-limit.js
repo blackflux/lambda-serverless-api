@@ -18,7 +18,8 @@ class RateLimit extends Plugin {
   static schema() {
     return {
       rateLimit: Joi.object().keys({
-        globalLimit: Joi.number().integer().min(0).optional(),
+        globalLimit: Joi.number().integer().min(0).allow(null)
+          .optional(),
         tokenPaths: Joi.array().items(Joi.string()).optional(),
         interval: Joi.number().integer().min(0).optional(),
         uniqueTokenPerInterval: Joi.number().integer().min(0).optional()
