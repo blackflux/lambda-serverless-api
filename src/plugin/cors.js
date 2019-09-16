@@ -43,7 +43,7 @@ class Cors extends Plugin {
         return;
       }
 
-      const allowedOrigins = extractOrigins(this.allowedOrigins, kwargs);
+      const allowedOrigins = await extractOrigins(this.allowedOrigins, kwargs);
       if (!allowedOrigins.includes(origin) && !allowedOrigins.includes('*')) {
         return;
       }
@@ -53,7 +53,7 @@ class Cors extends Plugin {
       const allowedHeaders = [
         'Content-Type',
         'Accept',
-        ...(Array.isArray(this.allowedHeaders) ? this.allowedHeaders : this.allowedHeaders(kwargs))
+        ...(Array.isArray(this.allowedHeaders) ? this.allowedHeaders : await this.allowedHeaders(kwargs))
       ].map((h) => h.toLowerCase());
       if (!accessControlRequestHeaders.split(',').map((h) => h
         .trim().toLowerCase()).every((h) => allowedHeaders.includes(h))) {
@@ -74,7 +74,7 @@ class Cors extends Plugin {
         return;
       }
 
-      const allowedOrigins = extractOrigins(this.allowedOrigins, kwargs);
+      const allowedOrigins = await extractOrigins(this.allowedOrigins, kwargs);
       if (!allowedOrigins.includes(origin) && !allowedOrigins.includes('*')) {
         return;
       }
