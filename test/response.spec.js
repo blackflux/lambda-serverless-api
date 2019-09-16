@@ -81,11 +81,14 @@ describe('Testing Response', () => {
   });
 
   it('Testing cors function (empty)', (done) => {
-    api = Api({ cors: { allowedOrigins: ['*'] } });
+    api = Api({});
     api.wrap('GET path', [], identity(api));
     api.router({
       httpMethod: 'GET',
       path: '/path',
+      headers: {
+        Origin: 'https://test.com'
+      },
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {}, (err, resp) => {
       expect(err).to.equal(null);
@@ -99,7 +102,7 @@ describe('Testing Response', () => {
 
   it('Testing Multi Methods for Options Request', (done) => {
     api = Api({
-      preflight: {
+      cors: {
         allowedOrigins: () => ['*'],
         allowedHeaders: () => ['x-custom']
       }

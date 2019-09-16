@@ -1,7 +1,7 @@
 const request = require('request-promise');
 const Joi = require('joi-strict');
 const api = require('../src/index').Api({
-  preflight: {
+  cors: {
     allowedHeaders: [
       'Origin',
       'X-Requested-With',
