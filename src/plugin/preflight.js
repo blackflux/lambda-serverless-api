@@ -12,8 +12,8 @@ class Preflight extends Plugin {
   static schema() {
     return {
       preflight: Joi.object().keys({
-        allowedHeaders: Joi.array().items(Joi.string()).optional(),
-        allowedOrigins: Joi.array().items(Joi.string()).optional()
+        allowedHeaders: Joi.alternatives(Joi.array().items(Joi.string()), Joi.function()).optional(),
+        allowedOrigins: Joi.alternatives(Joi.array().items(Joi.string()), Joi.function()).optional()
       }).optional()
     };
   }
@@ -25,8 +25,9 @@ class Preflight extends Plugin {
     return 0;
   }
 
-  // eslint-disable-next-line object-curly-newline
-  async after({ event, response, router, headers }) {
+  async after(kwargs) {
+    // eslint-disable-next-line object-curly-newline
+    const { event, response, router, headers } = kwargs;
     if (event.httpMethod !== 'OPTIONS') {
       return;
     }
@@ -40,7 +41,8 @@ class Preflight extends Plugin {
       return;
     }
 
-    if (!this.allowedOrigins.includes(origin) && !this.allowedOrigins.includes('*')) {
+    const allowedOrigins = Array.isArray(this.allowedOrigins) ? this.allowedOrigins : this.allowedOrigins(kwargs);
+    if (!allowedOrigins.includes(origin) && !allowedOrigins.includes('*')) {
       return;
     }
     if (!router.recognize(`${accessControlRequestMethod}${get(event, 'path', '')}`)) {
@@ -49,7 +51,7 @@ class Preflight extends Plugin {
     const allowedHeaders = [
       'Content-Type',
       'Accept',
-      ...this.allowedHeaders
+      ...(Array.isArray(this.allowedHeaders) ? this.allowedHeaders : this.allowedHeaders(kwargs))
     ].map((h) => h.toLowerCase());
     if (!accessControlRequestHeaders.split(',').map((h) => h
       .trim().toLowerCase()).every((h) => allowedHeaders.includes(h))) {

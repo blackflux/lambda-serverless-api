@@ -71,7 +71,7 @@ describe('Testing Response', () => {
   });
 
   it('Testing cors function (echo)', (done) => {
-    api = Api({ cors: { allowedOrigins: ['*'] } });
+    api = Api({ cors: { allowedOrigins: () => ['*'] } });
     api.wrap('GET path', [], identity(api));
     api.router({
       httpMethod: 'GET',
@@ -111,7 +111,8 @@ describe('Testing Response', () => {
   it('Testing Multi Methods for Options Request', (done) => {
     api = Api({
       preflight: {
-        allowedOrigins: ['*']
+        allowedOrigins: () => ['*'],
+        allowedHeaders: () => ['x-custom']
       }
     });
     api.wrap('GET path', [], identity(api));
@@ -132,7 +133,7 @@ describe('Testing Response', () => {
         body: '',
         headers: {
           'Access-Control-Allow-Origin': 'https://some-origin.com',
-          'Access-Control-Allow-Headers': 'content-type,accept',
+          'Access-Control-Allow-Headers': 'content-type,accept,x-custom',
           'Access-Control-Allow-Methods': 'GET'
         }
       });

@@ -12,7 +12,7 @@ class Cors extends Plugin {
   static schema() {
     return {
       cors: Joi.object().keys({
-        allowedOrigins: Joi.array().items(Joi.string()).optional()
+        allowedOrigins: Joi.alternatives(Joi.array().items(Joi.string()), Joi.function()).optional()
       }).optional()
     };
   }
@@ -24,7 +24,8 @@ class Cors extends Plugin {
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async before() {}
 
-  async after({ event, response, headers }) {
+  async after(kwargs) {
+    const { response, headers } = kwargs;
     if (get(response, ['headers', 'Access-Control-Allow-Origin']) !== undefined) {
       return;
     }
@@ -33,7 +34,8 @@ class Cors extends Plugin {
       return;
     }
 
-    if (!this.allowedOrigins.includes(origin) && !this.allowedOrigins.includes('*')) {
+    const allowedOrigins = Array.isArray(this.allowedOrigins) ? this.allowedOrigins : this.allowedOrigins(kwargs);
+    if (!allowedOrigins.includes(origin) && !allowedOrigins.includes('*')) {
       return;
     }
     set(response, ['headers', 'Access-Control-Allow-Origin'], origin);
