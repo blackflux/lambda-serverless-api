@@ -25,46 +25,35 @@ describe('Testing Response', () => {
     done();
   });
 
-  it('Testing preRequestHook (log)', (done) => {
-    let lastEvent = null;
-    api = Api({
-      preRequestHook: (event) => {
-        lastEvent = event;
-      }
-    });
+  it('Testing authorizer deny', (done) => {
+    api = Api({ authorizer: () => false });
     api.wrap('GET path', [], identity(api));
     api.router({
       httpMethod: 'GET',
       path: '/path',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {}, (err, resp) => {
-      expect(lastEvent).to.deep.equal({
-        httpMethod: 'GET',
-        path: '/path',
-        requestContext: { identity: { sourceIp: '127.0.0.1' } },
-        pathParameters: {}
-      });
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
-        statusCode: 200,
-        body: '{}'
+        statusCode: 401,
+        body: '{"message":"Unauthorized"}'
       });
       done();
     });
   });
 
-  it('Testing preRequestHook (error)', (done) => {
-    api = Api({
-      preRequestHook: () => {
-        throw api.ApiError('Some Error');
-      }
-    });
+  it('Testing authorizer ok', (done) => {
+    api = Api({ authorizer: () => true });
     api.wrap('GET path', [], identity(api));
-    api.router({ httpMethod: 'GET', path: '/path' }, {}, (err, resp) => {
+    api.router({
+      httpMethod: 'GET',
+      path: '/path',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
+    }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
-        statusCode: 400,
-        body: '{"message":"Some Error"}'
+        statusCode: 200,
+        body: '{}'
       });
       done();
     });

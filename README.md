@@ -24,17 +24,14 @@ Provides support for:
 
 ## Getting Started
 
+// TODO: BELOW IS OUTDATED ....
+
+
 First we need to wrap our lambda endpoint. Inside the lambda function we can then use `ApiError` and `JsonResponse` as following:
 
 <!-- eslint-disable import/no-unresolved -->
 ```js
-const api = require('lambda-serverless-api').Api({
-  limit: 100, // default limit for routes
-  limiter: {},
-  preRequestHook: (event, context) => {
-    // log or throw error here
-  }
-});
+const api = require('lambda-serverless-api').Api({/* options */});
 
 module.exports = api.wrap('POST register', [
   api.Str('name', 'json', false),
@@ -120,12 +117,6 @@ Can be defined as a static object, or as a function taking in the request header
 returning the correct origin for cross origin requests with multiple allowed origins.
 
 Note that the request headers are normalized to lower camel case.
-
-## Pre Request Hook
-
-Can define a `preRequestHook` function. This can be used to log events or throw api errors generically.
-
-Takes parameters `event` (raw lambda function event) and `context` (raw lambda function context).
 
 ## Swagger Documentation
 

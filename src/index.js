@@ -130,8 +130,7 @@ const staticExports = {
 
 const Api = (options = {}) => {
   const schemas = [{
-    routePrefix: Joi.string().optional(),
-    preRequestHook: Joi.func().optional()
+    routePrefix: Joi.string().optional()
   }];
 
   const module = new Module(path.join(__dirname, 'plugin'), options);
@@ -142,7 +141,6 @@ const Api = (options = {}) => {
   const router = new Router();
   const routeSignatures = [];
   const routePrefix = get(options, 'routePrefix', '');
-  const preRequestHook = get(options, 'preRequestHook');
 
   const wrapper = (request, params, optionsOrHandler, handlerOrUndefined) => {
     const hasOptions = handlerOrUndefined !== undefined;
@@ -174,7 +172,6 @@ const Api = (options = {}) => {
         .map(([h, v]) => [normalizeName(h), v])
         .reduce((p, [h, v]) => Object.assign(p, { [h]: v }), {});
       const response = await [
-        () => (typeof preRequestHook === 'function' ? preRequestHook(event, context) : Promise.resolve()),
         () => module.before({
           event,
           context,
