@@ -5,7 +5,12 @@ const { Plugin } = require('../src/plugin');
 describe('Testing Plugin', () => {
   let plugin;
   before(() => {
-    plugin = new Plugin({});
+    class PluginInstance extends Plugin {}
+    plugin = new PluginInstance({});
+  });
+
+  it('Testing Plugin Abstract', () => {
+    expect(() => new Plugin()).to.throw('Class "Plugin" is abstract');
   });
 
   it('Testing schema()', () => {
