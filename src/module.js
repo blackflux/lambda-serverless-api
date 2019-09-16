@@ -8,8 +8,9 @@ class Module {
     const plugins = fs
       .readdirSync(pluginPath)
       // eslint-disable-next-line import/no-dynamic-require,global-require
-      .map((plugin) => require(path.join(pluginPath, plugin)))
-      .map((plugin) => [plugin, plugin.schema()]);
+      .map((pluginFile) => require(path.join(pluginPath, pluginFile)))
+      .sort((P1, P2) => P1.weight() - P2.weight())
+      .map((P) => [P, P.schema()]);
     this.schemas = plugins.map(([_, schema]) => schema);
     this.plugins = plugins.map(([P, schema]) => {
       const schemaPath = Object.keys(schema);

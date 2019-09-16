@@ -30,6 +30,10 @@ class Logger extends Plugin {
     };
   }
 
+  static weight() {
+    return 9999;
+  }
+
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async before() {}
 

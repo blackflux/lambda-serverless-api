@@ -1,39 +1,19 @@
 const request = require('request-promise');
 const Joi = require('joi-strict');
 const api = require('../src/index').Api({
-  preflightCheck: ({
-    origin, allowedMethods, accessControlRequestMethod, accessControlRequestHeaders
-  }) => {
-    const allowedHeaders = [
+  preflight: {
+    allowedHeaders: [
       'Origin',
       'X-Requested-With',
-      'Content-Type',
       'X-Amz-Date',
       'Authorization',
       'X-Api-Key',
       'X-Amz-Security-Token',
       'X-Amz-User-Agent'
-    ].map((h) => h.toLowerCase());
-    const allowedOrigins = [
+    ],
+    allowedOrigins: [
       'https://test.com'
-    ];
-
-    if (!allowedMethods.includes(accessControlRequestMethod)) {
-      return false;
-    }
-    if (!accessControlRequestHeaders.split(',').map((h) => h
-      .trim().toLowerCase()).every((h) => allowedHeaders.includes(h))) {
-      return false;
-    }
-    if (!allowedOrigins.includes(origin)) {
-      return false;
-    }
-
-    return {
-      'Access-Control-Allow-Origin': origin,
-      'Access-Control-Allow-Headers': allowedHeaders.join(','),
-      'Access-Control-Allow-Methods': allowedMethods.join(',')
-    };
+    ]
   },
   logger: {
     redact: ['event.requestContext.identity.cognito*']

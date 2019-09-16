@@ -136,7 +136,6 @@ const Api = (options = {}) => {
       Joi.object(),
       Joi.func()
     ).optional(),
-    preflightCheck: Joi.func().optional(),
     preRequestHook: Joi.func().optional()
   }];
 
@@ -149,8 +148,6 @@ const Api = (options = {}) => {
   const routeSignatures = [];
   const routePrefix = get(options, 'routePrefix', '');
   const defaultHeaders = get(options, 'defaultHeaders', {});
-  const preflightCheck = get(options, 'preflightCheck', () => false);
-  const preflightHandlers = {};
   const preRequestHook = get(options, 'preRequestHook');
 
   const generateDefaultHeaders = (inputHeaders) => (typeof defaultHeaders === 'function'
@@ -191,6 +188,7 @@ const Api = (options = {}) => {
           event,
           context,
           request,
+          router,
           options: endpointOptions
         }),
         ...hdl
@@ -209,6 +207,7 @@ const Api = (options = {}) => {
         context,
         request,
         response,
+        router,
         options: endpointOptions
       });
       return response;
@@ -217,7 +216,9 @@ const Api = (options = {}) => {
     const wrappedHandler = wrap((event, context) => wrapHandler({
       event,
       context,
-      hdl: [
+      hdl: event.httpMethod === 'OPTIONS' ? [
+        () => ApiResponse('', 403)
+      ] : [
         () => parse(request, params, event),
         async (paramsOut) => {
           const result = await handler(paramsOut, context, event);
@@ -254,40 +255,10 @@ const Api = (options = {}) => {
       path: pathSegments.join('/'),
       handler: wrappedHandler
     }]);
-    const optionsPath = ['OPTIONS', ...pathSegments.slice(1)].join('/');
-    if (preflightHandlers[optionsPath] === undefined) {
-      preflightHandlers[optionsPath] = ['OPTIONS'];
-
-      const optionsHandler = wrap((event, context) => wrapHandler({
-        event,
-        context,
-        hdl: [
-          async () => {
-            const headersRelevant = Object.entries(event.headers || {})
-              .map(([h, v]) => [normalizeName(h), v])
-              .filter(([h, v]) => [
-                'accessControlRequestMethod',
-                'accessControlRequestHeaders',
-                'origin'
-              ].includes(h))
-              .reduce((p, [h, v]) => Object.assign(p, { [h]: v }), {});
-            const preflightHandlerParams = {
-              path: pathSegments.slice(1).join('/'),
-              allowedMethods: preflightHandlers[optionsPath],
-              ...headersRelevant
-            };
-            const preflightHandlerResponse = await preflightCheck(preflightHandlerParams);
-            const pass = preflightHandlerResponse instanceof Object && !Array.isArray(preflightHandlerResponse);
-            return ApiResponse('', pass ? 200 : 403, pass ? preflightHandlerResponse : {});
-          }
-        ]
-      }));
-      optionsHandler.isApiEndpoint = true;
-      optionsHandler.request = optionsPath;
-      router.add([{ path: optionsPath, handler: optionsHandler }]);
-    }
-    preflightHandlers[optionsPath].push(pathSegments[0].toUpperCase());
-
+    router.add([{
+      path: ['OPTIONS', ...pathSegments.slice(1)].join('/'),
+      handler: wrappedHandler
+    }]);
     return wrappedHandler;
   };
 

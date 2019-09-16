@@ -107,21 +107,31 @@ describe('Testing Response', () => {
   });
 
   it('Testing Multi Methods for Options Request', (done) => {
-    api = Api({ preflightCheck: (args) => args });
+    api = Api({
+      preflight: {
+        allowedOrigins: ['*']
+      }
+    });
     api.wrap('GET path', [], identity(api));
     api.wrap('DELETE path', [], identity(api));
     api.router({
       httpMethod: 'OPTIONS',
       path: '/path',
-      requestContext: { identity: { sourceIp: '127.0.0.1' } }
+      requestContext: { identity: { sourceIp: '127.0.0.1' } },
+      headers: {
+        Origin: 'https://some-origin.com',
+        'Access-Control-Request-Method': 'GET',
+        'Access-Control-Request-Headers': 'Accept'
+      }
     }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 200,
         body: '',
         headers: {
-          path: 'path',
-          allowedMethods: ['OPTIONS', 'GET', 'DELETE']
+          'Access-Control-Allow-Origin': 'https://some-origin.com',
+          'Access-Control-Allow-Headers': 'content-type,accept',
+          'Access-Control-Allow-Methods': 'GET'
         }
       });
       done();

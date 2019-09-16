@@ -10,6 +10,10 @@ class Plugin {
     throw new Error('Not Implemented!');
   }
 
+  static weight() {
+    throw new Error('Not Implemented!');
+  }
+
   // eslint-disable-next-line class-methods-use-this
   async before(kwargs) {
     throw new Error('Not Implemented!');

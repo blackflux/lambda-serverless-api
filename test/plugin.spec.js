@@ -12,6 +12,10 @@ describe('Testing Plugin', () => {
     expect(() => Plugin.schema()).to.throw('Not Implemented!');
   });
 
+  it('Testing weight()', () => {
+    expect(() => Plugin.weight()).to.throw('Not Implemented!');
+  });
+
   it('Testing before()', async ({ capture }) => {
     const e = await capture(() => plugin.before({}));
     expect(e.message).to.equal('Not Implemented!');

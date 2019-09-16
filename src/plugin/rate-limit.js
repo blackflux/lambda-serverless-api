@@ -26,6 +26,10 @@ class RateLimit extends Plugin {
     };
   }
 
+  static weight() {
+    return 10;
+  }
+
   async before({ event, request, options }) {
     const endpointLimit = get(options, 'limit', this.globalLimit);
     if (endpointLimit === null) {
