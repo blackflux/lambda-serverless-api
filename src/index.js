@@ -1,17 +1,24 @@
 const assert = require('assert');
+const path = require('path');
 const get = require('lodash.get');
-const set = require('lodash.set');
-const cloneDeep = require('lodash.clonedeep');
 const difference = require('lodash.difference');
 const Joi = require('joi-strict');
 const { wrap } = require('lambda-async');
-const { logger } = require('lambda-monitor-logger');
-const Limiter = require('lambda-rate-limiter');
 const Router = require('route-recognizer');
-const objectScan = require('object-scan');
+const { Module } = require('./module');
 const param = require('./param');
-const response = require('./response');
+const {
+  ApiError,
+  ApiErrorClass,
+  ApiResponse,
+  ApiResponseClass,
+  JsonResponse,
+  JsonResponseClass,
+  BinaryResponse,
+  BinaryResponseClass
+} = require('./response');
 const swagger = require('./swagger');
+const mergeSchemas = require('./util/merge-schemas');
 
 // todo: separate functions out and generify
 
@@ -27,7 +34,7 @@ const parse = async (request, params, eventRaw) => {
   try {
     body = JSON.parse(get(eventRaw, 'body', '{}'));
   } catch (e) {
-    throw response.ApiError('Invalid Json Body detected.', 400, 99001, {
+    throw ApiError('Invalid Json Body detected.', 400, 99001, {
       value: get(eventRaw, 'body')
     });
   }
@@ -38,7 +45,7 @@ const parse = async (request, params, eventRaw) => {
     params.filter((p) => p.position === 'query').map((p) => p.name)
   );
   if (invalidQsParams.length !== 0) {
-    throw response.ApiError('Invalid Query Param(s) detected.', 400, 99004, {
+    throw ApiError('Invalid Query Param(s) detected.', 400, 99004, {
       value: invalidQsParams
     });
   }
@@ -48,7 +55,7 @@ const parse = async (request, params, eventRaw) => {
     params.filter((p) => p.position === 'json').map((p) => p.name)
   );
   if (invalidJsonParams.length !== 0) {
-    throw response.ApiError('Invalid Json Body Param(s) detected.', 400, 99005, {
+    throw ApiError('Invalid Json Body Param(s) detected.', 400, 99005, {
       value: invalidJsonParams
     });
   }
@@ -68,12 +75,11 @@ const generateResponse = (err, resp, options) => {
         message: err.message,
         messageId: err.messageId,
         context: err.context
-      }),
-      ...(Object.keys(options.defaultHeaders).length === 0 ? {} : { headers: options.defaultHeaders })
+      })
     };
   }
   if (get(resp, 'isApiResponse') === true) {
-    const headers = { ...options.defaultHeaders, ...resp.headers };
+    const headers = resp.headers;
     let body = resp.payload;
     const isJsonResponse = get(resp, 'isJsonResponse') === true;
     if (isJsonResponse) {
@@ -94,15 +100,14 @@ const generateResponse = (err, resp, options) => {
 };
 
 const staticExports = {
-  Joi,
-  ApiError: response.ApiError,
-  ApiErrorClass: response.ApiErrorClass,
-  ApiResponse: response.ApiResponse,
-  ApiResponseClass: response.ApiResponseClass,
-  JsonResponse: response.JsonResponse,
-  JsonResponseClass: response.JsonResponseClass,
-  BinaryResponse: response.BinaryResponse,
-  BinaryResponseClass: response.BinaryResponseClass,
+  ApiError,
+  ApiErrorClass,
+  ApiResponse,
+  ApiResponseClass,
+  JsonResponse,
+  JsonResponseClass,
+  BinaryResponse,
+  BinaryResponseClass,
   Str: param.Str,
   Email: param.Email,
   RegEx: param.RegEx,
@@ -124,60 +129,25 @@ const staticExports = {
 };
 
 const Api = (options = {}) => {
-  Joi.assert(options, Joi.object().keys({
-    routePrefix: Joi.string().optional(),
-    limiter: Joi.object().optional(),
-    defaultHeaders: Joi.alternatives().try(
-      Joi.object(),
-      Joi.func()
-    ).optional(),
-    preflightCheck: Joi.func().optional(),
-    preRequestHook: Joi.func().optional(),
-    rateLimitTokenPaths: Joi.array().items(Joi.string()).optional(),
-    limit: Joi.number().min(0).allow(null).optional(),
-    logging: Joi.object().keys({
-      logSuccess: Joi.boolean().optional(),
-      logError: Joi.boolean().optional(),
-      redact: Joi.array().items(Joi.string()).optional()
-    }).optional()
-  }));
+  const schemas = [{
+    routePrefix: Joi.string().optional()
+  }];
+
+  const module = new Module(path.join(__dirname, 'plugin'), options);
+  schemas.push(...module.getSchemas());
+  Joi.assert(options, mergeSchemas(schemas));
 
   const endpoints = {};
   const router = new Router();
   const routeSignatures = [];
   const routePrefix = get(options, 'routePrefix', '');
-  const limiter = Limiter(get(options, 'limiter', {}));
-  const globalLimit = get(options, 'limit', 100);
-  const defaultHeaders = get(options, 'defaultHeaders', {});
-  const preflightCheck = get(options, 'preflightCheck', () => false);
-  const preflightHandlers = {};
-  const preRequestHook = get(options, 'preRequestHook');
-  const rateLimitTokenPaths = get(options, 'rateLimitTokenPaths', ['requestContext.identity.sourceIp']);
-  const logSuccess = get(options, 'logging.logSuccess', true);
-  const logError = get(options, 'logging.logError', true);
-  const loggingRedact = (input) => objectScan(get(options, 'logging.redact', []), {
-    joined: false,
-    useArraySelector: false,
-    filterFn: (key) => {
-      set(input, key, '**redacted**');
-    }
-  })(input);
-
-  const generateDefaultHeaders = (inputHeaders) => (typeof defaultHeaders === 'function'
-    ? defaultHeaders(Object
-      .entries(inputHeaders || {})
-      .reduce((p, [k, v]) => Object.assign(p, { [normalizeName(k)]: v }), {}))
-    : defaultHeaders);
 
   const wrapper = (request, params, optionsOrHandler, handlerOrUndefined) => {
     const hasOptions = handlerOrUndefined !== undefined;
     assert(!hasOptions || (optionsOrHandler instanceof Object && !Array.isArray(optionsOrHandler)));
     const handler = hasOptions ? handlerOrUndefined : optionsOrHandler;
     assert(typeof handler === 'function');
-    const opt = {
-      limit: globalLimit,
-      ...(hasOptions ? optionsOrHandler : {})
-    };
+    const endpointOptions = hasOptions ? optionsOrHandler : {};
 
     if (request.startsWith('GET ') && params.filter((p) => p.position === 'json').length !== 0) {
       throw new Error('Can not use JSON parameter with GET requests.');
@@ -198,46 +168,41 @@ const Api = (options = {}) => {
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
-      const result = await [
-        () => (typeof preRequestHook === 'function' ? preRequestHook(event, context) : Promise.resolve()),
-        async () => {
-          if (opt.limit === null) {
-            return;
-          }
-          const rateLimitPath = rateLimitTokenPaths.find((p) => get(event, p) !== undefined);
-          if (rateLimitPath === undefined) {
-            throw new Error(`Rate limit token not found\n${JSON.stringify(event)}`);
-          }
-          const rateLimitToken = get(event, rateLimitPath);
-          try {
-            await limiter.check(opt.limit, `${rateLimitToken}/${request}`);
-          } catch (e) {
-            throw response.ApiError('Rate limit exceeded.', 429);
-          }
-        },
+      const headers = Object.entries(event.headers || {})
+        .map(([h, v]) => [normalizeName(h), v])
+        .reduce((p, [h, v]) => Object.assign(p, { [h]: v }), {});
+      const response = await [
+        () => module.before({
+          event,
+          context,
+          request,
+          router,
+          headers,
+          options: endpointOptions
+        }),
         ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
-        .then(async (payload) => generateResponse(null, payload, {
-          defaultHeaders: await generateDefaultHeaders(event.headers)
-        }))
-        .catch(async (err) => generateResponse(err, null, {
-          defaultHeaders: await generateDefaultHeaders(event.headers)
-        }));
-      const statusCode = result.statusCode;
-      const isSuccess = Number.isInteger(statusCode) && statusCode >= 100 && statusCode < 400;
-      if ((!isSuccess && logError) || (isSuccess && logSuccess)) {
-        const toLog = cloneDeep({ event, result });
-        loggingRedact(toLog);
-        logger[isSuccess ? 'info' : 'warn'](JSON.stringify(toLog));
-      }
-      return result;
+        .then(async (payload) => generateResponse(null, payload))
+        .catch(async (err) => generateResponse(err, null));
+      await module.after({
+        event,
+        context,
+        request,
+        response,
+        router,
+        headers,
+        options: endpointOptions
+      });
+      return response;
     };
 
     const wrappedHandler = wrap((event, context) => wrapHandler({
       event,
       context,
-      hdl: [
+      hdl: event.httpMethod === 'OPTIONS' ? [
+        () => ApiResponse('', 403)
+      ] : [
         () => parse(request, params, event),
         async (paramsOut) => {
           const result = await handler(paramsOut, context, event);
@@ -274,40 +239,10 @@ const Api = (options = {}) => {
       path: pathSegments.join('/'),
       handler: wrappedHandler
     }]);
-    const optionsPath = ['OPTIONS', ...pathSegments.slice(1)].join('/');
-    if (preflightHandlers[optionsPath] === undefined) {
-      preflightHandlers[optionsPath] = ['OPTIONS'];
-
-      const optionsHandler = wrap((event, context) => wrapHandler({
-        event,
-        context,
-        hdl: [
-          async () => {
-            const headersRelevant = Object.entries(event.headers || {})
-              .map(([h, v]) => [normalizeName(h), v])
-              .filter(([h, v]) => [
-                'accessControlRequestMethod',
-                'accessControlRequestHeaders',
-                'origin'
-              ].includes(h))
-              .reduce((p, [h, v]) => Object.assign(p, { [h]: v }), {});
-            const preflightHandlerParams = {
-              path: pathSegments.slice(1).join('/'),
-              allowedMethods: preflightHandlers[optionsPath],
-              ...headersRelevant
-            };
-            const preflightHandlerResponse = await preflightCheck(preflightHandlerParams);
-            const pass = preflightHandlerResponse instanceof Object && !Array.isArray(preflightHandlerResponse);
-            return response.ApiResponse('', pass ? 200 : 403, pass ? preflightHandlerResponse : {});
-          }
-        ]
-      }));
-      optionsHandler.isApiEndpoint = true;
-      optionsHandler.request = optionsPath;
-      router.add([{ path: optionsPath, handler: optionsHandler }]);
-    }
-    preflightHandlers[optionsPath].push(pathSegments[0].toUpperCase());
-
+    router.add([{
+      path: ['OPTIONS', ...pathSegments.slice(1)].join('/'),
+      handler: wrappedHandler
+    }]);
     return wrappedHandler;
   };
 
