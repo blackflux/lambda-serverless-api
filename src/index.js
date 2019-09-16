@@ -188,9 +188,7 @@ const Api = (options = {}) => {
         .reduce((p, c) => p.then(c), Promise.resolve())
         .then(async (payload) => generateResponse(null, payload))
         .catch(async (err) => generateResponse(err, null));
-      const statusCode = response.statusCode;
       await module.after({
-        success: Number.isInteger(statusCode) && statusCode >= 100 && statusCode < 400,
         event,
         context,
         request,

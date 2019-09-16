@@ -37,7 +37,8 @@ class Logger extends Plugin {
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async before() {}
 
-  async after({ event, response, success }) {
+  async after({ event, response }) {
+    const success = Number.isInteger(response.statusCode) && response.statusCode >= 100 && response.statusCode < 400;
     if ((!success && this.logError) || (success && this.logSuccess)) {
       const toLog = cloneDeep({ event, response });
       this.redactor(toLog);
