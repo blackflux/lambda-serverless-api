@@ -1,40 +1,21 @@
 const request = require('request-promise');
+const Joi = require('joi-strict');
 const api = require('../src/index').Api({
-  preflightCheck: ({
-    origin, allowedMethods, accessControlRequestMethod, accessControlRequestHeaders
-  }) => {
-    const allowedHeaders = [
+  cors: {
+    allowedHeaders: [
       'Origin',
       'X-Requested-With',
-      'Content-Type',
       'X-Amz-Date',
       'Authorization',
       'X-Api-Key',
       'X-Amz-Security-Token',
       'X-Amz-User-Agent'
-    ].map((h) => h.toLowerCase());
-    const allowedOrigins = [
+    ],
+    allowedOrigins: [
       'https://test.com'
-    ];
-
-    if (!allowedMethods.includes(accessControlRequestMethod)) {
-      return false;
-    }
-    if (!accessControlRequestHeaders.split(',').map((h) => h
-      .trim().toLowerCase()).every((h) => allowedHeaders.includes(h))) {
-      return false;
-    }
-    if (!allowedOrigins.includes(origin)) {
-      return false;
-    }
-
-    return {
-      'Access-Control-Allow-Origin': origin,
-      'Access-Control-Allow-Headers': allowedHeaders.join(','),
-      'Access-Control-Allow-Methods': allowedMethods.join(',')
-    };
+    ]
   },
-  logging: {
+  logger: {
     redact: ['event.requestContext.identity.cognito*']
   }
 });
@@ -47,7 +28,8 @@ module.exports.exception = api.wrap('GET exception', [], { limit: null }, () => 
   throw Error('Some Exception');
 });
 
-module.exports.text = api.wrap('GET text', [], () => api.ApiResponse('some text'));
+module.exports.text = api
+  .wrap('GET text', [], () => api.ApiResponse('some text', 200, { 'some-header': 123 }));
 
 module.exports.json = api
   .wrap('GET json', [], { limit: process.env.RATE_LIMIT }, () => api.JsonResponse({ some: 'json' }));
@@ -99,8 +81,8 @@ module.exports.param = api.wrap('POST param', [
   api.GeoPoint('geoPointParam', 'query', { required: false }),
   api.GeoRect('geoRectParam', 'query', { required: false }),
   api.GeoShape('geoShapeParam', 'query', { required: false }),
-  api.Json('jsonParam', 'json', { required: false, schema: api.Joi.object() }),
-  api.Json('jsonParam', 'query', { required: false, schema: api.Joi.object() }),
+  api.Json('jsonParam', 'json', { required: false, schema: Joi.object() }),
+  api.Json('jsonParam', 'query', { required: false, schema: Joi.object() }),
   api.Str('paramWithGetter', 'query', {
     required: false,
     getter: () => request({ uri: 'https://foo.com', json: true })
