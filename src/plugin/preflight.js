@@ -2,10 +2,6 @@ const get = require('lodash.get');
 const Joi = require('joi-strict');
 const { Plugin } = require('../plugin');
 
-const normalizeHeader = (name) => name
-  .replace(/(?:^\w|[A-Z]|\b\w)/g, (l, idx) => (idx === 0 ? l.toLowerCase() : l.toUpperCase()))
-  .replace(/[^a-zA-Z0-9]+/g, '');
-
 class Preflight extends Plugin {
   constructor(options) {
     super(options);
@@ -29,23 +25,13 @@ class Preflight extends Plugin {
     return 0;
   }
 
-  async after({ event, response, router }) {
+  // eslint-disable-next-line object-curly-newline
+  async after({ event, response, router, headers }) {
     if (event.httpMethod !== 'OPTIONS') {
       return;
     }
 
-    const {
-      accessControlRequestMethod,
-      accessControlRequestHeaders,
-      origin
-    } = Object.entries(event.headers || {})
-      .map(([h, v]) => [normalizeHeader(h), v])
-      .filter(([h]) => [
-        'accessControlRequestMethod',
-        'accessControlRequestHeaders',
-        'origin'
-      ].includes(h))
-      .reduce((p, [h, v]) => Object.assign(p, { [h]: v }), {});
+    const { accessControlRequestMethod, accessControlRequestHeaders, origin } = headers;
     if ([
       accessControlRequestMethod,
       accessControlRequestHeaders,

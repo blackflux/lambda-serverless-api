@@ -9,7 +9,9 @@ describe('Testing Response', () => {
   let api;
   beforeEach(() => {
     api = Api({
-      defaultHeaders: { 'X-Custom-Header': 'header-value' },
+      cors: {
+        allowedOrigins: ['*']
+      },
       logger: {
         logSuccess: false
       }
@@ -68,14 +70,14 @@ describe('Testing Response', () => {
     });
   });
 
-  it('Testing defaultHeaders function (echo)', (done) => {
-    api = Api({ defaultHeaders: (headers) => headers });
+  it('Testing cors function (echo)', (done) => {
+    api = Api({ cors: { allowedOrigins: ['*'] } });
     api.wrap('GET path', [], identity(api));
     api.router({
       httpMethod: 'GET',
       path: '/path',
       headers: {
-        'X-Custom-Header': 'header-value'
+        Origin: 'https://some-origin.com'
       },
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {}, (err, resp) => {
@@ -83,14 +85,14 @@ describe('Testing Response', () => {
       expect(resp).to.deep.equal({
         statusCode: 200,
         body: '{}',
-        headers: { xCustomHeader: 'header-value' }
+        headers: { 'Access-Control-Allow-Origin': 'https://some-origin.com' }
       });
       done();
     });
   });
 
-  it('Testing defaultHeaders function (empty)', (done) => {
-    api = Api({ defaultHeaders: (headers) => headers });
+  it('Testing cors function (empty)', (done) => {
+    api = Api({ cors: { allowedOrigins: ['*'] } });
     api.wrap('GET path', [], identity(api));
     api.router({
       httpMethod: 'GET',
@@ -148,8 +150,7 @@ describe('Testing Response', () => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 403,
-        body: '',
-        headers: { 'X-Custom-Header': 'header-value' }
+        body: ''
       });
       done();
     });
@@ -169,8 +170,7 @@ describe('Testing Response', () => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 200,
-        body: 'promiseResponse',
-        headers: { 'X-Custom-Header': 'header-value' }
+        body: 'promiseResponse'
       });
       done();
     });
@@ -186,8 +186,7 @@ describe('Testing Response', () => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
         statusCode: 400,
-        body: '{"message":"promiseError"}',
-        headers: { 'X-Custom-Header': 'header-value' }
+        body: '{"message":"promiseError"}'
       });
       done();
     });
@@ -224,8 +223,7 @@ describe('Testing Response', () => {
       expect(err).to.be.a('null');
       expect(resp).to.deep.equal({
         statusCode: 200,
-        body: '{"foo":"bar"}',
-        headers: { 'X-Custom-Header': 'header-value' }
+        body: '{"foo":"bar"}'
       });
       done();
     });
@@ -249,8 +247,7 @@ describe('Testing Response', () => {
       expect(err).to.be.a('null');
       expect(resp).to.deep.equal({
         statusCode: 200,
-        body: '{"payload":{"foo":"bar"}}',
-        headers: { 'X-Custom-Header': 'header-value' }
+        body: '{"payload":{"foo":"bar"}}'
       });
       done();
     });
@@ -272,8 +269,7 @@ describe('Testing Response', () => {
       expect(err).to.be.a('null');
       expect(resp).to.deep.equal({
         statusCode: 200,
-        body: '{"foo":"bar","baz":"quz"}',
-        headers: { 'X-Custom-Header': 'header-value' }
+        body: '{"foo":"bar","baz":"quz"}'
       });
       done();
     });

@@ -31,8 +31,6 @@ First we need to wrap our lambda endpoint. Inside the lambda function we can the
 const api = require('lambda-serverless-api').Api({
   limit: 100, // default limit for routes
   limiter: {},
-  defaultHeaders: {},
-  preflightCheck: () => false,
   preRequestHook: (event, context) => {
     // log or throw error here
   }
@@ -58,8 +56,6 @@ The first `api.wrap` parameter defines the route and is re-declared in `serverle
 A list of supported parameters can be found [here](lib/param.js).
 
 If you want to send plain text instead of json, you can use `ApiResponse`. You can also set custom status codes and headers as second and third parameter respectively.
-
-The `defaultHeaders` are returned with every request that isn't an unexpected crash. This is handy if you are planning to set up Access headers.
 
 Parameter names are converted to camel case. E.g. `X-Custom-Header` would be passed as `xCustomHeader`.
 
@@ -112,18 +108,6 @@ module.exports = api.wrap('POST name', [
   console.log(name); // "John"
 });
 ```
-
-## Preflight Requests
-
-When the API is exposed to web clients one needs to deal with preflight 
-"OPTIONS" requests. By default all OPTIONS requests are denied. To 
-customize this one needs to overwrite the `preflightCheck` option.
-
-An example implementation of this can be found in `test/handler.js`.
-The response is expected to be an object on success and otherwise false.
-The object is expected to contains all headers that should be returned. 
-The parameters passed into the function are 
-`origin, allowedMethods, accessControlRequestMethod, accessControlRequestHeaders, path`.
 
 ## Prefix routes
 

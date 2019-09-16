@@ -28,7 +28,8 @@ module.exports.exception = api.wrap('GET exception', [], { limit: null }, () => 
   throw Error('Some Exception');
 });
 
-module.exports.text = api.wrap('GET text', [], () => api.ApiResponse('some text'));
+module.exports.text = api
+  .wrap('GET text', [], () => api.ApiResponse('some text', 200, { 'some-header': 123 }));
 
 module.exports.json = api
   .wrap('GET json', [], { limit: process.env.RATE_LIMIT }, () => api.JsonResponse({ some: 'json' }));

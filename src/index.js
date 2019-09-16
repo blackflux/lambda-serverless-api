@@ -75,12 +75,11 @@ const generateResponse = (err, resp, options) => {
         message: err.message,
         messageId: err.messageId,
         context: err.context
-      }),
-      ...(Object.keys(options.defaultHeaders).length === 0 ? {} : { headers: options.defaultHeaders })
+      })
     };
   }
   if (get(resp, 'isApiResponse') === true) {
-    const headers = { ...options.defaultHeaders, ...resp.headers };
+    const headers = resp.headers;
     let body = resp.payload;
     const isJsonResponse = get(resp, 'isJsonResponse') === true;
     if (isJsonResponse) {
@@ -132,10 +131,6 @@ const staticExports = {
 const Api = (options = {}) => {
   const schemas = [{
     routePrefix: Joi.string().optional(),
-    defaultHeaders: Joi.alternatives().try(
-      Joi.object(),
-      Joi.func()
-    ).optional(),
     preRequestHook: Joi.func().optional()
   }];
 
@@ -147,14 +142,7 @@ const Api = (options = {}) => {
   const router = new Router();
   const routeSignatures = [];
   const routePrefix = get(options, 'routePrefix', '');
-  const defaultHeaders = get(options, 'defaultHeaders', {});
   const preRequestHook = get(options, 'preRequestHook');
-
-  const generateDefaultHeaders = (inputHeaders) => (typeof defaultHeaders === 'function'
-    ? defaultHeaders(Object
-      .entries(inputHeaders || {})
-      .reduce((p, [k, v]) => Object.assign(p, { [normalizeName(k)]: v }), {}))
-    : defaultHeaders);
 
   const wrapper = (request, params, optionsOrHandler, handlerOrUndefined) => {
     const hasOptions = handlerOrUndefined !== undefined;
@@ -182,6 +170,9 @@ const Api = (options = {}) => {
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
+      const headers = Object.entries(event.headers || {})
+        .map(([h, v]) => [normalizeName(h), v])
+        .reduce((p, [h, v]) => Object.assign(p, { [h]: v }), {});
       const response = await [
         () => (typeof preRequestHook === 'function' ? preRequestHook(event, context) : Promise.resolve()),
         () => module.before({
@@ -189,17 +180,14 @@ const Api = (options = {}) => {
           context,
           request,
           router,
+          headers,
           options: endpointOptions
         }),
         ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
-        .then(async (payload) => generateResponse(null, payload, {
-          defaultHeaders: await generateDefaultHeaders(event.headers)
-        }))
-        .catch(async (err) => generateResponse(err, null, {
-          defaultHeaders: await generateDefaultHeaders(event.headers)
-        }));
+        .then(async (payload) => generateResponse(null, payload))
+        .catch(async (err) => generateResponse(err, null));
       const statusCode = response.statusCode;
       await module.after({
         success: Number.isInteger(statusCode) && statusCode >= 100 && statusCode < 400,
@@ -208,6 +196,7 @@ const Api = (options = {}) => {
         request,
         response,
         router,
+        headers,
         options: endpointOptions
       });
       return response;
