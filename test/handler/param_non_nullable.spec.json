@@ -15,7 +15,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: {\"event\":{\"body\":\"{\\\"username\\\":null}\",\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Non-nullable json-Parameter \\\\\\\"username\\\\\\\" is null.\\\",\\\"messageId\\\":99006}\"}}"
+      "WARNING: {\"event\":{\"body\":{\"username\":null},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Non-nullable json-Parameter \\\\\\\"username\\\\\\\" is null.\\\",\\\"messageId\\\":99006}\"}}"
     ]
   },
   "event": {
