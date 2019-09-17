@@ -26,6 +26,9 @@ const normalizeName = (name) => name
   .replace(/(?:^\w|[A-Z]|\b\w)/g, (l, idx) => (idx === 0 ? l.toLowerCase() : l.toUpperCase()))
   .replace(/[^a-zA-Z0-9]+/g, '');
 
+const convertAsLowerCase = (obj) => Object.entries(obj)
+  .reduce((p, [h, v]) => Object.assign(p, { [h.toLowerCase()]: v }), {});
+
 const parse = async (request, params, eventRaw) => {
   const expectedRequestMethod = request.split(' ')[0];
   const receivedRequestMethod = get(eventRaw, 'httpMethod');
@@ -170,9 +173,11 @@ const Api = (options = {}) => {
       }
       // ensure headers are always lower case
       Object.assign(event, {
-        headers: Object.entries(event.headers || {})
-          .reduce((p, [h, v]) => Object.assign(p, { [h.toLowerCase()]: v }), {})
+        headers: convertAsLowerCase(event.headers || {})
       });
+      if (event.multiValueHeaders !== undefined) {
+        Object.assign(event, { multiValueHeaders: convertAsLowerCase(event.multiValueHeaders) });
+      }
       const response = await [
         () => module.before({
           event,
