@@ -26,22 +26,13 @@ const normalizeName = (name) => name
   .replace(/(?:^\w|[A-Z]|\b\w)/g, (l, idx) => (idx === 0 ? l.toLowerCase() : l.toUpperCase()))
   .replace(/[^a-zA-Z0-9]+/g, '');
 
-const convertAsLowerCase = (obj) => Object.entries(obj)
+const writeAsLowerCase = (obj) => Object.entries(obj)
   .reduce((p, [h, v]) => Object.assign(p, { [h.toLowerCase()]: v }), {});
 
-const parse = async (request, params, eventRaw) => {
+const parse = async (request, params, event) => {
   const expectedRequestMethod = request.split(' ')[0];
-  const receivedRequestMethod = get(eventRaw, 'httpMethod');
+  const receivedRequestMethod = get(event, 'httpMethod');
   assert(receivedRequestMethod === expectedRequestMethod, 'Request Method Mismatch');
-  let body;
-  try {
-    body = JSON.parse(get(eventRaw, 'body', '{}'));
-  } catch (e) {
-    throw ApiError('Invalid Json Body detected.', 400, 99001, {
-      value: get(eventRaw, 'body')
-    });
-  }
-  const event = { ...eventRaw, body };
 
   const invalidQsParams = difference(
     Object.keys(event.queryStringParameters || {}),
@@ -171,14 +162,24 @@ const Api = (options = {}) => {
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
-      // ensure headers are always lower case
-      Object.assign(event, {
-        headers: convertAsLowerCase(event.headers || {})
-      });
-      if (event.multiValueHeaders !== undefined) {
-        Object.assign(event, { multiValueHeaders: convertAsLowerCase(event.multiValueHeaders) });
-      }
       const response = await [
+        () => {
+          try {
+            if (event.body !== undefined) {
+              Object.assign(event, { body: JSON.parse(event.body) });
+            }
+          } catch (e) {
+            throw ApiError('Invalid Json Body detected.', 400, 99001, {
+              value: get(event, 'body')
+            });
+          }
+          Object.assign(event, {
+            headers: writeAsLowerCase(event.headers || {}),
+            ...(event.multiValueHeaders !== undefined
+              ? { multiValueHeaders: writeAsLowerCase(event.multiValueHeaders) }
+              : {})
+          });
+        },
         () => module.before({
           event,
           context,
