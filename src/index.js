@@ -168,16 +168,17 @@ const Api = (options = {}) => {
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
-      const headers = Object.entries(event.headers || {})
-        .map(([h, v]) => [normalizeName(h), v])
-        .reduce((p, [h, v]) => Object.assign(p, { [h]: v }), {});
+      // ensure headers are always lower case
+      Object.assign(event, {
+        headers: Object.entries(event.headers || {})
+          .reduce((p, [h, v]) => Object.assign(p, { [h.toLowerCase()]: v }), {})
+      });
       const response = await [
         () => module.before({
           event,
           context,
           request,
           router,
-          headers,
           options: endpointOptions
         }),
         ...hdl
@@ -191,7 +192,6 @@ const Api = (options = {}) => {
         request,
         response,
         router,
-        headers,
         options: endpointOptions
       });
       return response;
