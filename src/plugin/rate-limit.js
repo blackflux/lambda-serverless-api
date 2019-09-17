@@ -8,7 +8,7 @@ class RateLimit extends Plugin {
   constructor(options) {
     super(options);
     this.globalLimit = get(options, 'globalLimit', 100);
-    this.tokenPaths = get(options, 'rateLimitTokenPaths', ['requestContext.identity.sourceIp']);
+    this.tokenPaths = get(options, 'tokenPaths', ['requestContext.identity.sourceIp']);
     this.limiter = Limiter({
       interval: get(options, 'interval', 60000),
       uniqueTokenPerInterval: get(options, 'uniqueTokenPerInterval', 500)
