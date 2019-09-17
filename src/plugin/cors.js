@@ -32,13 +32,20 @@ class Cors extends Plugin {
 
   async after(kwargs) {
     // eslint-disable-next-line object-curly-newline
-    const { event, response, router, headers } = kwargs;
+    const { event, response, router } = kwargs;
+    const { origin } = event.headers;
+    if (origin === undefined) {
+      return;
+    }
+
     if (event.httpMethod === 'OPTIONS') {
-      const { accessControlRequestMethod, accessControlRequestHeaders, origin } = headers;
+      const {
+        'access-control-request-method': accessControlRequestMethod,
+        'access-control-request-headers': accessControlRequestHeaders
+      } = event.headers;
       if ([
         accessControlRequestMethod,
-        accessControlRequestHeaders,
-        origin
+        accessControlRequestHeaders
       ].some((h) => h === undefined)) {
         return;
       }
@@ -69,11 +76,6 @@ class Cors extends Plugin {
         }
       });
     } else {
-      const { origin } = headers;
-      if (origin === undefined) {
-        return;
-      }
-
       const allowedOrigins = await extractOrigins(this.allowedOrigins, kwargs);
       if (!allowedOrigins.includes(origin) && !allowedOrigins.includes('*')) {
         return;

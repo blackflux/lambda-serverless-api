@@ -11,6 +11,7 @@ class Logger extends Plugin {
     super(options);
     this.logError = get(options, 'logError', true);
     this.logSuccess = get(options, 'logSuccess', true);
+    this.parse = get(options, 'parse', () => {});
     this.redactor = (input) => objectScan(get(options, 'redact', []), {
       joined: false,
       useArraySelector: false,
@@ -25,6 +26,7 @@ class Logger extends Plugin {
       logger: Joi.object().keys({
         logSuccess: Joi.boolean().optional(),
         logError: Joi.boolean().optional(),
+        parse: Joi.function().optional(),
         redact: Joi.array().items(Joi.string()).optional()
       }).optional()
     };
@@ -41,6 +43,7 @@ class Logger extends Plugin {
     const success = Number.isInteger(response.statusCode) && response.statusCode >= 100 && response.statusCode < 400;
     if ((!success && this.logError) || (success && this.logSuccess)) {
       const toLog = cloneDeep({ event, response });
+      this.parse(toLog);
       this.redactor(toLog);
       logger[success ? 'info' : 'warn'](JSON.stringify(toLog));
     }

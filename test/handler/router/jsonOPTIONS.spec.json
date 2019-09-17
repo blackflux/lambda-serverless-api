@@ -15,7 +15,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "INFO: {\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"headers\":{\"Access-Control-Request-Method\":\"GET\",\"Access-Control-Request-Headers\":\"origin, x-requested-with\",\"Origin\":\"https://test.com\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":\"\",\"headers\":{\"Access-Control-Allow-Origin\":\"https://test.com\",\"Access-Control-Allow-Headers\":\"content-type,accept,origin,x-requested-with,x-amz-date,authorization,x-api-key,x-amz-security-token,x-amz-user-agent\",\"Access-Control-Allow-Methods\":\"GET\"}}}"
+      "INFO: {\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"headers\":{\"access-control-request-method\":\"GET\",\"access-control-request-headers\":\"origin, x-requested-with\",\"origin\":\"https://test.com\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":\"\",\"headers\":{\"Access-Control-Allow-Origin\":\"https://test.com\",\"Access-Control-Allow-Headers\":\"content-type,accept,origin,x-requested-with,x-amz-date,authorization,x-api-key,x-amz-security-token,x-amz-user-agent\",\"Access-Control-Allow-Methods\":\"GET\"}}}"
     ]
   },
   "event": {

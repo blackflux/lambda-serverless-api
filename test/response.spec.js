@@ -138,7 +138,10 @@ describe('Testing Response', () => {
     api.router({
       httpMethod: 'OPTIONS',
       path: '/path',
-      requestContext: { identity: { sourceIp: '127.0.0.1' } }
+      requestContext: { identity: { sourceIp: '127.0.0.1' } },
+      headers: {
+        Origin: 'https://some-origin.com'
+      }
     }, {}, (err, resp) => {
       expect(err).to.equal(null);
       expect(resp).to.deep.equal({
