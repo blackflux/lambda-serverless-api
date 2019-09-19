@@ -1,5 +1,5 @@
+const assert = require('assert');
 const get = require('lodash.get');
-const set = require('lodash.set');
 const Joi = require('joi-strict');
 const cloneDeep = require('lodash.clonedeep');
 const objectScan = require('object-scan');
@@ -12,13 +12,14 @@ class Logger extends Plugin {
     this.logError = get(options, 'logError', true);
     this.logSuccess = get(options, 'logSuccess', true);
     this.parse = get(options, 'parse', () => {});
-    this.redactor = (input) => objectScan(get(options, 'redact', []), {
+    this.redactor = objectScan(get(options, 'redact', []), {
       joined: false,
       useArraySelector: false,
-      filterFn: (key) => {
-        set(input, key, '**redacted**');
+      filterFn: (key, value, { parents }) => {
+        // eslint-disable-next-line no-param-reassign
+        parents[0][key[key.length - 1]] = '**redacted**';
       }
-    })(input);
+    });
   }
 
   static schema() {
@@ -45,7 +46,14 @@ class Logger extends Plugin {
       const toLog = cloneDeep({ event, response });
       this.parse(toLog);
       this.redactor(toLog);
-      logger[success ? 'info' : 'warn'](JSON.stringify(toLog));
+      const prefix = [
+        get(toLog, 'response.statusCode'),
+        get(toLog, 'event.httpMethod'),
+        get(toLog, 'event.path')
+      ].filter((e) => !!e).join(' ');
+      const msg = JSON.stringify(toLog);
+      assert(prefix !== '');
+      logger[success ? 'info' : 'warn'](`${prefix}\n${msg}`);
     }
   }
 }
