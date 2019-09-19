@@ -13,7 +13,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: {\"event\":{\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":429,\"body\":\"{\\\"message\\\":\\\"Rate limit exceeded.\\\"}\"}}"
+      "WARNING: 429 GET\n{\"event\":{\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":429,\"body\":\"{\\\"message\\\":\\\"Rate limit exceeded.\\\"}\"}}"
     ]
   },
   "event": {
