@@ -77,7 +77,7 @@
     "lib"
   ],
   "dependencies": {
-    "joi-strict": "1.1.4",
+    "joi-strict": "1.1.5",
     "lambda-async": "1.0.2",
     "lambda-monitor-logger": "2.2.1",
     "lambda-rate-limiter": "2.4.26",
