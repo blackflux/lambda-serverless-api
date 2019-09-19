@@ -10,7 +10,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: {\"event\":{\"body\":{\"username\":\"Anja Smith\",\"email\":\"test@email.ca\"},\"queryStringParameters\":{\"notification\":\"invalid_regex\"},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Invalid Value for query-Parameter \\\\\\\"notification\\\\\\\" provided.\\\",\\\"messageId\\\":99003,\\\"context\\\":{\\\"value\\\":\\\"invalid_regex\\\"}}\"}}"
+      "WARNING: 400 POST\n{\"event\":{\"body\":{\"username\":\"Anja Smith\",\"email\":\"test@email.ca\"},\"queryStringParameters\":{\"notification\":\"invalid_regex\"},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Invalid Value for query-Parameter \\\\\\\"notification\\\\\\\" provided.\\\",\\\"messageId\\\":99003,\\\"context\\\":{\\\"value\\\":\\\"invalid_regex\\\"}}\"}}"
     ]
   },
   "event": {
