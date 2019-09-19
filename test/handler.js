@@ -16,7 +16,7 @@ const api = require('../src/index').Api({
     ]
   },
   logger: {
-    redact: ['event.requestContext.identity.cognito*']
+    redactSuccess: ['event.requestContext.identity.cognito*']
   }
 });
 

@@ -12,14 +12,16 @@ class Logger extends Plugin {
     this.logError = get(options, 'logError', true);
     this.logSuccess = get(options, 'logSuccess', true);
     this.parse = get(options, 'parse', () => {});
-    this.redactor = objectScan(get(options, 'redact', []), {
+    const redactOptions = {
       joined: false,
       useArraySelector: false,
       filterFn: (key, value, { parents }) => {
         // eslint-disable-next-line no-param-reassign
         parents[0][key[key.length - 1]] = '**redacted**';
       }
-    });
+    };
+    this.redactSuccess = objectScan(get(options, 'redactSuccess', []), redactOptions);
+    this.redactError = objectScan(get(options, 'redactError', []), redactOptions);
   }
 
   static schema() {
@@ -28,7 +30,8 @@ class Logger extends Plugin {
         logSuccess: Joi.boolean().optional(),
         logError: Joi.boolean().optional(),
         parse: Joi.function().optional(),
-        redact: Joi.array().items(Joi.string()).optional()
+        redactSuccess: Joi.array().items(Joi.string()).optional(),
+        redactError: Joi.array().items(Joi.string()).optional()
       }).optional()
     };
   }
@@ -45,7 +48,7 @@ class Logger extends Plugin {
     if ((!success && this.logError) || (success && this.logSuccess)) {
       const toLog = cloneDeep({ event, response });
       this.parse(toLog);
-      this.redactor(toLog);
+      (success ? this.redactSuccess : this.redactError)(toLog);
       const matchedRoute = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
       const prefix = [
         get(toLog, 'response.statusCode'),
