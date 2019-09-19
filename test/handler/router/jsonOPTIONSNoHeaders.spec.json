@@ -10,7 +10,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: 403 OPTIONS /json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":\"\"}}"
+      "WARNING: 403 OPTIONS json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":\"\"}}"
     ]
   },
   "event": {

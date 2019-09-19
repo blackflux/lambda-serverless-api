@@ -40,16 +40,17 @@ class Logger extends Plugin {
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async before() {}
 
-  async after({ event, response }) {
+  async after({ event, response, router }) {
     const success = Number.isInteger(response.statusCode) && response.statusCode >= 100 && response.statusCode < 400;
     if ((!success && this.logError) || (success && this.logSuccess)) {
       const toLog = cloneDeep({ event, response });
       this.parse(toLog);
       this.redactor(toLog);
+      const matchedRoute = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
       const prefix = [
         get(toLog, 'response.statusCode'),
         get(toLog, 'event.httpMethod'),
-        get(toLog, 'event.path')
+        matchedRoute ? matchedRoute[0].handler.request.split(' ')[1] : get(toLog, 'event.path')
       ].filter((e) => !!e).join(' ');
       const msg = JSON.stringify(toLog);
       assert(prefix !== '');
