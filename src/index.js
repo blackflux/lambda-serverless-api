@@ -102,24 +102,7 @@ const staticExports = {
   JsonResponseClass,
   BinaryResponse,
   BinaryResponseClass,
-  Str: param.Str,
-  Email: param.Email,
-  RegEx: param.RegEx,
-  UUID: param.UUID,
-  IsoDate: param.IsoDate,
-  Date: param.Date,
-  Bool: param.Bool,
-  Enum: param.Enum,
-  Int: param.Int,
-  List: param.List,
-  StrList: param.StrList,
-  FieldsParam: param.FieldsParam,
-  Json: param.Json,
-  Number: param.Number,
-  NumberList: param.NumberList,
-  GeoPoint: param.GeoPoint,
-  GeoRect: param.GeoRect,
-  GeoShape: param.GeoShape
+  ...param
 };
 
 const Api = (options = {}) => {
