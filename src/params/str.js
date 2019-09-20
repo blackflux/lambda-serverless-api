@@ -10,6 +10,7 @@ const rejectedStrings = [
   'null',
   'NULL',
   '(null)',
+  '<null>',
   'nil',
   'NIL',
   'true',
