@@ -23,38 +23,6 @@ const mergeSchemas = require('./util/merge-schemas');
 const toCamelCase = require('./util/to-camel-case');
 const objectAsLowerCase = require('./util/object-as-lower-case');
 
-const parse = async (request, params, event) => {
-  const expectedRequestMethod = request.split(' ')[0];
-  const receivedRequestMethod = get(event, 'httpMethod');
-  assert(receivedRequestMethod === expectedRequestMethod, 'Request Method Mismatch');
-
-  const invalidQsParams = difference(
-    Object.keys(event.queryStringParameters || {}),
-    params.filter((p) => p.position === 'query').map((p) => p.name)
-  );
-  if (invalidQsParams.length !== 0) {
-    throw ApiError('Invalid Query Param(s) detected.', 400, 99004, {
-      value: invalidQsParams
-    });
-  }
-
-  const invalidJsonParams = difference(
-    Object.keys(event.body || {}),
-    params.filter((p) => p.position === 'json').map((p) => p.name)
-  );
-  if (invalidJsonParams.length !== 0) {
-    throw ApiError('Invalid Json Body Param(s) detected.', 400, 99005, {
-      value: invalidJsonParams
-    });
-  }
-
-  const paramsPending = params.map((curParam) => [toCamelCase(curParam.name), curParam.get(event)]);
-  const paramsPendingObj = paramsPending.reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {});
-  const resolvedParams = await Promise.all(paramsPending
-    .map(async ([name, value]) => [name, typeof value === 'function' ? await value(paramsPendingObj) : value]));
-  return resolvedParams.reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {});
-};
-
 const staticExports = {
   ApiError,
   ApiErrorClass,
@@ -101,11 +69,42 @@ const Api = (options = {}) => {
     const rawAutoPruneFieldsParam = params
       .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
 
-    const wrappedHandler = wrap(async (event, context) => {
+    const asyncHandler = async (event, context) => {
       const hdl = event.httpMethod === 'OPTIONS' ? [
         () => ApiResponse('', 403)
       ] : [
-        () => parse(request, params, event),
+        async () => {
+          const expectedRequestMethod = request.split(' ')[0];
+          const receivedRequestMethod = get(event, 'httpMethod');
+          assert(receivedRequestMethod === expectedRequestMethod, 'Request Method Mismatch');
+
+          const invalidQsParams = difference(
+            Object.keys(event.queryStringParameters || {}),
+            params.filter((p) => p.position === 'query').map((p) => p.name)
+          );
+          if (invalidQsParams.length !== 0) {
+            throw ApiError('Invalid Query Param(s) detected.', 400, 99004, {
+              value: invalidQsParams
+            });
+          }
+
+          const invalidJsonParams = difference(
+            Object.keys(event.body || {}),
+            params.filter((p) => p.position === 'json').map((p) => p.name)
+          );
+          if (invalidJsonParams.length !== 0) {
+            throw ApiError('Invalid Json Body Param(s) detected.', 400, 99005, {
+              value: invalidJsonParams
+            });
+          }
+
+          const paramsPending = params.map((curParam) => [toCamelCase(curParam.name), curParam.get(event)]);
+          const paramsPendingObj = paramsPending.reduce((prev, [key, value]) => Object
+            .assign(prev, { [key]: value }), {});
+          const resolvedParams = await Promise.all(paramsPending
+            .map(async ([name, value]) => [name, typeof value === 'function' ? await value(paramsPendingObj) : value]));
+          return resolvedParams.reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {});
+        },
         async (paramsOut) => {
           const result = await handler(paramsOut, context, event);
           if (rawAutoPruneFieldsParam !== undefined && paramsOut[rawAutoPruneFieldsParam.name] !== undefined) {
@@ -156,7 +155,8 @@ const Api = (options = {}) => {
         options: endpointOptions
       });
       return response;
-    });
+    };
+    const wrappedHandler = wrap(asyncHandler);
     wrappedHandler.isApiEndpoint = true;
     wrappedHandler.request = request;
 
