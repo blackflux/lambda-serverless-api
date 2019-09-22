@@ -50,23 +50,21 @@ const Api = (options = {}) => {
   const routePrefix = get(options, 'routePrefix', '');
 
   // IMPORTANT: Never return from this vanilla lambda function
-  const routerFn = (event, context, callback, ...args) => {
+  const routerFn = wrap(async (event, context) => {
     if (!event.httpMethod) {
-      callback(null, 'OK - No API Gateway call detected.');
-    } else {
-      const matchedRoutes = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
-      if (!matchedRoutes) {
-        callback(null, {
-          statusCode: 403,
-          body: JSON.stringify({ message: 'Method / Route not allowed' })
-        });
-      } else {
-        matchedRoutes[0].handler(Object.assign(event, {
-          pathParameters: matchedRoutes[0].params
-        }), context, callback, ...args);
-      }
+      return 'OK - No API Gateway call detected.';
     }
-  };
+    const matchedRoutes = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
+    if (!matchedRoutes) {
+      return {
+        statusCode: 403,
+        body: JSON.stringify({ message: 'Method / Route not allowed' })
+      };
+    }
+    return matchedRoutes[0].handler(Object.assign(event, {
+      pathParameters: matchedRoutes[0].params
+    }), context);
+  });
   routerFn.isApiEndpoint = true;
   routerFn.request = 'ANY';
 
@@ -177,9 +175,8 @@ const Api = (options = {}) => {
       });
       return response;
     };
-    const wrappedHandler = wrap(asyncHandler);
-    wrappedHandler.isApiEndpoint = true;
-    wrappedHandler.request = request;
+    asyncHandler.isApiEndpoint = true;
+    asyncHandler.request = request;
 
     // test for route collisions
     const routeSignature = request.split(/[\s/]/g).map((e) => e.replace(/^{.*?}$/, ':param'));
@@ -202,13 +199,14 @@ const Api = (options = {}) => {
     ));
     router.add([{
       path: pathSegments.join('/'),
-      handler: wrappedHandler
+      handler: asyncHandler
     }]);
     router.add([{
       path: ['OPTIONS', ...pathSegments.slice(1)].join('/'),
-      handler: wrappedHandler
+      handler: asyncHandler
     }]);
-    return wrappedHandler;
+
+    return wrap(asyncHandler);
   };
 
   return {
