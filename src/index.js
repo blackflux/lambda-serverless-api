@@ -49,6 +49,27 @@ const Api = (options = {}) => {
   const routeSignatures = [];
   const routePrefix = get(options, 'routePrefix', '');
 
+  // IMPORTANT: Never return from this vanilla lambda function
+  const routerFn = (event, context, callback, ...args) => {
+    if (!event.httpMethod) {
+      callback(null, 'OK - No API Gateway call detected.');
+    } else {
+      const matchedRoutes = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
+      if (!matchedRoutes) {
+        callback(null, {
+          statusCode: 403,
+          body: JSON.stringify({ message: 'Method / Route not allowed' })
+        });
+      } else {
+        matchedRoutes[0].handler(Object.assign(event, {
+          pathParameters: matchedRoutes[0].params
+        }), context, callback, ...args);
+      }
+    }
+  };
+  routerFn.isApiEndpoint = true;
+  routerFn.request = 'ANY';
+
   const wrapper = (request, params, optionsOrHandler, handlerOrUndefined) => {
     const hasOptions = handlerOrUndefined !== undefined;
     assert(!hasOptions || (optionsOrHandler instanceof Object && !Array.isArray(optionsOrHandler)));
@@ -189,27 +210,6 @@ const Api = (options = {}) => {
     }]);
     return wrappedHandler;
   };
-
-  // IMPORTANT: Never return from this vanilla lambda function
-  const routerFn = (event, context, callback, ...args) => {
-    if (!event.httpMethod) {
-      callback(null, 'OK - No API Gateway call detected.');
-    } else {
-      const matchedRoutes = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
-      if (!matchedRoutes) {
-        callback(null, {
-          statusCode: 403,
-          body: JSON.stringify({ message: 'Method / Route not allowed' })
-        });
-      } else {
-        matchedRoutes[0].handler(Object.assign(event, {
-          pathParameters: matchedRoutes[0].params
-        }), context, callback, ...args);
-      }
-    }
-  };
-  routerFn.isApiEndpoint = true;
-  routerFn.request = 'ANY';
 
   return {
     wrap: (request, ...args) => {
