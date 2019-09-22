@@ -19,12 +19,7 @@ const {
 } = require('./response');
 const swagger = require('./swagger');
 const mergeSchemas = require('./util/merge-schemas');
-
-// todo: separate functions out and generify
-
-const normalizeName = (name) => name
-  .replace(/(?:^\w|[A-Z]|\b\w)/g, (l, idx) => (idx === 0 ? l.toLowerCase() : l.toUpperCase()))
-  .replace(/[^a-zA-Z0-9]+/g, '');
+const toCamelCase = require('./util/to-camel-case');
 
 const writeAsLowerCase = (obj) => Object.entries(obj)
   .reduce((p, [h, v]) => Object.assign(p, { [h.toLowerCase()]: v }), {});
@@ -54,7 +49,7 @@ const parse = async (request, params, event) => {
     });
   }
 
-  const paramsPending = params.map((curParam) => [normalizeName(curParam.name), curParam.get(event)]);
+  const paramsPending = params.map((curParam) => [toCamelCase(curParam.name), curParam.get(event)]);
   const paramsPendingObj = paramsPending.reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {});
   const resolvedParams = await Promise.all(paramsPending
     .map(async ([name, value]) => [name, typeof value === 'function' ? await value(paramsPendingObj) : value]));
