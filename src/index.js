@@ -101,9 +101,19 @@ const Api = (options = {}) => {
     const rawAutoPruneFieldsParam = params
       .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
 
-    const wrapHandler = async ({
-      event, context, hdl
-    }) => {
+    const wrappedHandler = wrap(async (event, context) => {
+      const hdl = event.httpMethod === 'OPTIONS' ? [
+        () => ApiResponse('', 403)
+      ] : [
+        () => parse(request, params, event),
+        async (paramsOut) => {
+          const result = await handler(paramsOut, context, event);
+          if (rawAutoPruneFieldsParam !== undefined && paramsOut[rawAutoPruneFieldsParam.name] !== undefined) {
+            rawAutoPruneFieldsParam.pruneFields(result, paramsOut[rawAutoPruneFieldsParam.name]);
+          }
+          return result;
+        }
+      ];
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
@@ -146,24 +156,7 @@ const Api = (options = {}) => {
         options: endpointOptions
       });
       return response;
-    };
-
-    const wrappedHandler = wrap((event, context) => wrapHandler({
-      event,
-      context,
-      hdl: event.httpMethod === 'OPTIONS' ? [
-        () => ApiResponse('', 403)
-      ] : [
-        () => parse(request, params, event),
-        async (paramsOut) => {
-          const result = await handler(paramsOut, context, event);
-          if (rawAutoPruneFieldsParam !== undefined && paramsOut[rawAutoPruneFieldsParam.name] !== undefined) {
-            rawAutoPruneFieldsParam.pruneFields(result, paramsOut[rawAutoPruneFieldsParam.name]);
-          }
-          return result;
-        }
-      ]
-    }));
+    });
     wrappedHandler.isApiEndpoint = true;
     wrappedHandler.request = request;
 
