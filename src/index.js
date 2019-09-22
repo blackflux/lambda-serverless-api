@@ -4,8 +4,8 @@ const get = require('lodash.get');
 const difference = require('lodash.difference');
 const Joi = require('joi-strict');
 const { wrap } = require('lambda-async');
-const Router = require('route-recognizer');
 const { Module } = require('./module');
+const { Router } = require('./router');
 const param = require('./param');
 const {
   ApiError,
@@ -40,26 +40,8 @@ const Api = (options = {}) => {
   Joi.assert(options, mergeSchemas(module.getSchemas()));
 
   const endpoints = {};
-  const router = new Router();
+  const router = Router();
   const routeSignatures = [];
-
-  const routerFn = wrap(async (event, context) => {
-    if (!event.httpMethod) {
-      return 'OK - No API Gateway call detected.';
-    }
-    const matchedRoutes = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
-    if (!matchedRoutes) {
-      return {
-        statusCode: 403,
-        body: JSON.stringify({ message: 'Method / Route not allowed' })
-      };
-    }
-    return matchedRoutes[0].handler(Object.assign(event, {
-      pathParameters: matchedRoutes[0].params
-    }), context);
-  });
-  routerFn.isApiEndpoint = true;
-  routerFn.route = 'ANY';
 
   const wrapFn = (identifier, params, optionsOrHandler, handlerOrUndefined) => {
     const hasOptions = handlerOrUndefined !== undefined;
@@ -211,7 +193,7 @@ const Api = (options = {}) => {
 
   return {
     wrap: wrapFn,
-    router: routerFn,
+    router: router.handler,
     generateSwagger: () => swagger(endpoints),
     ...staticExports
   };
