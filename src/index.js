@@ -220,9 +220,8 @@ const Api = (options = {}) => {
 
   return {
     wrap: (request, ...args) => {
-      const requestParsed = /^([A-Z]+)\s(.+)$/.exec(request);
-      assert(Array.isArray(requestParsed) && requestParsed.length === 3);
-      return wrapper(`${requestParsed[1]} ${routePrefix}${requestParsed[2]}`, ...args);
+      const { method, uri } = /^(?<method>[A-Z]+)\s(?<uri>.+)$/.exec(request).groups;
+      return wrapper(`${method} ${routePrefix}${uri}`, ...args);
     },
     router: routerFn,
     generateSwagger: () => swagger(endpoints),
