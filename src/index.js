@@ -70,6 +70,9 @@ const Api = (options = {}) => {
       .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
 
     const asyncHandler = async (event, context) => {
+      if (!event.httpMethod) {
+        return Promise.resolve('OK - No API Gateway call detected.');
+      }
       const hdl = event.httpMethod === 'OPTIONS' ? [
         () => ApiResponse('', 403)
       ] : [
@@ -113,9 +116,6 @@ const Api = (options = {}) => {
           return result;
         }
       ];
-      if (!event.httpMethod) {
-        return Promise.resolve('OK - No API Gateway call detected.');
-      }
       const response = await [
         () => {
           try {
