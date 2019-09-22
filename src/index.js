@@ -88,7 +88,7 @@ const Api = (options = {}) => {
     const rawAutoPruneFieldsParam = params
       .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
 
-    const asyncHandler = async (event, context) => {
+    const handlerFn = async (event, context) => {
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
@@ -175,8 +175,8 @@ const Api = (options = {}) => {
       });
       return response;
     };
-    asyncHandler.isApiEndpoint = true;
-    asyncHandler.request = request;
+    handlerFn.isApiEndpoint = true;
+    handlerFn.request = request;
 
     // test for route collisions
     const routeSignature = request.split(/[\s/]/g).map((e) => e.replace(/^{.*?}$/, ':param'));
@@ -199,14 +199,14 @@ const Api = (options = {}) => {
     ));
     router.add([{
       path: pathSegments.join('/'),
-      handler: asyncHandler
+      handler: handlerFn
     }]);
     router.add([{
       path: ['OPTIONS', ...pathSegments.slice(1)].join('/'),
-      handler: asyncHandler
+      handler: handlerFn
     }]);
 
-    return wrap(asyncHandler);
+    return wrap(handlerFn);
   };
 
   return {
