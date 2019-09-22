@@ -36,18 +36,12 @@ const staticExports = {
 };
 
 const Api = (options = {}) => {
-  const schemas = [{
-    routePrefix: Joi.string().optional()
-  }];
-
   const module = new Module(path.join(__dirname, 'plugin'), options);
-  schemas.push(...module.getSchemas());
-  Joi.assert(options, mergeSchemas(schemas));
+  Joi.assert(options, mergeSchemas(module.getSchemas()));
 
   const endpoints = {};
   const router = new Router();
   const routeSignatures = [];
-  const routePrefix = get(options, 'routePrefix', '');
 
   const routerFn = wrap(async (event, context) => {
     if (!event.httpMethod) {
@@ -79,7 +73,8 @@ const Api = (options = {}) => {
       options: endpointOptions,
       .../^(?<method>[A-Z]+)\s(?<uri>.+)$/.exec(identifier).groups
     };
-    const route = `${request.method} ${routePrefix}${request.uri}`;
+    module.onRegister({ request });
+    const route = `${request.method} ${request.uri}`;
 
     if (request.method === 'GET' && params.filter((p) => p.position === 'json').length !== 0) {
       throw new Error('Can not use JSON parameter with GET requests.');

@@ -31,6 +31,9 @@ class RateLimit extends Plugin {
     return 0;
   }
 
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  onRegister() {}
+
   async before({ event, request, options }) {
     const endpointLimit = get(options, 'limit', this.globalLimit);
     if (endpointLimit === null) {

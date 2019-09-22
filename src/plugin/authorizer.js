@@ -18,6 +18,9 @@ class Authorizer extends Plugin {
     return 1;
   }
 
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  onRegister() {}
+
   async before(kwargs) {
     const { event } = kwargs;
     if (event.httpMethod === 'OPTIONS') {

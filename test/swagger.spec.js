@@ -24,7 +24,7 @@ describe('Testing Swagger', () => {
   });
 
   it('Testing Route Prefix', async () => {
-    const prefixApi = await api.Api({ routePrefix: 'prefix/' });
+    const prefixApi = await api.Api({ router: { prefix: 'prefix/' } });
     prefixApi.wrap('GET uri', [], () => api.JsonResponse({}));
     const docs = await prefixApi.generateSwagger();
     expect(await new Promise((resolve) => prefixApi.router({

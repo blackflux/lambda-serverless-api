@@ -21,6 +21,11 @@ describe('Testing Plugin', () => {
     expect(() => Plugin.weight()).to.throw('Not Implemented!');
   });
 
+  it('Testing onRegister()', async ({ capture }) => {
+    const e = await capture(() => plugin.onRegister({}));
+    expect(e.message).to.equal('Not Implemented!');
+  });
+
   it('Testing before()', async ({ capture }) => {
     const e = await capture(() => plugin.before({}));
     expect(e.message).to.equal('Not Implemented!');

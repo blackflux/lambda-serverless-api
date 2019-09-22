@@ -41,6 +41,9 @@ class Logger extends Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
+  onRegister() {}
+
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
   async before() {}
 
   async after({ event, response, router }) {
