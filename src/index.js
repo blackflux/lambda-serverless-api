@@ -20,9 +20,7 @@ const {
 const swagger = require('./swagger');
 const mergeSchemas = require('./util/merge-schemas');
 const toCamelCase = require('./util/to-camel-case');
-
-const writeAsLowerCase = (obj) => Object.entries(obj)
-  .reduce((p, [h, v]) => Object.assign(p, { [h.toLowerCase()]: v }), {});
+const objectAsLowerCase = require('./util/object-as-lower-case');
 
 const parse = async (request, params, event) => {
   const expectedRequestMethod = request.split(' ')[0];
@@ -152,9 +150,9 @@ const Api = (options = {}) => {
             });
           }
           Object.assign(event, {
-            headers: writeAsLowerCase(event.headers || {}),
+            headers: objectAsLowerCase(event.headers || {}),
             ...(event.multiValueHeaders !== undefined
-              ? { multiValueHeaders: writeAsLowerCase(event.multiValueHeaders) }
+              ? { multiValueHeaders: objectAsLowerCase(event.multiValueHeaders) }
               : {})
           });
         },
