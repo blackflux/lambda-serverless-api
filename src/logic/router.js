@@ -26,6 +26,6 @@ module.exports.Router = () => {
   return {
     handler,
     add: (...args) => router.add(...args),
-    recognize: (...args) => router.recognize(...args),
+    recognize: (...args) => router.recognize(...args)
   };
 };

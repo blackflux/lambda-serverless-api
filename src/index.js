@@ -4,8 +4,8 @@ const get = require('lodash.get');
 const difference = require('lodash.difference');
 const Joi = require('joi-strict');
 const { wrap } = require('lambda-async');
-const { Module } = require('./module');
-const { Router } = require('./router');
+const { Module } = require('./logic/module');
+const { Router } = require('./logic/router');
 const param = require('./param');
 const {
   ApiError,
@@ -18,7 +18,7 @@ const {
   BinaryResponseClass,
   asApiGatewayResponse
 } = require('./response');
-const swagger = require('./swagger');
+const swagger = require('./logic/swagger');
 const mergeSchemas = require('./util/merge-schemas');
 const toCamelCase = require('./util/to-camel-case');
 const objectAsLowerCase = require('./util/object-as-lower-case');
