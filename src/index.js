@@ -49,7 +49,6 @@ const Api = (options = {}) => {
   const routeSignatures = [];
   const routePrefix = get(options, 'routePrefix', '');
 
-  // IMPORTANT: Never return from this vanilla lambda function
   const routerFn = wrap(async (event, context) => {
     if (!event.httpMethod) {
       return 'OK - No API Gateway call detected.';
