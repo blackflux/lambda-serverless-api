@@ -67,7 +67,7 @@ const Api = (options = {}) => {
   routerFn.isApiEndpoint = true;
   routerFn.request = 'ANY';
 
-  const wrapper = (request, params, optionsOrHandler, handlerOrUndefined) => {
+  const wrapFn = (request, params, optionsOrHandler, handlerOrUndefined) => {
     const hasOptions = handlerOrUndefined !== undefined;
     assert(!hasOptions || (optionsOrHandler instanceof Object && !Array.isArray(optionsOrHandler)));
     const handler = hasOptions ? handlerOrUndefined : optionsOrHandler;
@@ -211,7 +211,7 @@ const Api = (options = {}) => {
   return {
     wrap: (request, ...args) => {
       const { method, uri } = /^(?<method>[A-Z]+)\s(?<uri>.+)$/.exec(request).groups;
-      return wrapper(`${method} ${routePrefix}${uri}`, ...args);
+      return wrapFn(`${method} ${routePrefix}${uri}`, ...args);
     },
     router: routerFn,
     generateSwagger: () => swagger(endpoints),
