@@ -15,7 +15,8 @@ const {
   JsonResponse,
   JsonResponseClass,
   BinaryResponse,
-  BinaryResponseClass
+  BinaryResponseClass,
+  asApiGatewayResponse
 } = require('./response');
 const swagger = require('./swagger');
 const mergeSchemas = require('./util/merge-schemas');
@@ -52,38 +53,6 @@ const parse = async (request, params, event) => {
   const resolvedParams = await Promise.all(paramsPending
     .map(async ([name, value]) => [name, typeof value === 'function' ? await value(paramsPendingObj) : value]));
   return resolvedParams.reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {});
-};
-
-const generateResponse = (err, resp, options) => {
-  if (get(err, 'isApiError') === true) {
-    return {
-      statusCode: err.statusCode,
-      body: JSON.stringify({
-        message: err.message,
-        messageId: err.messageId,
-        context: err.context
-      })
-    };
-  }
-  if (get(resp, 'isApiResponse') === true) {
-    const headers = resp.headers;
-    let body = resp.payload;
-    const isJsonResponse = get(resp, 'isJsonResponse') === true;
-    if (isJsonResponse) {
-      body = JSON.stringify(body);
-    }
-    const isBinaryResponse = get(resp, 'isBinaryResponse') === true;
-    if (isBinaryResponse) {
-      body = body.toString('base64');
-    }
-    return {
-      statusCode: resp.statusCode,
-      body,
-      ...(Object.keys(headers).length === 0 ? {} : { headers }),
-      ...(isBinaryResponse ? { isBase64Encoded: true } : {})
-    };
-  }
-  throw err;
 };
 
 const staticExports = {
@@ -166,8 +135,8 @@ const Api = (options = {}) => {
         ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
-        .then(async (payload) => generateResponse(null, payload))
-        .catch(async (err) => generateResponse(err, null));
+        .then((payload) => asApiGatewayResponse(payload))
+        .catch((err) => asApiGatewayResponse(err));
       await module.after({
         event,
         context,
