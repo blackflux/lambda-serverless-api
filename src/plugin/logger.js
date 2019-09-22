@@ -53,7 +53,7 @@ class Logger extends Plugin {
       const prefix = [
         get(toLog, 'response.statusCode'),
         get(toLog, 'event.httpMethod'),
-        matchedRoute ? matchedRoute[0].handler.request.split(' ')[1] : get(toLog, 'event.path')
+        matchedRoute ? matchedRoute[0].handler.route.split(' ')[1] : get(toLog, 'event.path')
       ].filter((e) => !!e).join(' ');
       const msg = JSON.stringify(toLog);
       assert(prefix !== '');

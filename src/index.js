@@ -65,25 +65,32 @@ const Api = (options = {}) => {
     }), context);
   });
   routerFn.isApiEndpoint = true;
-  routerFn.request = 'ANY';
+  routerFn.route = 'ANY';
 
-  const wrapFn = (request, params, optionsOrHandler, handlerOrUndefined) => {
+  const wrapFn = (identifier, params, optionsOrHandler, handlerOrUndefined) => {
     const hasOptions = handlerOrUndefined !== undefined;
     assert(!hasOptions || (optionsOrHandler instanceof Object && !Array.isArray(optionsOrHandler)));
     const handler = hasOptions ? handlerOrUndefined : optionsOrHandler;
     assert(typeof handler === 'function');
     const endpointOptions = hasOptions ? optionsOrHandler : {};
 
-    if (request.startsWith('GET ') && params.filter((p) => p.position === 'json').length !== 0) {
+    const request = {
+      params,
+      options: endpointOptions,
+      .../^(?<method>[A-Z]+)\s(?<uri>.+)$/.exec(identifier).groups
+    };
+    const route = `${request.method} ${routePrefix}${request.uri}`;
+
+    if (request.method === 'GET' && params.filter((p) => p.position === 'json').length !== 0) {
       throw new Error('Can not use JSON parameter with GET requests.');
     }
-    if (params.filter((p) => p.position === 'path').some((p) => request.indexOf(`{${p.nameOriginal}}`) === -1)) {
+    if (params.filter((p) => p.position === 'path').some((p) => request.uri.indexOf(`{${p.nameOriginal}}`) === -1)) {
       throw new Error('Path Parameter not defined in given path.');
     }
     if (params.filter((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string').length > 1) {
       throw new Error('Only one auto pruning "FieldsParam" per endpoint.');
     }
-    endpoints[request] = params;
+    endpoints[route] = params;
     const rawAutoPruneFieldsParam = params
       .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
 
@@ -95,9 +102,8 @@ const Api = (options = {}) => {
         () => ApiResponse('', 403)
       ] : [
         async () => {
-          const expectedRequestMethod = request.split(' ')[0];
           const receivedRequestMethod = get(event, 'httpMethod');
-          assert(receivedRequestMethod === expectedRequestMethod, 'Request Method Mismatch');
+          assert(receivedRequestMethod === request.method, 'Request Method Mismatch');
 
           const invalidQsParams = difference(
             Object.keys(event.queryStringParameters || {}),
@@ -155,7 +161,7 @@ const Api = (options = {}) => {
         () => module.before({
           event,
           context,
-          request,
+          route,
           router,
           options: endpointOptions
         }),
@@ -167,7 +173,7 @@ const Api = (options = {}) => {
       await module.after({
         event,
         context,
-        request,
+        route,
         response,
         router,
         options: endpointOptions
@@ -175,10 +181,10 @@ const Api = (options = {}) => {
       return response;
     };
     handlerFn.isApiEndpoint = true;
-    handlerFn.request = request;
+    handlerFn.route = route;
 
     // test for route collisions
-    const routeSignature = request.split(/[\s/]/g).map((e) => e.replace(/^{.*?}$/, ':param'));
+    const routeSignature = route.split(/[\s/]/g).map((e) => e.replace(/^{.*?}$/, ':param'));
     routeSignatures.forEach((signature) => {
       if (routeSignature.length !== signature.length) {
         return;
@@ -188,11 +194,11 @@ const Api = (options = {}) => {
           return;
         }
       }
-      throw new Error(`Path collision: ${request}`);
+      throw new Error(`Path collision: ${route}`);
     });
     routeSignatures.push(routeSignature);
 
-    const pathSegments = request.split(/[\s/]/g).map((e) => e.replace(
+    const pathSegments = route.split(/[\s/]/g).map((e) => e.replace(
       /^{(.*?)(\+)?}$/,
       (_, name, type) => `${type === '+' ? '*' : ':'}${name}`
     ));
@@ -209,10 +215,7 @@ const Api = (options = {}) => {
   };
 
   return {
-    wrap: (request, ...args) => {
-      const { method, uri } = /^(?<method>[A-Z]+)\s(?<uri>.+)$/.exec(request).groups;
-      return wrapFn(`${method} ${routePrefix}${uri}`, ...args);
-    },
+    wrap: wrapFn,
     router: routerFn,
     generateSwagger: () => swagger(endpoints),
     ...staticExports
