@@ -42,26 +42,6 @@ module.exports.Wrapper = ({ router, module }) => {
           options: endpointOptions
         }),
         async () => {
-          const invalidQsParams = difference(
-            Object.keys(event.queryStringParameters || {}),
-            params.filter((p) => p.position === 'query').map((p) => p.name)
-          );
-          if (invalidQsParams.length !== 0) {
-            throw ApiError('Invalid Query Param(s) detected.', 400, 99004, {
-              value: invalidQsParams
-            });
-          }
-
-          const invalidJsonParams = difference(
-            Object.keys(event.body || {}),
-            params.filter((p) => p.position === 'json').map((p) => p.name)
-          );
-          if (invalidJsonParams.length !== 0) {
-            throw ApiError('Invalid Json Body Param(s) detected.', 400, 99005, {
-              value: invalidJsonParams
-            });
-          }
-
           const paramsPending = params.map((curParam) => [toCamelCase(curParam.name), curParam.get(event)]);
           const paramsPendingObj = paramsPending.reduce((prev, [key, value]) => Object
             .assign(prev, { [key]: value }), {});

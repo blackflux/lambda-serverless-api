@@ -1,7 +1,8 @@
-const assert = require('assert');
+const difference = require('lodash.difference');
 const get = require('lodash.get');
 const Joi = require('joi-strict');
 const { Plugin } = require('../plugin');
+const { ApiError } = require('../response');
 
 class Validator extends Plugin {
   constructor(options) {
@@ -57,6 +58,26 @@ class Validator extends Plugin {
     const receivedRequestMethod = get(event, 'httpMethod');
     if (receivedRequestMethod !== request.method) {
       throw new Error('Request Method Mismatch');
+    }
+
+    const invalidQsParams = difference(
+      Object.keys(event.queryStringParameters || {}),
+      request.params.filter((p) => p.position === 'query').map((p) => p.name)
+    );
+    if (invalidQsParams.length !== 0) {
+      throw ApiError('Invalid Query Param(s) detected.', 400, 99004, {
+        value: invalidQsParams
+      });
+    }
+
+    const invalidJsonParams = difference(
+      Object.keys(event.body || {}),
+      request.params.filter((p) => p.position === 'json').map((p) => p.name)
+    );
+    if (invalidJsonParams.length !== 0) {
+      throw ApiError('Invalid Json Body Param(s) detected.', 400, 99005, {
+        value: invalidJsonParams
+      });
     }
   }
 
