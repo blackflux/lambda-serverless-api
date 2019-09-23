@@ -21,11 +21,8 @@ module.exports.wrap = (handler, {
     params,
     options
   };
-  const response = await [
-    () => module.before(kwargs),
-    async () => handler(event.parsedParameters, context, event)
-  ]
-    .reduce((p, c) => p.then(c), Promise.resolve())
+  const response = await module.before(kwargs)
+    .then(() => handler(event.parsedParameters, context, event))
     .then((resp) => {
       assert(resp.isApiResponse === true);
       return resp;
