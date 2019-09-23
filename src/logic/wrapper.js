@@ -25,12 +25,6 @@ module.exports.Wrapper = ({ router, module }) => {
     module.beforeRegister({ request });
     const route = `${request.method} ${request.uri}`;
 
-    if (request.method === 'GET' && params.filter((p) => p.position === 'json').length !== 0) {
-      throw new Error('Can not use JSON parameter with GET requests.');
-    }
-    if (params.filter((p) => p.position === 'path').some((p) => request.uri.indexOf(`{${p.nameOriginal}}`) === -1)) {
-      throw new Error('Path Parameter not defined in given path.');
-    }
     endpoints[route] = params;
     const rawAutoPruneFieldsParam = params
       .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
@@ -139,7 +133,7 @@ module.exports.Wrapper = ({ router, module }) => {
       handler: handlerFn
     }]);
 
-    module.afterRegister({ route });
+    module.afterRegister({ request, route });
 
     return wrap(handlerFn);
   };

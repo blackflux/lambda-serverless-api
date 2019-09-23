@@ -27,7 +27,17 @@ class Router extends Plugin {
     }
   }
 
-  afterRegister({ route }) {
+  afterRegister({ request, route }) {
+    const { params } = request;
+
+    // test for param issues
+    if (request.method === 'GET' && params.some((p) => p.position === 'json')) {
+      throw new Error('Can not use JSON parameter with GET requests.');
+    }
+    if (params.filter((p) => p.position === 'path').some((p) => !request.uri.includes(`{${p.nameOriginal}}`))) {
+      throw new Error('Path Parameter not defined in given path.');
+    }
+
     // test for route collisions
     const routeSignature = route.split(/[\s/]/g).map((e) => e.replace(/^{.*?}$/, ':param'));
     this.routeSignatures.forEach((signature) => {
