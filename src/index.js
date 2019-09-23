@@ -3,9 +3,9 @@ const Joi = require('joi-strict');
 const { Module } = require('./logic/module');
 const { Router } = require('./logic/router');
 const { Wrapper } = require('./logic/wrapper');
+const swagger = require('./logic/swagger');
 const param = require('./param');
 const response = require('./response');
-const swagger = require('./logic/swagger');
 const mergeSchemas = require('./util/merge-schemas');
 
 const Api = (options = {}) => {
