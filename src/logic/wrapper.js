@@ -36,9 +36,6 @@ module.exports.Wrapper = ({ router, module }) => {
     if (params.filter((p) => p.position === 'path').some((p) => request.uri.indexOf(`{${p.nameOriginal}}`) === -1)) {
       throw new Error('Path Parameter not defined in given path.');
     }
-    if (params.filter((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string').length > 1) {
-      throw new Error('Only one auto pruning "FieldsParam" per endpoint.');
-    }
     endpoints[route] = params;
     const rawAutoPruneFieldsParam = params
       .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
