@@ -4,7 +4,6 @@ const difference = require('lodash.difference');
 const { wrap } = require('lambda-async');
 const { ApiError, asApiGatewayResponse } = require('../response');
 const toCamelCase = require('../util/to-camel-case');
-const objectAsLowerCase = require('../util/object-as-lower-case');
 
 
 module.exports.Wrapper = ({ router, module }) => {
@@ -34,23 +33,6 @@ module.exports.Wrapper = ({ router, module }) => {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
       const response = await [
-        () => {
-          try {
-            if (event.body !== undefined) {
-              Object.assign(event, { body: JSON.parse(event.body) });
-            }
-          } catch (e) {
-            throw ApiError('Invalid Json Body detected.', 400, 99001, {
-              value: get(event, 'body')
-            });
-          }
-          Object.assign(event, {
-            headers: objectAsLowerCase(event.headers || {}),
-            ...(event.multiValueHeaders !== undefined
-              ? { multiValueHeaders: objectAsLowerCase(event.multiValueHeaders) }
-              : {})
-          });
-        },
         () => module.before({
           event,
           context,

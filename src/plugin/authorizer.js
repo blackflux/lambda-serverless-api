@@ -15,7 +15,7 @@ class Authorizer extends Plugin {
   }
 
   static weight() {
-    return 1;
+    return 2;
   }
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
