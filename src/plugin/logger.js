@@ -5,6 +5,7 @@ const cloneDeep = require('lodash.clonedeep');
 const objectScan = require('object-scan');
 const { logger } = require('lambda-monitor-logger');
 const { Plugin } = require('../plugin');
+const { asApiGatewayResponse } = require('../response');
 
 class Logger extends Plugin {
   constructor(options) {
@@ -40,10 +41,13 @@ class Logger extends Plugin {
     return 9999;
   }
 
-  async finalize({ event, response, router }) {
+  async after({ event, response, router }) {
     const success = Number.isInteger(response.statusCode) && response.statusCode >= 100 && response.statusCode < 400;
     if ((!success && this.logError) || (success && this.logSuccess)) {
-      const toLog = cloneDeep({ event, response });
+      const toLog = cloneDeep({
+        event,
+        response: asApiGatewayResponse(response, false)
+      });
       this.parse(toLog);
       (success ? this.redactSuccess : this.redactError)(toLog);
       const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
