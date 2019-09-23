@@ -2,11 +2,7 @@ const assert = require('assert');
 const get = require('lodash.get');
 const difference = require('lodash.difference');
 const { wrap } = require('lambda-async');
-const {
-  ApiError,
-  ApiResponse,
-  asApiGatewayResponse
-} = require('../response');
+const { ApiError, ApiResponse, asApiGatewayResponse } = require('../response');
 const toCamelCase = require('../util/to-camel-case');
 const objectAsLowerCase = require('../util/object-as-lower-case');
 
@@ -114,17 +110,17 @@ module.exports.Wrapper = ({ router, module }) => {
         ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
-        .then((payload) => asApiGatewayResponse(payload))
-        .catch((err) => asApiGatewayResponse(err));
+        .catch((err) => err);
+      const apiGatewayResponse = asApiGatewayResponse(response);
       await module.after({
         event,
         context,
         route,
-        response,
+        response: apiGatewayResponse,
         router,
         options: endpointOptions
       });
-      return response;
+      return apiGatewayResponse;
     };
     handlerFn.isApiEndpoint = true;
     handlerFn.route = route;
