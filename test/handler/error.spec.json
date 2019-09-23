@@ -10,7 +10,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: 400 GET\n{\"event\":{\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{},\"parsedParameters\":{}},\"response\":{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Some Error\\\",\\\"messageId\\\":2341}\"}}"
+      "WARNING: 400 GET\n{\"event\":{\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{},\"parsedParameters\":{}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Some Error\",\"messageId\":2341}}}"
     ]
   },
   "event": {

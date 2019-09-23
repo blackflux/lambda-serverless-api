@@ -10,7 +10,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "INFO: 200 POST path/{param}\n{\"event\":{\"path\":\"/path/test123\",\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{\"param\":\"test123\"},\"headers\":{},\"parsedParameters\":{\"param\":\"test123\"}},\"response\":{\"statusCode\":200,\"body\":\"{\\\"param\\\":\\\"test123\\\"}\"}}"
+      "INFO: 200 POST path/{param}\n{\"event\":{\"path\":\"/path/test123\",\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{\"param\":\"test123\"},\"headers\":{},\"parsedParameters\":{\"param\":\"test123\"}},\"response\":{\"statusCode\":200,\"body\":{\"param\":\"test123\"}}}"
     ]
   },
   "event": {

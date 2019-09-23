@@ -31,8 +31,5 @@ class Plugin {
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async after(kwargs) {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async finalize(kwargs) {}
 }
 module.exports.Plugin = Plugin;

@@ -33,7 +33,5 @@ module.exports.wrap = (handler, {
     });
   Object.assign(kwargs, { response });
   await module.after(kwargs);
-  Object.assign(kwargs, { response: asApiGatewayResponse(response) });
-  await module.finalize(kwargs);
-  return kwargs.response;
+  return asApiGatewayResponse(response);
 };

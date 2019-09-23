@@ -70,7 +70,7 @@ class Cors extends Plugin {
     });
   }
 
-  async finalize(kwargs) {
+  async after(kwargs) {
     const { event, response } = kwargs;
     if (event.httpMethod === 'OPTIONS') {
       return;
