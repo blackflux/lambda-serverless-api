@@ -1,4 +1,5 @@
 const assert = require('assert');
+const get = require('lodash.get');
 const { asApiGatewayResponse } = require('../response');
 
 module.exports.wrap = (handler, {
@@ -21,16 +22,16 @@ module.exports.wrap = (handler, {
     params,
     options
   };
-  const response = await module.before(kwargs)
-    .then(() => handler(event.parsedParameters, context, event))
-    .then((resp) => {
-      assert(resp.isApiResponse === true);
-      return resp;
-    })
-    .catch((err) => {
-      assert(err instanceof Error);
-      return err;
-    });
+  let response;
+  let isSuccess = true;
+  try {
+    await module.before(kwargs);
+    response = await handler(event.parsedParameters, context, event);
+  } catch (err) {
+    response = err;
+    isSuccess = false;
+  }
+  assert(get(response, 'isApiResponse', false) === isSuccess);
   Object.assign(kwargs, { response });
   await module.after(kwargs);
   return asApiGatewayResponse(response);
