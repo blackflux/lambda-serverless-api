@@ -1,7 +1,6 @@
 const assert = require('assert');
-const difference = require('lodash.difference');
 const { wrap } = require('lambda-async');
-const { ApiError, asApiGatewayResponse } = require('../response');
+const { asApiGatewayResponse } = require('../response');
 const toCamelCase = require('../util/to-camel-case');
 
 
