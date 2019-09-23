@@ -46,7 +46,10 @@ class Logger extends Plugin {
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async before() {}
 
-  async after({ event, response, router }) {
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  async after() {}
+
+  async finalize({ event, response, router }) {
     const success = Number.isInteger(response.statusCode) && response.statusCode >= 100 && response.statusCode < 400;
     if ((!success && this.logError) || (success && this.logSuccess)) {
       const toLog = cloneDeep({ event, response });

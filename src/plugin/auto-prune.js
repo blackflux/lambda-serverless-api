@@ -29,6 +29,9 @@ class AutoPrune extends Plugin {
   async before() {}
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async after() {}
+  async after({ params, paramsOut, response }) {}
+
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  async finalize() {}
 }
 module.exports = AutoPrune;

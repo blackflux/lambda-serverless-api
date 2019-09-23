@@ -105,19 +105,30 @@ module.exports.Wrapper = ({ router, module }) => {
           context,
           route,
           router,
+          params,
           options: endpointOptions
         }),
         ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
         .catch((err) => err);
-      const apiGatewayResponse = asApiGatewayResponse(response);
       await module.after({
+        event,
+        context,
+        route,
+        response,
+        router,
+        params,
+        options: endpointOptions
+      });
+      const apiGatewayResponse = asApiGatewayResponse(response);
+      await module.finalize({
         event,
         context,
         route,
         response: apiGatewayResponse,
         router,
+        params,
         options: endpointOptions
       });
       return apiGatewayResponse;

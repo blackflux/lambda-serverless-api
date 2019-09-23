@@ -35,4 +35,9 @@ describe('Testing Plugin', () => {
     const e = await capture(() => plugin.after({}));
     expect(e.message).to.equal('Not Implemented!');
   });
+
+  it('Testing finalize()', async ({ capture }) => {
+    const e = await capture(() => plugin.finalize({}));
+    expect(e.message).to.equal('Not Implemented!');
+  });
 });

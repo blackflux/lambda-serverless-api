@@ -33,7 +33,10 @@ class Cors extends Plugin {
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async before() {}
 
-  async after(kwargs) {
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  async after() {}
+
+  async finalize(kwargs) {
     // eslint-disable-next-line object-curly-newline
     const { event, response, router } = kwargs;
     const origin = get(event, 'headers.origin');

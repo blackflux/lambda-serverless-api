@@ -43,5 +43,12 @@ class Module {
       await this.plugins[idx].after(kwargs);
     }
   }
+
+  async finalize(kwargs) {
+    for (let idx = 0; idx < this.plugins.length; idx += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await this.plugins[idx].finalize(kwargs);
+    }
+  }
 }
 module.exports.Module = Module;

@@ -32,5 +32,8 @@ class Router extends Plugin {
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async after() {}
+
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  async finalize() {}
 }
 module.exports = Router;

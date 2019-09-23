@@ -31,5 +31,10 @@ class Plugin {
   async after(kwargs) {
     throw new Error('Not Implemented!');
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  async finalize(kwargs) {
+    throw new Error('Not Implemented!');
+  }
 }
 module.exports.Plugin = Plugin;
