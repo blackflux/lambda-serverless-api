@@ -22,17 +22,15 @@ module.exports.wrap = (handler, {
     params,
     options
   };
-  let response;
   let isSuccess = true;
   try {
     await module.before(kwargs);
-    response = await handler(event.parsedParameters, context, event);
+    kwargs.response = await handler(event.parsedParameters, context, event);
   } catch (err) {
-    response = err;
+    kwargs.response = err;
     isSuccess = false;
   }
-  assert(get(response, 'isApiResponse', false) === isSuccess);
-  Object.assign(kwargs, { response });
+  assert(get(kwargs.response, 'isApiResponse', false) === isSuccess);
   await module.after(kwargs);
-  return asApiGatewayResponse(response);
+  return asApiGatewayResponse(kwargs.response);
 };
