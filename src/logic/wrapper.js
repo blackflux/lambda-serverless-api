@@ -84,14 +84,7 @@ module.exports.Wrapper = ({ router, module }) => {
     handlerFn.isApiEndpoint = true;
     handlerFn.route = route;
 
-    const pathSegments = route.split(/[\s/]/g).map((e) => e.replace(
-      /^{(.*?)(\+)?}$/,
-      (_, name, type) => `${type === '+' ? '*' : ':'}${name}`
-    ));
-    router.add([{
-      path: pathSegments.join('/'),
-      handler: handlerFn
-    }]);
+    router.register(route, handlerFn);
 
     module.afterRegister({ request, route });
 

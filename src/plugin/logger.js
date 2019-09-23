@@ -61,7 +61,7 @@ class Logger extends Plugin {
       const toLog = cloneDeep({ event, response });
       this.parse(toLog);
       (success ? this.redactSuccess : this.redactError)(toLog);
-      const matchedRoute = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
+      const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
       const prefix = [
         get(toLog, 'response.statusCode'),
         get(toLog, 'event.httpMethod'),

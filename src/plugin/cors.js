@@ -62,7 +62,7 @@ class Cors extends Plugin {
       });
       return;
     }
-    if (!router.recognize(`${accessControlRequestMethod}${get(event, 'path', '')}`)) {
+    if (!router.recognize(accessControlRequestMethod, get(event, 'path', ''))) {
       return;
     }
     const allowedHeaders = [

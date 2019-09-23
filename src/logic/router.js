@@ -8,8 +8,14 @@ module.exports.Router = ({ module }) => {
   const router = (() => {
     const routerRec = new Router();
     return {
-      add: (...args) => routerRec.add(...args),
-      recognize: (...args) => routerRec.recognize(...args)
+      register: (route, handler) => routerRec.add([{
+        path: route.split(/[\s/]/g).map((e) => e.replace(
+          /^{(.*?)(\+)?}$/,
+          (_, name, type) => `${type === '+' ? '*' : ':'}${name}`
+        )).join('/'),
+        handler
+      }]),
+      recognize: (method, path) => routerRec.recognize(`${method}${path}`)
     };
   })();
 
@@ -17,7 +23,7 @@ module.exports.Router = ({ module }) => {
     if (!event.httpMethod) {
       return 'OK - No API Gateway call detected.';
     }
-    const matchedRoutes = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
+    const matchedRoutes = router.recognize(event.httpMethod, get(event, 'path', ''));
     if (!matchedRoutes) {
       const response = {
         statusCode: 403,
