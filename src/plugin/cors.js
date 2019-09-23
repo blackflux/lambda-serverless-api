@@ -2,6 +2,7 @@ const get = require('lodash.get');
 const set = require('lodash.set');
 const Joi = require('joi-strict');
 const { Plugin } = require('../plugin');
+const { ApiResponse, ApiError } = require('../response');
 
 const extractOrigins = (allowedOrigins, kwargs) => (Array.isArray(allowedOrigins)
   ? allowedOrigins
@@ -35,12 +36,10 @@ class Cors extends Plugin {
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async onUnhandled(kwargs) {
-    const { event, router, response } = kwargs;
+    const { event, router } = kwargs;
     if (event.httpMethod !== 'OPTIONS') {
-      return;
+      return null;
     }
-
-    Object.assign(response, { statusCode: 403, body: '' });
 
     const {
       origin,
@@ -51,19 +50,15 @@ class Cors extends Plugin {
       accessControlRequestMethod,
       accessControlRequestHeaders
     ].some((h) => h === undefined)) {
-      return;
+      throw ApiError('Required header missing', 403);
     }
 
     const allowedOrigins = await extractOrigins(this.allowedOrigins, kwargs);
     if (!allowedOrigins.includes(origin) && !allowedOrigins.includes('*')) {
-      Object.assign(response, {
-        statusCode: 403,
-        body: ''
-      });
-      return;
+      throw ApiError('Origin not allowed', 403);
     }
     if (!router.recognize(accessControlRequestMethod, get(event, 'path', ''))) {
-      return;
+      throw ApiError('Method not allowed', 403);
     }
     const allowedHeaders = [
       'Content-Type',
@@ -72,17 +67,13 @@ class Cors extends Plugin {
     ].map((h) => h.toLowerCase());
     if (!accessControlRequestHeaders.split(',').map((h) => h
       .trim().toLowerCase()).every((h) => allowedHeaders.includes(h))) {
-      return;
+      throw ApiError('Header not allowed', 403);
     }
 
-    Object.assign(response, {
-      statusCode: 200,
-      body: '',
-      headers: {
-        'Access-Control-Allow-Origin': origin,
-        'Access-Control-Allow-Headers': allowedHeaders.join(','),
-        'Access-Control-Allow-Methods': accessControlRequestMethod
-      }
+    return ApiResponse('', 200, {
+      'Access-Control-Allow-Origin': origin,
+      'Access-Control-Allow-Headers': allowedHeaders.join(','),
+      'Access-Control-Allow-Methods': accessControlRequestMethod
     });
   }
 

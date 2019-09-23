@@ -40,8 +40,12 @@ class Module {
   async onUnhandled(kwargs) {
     for (let idx = 0; idx < this.plugins.length; idx += 1) {
       // eslint-disable-next-line no-await-in-loop
-      await this.plugins[idx].onUnhandled(kwargs);
+      const resp = await this.plugins[idx].onUnhandled(kwargs);
+      if (![null, undefined].includes(resp)) {
+        return resp;
+      }
     }
+    return null;
   }
 
   async before(kwargs) {

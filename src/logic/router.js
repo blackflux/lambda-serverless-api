@@ -1,8 +1,8 @@
 const get = require('lodash.get');
 const { wrap } = require('lambda-async');
 const Router = require('route-recognizer');
+const { wrap: wrapHandler } = require('./handler');
 const { ApiError } = require('../response');
-const objectAsLowerCase = require('../util/object-as-lower-case');
 
 module.exports.Router = ({ module }) => {
   const router = (() => {
@@ -20,43 +20,30 @@ module.exports.Router = ({ module }) => {
   })();
 
   const handler = wrap(async (event, context) => {
-    if (!event.httpMethod) {
-      return 'OK - No API Gateway call detected.';
-    }
     const matchedRoutes = router.recognize(event.httpMethod, get(event, 'path', ''));
     if (!matchedRoutes) {
-      const response = {
-        statusCode: 403,
-        body: JSON.stringify({ message: 'Method / Route not allowed' })
+      const request = {
+        params: [],
+        options: {},
+        method: event.httpMethod,
+        uri: get(event, 'path', '')
       };
-      try {
-        if (event.body !== undefined) {
-          Object.assign(event, { body: JSON.parse(event.body) });
+      const route = `${event.httpMethod} ${get(event, 'path', '')}`;
+      return wrapHandler(() => module.onUnhandled({
+        event,
+        context,
+        router
+      }).then((resp) => {
+        if (resp === null) {
+          throw ApiError('Method / Route not allowed', 403);
         }
-      } catch (e) {
-        throw ApiError('Invalid Json Body detected.', 400, 99001, {
-          value: get(event, 'body')
-        });
-      }
-      Object.assign(event, {
-        headers: objectAsLowerCase(event.headers || {}),
-        ...(event.multiValueHeaders !== undefined
-          ? { multiValueHeaders: objectAsLowerCase(event.multiValueHeaders) }
-          : {})
-      });
-      await module.onUnhandled({
-        event,
-        context,
+        return resp;
+      }), {
+        request,
+        route,
         router,
-        response
-      });
-      await module.finalize({
-        event,
-        context,
-        router,
-        response
-      });
-      return response;
+        module
+      })(event, context);
     }
     return matchedRoutes[0].handler(Object.assign(event, {
       pathParameters: matchedRoutes[0].params

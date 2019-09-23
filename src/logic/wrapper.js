@@ -1,6 +1,6 @@
 const assert = require('assert');
 const { wrap } = require('lambda-async');
-const { asApiGatewayResponse } = require('../response');
+const { wrap: wrapHandler } = require('./handler');
 
 module.exports.Wrapper = ({ router, module }) => {
   const endpoints = {};
@@ -22,31 +22,14 @@ module.exports.Wrapper = ({ router, module }) => {
 
     endpoints[route] = params;
 
-    const handlerFn = async (event, context) => {
-      if (!event.httpMethod) {
-        return Promise.resolve('OK - No API Gateway call detected.');
-      }
-      const kwargs = {
-        request,
-        event,
-        context,
-        route,
-        router,
-        params,
-        options: endpointOptions
-      };
-      const response = await [
-        () => module.before(kwargs),
-        async () => handler(event.parsedParameters, context, event)
-      ]
-        .reduce((p, c) => p.then(c), Promise.resolve())
-        .catch((err) => err);
-      Object.assign(kwargs, { response });
-      await module.after(kwargs);
-      Object.assign(kwargs, { response: asApiGatewayResponse(response) });
-      await module.finalize(kwargs);
-      return kwargs.response;
-    };
+    const handlerFn = wrapHandler(handler, {
+      request,
+      route,
+      router,
+      module,
+      params,
+      options: endpointOptions
+    });
     handlerFn.isApiEndpoint = true;
     handlerFn.route = route;
 
