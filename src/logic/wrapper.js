@@ -1,8 +1,6 @@
 const assert = require('assert');
 const { wrap } = require('lambda-async');
 const { asApiGatewayResponse } = require('../response');
-const toCamelCase = require('../util/to-camel-case');
-
 
 module.exports.Wrapper = ({ router, module }) => {
   const endpoints = {};
@@ -23,8 +21,6 @@ module.exports.Wrapper = ({ router, module }) => {
     const route = `${request.method} ${request.uri}`;
 
     endpoints[route] = params;
-    const rawAutoPruneFieldsParam = params
-      .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
 
     const handlerFn = async (event, context) => {
       if (!event.httpMethod) {
@@ -40,20 +36,7 @@ module.exports.Wrapper = ({ router, module }) => {
           params,
           options: endpointOptions
         }),
-        async () => {
-          const paramsPending = params.map((curParam) => [toCamelCase(curParam.name), curParam.get(event)]);
-          const paramsPendingObj = paramsPending.reduce((prev, [key, value]) => Object
-            .assign(prev, { [key]: value }), {});
-          const resolvedParams = await Promise.all(paramsPending
-            .map(async ([name, value]) => [name, typeof value === 'function' ? await value(paramsPendingObj) : value]));
-          const paramsOut = resolvedParams
-            .reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {});
-          const result = await handler(paramsOut, context, event);
-          if (rawAutoPruneFieldsParam !== undefined && paramsOut[rawAutoPruneFieldsParam.name] !== undefined) {
-            rawAutoPruneFieldsParam.pruneFields(result, paramsOut[rawAutoPruneFieldsParam.name]);
-          }
-          return result;
-        }
+        async () => handler(event.parsedParameters, context, event)
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
         .catch((err) => err);

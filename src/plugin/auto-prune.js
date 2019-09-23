@@ -35,7 +35,13 @@ class AutoPrune extends Plugin {
   async before() {}
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async after({ params, paramsOut, response }) {}
+  async after({ params, event, response }) {
+    const rawAutoPruneFieldsParam = params
+      .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
+    if (rawAutoPruneFieldsParam !== undefined && event.parsedParameters[rawAutoPruneFieldsParam.name] !== undefined) {
+      rawAutoPruneFieldsParam.pruneFields(response, event.parsedParameters[rawAutoPruneFieldsParam.name]);
+    }
+  }
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async finalize() {}
