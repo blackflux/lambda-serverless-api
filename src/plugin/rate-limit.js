@@ -32,15 +32,6 @@ class RateLimit extends Plugin {
     return 3;
   }
 
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  beforeRegister() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  afterRegister() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async onUnhandled() {}
-
   async before({ event, route, options }) {
     assert(typeof route === 'string');
     if (event.httpMethod === 'OPTIONS') {
@@ -63,11 +54,5 @@ class RateLimit extends Plugin {
       throw ApiError('Rate limit exceeded.', 429);
     }
   }
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async after() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async finalize() {}
 }
 module.exports = RateLimit;

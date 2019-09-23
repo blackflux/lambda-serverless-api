@@ -20,15 +20,6 @@ class PreProcessor extends Plugin {
     return 0;
   }
 
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  beforeRegister() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  afterRegister() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async onUnhandled() {}
-
   // eslint-disable-next-line class-methods-use-this
   async before({ event }) {
     try {
@@ -47,11 +38,5 @@ class PreProcessor extends Plugin {
         : {})
     });
   }
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async after() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async finalize() {}
 }
 module.exports = PreProcessor;

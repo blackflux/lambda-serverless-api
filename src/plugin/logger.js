@@ -40,21 +40,6 @@ class Logger extends Plugin {
     return 9999;
   }
 
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  beforeRegister() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  afterRegister() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async onUnhandled() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async before() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async after() {}
-
   async finalize({ event, response, router }) {
     const success = Number.isInteger(response.statusCode) && response.statusCode >= 100 && response.statusCode < 400;
     if ((!success && this.logError) || (success && this.logSuccess)) {

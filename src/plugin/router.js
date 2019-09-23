@@ -26,20 +26,5 @@ class Router extends Plugin {
       request.uri = `${this.prefix}${request.uri}`;
     }
   }
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  afterRegister({ request, route }) {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async onUnhandled() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async before() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async after() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async finalize() {}
 }
 module.exports = Router;

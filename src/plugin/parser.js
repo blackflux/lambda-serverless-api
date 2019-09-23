@@ -18,16 +18,7 @@ class Parser extends Plugin {
     return 2;
   }
 
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  beforeRegister({ request }) {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  afterRegister({ request, route }) {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async onUnhandled() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  // eslint-disable-next-line class-methods-use-this
   async before({ request, event }) {
     const paramsPending = request.params.map((curParam) => [toCamelCase(curParam.name), curParam.get(event)]);
     const paramsPendingObj = paramsPending.reduce((prev, [key, value]) => Object
@@ -39,11 +30,5 @@ class Parser extends Plugin {
         .reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {})
     });
   }
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async after() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async finalize() {}
 }
 module.exports = Parser;

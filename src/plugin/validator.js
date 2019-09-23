@@ -20,9 +20,6 @@ class Validator extends Plugin {
     return 1;
   }
 
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  beforeRegister({ request }) {}
-
   afterRegister({ request, route }) {
     const { params } = request;
 
@@ -50,10 +47,7 @@ class Validator extends Plugin {
     this.routeSignatures.push(routeSignature);
   }
 
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async onUnhandled() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  // eslint-disable-next-line class-methods-use-this
   async before({ request, event }) {
     const receivedRequestMethod = get(event, 'httpMethod');
     if (receivedRequestMethod !== request.method) {
@@ -80,11 +74,5 @@ class Validator extends Plugin {
       });
     }
   }
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async after() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async finalize() {}
 }
 module.exports = Validator;

@@ -28,13 +28,6 @@ class Cors extends Plugin {
     return 0;
   }
 
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  beforeRegister() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  afterRegister() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
   async onUnhandled(kwargs) {
     const { event, router } = kwargs;
     if (event.httpMethod !== 'OPTIONS') {
@@ -76,12 +69,6 @@ class Cors extends Plugin {
       'Access-Control-Allow-Methods': accessControlRequestMethod
     });
   }
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async before() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async after() {}
 
   async finalize(kwargs) {
     const { event, response } = kwargs;

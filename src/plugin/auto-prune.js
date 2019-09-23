@@ -17,7 +17,7 @@ class AutoPrune extends Plugin {
     return 1;
   }
 
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  // eslint-disable-next-line class-methods-use-this
   beforeRegister({ request }) {
     const { params } = request;
     if (params.filter((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string').length > 1) {
@@ -25,16 +25,7 @@ class AutoPrune extends Plugin {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  afterRegister() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async onUnhandled() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async before() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  // eslint-disable-next-line class-methods-use-this
   async after({ params, event, response }) {
     const rawAutoPruneFieldsParam = params
       .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
@@ -42,8 +33,5 @@ class AutoPrune extends Plugin {
       rawAutoPruneFieldsParam.pruneFields(response, event.parsedParameters[rawAutoPruneFieldsParam.name]);
     }
   }
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async finalize() {}
 }
 module.exports = AutoPrune;

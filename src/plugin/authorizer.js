@@ -18,15 +18,6 @@ class Authorizer extends Plugin {
     return 4;
   }
 
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  beforeRegister() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  afterRegister() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async onUnhandled() {}
-
   async before(kwargs) {
     const { event } = kwargs;
     if (event.httpMethod === 'OPTIONS') {
@@ -36,11 +27,5 @@ class Authorizer extends Plugin {
       throw ApiError('Unauthorized', 401);
     }
   }
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async after() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async finalize() {}
 }
 module.exports = Authorizer;
