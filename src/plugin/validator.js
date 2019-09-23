@@ -1,3 +1,5 @@
+const assert = require('assert');
+const get = require('lodash.get');
 const Joi = require('joi-strict');
 const { Plugin } = require('../plugin');
 
@@ -51,7 +53,12 @@ class Validator extends Plugin {
   async onUnhandled() {}
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async before() {}
+  async before({ request, event }) {
+    const receivedRequestMethod = get(event, 'httpMethod');
+    if (receivedRequestMethod !== request.method) {
+      throw new Error('Request Method Mismatch');
+    }
+  }
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async after() {}

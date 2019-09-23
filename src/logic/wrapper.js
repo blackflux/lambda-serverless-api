@@ -1,5 +1,4 @@
 const assert = require('assert');
-const get = require('lodash.get');
 const difference = require('lodash.difference');
 const { wrap } = require('lambda-async');
 const { ApiError, asApiGatewayResponse } = require('../response');
@@ -34,6 +33,7 @@ module.exports.Wrapper = ({ router, module }) => {
       }
       const response = await [
         () => module.before({
+          request,
           event,
           context,
           route,
@@ -42,9 +42,6 @@ module.exports.Wrapper = ({ router, module }) => {
           options: endpointOptions
         }),
         async () => {
-          const receivedRequestMethod = get(event, 'httpMethod');
-          assert(receivedRequestMethod === request.method, 'Request Method Mismatch');
-
           const invalidQsParams = difference(
             Object.keys(event.queryStringParameters || {}),
             params.filter((p) => p.position === 'query').map((p) => p.name)
@@ -83,6 +80,7 @@ module.exports.Wrapper = ({ router, module }) => {
         .reduce((p, c) => p.then(c), Promise.resolve())
         .catch((err) => err);
       await module.after({
+        request,
         event,
         context,
         route,
@@ -93,6 +91,7 @@ module.exports.Wrapper = ({ router, module }) => {
       });
       const apiGatewayResponse = asApiGatewayResponse(response);
       await module.finalize({
+        request,
         event,
         context,
         route,
