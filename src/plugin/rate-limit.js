@@ -1,3 +1,4 @@
+const assert = require('assert');
 const get = require('lodash.get');
 const Joi = require('joi-strict');
 const Limiter = require('lambda-rate-limiter');
@@ -34,7 +35,14 @@ class RateLimit extends Plugin {
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   onRegister() {}
 
-  async before({ event, request, options }) {
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  async onUnhandled() {}
+
+  async before({ event, route, options }) {
+    assert(typeof route === 'string');
+    if (event.httpMethod === 'OPTIONS') {
+      return;
+    }
     const endpointLimit = get(options, 'limit', this.globalLimit);
     if (endpointLimit === null) {
       return;
@@ -47,7 +55,7 @@ class RateLimit extends Plugin {
       throw new Error(`Rate limit token not found\n${JSON.stringify(event)}`);
     }
     try {
-      await this.limiter.check(endpointLimit, `${token}/${request}`);
+      await this.limiter.check(endpointLimit, `${token}/${route}`);
     } catch (e) {
       throw ApiError('Rate limit exceeded.', 429);
     }

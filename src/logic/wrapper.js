@@ -2,7 +2,7 @@ const assert = require('assert');
 const get = require('lodash.get');
 const difference = require('lodash.difference');
 const { wrap } = require('lambda-async');
-const { ApiError, ApiResponse, asApiGatewayResponse } = require('../response');
+const { ApiError, asApiGatewayResponse } = require('../response');
 const toCamelCase = require('../util/to-camel-case');
 const objectAsLowerCase = require('../util/object-as-lower-case');
 
@@ -40,9 +40,32 @@ module.exports.Wrapper = ({ router, module }) => {
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
-      const hdl = event.httpMethod === 'OPTIONS' ? [
-        () => ApiResponse('', 403)
-      ] : [
+      const response = await [
+        () => {
+          try {
+            if (event.body !== undefined) {
+              Object.assign(event, { body: JSON.parse(event.body) });
+            }
+          } catch (e) {
+            throw ApiError('Invalid Json Body detected.', 400, 99001, {
+              value: get(event, 'body')
+            });
+          }
+          Object.assign(event, {
+            headers: objectAsLowerCase(event.headers || {}),
+            ...(event.multiValueHeaders !== undefined
+              ? { multiValueHeaders: objectAsLowerCase(event.multiValueHeaders) }
+              : {})
+          });
+        },
+        () => module.before({
+          event,
+          context,
+          route,
+          router,
+          params,
+          options: endpointOptions
+        }),
         async () => {
           const receivedRequestMethod = get(event, 'httpMethod');
           assert(receivedRequestMethod === request.method, 'Request Method Mismatch');
@@ -81,34 +104,6 @@ module.exports.Wrapper = ({ router, module }) => {
           }
           return result;
         }
-      ];
-      const response = await [
-        () => {
-          try {
-            if (event.body !== undefined) {
-              Object.assign(event, { body: JSON.parse(event.body) });
-            }
-          } catch (e) {
-            throw ApiError('Invalid Json Body detected.', 400, 99001, {
-              value: get(event, 'body')
-            });
-          }
-          Object.assign(event, {
-            headers: objectAsLowerCase(event.headers || {}),
-            ...(event.multiValueHeaders !== undefined
-              ? { multiValueHeaders: objectAsLowerCase(event.multiValueHeaders) }
-              : {})
-          });
-        },
-        () => module.before({
-          event,
-          context,
-          route,
-          router,
-          params,
-          options: endpointOptions
-        }),
-        ...hdl
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
         .catch((err) => err);
@@ -157,10 +152,6 @@ module.exports.Wrapper = ({ router, module }) => {
     ));
     router.add([{
       path: pathSegments.join('/'),
-      handler: handlerFn
-    }]);
-    router.add([{
-      path: ['OPTIONS', ...pathSegments.slice(1)].join('/'),
       handler: handlerFn
     }]);
 

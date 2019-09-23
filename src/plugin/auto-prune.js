@@ -26,6 +26,9 @@ class AutoPrune extends Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
+  async onUnhandled() {}
+
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
   async before() {}
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function

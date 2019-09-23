@@ -1,9 +1,17 @@
 const get = require('lodash.get');
 const { wrap } = require('lambda-async');
 const Router = require('route-recognizer');
+const { ApiError } = require('../response');
+const objectAsLowerCase = require('../util/object-as-lower-case');
 
-module.exports.Router = () => {
-  const router = new Router();
+module.exports.Router = ({ module }) => {
+  const router = (() => {
+    const routerRec = new Router();
+    return {
+      add: (...args) => routerRec.add(...args),
+      recognize: (...args) => routerRec.recognize(...args)
+    };
+  })();
 
   const handler = wrap(async (event, context) => {
     if (!event.httpMethod) {
@@ -11,10 +19,38 @@ module.exports.Router = () => {
     }
     const matchedRoutes = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
     if (!matchedRoutes) {
-      return {
+      const response = {
         statusCode: 403,
         body: JSON.stringify({ message: 'Method / Route not allowed' })
       };
+      try {
+        if (event.body !== undefined) {
+          Object.assign(event, { body: JSON.parse(event.body) });
+        }
+      } catch (e) {
+        throw ApiError('Invalid Json Body detected.', 400, 99001, {
+          value: get(event, 'body')
+        });
+      }
+      Object.assign(event, {
+        headers: objectAsLowerCase(event.headers || {}),
+        ...(event.multiValueHeaders !== undefined
+          ? { multiValueHeaders: objectAsLowerCase(event.multiValueHeaders) }
+          : {})
+      });
+      await module.onUnhandled({
+        event,
+        context,
+        router,
+        response
+      });
+      await module.finalize({
+        event,
+        context,
+        router,
+        response
+      });
+      return response;
     }
     return matchedRoutes[0].handler(Object.assign(event, {
       pathParameters: matchedRoutes[0].params
@@ -23,9 +59,6 @@ module.exports.Router = () => {
   handler.isApiEndpoint = true;
   handler.route = 'ANY';
 
-  return {
-    handler,
-    add: (...args) => router.add(...args),
-    recognize: (...args) => router.recognize(...args)
-  };
+  Object.assign(router, { handler });
+  return router;
 };

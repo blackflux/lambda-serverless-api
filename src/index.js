@@ -12,7 +12,7 @@ const Api = (options = {}) => {
   const module = new Module(path.join(__dirname, 'plugin'), options);
   Joi.assert(options, mergeSchemas(module.getSchemas()));
 
-  const router = Router();
+  const router = Router({ module });
   const wrapper = Wrapper({ router, module });
 
   return {
