@@ -46,9 +46,8 @@ module.exports.Wrapper = ({ router, module }) => {
             .assign(prev, { [key]: value }), {});
           const resolvedParams = await Promise.all(paramsPending
             .map(async ([name, value]) => [name, typeof value === 'function' ? await value(paramsPendingObj) : value]));
-          return resolvedParams.reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {});
-        },
-        async (paramsOut) => {
+          const paramsOut = resolvedParams
+            .reduce((prev, [key, value]) => Object.assign(prev, { [key]: value }), {});
           const result = await handler(paramsOut, context, event);
           if (rawAutoPruneFieldsParam !== undefined && paramsOut[rawAutoPruneFieldsParam.name] !== undefined) {
             rawAutoPruneFieldsParam.pruneFields(result, paramsOut[rawAutoPruneFieldsParam.name]);
