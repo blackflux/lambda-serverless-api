@@ -26,48 +26,31 @@ module.exports.Wrapper = ({ router, module }) => {
       if (!event.httpMethod) {
         return Promise.resolve('OK - No API Gateway call detected.');
       }
+      const kwargs = {
+        request,
+        event,
+        context,
+        route,
+        router,
+        params,
+        options: endpointOptions
+      };
       const response = await [
-        () => module.before({
-          request,
-          event,
-          context,
-          route,
-          router,
-          params,
-          options: endpointOptions
-        }),
+        () => module.before(kwargs),
         async () => handler(event.parsedParameters, context, event)
       ]
         .reduce((p, c) => p.then(c), Promise.resolve())
         .catch((err) => err);
-      await module.after({
-        request,
-        event,
-        context,
-        route,
-        response,
-        router,
-        params,
-        options: endpointOptions
-      });
-      const apiGatewayResponse = asApiGatewayResponse(response);
-      await module.finalize({
-        request,
-        event,
-        context,
-        route,
-        response: apiGatewayResponse,
-        router,
-        params,
-        options: endpointOptions
-      });
-      return apiGatewayResponse;
+      Object.assign(kwargs, { response });
+      await module.after(kwargs);
+      Object.assign(kwargs, { response: asApiGatewayResponse(response) });
+      await module.finalize(kwargs);
+      return kwargs.response;
     };
     handlerFn.isApiEndpoint = true;
     handlerFn.route = route;
 
     router.register(route, handlerFn);
-
     module.afterRegister({ request, route });
 
     return wrap(handlerFn);
