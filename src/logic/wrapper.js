@@ -8,7 +8,6 @@ const objectAsLowerCase = require('../util/object-as-lower-case');
 
 
 module.exports.Wrapper = ({ router, module }) => {
-  const routeSignatures = [];
   const endpoints = {};
 
   const wrapFn = (identifier, params, optionsOrHandler, handlerOrUndefined) => {
