@@ -1,7 +1,8 @@
 const get = require('lodash.get');
 const SwaggerParser = require('swagger-parser');
 
-module.exports = (endpoints) => {
+module.exports = ({ wrapper }) => {
+  const endpoints = wrapper.endpoints;
   const data = {
     swagger: '2.0',
     produces: ['application/json'],
