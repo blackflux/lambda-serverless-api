@@ -23,10 +23,17 @@ class Module {
     return this.schemas;
   }
 
-  onRegister(kwargs) {
+  beforeRegister(kwargs) {
     for (let idx = 0; idx < this.plugins.length; idx += 1) {
       // eslint-disable-next-line no-await-in-loop
-      this.plugins[idx].onRegister(kwargs);
+      this.plugins[idx].beforeRegister(kwargs);
+    }
+  }
+
+  afterRegister(kwargs) {
+    for (let idx = 0; idx < this.plugins.length; idx += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      this.plugins[idx].afterRegister(kwargs);
     }
   }
 

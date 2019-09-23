@@ -18,7 +18,12 @@ class Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  onRegister(kwargs) {
+  beforeRegister(kwargs) {
+    throw new Error('Not Implemented!');
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  afterRegister(kwargs) {
     throw new Error('Not Implemented!');
   }
 

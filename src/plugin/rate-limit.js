@@ -33,7 +33,10 @@ class RateLimit extends Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
-  onRegister() {}
+  beforeRegister() {}
+
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  afterRegister() {}
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async onUnhandled() {}

@@ -23,7 +23,7 @@ module.exports.Wrapper = ({ router, module }) => {
       options: endpointOptions,
       .../^(?<method>[A-Z]+)\s(?<uri>.+)$/.exec(identifier).groups
     };
-    module.onRegister({ request });
+    module.beforeRegister({ request });
     const route = `${request.method} ${request.uri}`;
 
     if (request.method === 'GET' && params.filter((p) => p.position === 'json').length !== 0) {
@@ -131,21 +131,6 @@ module.exports.Wrapper = ({ router, module }) => {
     handlerFn.isApiEndpoint = true;
     handlerFn.route = route;
 
-    // test for route collisions
-    const routeSignature = route.split(/[\s/]/g).map((e) => e.replace(/^{.*?}$/, ':param'));
-    routeSignatures.forEach((signature) => {
-      if (routeSignature.length !== signature.length) {
-        return;
-      }
-      for (let idx = 0; idx < signature.length; idx += 1) {
-        if (signature[idx] !== routeSignature[idx]) {
-          return;
-        }
-      }
-      throw new Error(`Path collision: ${route}`);
-    });
-    routeSignatures.push(routeSignature);
-
     const pathSegments = route.split(/[\s/]/g).map((e) => e.replace(
       /^{(.*?)(\+)?}$/,
       (_, name, type) => `${type === '+' ? '*' : ':'}${name}`
@@ -154,6 +139,8 @@ module.exports.Wrapper = ({ router, module }) => {
       path: pathSegments.join('/'),
       handler: handlerFn
     }]);
+
+    module.afterRegister({ route });
 
     return wrap(handlerFn);
   };
