@@ -10,13 +10,13 @@ describe('Testing Plugin', () => {
     module = new Module(path.join(__dirname, '..', 'src', 'plugin'), {});
   });
 
-  it('Test Abstract Plugin Definition', async ({ fixture }) => {
+  it('Testing Abstract Plugin Definition', async ({ fixture }) => {
     const expected = fixture('expected-order');
     expect(Object.getOwnPropertyNames(Plugin.prototype))
       .to.deep.equal(Object.keys(expected));
   });
 
-  it('Test Plugin Instances Definition', async ({ fixture }) => {
+  it('Testing Plugin Instances Definition', async ({ fixture }) => {
     const expected = fixture('expected-order');
     const plugins = module.getPlugins();
     plugins.forEach((p) => {
@@ -25,7 +25,7 @@ describe('Testing Plugin', () => {
     });
   });
 
-  it('Test Execution Order', async ({ fixture }) => {
+  it('Testing Execution Order', async ({ fixture }) => {
     const expected = fixture('expected-order');
     const plugins = module.getPlugins();
     Object.entries(expected).forEach(([fn, expectedPlugins]) => {
@@ -33,6 +33,18 @@ describe('Testing Plugin', () => {
         .filter((p) => Object.getOwnPropertyNames(Object.getPrototypeOf(p)).includes(fn))
         .map((p) => p.constructor.name);
       expect(filteredPlugins, `Unexpected Order / Plugins: ${fn}`).to.deep.equal(expectedPlugins);
+    });
+  });
+
+  it('Testing for Plugin Weight Collisions', async ({ fixture }) => {
+    const expected = fixture('expected-order');
+    const plugins = module.getPlugins();
+    Object.entries(expected).filter(([fn]) => fn !== 'constructor').forEach(([fn]) => {
+      const weights = plugins
+        .filter((p) => Object.getOwnPropertyNames(Object.getPrototypeOf(p)).includes(fn))
+        .map((p) => p.constructor.weight());
+      const weightsUnique = weights.filter((elem, pos) => weights.indexOf(elem) === pos);
+      expect(weights, `Weights not unique for: ${fn}`).to.deep.equal(weightsUnique);
     });
   });
 
