@@ -24,7 +24,7 @@ module.exports.wrap = ({
   let isSuccess = true;
   try {
     await module.before(kwargs);
-    kwargs.response = await handler(event.parsedParameters, context, event);
+    kwargs.response = await handler(context.parsedParameters, context, event);
   } catch (err) {
     kwargs.response = err;
     isSuccess = false;
