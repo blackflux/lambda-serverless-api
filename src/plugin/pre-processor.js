@@ -28,7 +28,7 @@ class PreProcessor extends Plugin {
       }
     } catch (e) {
       throw ApiError('Invalid Json Body detected.', 400, 99001, {
-        value: get(event, 'body')
+        value: event.body
       });
     }
     Object.assign(event, {
