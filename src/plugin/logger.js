@@ -5,7 +5,7 @@ const cloneDeep = require('lodash.clonedeep');
 const objectScan = require('object-scan');
 const { logger } = require('lambda-monitor-logger');
 const { Plugin } = require('../plugin');
-const { asApiGatewayResponse } = require('../response');
+const { asApiGatewayResponse } = require('../logic/api-gateway');
 
 class Logger extends Plugin {
   constructor(options) {

@@ -1,6 +1,6 @@
 const assert = require('assert');
-const { wrap } = require('lambda-async');
-const { wrap: wrapHandler } = require('./handler');
+const { wrap: wrapAsync } = require('lambda-async');
+const apiGateway = require('./api-gateway');
 
 module.exports.Wrapper = ({ router, module }) => {
   const endpoints = {};
@@ -21,7 +21,7 @@ module.exports.Wrapper = ({ router, module }) => {
 
     endpoints[request.route] = params;
 
-    const handlerFn = wrapHandler({
+    const handlerFn = apiGateway.wrap({
       handler,
       request,
       router,
@@ -34,7 +34,7 @@ module.exports.Wrapper = ({ router, module }) => {
     router.register(request.route, handlerFn);
     module.afterRegister({ request });
 
-    return wrap(handlerFn);
+    return wrapAsync(handlerFn);
   };
 
   return {

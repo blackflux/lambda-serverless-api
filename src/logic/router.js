@@ -1,7 +1,7 @@
 const get = require('lodash.get');
-const { wrap } = require('lambda-async');
+const { wrap: wrapAsync } = require('lambda-async');
 const Router = require('route-recognizer');
-const { wrap: wrapHandler } = require('./handler');
+const apiGateway = require('./api-gateway');
 const { ApiError } = require('../response');
 
 module.exports.Router = ({ module }) => {
@@ -19,7 +19,7 @@ module.exports.Router = ({ module }) => {
     };
   })();
 
-  const handler = wrap(async (event, context) => {
+  const handler = wrapAsync(async (event, context) => {
     const matchedRoutes = router.recognize(event.httpMethod, get(event, 'path', ''));
     if (!matchedRoutes) {
       const request = {
@@ -29,7 +29,7 @@ module.exports.Router = ({ module }) => {
         uri: get(event, 'path', '')
       };
       request.route = `${request.method} ${request.uri}`;
-      return wrapHandler({
+      return apiGateway.wrap({
         handler: async () => {
           const resp = await module.onUnhandled({
             event,
