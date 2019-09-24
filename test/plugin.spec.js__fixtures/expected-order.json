@@ -1,0 +1,35 @@
+{
+  "constructor": [
+    "Cors",
+    "PreProcessor",
+    "Router",
+    "AutoPrune",
+    "RateLimit",
+    "Validator",
+    "ParamParser",
+    "Authorizer",
+    "Logger"
+  ],
+  "beforeRegister": [
+    "Router"
+  ],
+  "afterRegister": [
+    "AutoPrune",
+    "Validator"
+  ],
+  "onUnhandled": [
+    "Cors"
+  ],
+  "before": [
+    "PreProcessor",
+    "RateLimit",
+    "Validator",
+    "ParamParser",
+    "Authorizer"
+  ],
+  "after": [
+    "Cors",
+    "AutoPrune",
+    "Logger"
+  ]
+}

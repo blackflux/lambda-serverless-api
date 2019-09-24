@@ -18,7 +18,7 @@ class AutoPrune extends Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  beforeRegister({ request }) {
+  afterRegister({ request }) {
     const { params } = request;
     if (params.filter((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string').length > 1) {
       throw new Error('Only one auto pruning "FieldsParam" per endpoint.');

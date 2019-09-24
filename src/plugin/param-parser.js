@@ -2,7 +2,7 @@ const Joi = require('joi-strict');
 const { Plugin } = require('../plugin');
 const toCamelCase = require('../util/to-camel-case');
 
-class Parser extends Plugin {
+class ParamParser extends Plugin {
   // eslint-disable-next-line no-useless-constructor
   constructor(options) {
     super(options);
@@ -10,12 +10,12 @@ class Parser extends Plugin {
 
   static schema() {
     return {
-      parser: Joi.object().keys({}).optional()
+      paramParser: Joi.object().keys({}).optional()
     };
   }
 
   static weight() {
-    return 2;
+    return 3;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -31,4 +31,4 @@ class Parser extends Plugin {
     });
   }
 }
-module.exports = Parser;
+module.exports = ParamParser;
