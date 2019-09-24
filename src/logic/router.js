@@ -1,5 +1,4 @@
 const get = require('lodash.get');
-const { wrap: wrapAsync } = require('lambda-async');
 const Router = require('route-recognizer');
 const apiGateway = require('./api-gateway');
 const { ApiError } = require('../response');
@@ -19,7 +18,7 @@ module.exports.Router = ({ module }) => {
     };
   })();
 
-  const handler = wrapAsync(async (event, context) => {
+  const handler = async (event, context) => {
     const matchedRoutes = router.recognize(event.httpMethod, get(event, 'path', ''));
     if (!matchedRoutes) {
       const request = {
@@ -49,10 +48,11 @@ module.exports.Router = ({ module }) => {
     return matchedRoutes[0].handler(Object.assign(event, {
       pathParameters: matchedRoutes[0].params
     }), context);
-  });
+  };
   handler.isApiEndpoint = true;
   handler.route = 'ANY';
 
-  Object.assign(router, { handler });
-  return router;
+  return Object.assign(router, {
+    handler: apiGateway.wrapAsync(handler)
+  });
 };
