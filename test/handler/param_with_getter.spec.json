@@ -10,7 +10,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "INFO: 200 POST\n{\"event\":{\"httpMethod\":\"POST\",\"body\":{\"username\":\"username\"},\"queryStringParameters\":{\"paramWithGetter\":\"customParam\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":\"{\\\"username\\\":\\\"username\\\",\\\"paramWithGetter\\\":\\\"customParamResult\\\"}\"}}"
+      "INFO: 200 POST\n{\"event\":{\"httpMethod\":\"POST\",\"body\":{\"username\":\"username\"},\"queryStringParameters\":{\"paramWithGetter\":\"customParam\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{},\"parsedParameters\":{\"username\":\"username\",\"paramWithGetter\":\"customParamResult\"}},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"username\",\"paramWithGetter\":\"customParamResult\"}}}"
     ]
   },
   "event": {

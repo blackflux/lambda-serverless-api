@@ -5,12 +5,12 @@
   "expect": {
     "to.deep.equal()": {
       "statusCode": 403,
-      "body": ""
+      "body": "{\"message\":\"Required header missing\"}"
     }
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: 403 OPTIONS json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":\"\"}}"
+      "WARNING: 403 OPTIONS /json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{},\"parsedParameters\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Required header missing\"}}}"
     ]
   },
   "event": {

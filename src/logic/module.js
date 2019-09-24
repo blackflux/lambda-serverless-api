@@ -23,11 +23,27 @@ class Module {
     return this.schemas;
   }
 
-  onRegister(kwargs) {
+  beforeRegister(kwargs) {
+    for (let idx = 0; idx < this.plugins.length; idx += 1) {
+      this.plugins[idx].beforeRegister(kwargs);
+    }
+  }
+
+  afterRegister(kwargs) {
+    for (let idx = 0; idx < this.plugins.length; idx += 1) {
+      this.plugins[idx].afterRegister(kwargs);
+    }
+  }
+
+  async onUnhandled(kwargs) {
     for (let idx = 0; idx < this.plugins.length; idx += 1) {
       // eslint-disable-next-line no-await-in-loop
-      this.plugins[idx].onRegister(kwargs);
+      const resp = await this.plugins[idx].onUnhandled(kwargs);
+      if (![null, undefined].includes(resp)) {
+        return resp;
+      }
     }
+    return null;
   }
 
   async before(kwargs) {

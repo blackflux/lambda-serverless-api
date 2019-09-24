@@ -6,6 +6,7 @@ class Router extends Plugin {
   constructor(options) {
     super(options);
     this.prefix = get(options, 'prefix', null);
+    this.routeSignatures = [];
   }
 
   static schema() {
@@ -20,17 +21,10 @@ class Router extends Plugin {
     return 0;
   }
 
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  onRegister({ request }) {
+  beforeRegister({ request }) {
     if (this.prefix !== null) {
       request.uri = `${this.prefix}${request.uri}`;
     }
   }
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async before() {}
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async after() {}
 }
 module.exports = Router;

@@ -1,20 +1,49 @@
 const get = require('lodash.get');
 const { wrap } = require('lambda-async');
 const Router = require('route-recognizer');
+const { wrap: wrapHandler } = require('./handler');
+const { ApiError } = require('../response');
 
-module.exports.Router = () => {
-  const router = new Router();
+module.exports.Router = ({ module }) => {
+  const router = (() => {
+    const routerRec = new Router();
+    return {
+      register: (route, handler) => routerRec.add([{
+        path: route.split(/[\s/]/g).map((e) => e.replace(
+          /^{(.*?)(\+)?}$/,
+          (_, name, type) => `${type === '+' ? '*' : ':'}${name}`
+        )).join('/'),
+        handler
+      }]),
+      recognize: (method, path) => routerRec.recognize(`${method}${path}`)
+    };
+  })();
 
   const handler = wrap(async (event, context) => {
-    if (!event.httpMethod) {
-      return 'OK - No API Gateway call detected.';
-    }
-    const matchedRoutes = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
+    const matchedRoutes = router.recognize(event.httpMethod, get(event, 'path', ''));
     if (!matchedRoutes) {
-      return {
-        statusCode: 403,
-        body: JSON.stringify({ message: 'Method / Route not allowed' })
+      const request = {
+        params: [],
+        options: {},
+        method: event.httpMethod,
+        uri: get(event, 'path', '')
       };
+      const route = `${event.httpMethod} ${get(event, 'path', '')}`;
+      return wrapHandler(() => module.onUnhandled({
+        event,
+        context,
+        router
+      }).then((resp) => {
+        if (resp === null) {
+          throw ApiError('Method / Route not allowed', 403);
+        }
+        return resp;
+      }), {
+        request,
+        route,
+        router,
+        module
+      })(event, context);
     }
     return matchedRoutes[0].handler(Object.assign(event, {
       pathParameters: matchedRoutes[0].params
@@ -23,9 +52,6 @@ module.exports.Router = () => {
   handler.isApiEndpoint = true;
   handler.route = 'ANY';
 
-  return {
-    handler,
-    add: (...args) => router.add(...args),
-    recognize: (...args) => router.recognize(...args)
-  };
+  Object.assign(router, { handler });
+  return router;
 };

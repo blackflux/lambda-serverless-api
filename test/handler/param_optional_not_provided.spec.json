@@ -11,7 +11,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "INFO: 200 POST\n{\"event\":{\"body\":{\"username\":\"Anja Smith\"},\"httpMethod\":\"POST\",\"headers\":{\"x-custom-header\":\"value\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":200,\"body\":\"{\\\"username\\\":\\\"Anja Smith\\\",\\\"email\\\":\\\"default\\\",\\\"xCustomHeader\\\":\\\"value\\\"}\"}}"
+      "INFO: 200 POST\n{\"event\":{\"body\":{\"username\":\"Anja Smith\"},\"httpMethod\":\"POST\",\"headers\":{\"x-custom-header\":\"value\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"parsedParameters\":{\"username\":\"Anja Smith\",\"xCustomHeader\":\"value\"}},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"email\":\"default\",\"xCustomHeader\":\"value\"}}}"
     ]
   },
   "event": {

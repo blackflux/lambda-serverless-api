@@ -13,22 +13,23 @@ module.exports.JsonResponseClass = JsonResponseClass;
 module.exports.BinaryResponse = BinaryResponse;
 module.exports.BinaryResponseClass = BinaryResponseClass;
 
-module.exports.asApiGatewayResponse = (resp) => {
+module.exports.asApiGatewayResponse = (resp, stringifyJson = true) => {
   if (get(resp, 'isApiError') === true) {
+    const body = {
+      message: resp.message,
+      messageId: resp.messageId,
+      context: resp.context
+    };
     return {
       statusCode: resp.statusCode,
-      body: JSON.stringify({
-        message: resp.message,
-        messageId: resp.messageId,
-        context: resp.context
-      })
+      body: stringifyJson ? JSON.stringify(body) : body
     };
   }
   if (get(resp, 'isApiResponse') === true) {
     const headers = resp.headers;
     let body = resp.payload;
     const isJsonResponse = get(resp, 'isJsonResponse') === true;
-    if (isJsonResponse) {
+    if (isJsonResponse && stringifyJson) {
       body = JSON.stringify(body);
     }
     const isBinaryResponse = get(resp, 'isBinaryResponse') === true;

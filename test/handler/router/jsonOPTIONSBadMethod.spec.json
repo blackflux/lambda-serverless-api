@@ -5,12 +5,12 @@
   "expect": {
     "to.deep.equal()": {
       "statusCode": 403,
-      "body": ""
+      "body": "{\"message\":\"Method not allowed\"}"
     }
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: 403 OPTIONS json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"headers\":{\"access-control-request-method\":\"PATCH\",\"access-control-request-headers\":\"origin, x-requested-with\",\"origin\":\"https://test.com\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{}},\"response\":{\"statusCode\":403,\"body\":\"\"}}"
+      "WARNING: 403 OPTIONS /json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"headers\":{\"access-control-request-method\":\"PATCH\",\"access-control-request-headers\":\"origin, x-requested-with\",\"origin\":\"https://test.com\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"parsedParameters\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method not allowed\"}}}"
     ]
   },
   "event": {
