@@ -29,16 +29,18 @@ module.exports.Router = ({ module }) => {
         uri: get(event, 'path', '')
       };
       const route = `${request.method} ${request.uri}`;
-      return wrapHandler(() => module.onUnhandled({
-        event,
-        context,
-        router
-      }).then((resp) => {
-        if (resp === null) {
-          throw ApiError('Method / Route not allowed', 403);
-        }
-        return resp;
-      }), {
+      return wrapHandler({
+        handler: async () => {
+          const resp = await module.onUnhandled({
+            event,
+            context,
+            router
+          });
+          if (resp === null) {
+            throw ApiError('Method / Route not allowed', 403);
+          }
+          return resp;
+        },
         request,
         route,
         router,

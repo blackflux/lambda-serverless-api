@@ -2,7 +2,8 @@ const assert = require('assert');
 const get = require('lodash.get');
 const { asApiGatewayResponse } = require('../response');
 
-module.exports.wrap = (handler, {
+module.exports.wrap = ({
+  handler,
   request,
   route,
   router,

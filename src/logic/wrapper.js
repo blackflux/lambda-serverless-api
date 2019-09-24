@@ -10,11 +10,11 @@ module.exports.Wrapper = ({ router, module }) => {
     assert(!hasOptions || (optionsOrHandler instanceof Object && !Array.isArray(optionsOrHandler)));
     const handler = hasOptions ? handlerOrUndefined : optionsOrHandler;
     assert(typeof handler === 'function');
-    const endpointOptions = hasOptions ? optionsOrHandler : {};
+    const options = hasOptions ? optionsOrHandler : {};
 
     const request = {
       params,
-      options: endpointOptions,
+      options,
       .../^(?<method>[A-Z]+)\s(?<uri>.+)$/.exec(identifier).groups
     };
     module.beforeRegister({ request });
@@ -22,13 +22,14 @@ module.exports.Wrapper = ({ router, module }) => {
 
     endpoints[route] = params;
 
-    const handlerFn = wrapHandler(handler, {
+    const handlerFn = wrapHandler({
+      handler,
       request,
       route,
       router,
       module,
       params,
-      options: endpointOptions
+      options
     });
     handlerFn.isApiEndpoint = true;
     handlerFn.route = route;
