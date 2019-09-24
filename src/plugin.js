@@ -18,13 +18,18 @@ class Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async before(kwargs) {
-    throw new Error('Not Implemented!');
-  }
+  beforeRegister(kwargs) {}
 
   // eslint-disable-next-line class-methods-use-this
-  async after(kwargs) {
-    throw new Error('Not Implemented!');
-  }
+  afterRegister(kwargs) {}
+
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  async onUnhandled(kwargs) {}
+
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  async before(kwargs) {}
+
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  async after(kwargs) {}
 }
 module.exports.Plugin = Plugin;

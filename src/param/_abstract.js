@@ -27,7 +27,6 @@ class Abstract {
     this.type = null;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   validate(value) {
     return !(this.stringInput && typeof value !== 'string');
   }

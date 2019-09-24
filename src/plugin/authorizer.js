@@ -15,7 +15,7 @@ class Authorizer extends Plugin {
   }
 
   static weight() {
-    return 1;
+    return 4;
   }
 
   async before(kwargs) {
@@ -27,8 +27,5 @@ class Authorizer extends Plugin {
       throw ApiError('Unauthorized', 401);
     }
   }
-
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async after() {}
 }
 module.exports = Authorizer;

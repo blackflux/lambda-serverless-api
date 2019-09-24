@@ -10,7 +10,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "INFO: 200 GET proxy/{proxy+}\n{\"event\":{\"path\":\"/proxy/123/456\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{\"proxy\":\"123/456\"},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":\"{\\\"path\\\":\\\"123/456\\\"}\"}}"
+      "INFO: 200 GET proxy/{proxy+}\n{\"event\":{\"path\":\"/proxy/123/456\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{\"proxy\":\"123/456\"},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":{\"path\":\"123/456\"}}}"
     ]
   },
   "event": {

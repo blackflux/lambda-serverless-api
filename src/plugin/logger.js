@@ -5,13 +5,21 @@ const cloneDeep = require('lodash.clonedeep');
 const objectScan = require('object-scan');
 const { logger } = require('lambda-monitor-logger');
 const { Plugin } = require('../plugin');
+const { asApiGatewayResponse } = require('../logic/api-gateway');
 
 class Logger extends Plugin {
   constructor(options) {
     super(options);
+    this.prefix = get(options, 'prefix', [
+      'response.statusCode',
+      'response.body.messageId',
+      'event.httpMethod',
+      '$ROUTE'
+    ]);
     this.logError = get(options, 'logError', true);
     this.logSuccess = get(options, 'logSuccess', true);
     this.parse = get(options, 'parse', () => {});
+    this.level = get(options, 'level', ({ success }) => (success ? 'info' : 'warn'));
     const redactOptions = {
       joined: false,
       useArraySelector: false,
@@ -27,9 +35,11 @@ class Logger extends Plugin {
   static schema() {
     return {
       logger: Joi.object().keys({
+        prefix: Joi.array().items(Joi.string()).optional(),
         logSuccess: Joi.boolean().optional(),
         logError: Joi.boolean().optional(),
         parse: Joi.function().optional(),
+        level: Joi.function().optional(),
         redactSuccess: Joi.array().items(Joi.string()).optional(),
         redactError: Joi.array().items(Joi.string()).optional()
       }).optional()
@@ -40,24 +50,27 @@ class Logger extends Plugin {
     return 9999;
   }
 
-  // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async before() {}
-
   async after({ event, response, router }) {
     const success = Number.isInteger(response.statusCode) && response.statusCode >= 100 && response.statusCode < 400;
     if ((!success && this.logError) || (success && this.logSuccess)) {
-      const toLog = cloneDeep({ event, response });
+      const toLog = cloneDeep({
+        event,
+        response: asApiGatewayResponse(response, false)
+      });
       this.parse(toLog);
       (success ? this.redactSuccess : this.redactError)(toLog);
-      const matchedRoute = router.recognize(`${event.httpMethod}${get(event, 'path', '')}`);
-      const prefix = [
-        get(toLog, 'response.statusCode'),
-        get(toLog, 'event.httpMethod'),
-        matchedRoute ? matchedRoute[0].handler.request.split(' ')[1] : get(toLog, 'event.path')
-      ].filter((e) => !!e).join(' ');
+      const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
+      const prefix = this.prefix
+        .map((p) => {
+          if (p === '$ROUTE') {
+            return matchedRoute ? matchedRoute[0].handler.route.split(' ')[1] : get(toLog, 'event.path');
+          }
+          return get(toLog, p);
+        })
+        .filter((e) => !!e).join(' ');
       const msg = JSON.stringify(toLog);
       assert(prefix !== '');
-      logger[success ? 'info' : 'warn'](`${prefix}\n${msg}`);
+      logger[this.level({ success, prefix, msg })](`${prefix}\n${msg}`);
     }
   }
 }
