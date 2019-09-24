@@ -1,7 +1,7 @@
 const get = require('lodash.get');
-const { wrap } = require('lambda-async');
+const { wrap: wrapAsync } = require('lambda-async');
 const Router = require('route-recognizer');
-const { wrap: wrapHandler } = require('./handler');
+const apiGateway = require('./api-gateway');
 const { ApiError } = require('../response');
 
 module.exports.Router = ({ module }) => {
@@ -19,7 +19,7 @@ module.exports.Router = ({ module }) => {
     };
   })();
 
-  const handler = wrap(async (event, context) => {
+  const handler = wrapAsync(async (event, context) => {
     const matchedRoutes = router.recognize(event.httpMethod, get(event, 'path', ''));
     if (!matchedRoutes) {
       const request = {
@@ -28,19 +28,20 @@ module.exports.Router = ({ module }) => {
         method: event.httpMethod,
         uri: get(event, 'path', '')
       };
-      const route = `${event.httpMethod} ${get(event, 'path', '')}`;
-      return wrapHandler(() => module.onUnhandled({
-        event,
-        context,
-        router
-      }).then((resp) => {
-        if (resp === null) {
-          throw ApiError('Method / Route not allowed', 403);
-        }
-        return resp;
-      }), {
+      request.route = `${request.method} ${request.uri}`;
+      return apiGateway.wrap({
+        handler: async () => {
+          const resp = await module.onUnhandled({
+            event,
+            context,
+            router
+          });
+          if (resp === null) {
+            throw ApiError('Method / Route not allowed', 403);
+          }
+          return resp;
+        },
         request,
-        route,
         router,
         module
       })(event, context);

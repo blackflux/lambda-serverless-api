@@ -10,7 +10,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: 400 POST\n{\"event\":{\"body\":null,\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Required json-Parameter \\\"username\\\" missing.\",\"messageId\":99002}}}"
+      "WARNING: 400 99002 POST\n{\"event\":{\"body\":null,\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Required json-Parameter \\\"username\\\" missing.\",\"messageId\":99002}}}"
     ]
   },
   "event": {

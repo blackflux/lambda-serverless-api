@@ -17,10 +17,10 @@ class Validator extends Plugin {
   }
 
   static weight() {
-    return 1;
+    return 2;
   }
 
-  afterRegister({ request, route }) {
+  afterRegister({ request }) {
     const { params } = request;
 
     // test for param issues
@@ -32,7 +32,7 @@ class Validator extends Plugin {
     }
 
     // test for route collisions
-    const routeSignature = route.split(/[\s/]/g).map((e) => e.replace(/^{.*?}$/, ':param'));
+    const routeSignature = request.route.split(/[\s/]/g).map((e) => e.replace(/^{.*?}$/, ':param'));
     this.routeSignatures.forEach((signature) => {
       if (routeSignature.length !== signature.length) {
         return;
@@ -42,7 +42,7 @@ class Validator extends Plugin {
           return;
         }
       }
-      throw new Error(`Path collision: ${route}`);
+      throw new Error(`Path collision: ${request.route}`);
     });
     this.routeSignatures.push(routeSignature);
   }

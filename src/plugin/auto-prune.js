@@ -18,7 +18,7 @@ class AutoPrune extends Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  beforeRegister({ request }) {
+  afterRegister({ request }) {
     const { params } = request;
     if (params.filter((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string').length > 1) {
       throw new Error('Only one auto pruning "FieldsParam" per endpoint.');
@@ -26,11 +26,11 @@ class AutoPrune extends Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async after({ params, event, response }) {
+  async after({ params, context, response }) {
     const rawAutoPruneFieldsParam = params
       .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
-    if (rawAutoPruneFieldsParam !== undefined && event.parsedParameters[rawAutoPruneFieldsParam.name] !== undefined) {
-      rawAutoPruneFieldsParam.pruneFields(response, event.parsedParameters[rawAutoPruneFieldsParam.name]);
+    if (rawAutoPruneFieldsParam !== undefined && context.parsedParameters[rawAutoPruneFieldsParam.name] !== undefined) {
+      rawAutoPruneFieldsParam.pruneFields(response, context.parsedParameters[rawAutoPruneFieldsParam.name]);
     }
   }
 }

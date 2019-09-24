@@ -1,4 +1,3 @@
-const get = require('lodash.get');
 const { ApiError, ApiErrorClass } = require('./response/api-error');
 const { ApiResponse, ApiResponseClass } = require('./response/api-response');
 const { JsonResponse, JsonResponseClass } = require('./response/json-response');
@@ -12,36 +11,3 @@ module.exports.JsonResponse = JsonResponse;
 module.exports.JsonResponseClass = JsonResponseClass;
 module.exports.BinaryResponse = BinaryResponse;
 module.exports.BinaryResponseClass = BinaryResponseClass;
-
-module.exports.asApiGatewayResponse = (resp, stringifyJson = true) => {
-  if (get(resp, 'isApiError') === true) {
-    const body = {
-      message: resp.message,
-      messageId: resp.messageId,
-      context: resp.context
-    };
-    return {
-      statusCode: resp.statusCode,
-      body: stringifyJson ? JSON.stringify(body) : body
-    };
-  }
-  if (get(resp, 'isApiResponse') === true) {
-    const headers = resp.headers;
-    let body = resp.payload;
-    const isJsonResponse = get(resp, 'isJsonResponse') === true;
-    if (isJsonResponse && stringifyJson) {
-      body = JSON.stringify(body);
-    }
-    const isBinaryResponse = get(resp, 'isBinaryResponse') === true;
-    if (isBinaryResponse) {
-      body = body.toString('base64');
-    }
-    return {
-      statusCode: resp.statusCode,
-      body,
-      ...(Object.keys(headers).length === 0 ? {} : { headers }),
-      ...(isBinaryResponse ? { isBase64Encoded: true } : {})
-    };
-  }
-  throw resp;
-};
