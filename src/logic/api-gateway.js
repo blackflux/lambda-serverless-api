@@ -57,16 +57,21 @@ module.exports.wrap = ({
   };
   const apply = [
     async () => {
-      await module.before(kwargs);
-      kwargs.response = await handler(context.parsedParameters, context, event);
+      const resp = await module.before(kwargs);
+      assert(resp === null, 'Plugin before() should not return');
+      return handler(context.parsedParameters, context, event);
     },
-    async () => module.after(kwargs)
+    async (prevResp) => {
+      const resp = await module.after(kwargs);
+      assert(resp === null, 'Plugin after() should not return');
+      return prevResp;
+    }
   ];
   let isError = false;
   for (let idx = 0; idx < apply.length; idx += 1) {
     try {
       // eslint-disable-next-line no-await-in-loop
-      await apply[idx]();
+      kwargs.response = await apply[idx](kwargs.response);
     } catch (err) {
       kwargs.response = err;
       isError = true;

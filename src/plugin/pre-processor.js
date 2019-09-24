@@ -1,4 +1,3 @@
-const get = require('lodash.get');
 const Joi = require('joi-strict');
 const { Plugin } = require('../plugin');
 const { ApiError } = require('../response');

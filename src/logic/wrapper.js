@@ -16,7 +16,10 @@ module.exports.Wrapper = ({ router, module }) => {
       options,
       .../^(?<method>[A-Z]+)\s(?<uri>.+)$/.exec(identifier).groups
     };
-    module.beforeRegister({ request });
+    (() => {
+      const resp = module.beforeRegister({ request });
+      assert(resp === null, 'Plugin should not return from beforeRegister()');
+    })();
     request.route = `${request.method} ${request.uri}`;
 
     endpoints[request.route] = params;
@@ -32,7 +35,10 @@ module.exports.Wrapper = ({ router, module }) => {
     handlerFn.route = request.route;
 
     router.register(request.route, handlerFn);
-    module.afterRegister({ request });
+    (() => {
+      const resp = module.afterRegister({ request });
+      assert(resp === null, 'Plugin should not return from afterRegister()');
+    })();
 
     return wrapAsync(handlerFn);
   };

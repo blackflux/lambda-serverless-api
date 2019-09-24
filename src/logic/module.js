@@ -17,6 +17,23 @@ class Module {
       assert(schemaPath.length === 1);
       return new P(get(options, schemaPath[0], {}));
     });
+    this.executeAsync = async (fn, kwargs) => {
+      for (let idx = 0; idx < this.plugins.length; idx += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        const resp = await this.plugins[idx][fn](kwargs);
+        if (![null, undefined].includes(resp)) {
+          return resp;
+        }
+      }
+      return null;
+    };
+    this.executeSync = (fn, kwargs) => {
+      for (let idx = 0; idx < this.plugins.length; idx += 1) {
+        const resp = this.plugins[idx][fn](kwargs);
+        assert(resp === undefined, 'Plugin must not return from this function');
+      }
+      return null;
+    };
   }
 
   getSchemas() {
@@ -28,40 +45,23 @@ class Module {
   }
 
   beforeRegister(kwargs) {
-    for (let idx = 0; idx < this.plugins.length; idx += 1) {
-      this.plugins[idx].beforeRegister(kwargs);
-    }
+    return this.executeSync('beforeRegister', kwargs);
   }
 
   afterRegister(kwargs) {
-    for (let idx = 0; idx < this.plugins.length; idx += 1) {
-      this.plugins[idx].afterRegister(kwargs);
-    }
+    return this.executeSync('afterRegister', kwargs);
   }
 
   async onUnhandled(kwargs) {
-    for (let idx = 0; idx < this.plugins.length; idx += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      const resp = await this.plugins[idx].onUnhandled(kwargs);
-      if (![null, undefined].includes(resp)) {
-        return resp;
-      }
-    }
-    return null;
+    return this.executeAsync('onUnhandled', kwargs);
   }
 
   async before(kwargs) {
-    for (let idx = 0; idx < this.plugins.length; idx += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      await this.plugins[idx].before(kwargs);
-    }
+    return this.executeAsync('before', kwargs);
   }
 
   async after(kwargs) {
-    for (let idx = 0; idx < this.plugins.length; idx += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      await this.plugins[idx].after(kwargs);
-    }
+    return this.executeAsync('after', kwargs);
   }
 }
 module.exports.Module = Module;
