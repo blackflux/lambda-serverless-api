@@ -28,7 +28,7 @@ module.exports.Router = ({ module }) => {
         method: event.httpMethod,
         uri: get(event, 'path', '')
       };
-      const route = `${event.httpMethod} ${get(event, 'path', '')}`;
+      const route = `${request.method} ${request.uri}`;
       return wrapHandler(() => module.onUnhandled({
         event,
         context,
