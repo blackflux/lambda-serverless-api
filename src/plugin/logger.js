@@ -10,6 +10,12 @@ const { asApiGatewayResponse } = require('../response');
 class Logger extends Plugin {
   constructor(options) {
     super(options);
+    this.prefix = get(options, 'prefix', [
+      'response.statusCode',
+      'response.body.messageId',
+      'event.httpMethod',
+      '$PATH'
+    ]);
     this.logError = get(options, 'logError', true);
     this.logSuccess = get(options, 'logSuccess', true);
     this.parse = get(options, 'parse', () => {});
@@ -28,6 +34,7 @@ class Logger extends Plugin {
   static schema() {
     return {
       logger: Joi.object().keys({
+        prefix: Joi.array().items(Joi.string()).optional(),
         logSuccess: Joi.boolean().optional(),
         logError: Joi.boolean().optional(),
         parse: Joi.function().optional(),
@@ -51,12 +58,14 @@ class Logger extends Plugin {
       this.parse(toLog);
       (success ? this.redactSuccess : this.redactError)(toLog);
       const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
-      const prefix = [
-        get(toLog, 'response.statusCode'),
-        get(toLog, 'response.body.messageId'),
-        get(toLog, 'event.httpMethod'),
-        matchedRoute ? matchedRoute[0].handler.route.split(' ')[1] : get(toLog, 'event.path')
-      ].filter((e) => !!e).join(' ');
+      const prefix = this.prefix
+        .map((p) => {
+          if (p === '$PATH') {
+            return matchedRoute ? matchedRoute[0].handler.route.split(' ')[1] : get(toLog, 'event.path');
+          }
+          return get(toLog, p);
+        })
+        .filter((e) => !!e).join(' ');
       const msg = JSON.stringify(toLog);
       assert(prefix !== '');
       logger[success ? 'info' : 'warn'](`${prefix}\n${msg}`);
