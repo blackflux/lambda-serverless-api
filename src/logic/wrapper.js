@@ -1,5 +1,4 @@
 const assert = require('assert');
-const { wrap: wrapAsync } = require('lambda-async');
 const apiGateway = require('./api-gateway');
 
 module.exports.Wrapper = ({ router, module }) => {
@@ -40,7 +39,7 @@ module.exports.Wrapper = ({ router, module }) => {
       assert(resp === null, 'Plugin should not return from afterRegister()');
     })();
 
-    return wrapAsync(handlerFn);
+    return apiGateway.makeAsync(handlerFn);
   };
 
   return {

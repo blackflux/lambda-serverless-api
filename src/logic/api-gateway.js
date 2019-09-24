@@ -1,5 +1,6 @@
 const assert = require('assert');
 const get = require('lodash.get');
+const { wrap: wrapAsync } = require('lambda-async');
 
 const asApiGatewayResponse = (resp, stringifyJson = true) => {
   if (get(resp, 'isApiResponse') !== true) {
@@ -83,3 +84,10 @@ module.exports.wrap = ({
   }
   return asApiGatewayResponse(kwargs.response);
 };
+
+module.exports.makeAsync = (handler) => Object.assign(
+  wrapAsync(handler),
+  Object
+    .entries(handler)
+    .reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {})
+);
