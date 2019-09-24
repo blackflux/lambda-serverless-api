@@ -17,23 +17,22 @@ module.exports.Wrapper = ({ router, module }) => {
       .../^(?<method>[A-Z]+)\s(?<uri>.+)$/.exec(identifier).groups
     };
     module.beforeRegister({ request });
-    const route = `${request.method} ${request.uri}`;
+    request.route = `${request.method} ${request.uri}`;
 
-    endpoints[route] = params;
+    endpoints[request.route] = params;
 
     const handlerFn = wrapHandler({
       handler,
       request,
-      route,
       router,
       module,
       params
     });
     handlerFn.isApiEndpoint = true;
-    handlerFn.route = route;
+    handlerFn.route = request.route;
 
-    router.register(route, handlerFn);
-    module.afterRegister({ request, route });
+    router.register(request.route, handlerFn);
+    module.afterRegister({ request });
 
     return wrap(handlerFn);
   };

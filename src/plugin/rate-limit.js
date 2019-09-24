@@ -32,8 +32,8 @@ class RateLimit extends Plugin {
     return 3;
   }
 
-  async before({ event, route, request }) {
-    assert(typeof route === 'string');
+  async before({ event, request }) {
+    assert(typeof request.route === 'string');
     if (event.httpMethod === 'OPTIONS') {
       return;
     }
@@ -49,7 +49,7 @@ class RateLimit extends Plugin {
       throw new Error(`Rate limit token not found\n${JSON.stringify(event)}`);
     }
     try {
-      await this.limiter.check(endpointLimit, `${token}/${route}`);
+      await this.limiter.check(endpointLimit, `${token}/${request.route}`);
     } catch (e) {
       throw ApiError('Rate limit exceeded.', 429);
     }

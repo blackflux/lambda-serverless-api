@@ -28,7 +28,7 @@ module.exports.Router = ({ module }) => {
         method: event.httpMethod,
         uri: get(event, 'path', '')
       };
-      const route = `${request.method} ${request.uri}`;
+      request.route = `${request.method} ${request.uri}`;
       return wrapHandler({
         handler: async () => {
           const resp = await module.onUnhandled({
@@ -42,7 +42,6 @@ module.exports.Router = ({ module }) => {
           return resp;
         },
         request,
-        route,
         router,
         module
       })(event, context);
