@@ -1,13 +1,12 @@
-const path = require('path');
 const fs = require('smart-fs');
 const expect = require('chai').expect;
 const { describe } = require('node-tdd');
-const api = require('../src/index');
-const testApi = require('./handler').internalApi;
+const api = require('../../src');
+const testApi = require('../handler').internalApi;
 
 describe('Testing Swagger', () => {
   it('Updating Swagger File with API definitions.', async () => {
-    const swaggerFile = path.join(__dirname, 'resources', 'swagger.yml');
+    const swaggerFile = `${__filename}_output.yml`;
     const swaggerContent = await testApi.generateSwagger();
     const result = fs.smartWrite(swaggerFile, swaggerContent);
     expect(result, 'Swagger file updated').to.equal(false);
@@ -24,7 +23,7 @@ describe('Testing Swagger', () => {
   });
 
   it('Testing Route Prefix', async () => {
-    const prefixApi = await api.Api({ routePrefix: 'prefix/' });
+    const prefixApi = await api.Api({ router: { prefix: 'prefix/' } });
     prefixApi.wrap('GET uri', [], () => api.JsonResponse({}));
     const docs = await prefixApi.generateSwagger();
     expect(await new Promise((resolve) => prefixApi.router({

@@ -10,7 +10,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: 400 POST\n{\"event\":{\"queryStringParameters\":{\"ref\":\"12345\",\"notification\":\"1\",\"unknown\":\"value\"},\"body\":{\"username\":\"Anja Smith\",\"email\":\"anja@test.ca\"},\"httpMethod\":\"POST\",\"requestContext\":{\"authorizer\":\"Auth Info Context\",\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"authorizer\":\"Auth Info Header\"}},\"response\":{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Invalid Query Param(s) detected.\\\",\\\"messageId\\\":99004,\\\"context\\\":{\\\"value\\\":[\\\"unknown\\\"]}}\"}}"
+      "WARNING: 400 99004 POST\n{\"event\":{\"queryStringParameters\":{\"ref\":\"12345\",\"notification\":\"1\",\"unknown\":\"value\"},\"body\":{\"username\":\"Anja Smith\",\"email\":\"anja@test.ca\"},\"httpMethod\":\"POST\",\"requestContext\":{\"authorizer\":\"Auth Info Context\",\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"authorizer\":\"Auth Info Header\"}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Query Param(s) detected.\",\"messageId\":99004,\"context\":{\"value\":[\"unknown\"]}}}}"
     ]
   },
   "event": {

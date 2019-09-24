@@ -9,10 +9,17 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "WARNING: 403 POST /path/test123/123\n{\"event\":{\"path\":\"/path/test123/123\",\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method / Route not allowed\"}}}"
+    ]
   },
   "event": {
     "path": "/path/test123/123",
-    "httpMethod": "POST"
+    "httpMethod": "POST",
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    }
   }
 }

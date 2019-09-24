@@ -10,7 +10,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: 400 POST\n{\"event\":{\"body\":{\"username\":{}},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":400,\"body\":\"{\\\"message\\\":\\\"Invalid Value for json-Parameter \\\\\\\"username\\\\\\\" provided.\\\",\\\"messageId\\\":99003,\\\"context\\\":{\\\"value\\\":{}}}\"}}"
+      "WARNING: 400 99003 POST\n{\"event\":{\"body\":{\"username\":{}},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Value for json-Parameter \\\"username\\\" provided.\",\"messageId\":99003,\"context\":{\"value\":{}}}}}"
     ]
   },
   "event": {

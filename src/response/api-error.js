@@ -6,6 +6,7 @@ class ApiError extends Error {
     this.statusCode = statusCode;
     this.messageId = messageId;
     this.context = context;
+    this.isApiResponse = true;
     this.isApiError = true;
   }
 }

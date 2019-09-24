@@ -16,7 +16,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "INFO: 200 POST\n{\"event\":{\"body\":{\"email\":null},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":\"{\\\"username\\\":\\\"default\\\",\\\"email\\\":null,\\\"xCustomHeader\\\":null}\"}}"
+      "INFO: 200 POST\n{\"event\":{\"body\":{\"email\":null},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"default\",\"email\":null,\"xCustomHeader\":null}}}"
     ]
   },
   "event": {

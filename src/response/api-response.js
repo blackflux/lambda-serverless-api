@@ -4,6 +4,7 @@ class ApiResponse {
     this.statusCode = statusCode;
     this.headers = headers;
     this.isApiResponse = true;
+    this.isApiError = false;
   }
 }
 module.exports.ApiResponseClass = ApiResponse;

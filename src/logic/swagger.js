@@ -1,7 +1,8 @@
 const get = require('lodash.get');
 const SwaggerParser = require('swagger-parser');
 
-module.exports = (endpoints) => {
+module.exports = ({ wrapper }) => {
+  const { endpoints } = wrapper;
   const data = {
     swagger: '2.0',
     produces: ['application/json'],
@@ -11,8 +12,8 @@ module.exports = (endpoints) => {
     },
     paths: {}
   };
-  Object.keys(endpoints).forEach((request) => {
-    const parameters = endpoints[request]
+  Object.keys(endpoints).forEach((route) => {
+    const parameters = endpoints[route]
       .filter((p) => ['json', 'context'].indexOf(p.position) === -1)
       .map((p) => ({
         name: p.nameOriginal,
@@ -34,7 +35,7 @@ module.exports = (endpoints) => {
         ...(p.max === undefined ? {} : { maximum: p.max })
       }));
 
-    const jsonParams = endpoints[request]
+    const jsonParams = endpoints[route]
       .filter((p) => p.position === 'json');
     if (jsonParams.length !== 0) {
       const required = jsonParams.filter((p) => p.required).map((p) => p.name);
@@ -59,16 +60,16 @@ module.exports = (endpoints) => {
     }
 
     const description = [];
-    const contextParams = endpoints[request]
+    const contextParams = endpoints[route]
       .filter((p) => p.position === 'context')
       .map((p) => p.name);
     if (contextParams.length !== 0) {
       description.push(`Internally contexts are used: ${contextParams.join(', ')}`);
     }
 
-    const path = `/${request.split(' ')[1]}`;
+    const path = `/${route.split(' ')[1]}`;
     data.paths[path] = Object.assign(get(data.paths, path, {}), {
-      [request.split(' ')[0].toLowerCase()]: {
+      [route.split(' ')[0].toLowerCase()]: {
         consumes: ['application/json'],
         description: description.join('\n'),
         parameters,

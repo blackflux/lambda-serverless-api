@@ -9,7 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "WARNING: 403 GET /json/other\n{\"event\":{\"path\":\"/json/other\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method / Route not allowed\"}}}"
+    ]
   },
   "event": {
     "path": "/json/other",
