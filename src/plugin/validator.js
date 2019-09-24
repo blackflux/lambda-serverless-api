@@ -49,7 +49,7 @@ class Validator extends Plugin {
 
   // eslint-disable-next-line class-methods-use-this
   async before({ request, event }) {
-    const receivedRequestMethod = get(event, 'httpMethod');
+    const receivedRequestMethod = event.httpMethod;
     if (receivedRequestMethod !== request.method) {
       throw new Error('Request Method Mismatch');
     }
