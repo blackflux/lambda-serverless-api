@@ -5,12 +5,11 @@ const { wrap: wrapHandler } = require('./handler');
 module.exports.Wrapper = ({ router, module }) => {
   const endpoints = {};
 
-  const wrapFn = (identifier, params, optionsOrHandler, handlerOrUndefined) => {
-    const hasOptions = handlerOrUndefined !== undefined;
-    assert(!hasOptions || (optionsOrHandler instanceof Object && !Array.isArray(optionsOrHandler)));
-    const handler = hasOptions ? handlerOrUndefined : optionsOrHandler;
+  const wrapFn = (identifier, params, ...args) => {
+    assert([1, 2].includes(args.length));
+    const [options, handler] = args.length === 2 ? args : [{}, args[0]];
+    assert(options instanceof Object && !Array.isArray(options));
     assert(typeof handler === 'function');
-    const options = hasOptions ? optionsOrHandler : {};
 
     const request = {
       params,
