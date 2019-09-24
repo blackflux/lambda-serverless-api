@@ -2,7 +2,7 @@ const get = require('lodash.get');
 const Joi = require('joi-strict');
 const { Plugin } = require('../plugin');
 const { ApiError } = require('../response');
-const objectAsLowerCase = require('../util/object-as-lower-case');
+const objectAsLowerCase = require('../util/object-rekey-lower-case');
 
 class PreProcessor extends Plugin {
   // eslint-disable-next-line no-useless-constructor
