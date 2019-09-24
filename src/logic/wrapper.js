@@ -27,8 +27,7 @@ module.exports.Wrapper = ({ router, module }) => {
       route,
       router,
       module,
-      params,
-      options
+      params
     });
     handlerFn.isApiEndpoint = true;
     handlerFn.route = route;

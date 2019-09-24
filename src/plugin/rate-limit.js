@@ -32,12 +32,12 @@ class RateLimit extends Plugin {
     return 3;
   }
 
-  async before({ event, route, options }) {
+  async before({ event, route, request }) {
     assert(typeof route === 'string');
     if (event.httpMethod === 'OPTIONS') {
       return;
     }
-    const endpointLimit = get(options, 'limit', this.globalLimit);
+    const endpointLimit = get(request.options, 'limit', this.globalLimit);
     if (endpointLimit === null) {
       return;
     }

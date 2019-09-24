@@ -8,8 +8,7 @@ module.exports.wrap = ({
   route,
   router,
   module,
-  params = [],
-  options = {}
+  params = []
 }) => async (event, context) => {
   if (!event.httpMethod) {
     return Promise.resolve('OK - No API Gateway call detected.');
@@ -20,8 +19,7 @@ module.exports.wrap = ({
     context,
     route,
     router,
-    params,
-    options
+    params
   };
   let isSuccess = true;
   try {
