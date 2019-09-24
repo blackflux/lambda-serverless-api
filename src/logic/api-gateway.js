@@ -77,7 +77,7 @@ module.exports.wrap = ({
       isError = true;
     }
     assert(get(kwargs, 'response.isApiError', true) === isError);
-    if (!get(kwargs, 'response.isApiResponse', false)) {
+    if (get(kwargs, 'response.isApiResponse', false) !== true) {
       break;
     }
   }
