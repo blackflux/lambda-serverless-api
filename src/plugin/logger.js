@@ -19,6 +19,7 @@ class Logger extends Plugin {
     this.logError = get(options, 'logError', true);
     this.logSuccess = get(options, 'logSuccess', true);
     this.parse = get(options, 'parse', () => {});
+    this.level = get(options, 'level', ({ success }) => (success ? 'info' : 'warn'));
     const redactOptions = {
       joined: false,
       useArraySelector: false,
@@ -38,6 +39,7 @@ class Logger extends Plugin {
         logSuccess: Joi.boolean().optional(),
         logError: Joi.boolean().optional(),
         parse: Joi.function().optional(),
+        level: Joi.function().optional(),
         redactSuccess: Joi.array().items(Joi.string()).optional(),
         redactError: Joi.array().items(Joi.string()).optional()
       }).optional()
@@ -68,7 +70,7 @@ class Logger extends Plugin {
         .filter((e) => !!e).join(' ');
       const msg = JSON.stringify(toLog);
       assert(prefix !== '');
-      logger[success ? 'info' : 'warn'](`${prefix}\n${msg}`);
+      logger[this.level({ success, prefix, msg })](`${prefix}\n${msg}`);
     }
   }
 }
