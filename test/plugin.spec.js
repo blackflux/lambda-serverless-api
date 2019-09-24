@@ -48,6 +48,18 @@ describe('Testing Plugin', () => {
     });
   });
 
+  it('Testing Plugin Schema Names', async ({ fixture }) => {
+    module.getPlugins()
+      .map((p) => [p.constructor.name, p.constructor.schema()])
+      .forEach(([name, schema]) => {
+        const schemaKeys = Object.keys(schema);
+        expect(schemaKeys.length).to.equal(1);
+        const [optionName] = schemaKeys;
+        expect(name).to.not.equal(optionName);
+        expect(name.slice(0, 1).toLowerCase() + name.slice(1)).to.equal(optionName);
+      });
+  });
+
   it('Testing Plugin Abstract', () => {
     expect(() => new Plugin()).to.throw('Class "Plugin" is abstract');
   });
