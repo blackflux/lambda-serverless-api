@@ -14,7 +14,7 @@ class Logger extends Plugin {
       'response.statusCode',
       'response.body.messageId',
       'event.httpMethod',
-      '$PATH'
+      '$ROUTE'
     ]);
     this.logError = get(options, 'logError', true);
     this.logSuccess = get(options, 'logSuccess', true);
@@ -60,7 +60,7 @@ class Logger extends Plugin {
       const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
       const prefix = this.prefix
         .map((p) => {
-          if (p === '$PATH') {
+          if (p === '$ROUTE') {
             return matchedRoute ? matchedRoute[0].handler.route.split(' ')[1] : get(toLog, 'event.path');
           }
           return get(toLog, p);
