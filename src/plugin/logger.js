@@ -53,6 +53,7 @@ class Logger extends Plugin {
       const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
       const prefix = [
         get(toLog, 'response.statusCode'),
+        get(toLog, 'response.body.messageId'),
         get(toLog, 'event.httpMethod'),
         matchedRoute ? matchedRoute[0].handler.route.split(' ')[1] : get(toLog, 'event.path')
       ].filter((e) => !!e).join(' ');
