@@ -85,7 +85,7 @@ module.exports.wrap = ({
   return asApiGatewayResponse(kwargs.response);
 };
 
-module.exports.makeAsync = (handler) => Object.assign(
+module.exports.wrapAsync = (handler) => Object.assign(
   wrapAsync(handler),
   Object
     .entries(handler)

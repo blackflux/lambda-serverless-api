@@ -53,6 +53,6 @@ module.exports.Router = ({ module }) => {
   handler.route = 'ANY';
 
   return Object.assign(router, {
-    handler: apiGateway.makeAsync(handler)
+    handler: apiGateway.wrapAsync(handler)
   });
 };
