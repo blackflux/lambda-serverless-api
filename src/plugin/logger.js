@@ -58,7 +58,6 @@ class Logger extends Plugin {
         response: asApiGatewayResponse(response, false)
       });
       this.parse(toLog);
-      (success ? this.redactSuccess : this.redactError)(toLog);
       const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
       const prefix = this.prefix
         .map((p) => {
@@ -68,6 +67,7 @@ class Logger extends Plugin {
           return get(toLog, p);
         })
         .filter((e) => !!e).join(' ');
+      (success ? this.redactSuccess : this.redactError)(toLog);
       const msg = JSON.stringify(toLog);
       assert(prefix !== '');
       logger[this.level({ success, prefix, msg })](`${prefix}\n${msg}`);
