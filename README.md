@@ -135,7 +135,7 @@ _Note: Parameter position must be in [json, context]_
 Type: `boolean`<br>
 Default: `false`
 
-#### options.getter
+#### getter
 
 > _Experimental_
 
