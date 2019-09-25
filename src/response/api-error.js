@@ -4,8 +4,10 @@ class ApiError extends Error {
     this.name = this.constructor.name;
     Error.captureStackTrace(this, this.constructor);
     this.statusCode = statusCode;
+    this.headers = {};
     this.messageId = messageId;
     this.context = context;
+    this.isJsonResponse = true;
     this.isApiResponse = true;
     this.isApiError = true;
   }
