@@ -24,7 +24,7 @@ class Plugin {
   afterRegister(kwargs) {}
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async onUnhandled(kwargs) {}
+  async onUnrouted(kwargs) {}
 
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async before(kwargs) {}

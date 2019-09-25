@@ -52,8 +52,8 @@ class Module {
     return this.executeSync('afterRegister', kwargs);
   }
 
-  async onUnhandled(kwargs) {
-    return this.executeAsync('onUnhandled', kwargs);
+  async onUnrouted(kwargs) {
+    return this.executeAsync('onUnrouted', kwargs);
   }
 
   async before(kwargs) {
