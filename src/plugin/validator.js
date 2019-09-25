@@ -53,6 +53,10 @@ class Validator extends Plugin {
       throw new Error('Request Method Mismatch');
     }
 
+    if (request.routed === false) {
+      return;
+    }
+
     const invalidQsParams = difference(
       Object.keys(event.queryStringParameters || {}),
       request.params.filter((p) => p.position === 'query').map((p) => p.name)

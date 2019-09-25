@@ -13,7 +13,8 @@ module.exports.Wrapper = ({ router, module }) => {
     const request = {
       params,
       options,
-      .../^(?<method>[A-Z]+)\s(?<uri>.+)$/.exec(identifier).groups
+      .../^(?<method>[A-Z]+)\s(?<uri>.+)$/.exec(identifier).groups,
+      routed: true
     };
     (() => {
       const resp = module.beforeRegister({ request });

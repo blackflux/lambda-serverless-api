@@ -28,7 +28,7 @@ class Cors extends Plugin {
     return 0;
   }
 
-  async onUnhandled(kwargs) {
+  async onUnrouted(kwargs) {
     const { event, router } = kwargs;
     if (event.httpMethod !== 'OPTIONS') {
       return null;
