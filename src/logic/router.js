@@ -25,7 +25,8 @@ module.exports.Router = ({ module }) => {
         params: [],
         options: {},
         method: event.httpMethod,
-        uri: get(event, 'path', '')
+        uri: get(event, 'path', ''),
+        routed: false
       };
       request.route = `${request.method} ${request.uri}`;
       return apiGateway.wrap({
