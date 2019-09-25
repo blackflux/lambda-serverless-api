@@ -17,7 +17,7 @@
     "AutoPrune",
     "Validator"
   ],
-  "onUnhandled": [
+  "onUnrouted": [
     "Cors"
   ],
   "before": [

@@ -31,7 +31,7 @@ module.exports.Router = ({ module }) => {
       request.route = `${request.method} ${request.uri}`;
       return apiGateway.wrap({
         handler: async () => {
-          const resp = await module.onUnhandled({
+          const resp = await module.onUnrouted({
             event,
             context,
             router
