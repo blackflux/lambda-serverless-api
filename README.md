@@ -80,7 +80,7 @@ Please see implementation for details.
 Takes the following positional arguments:
 - _route_ `string`: The method and the uri of the format `${method} ${uri}`
 - _params_ `Array<Parameter>`: [Parameter definitions](#api-parameters)
-- _options_ `object`: [Endpoint options (optional)](#parameter-options)
+- _options_: Endpoint options (optional)
 - _handler_ `function`: The handler using [parsed parameters](#parameter-names) as the first argument
 
 Note: The (slightly modified) original event and context can be accessed as additional handler parameters
