@@ -9,7 +9,7 @@ class AutoPrune extends Plugin {
 
   static schema() {
     return {
-      autoPrune: Joi.object().keys().optional()
+      autoPrune: Joi.object().keys({}).optional()
     };
   }
 
