@@ -19,6 +19,11 @@ class Logger extends Plugin {
     this.logError = get(options, 'logError', true);
     this.logSuccess = get(options, 'logSuccess', true);
     this.parse = get(options, 'parse', () => {});
+    this.success = get(options, 'success', ({ message }) => (
+      Number.isInteger(message.response.statusCode)
+      && message.response.statusCode >= 100
+      && message.response.statusCode < 400
+    ));
     this.level = get(options, 'level', ({ success }) => (success ? 'info' : 'warn'));
     const redactOptions = {
       joined: false,
@@ -39,6 +44,7 @@ class Logger extends Plugin {
         logSuccess: Joi.boolean().optional(),
         logError: Joi.boolean().optional(),
         parse: Joi.function().optional(),
+        success: Joi.function().optional(),
         level: Joi.function().optional(),
         redactSuccess: Joi.array().items(Joi.string()).optional(),
         redactError: Joi.array().items(Joi.string()).optional()
@@ -51,27 +57,31 @@ class Logger extends Plugin {
   }
 
   async after({ event, response, router }) {
-    const success = Number.isInteger(response.statusCode) && response.statusCode >= 100 && response.statusCode < 400;
-    if ((!success && this.logError) || (success && this.logSuccess)) {
-      const toLog = cloneDeep({
-        event,
-        response: asApiGatewayResponse(response, false)
-      });
-      this.parse(toLog);
-      (success ? this.redactSuccess : this.redactError)(toLog);
-      const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
-      const prefix = this.prefix
-        .map((p) => {
-          if (p === '$ROUTE') {
-            return matchedRoute ? matchedRoute[0].handler.route.split(' ')[1] : get(toLog, 'event.path');
-          }
-          return get(toLog, p);
-        })
-        .filter((e) => !!e).join(' ');
-      const msg = JSON.stringify(toLog);
-      assert(prefix !== '');
-      logger[this.level({ success, prefix, msg })](`${prefix}\n${msg}`);
+    if (!this.logError && !this.logSuccess) {
+      return;
     }
+    const message = cloneDeep({
+      event,
+      response: asApiGatewayResponse(response, false)
+    });
+    this.parse(message);
+    const success = this.success({ message });
+    if ((success && !this.logSuccess) || (!success && !this.logError)) {
+      return;
+    }
+    const level = this.level({ success, message });
+    const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
+    const prefix = this.prefix
+      .map((p) => {
+        if (p === '$ROUTE') {
+          return matchedRoute ? matchedRoute[0].handler.route.split(' ')[1] : get(message, 'event.path');
+        }
+        return get(message, p);
+      })
+      .filter((e) => !!e).join(' ');
+    assert(prefix !== '');
+    (success ? this.redactSuccess : this.redactError)(message);
+    logger[level](`${prefix}\n${JSON.stringify(message)}`);
   }
 }
 module.exports = Logger;
