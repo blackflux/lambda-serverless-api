@@ -5,9 +5,9 @@
     "Router",
     "AutoPrune",
     "RateLimit",
+    "PreValidation",
     "Validator",
     "ParamParser",
-    "Authorizer",
     "Logger"
   ],
   "beforeRegister": [
@@ -23,9 +23,9 @@
   "before": [
     "PreProcessor",
     "RateLimit",
+    "PreValidation",
     "Validator",
-    "ParamParser",
-    "Authorizer"
+    "ParamParser"
   ],
   "after": [
     "Cors",
