@@ -13,9 +13,9 @@ Middleware for AWS Lambda and Api Gateway.
 
 Provides support for:
 
-- Fully customizable parameters types
-- Support for `header`, `json`, `query` and `context` parameter positions 
-- Abstraction for `text`, `json` and `binary` response types
+- Fully customizable parameter types
+- Support for `header`, `json`, `query` and `context`, parameter positions
+- Abstraction for `text`, `json`, and `binary` response types
 - Full support for custom authentication
 - Full support for `cors`
 - Automatic generation of [Swagger](https://swagger.io/) documentation
@@ -28,7 +28,7 @@ Provides support for:
 
 ## Getting Started
 
-Define api and handlers in `handler.js` as following
+Define api and handlers in `handler.js` as follows:
 
 <!-- eslint-disable import/no-unresolved -->
 ```js
@@ -65,11 +65,11 @@ functions:
 
 ## Api Options
 
-The api is plugin based and all options are tied to plugins. The following plugins are customizable
+The api is plugin based and all options are tied to plugins. The following plugins are customizable:
 
 - _cors_: Used to handle CORS Option requests as well as injecting CORS headers into responses
-- _logger_: Log responses to console / cloudwatch, which can then be picked up by `lambda-monitor`
-- _preValidation_: Hook to allow pre validation (e.g. authentication)
+- _logger_: Log responses to console (CloudWatch), which can then be picked up by `lambda-monitor`
+- _preValidation_: Hook to allow pre-validation (e.g. authentication)
 - _rateLimit_: Used for rate limiting 
 - _router_: Used to modify the router, e.g. set a custom route prefix
 
@@ -78,10 +78,10 @@ Please see implementation for details.
 ## Endpoint Definition: wrap()
 
 Takes the following positional arguments:
-- _route_: A string consisting of the method and the uri
-- _params_: An array containing the parameter definitions
-- _options_: Endpoint options (optional)
-- _handler_: The handler taking as first argument the parsed parameters
+- _route_ `string`: The method and the uri of the format `${method} ${uri}`
+- _params_ `Array<Parameter>`: [Parameter definitions](#api-parameters)
+- _options_ `object`: [Endpoint options (optional)](#parameter-options)
+- _handler_ `function`: The handler using [parsed parameters](#parameter-names) as the first argument
 
 Note: The (slightly modified) original event and context can be accessed as additional handler parameters
 
@@ -184,7 +184,7 @@ Please see implementation for details.
 
 ## Rate Limiting
 
-Done globally through the API configuration. However can be overwritten on an per-endpoint basis
+Done globally through the API configuration. However can be overwritten on a per-endpoint basis
 by specifying `limit` as an integer in the endpoint definition option.
 
 Rate limiting uses [lambda-rate-limiter](https://github.com/blackflux/lambda-rate-limiter). Note that there are some serious restrictions because it does not use centralized storage!
