@@ -5,7 +5,7 @@ const { Api, ApiError } = require('../src/index');
 const { identity } = require('./misc');
 
 
-describe('Testing Response', () => {
+describe('Testing Response', { record: console }, () => {
   let api;
   beforeEach(() => {
     api = Api({
@@ -61,6 +61,24 @@ describe('Testing Response', () => {
       });
       done();
     });
+  });
+
+  it('Testing no logs', async ({ recorder }) => {
+    api = Api({ logger: { logSuccess: false, logError: false } });
+    api.wrap('GET path', [], identity(api));
+    const [err, resp] = await new Promise((resolve) => {
+      api.router({
+        httpMethod: 'GET',
+        path: '/path',
+        requestContext: { identity: { sourceIp: '127.0.0.1' } }
+      }, {}, (...args) => resolve(args));
+    });
+    expect(err).to.equal(null);
+    expect(resp).to.deep.equal({
+      statusCode: 200,
+      body: '{}'
+    });
+    expect(recorder.get()).to.deep.equal([]);
   });
 
   it('Testing cors function (echo)', (done) => {
