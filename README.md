@@ -72,6 +72,7 @@ The api is plugin based and all options are tied to plugins. The following plugi
 - _preValidation_: Hook to allow pre-validation (e.g. authentication)
 - _rateLimit_: Used for rate limiting 
 - _router_: Used to modify the router, e.g. set a custom route prefix
+- _robots_: Used to modify `robots.txt` response
 
 Please see implementation for details.
 
