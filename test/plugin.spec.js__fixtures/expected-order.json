@@ -5,6 +5,7 @@
     "Router",
     "AutoPrune",
     "RateLimit",
+    "Robots",
     "PreValidation",
     "Validator",
     "ParamParser",
@@ -18,7 +19,8 @@
     "Validator"
   ],
   "onUnrouted": [
-    "Cors"
+    "Cors",
+    "Robots"
   ],
   "before": [
     "PreProcessor",
