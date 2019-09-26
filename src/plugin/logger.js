@@ -69,17 +69,19 @@ class Logger extends Plugin {
     if ((success && !this.logSuccess) || (!success && !this.logError)) {
       return;
     }
-    const level = this.level({ success, message });
-    const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
+
     const prefix = this.prefix
       .map((p) => {
         if (p === '$ROUTE') {
+          const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
           return matchedRoute ? matchedRoute[0].handler.route.split(' ')[1] : get(message, 'event.path');
         }
         return get(message, p);
       })
       .filter((e) => !!e).join(' ');
     assert(prefix !== '');
+
+    const level = this.level({ success, prefix, message });
     (success ? this.redactSuccess : this.redactError)(message);
     logger[level](`${prefix}\n${JSON.stringify(message)}`);
   }
