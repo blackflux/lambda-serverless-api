@@ -52,6 +52,10 @@ class Module {
     return this.executeSync('afterRegister', kwargs);
   }
 
+  async beforeRouting(kwargs) {
+    return this.executeAsync('beforeRouting', kwargs);
+  }
+
   async onUnrouted(kwargs) {
     return this.executeAsync('onUnrouted', kwargs);
   }
