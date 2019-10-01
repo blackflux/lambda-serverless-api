@@ -19,6 +19,7 @@ module.exports.Router = ({ module }) => {
   })();
 
   const handler = async (event, context) => {
+    await module.beforeRouting({ event, context, router });
     const matchedRoutes = router.recognize(event.httpMethod, get(event, 'path', ''));
     if (!matchedRoutes) {
       const request = {

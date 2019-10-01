@@ -2,6 +2,7 @@
   "constructor": [
     "Cors",
     "PreProcessor",
+    "PreRouting",
     "Router",
     "AutoPrune",
     "RateLimit",
@@ -9,7 +10,8 @@
     "PreValidation",
     "Validator",
     "ParamParser",
-    "Logger"
+    "Logger",
+    "PreResponse"
   ],
   "beforeRegister": [
     "Router"
@@ -17,6 +19,9 @@
   "afterRegister": [
     "AutoPrune",
     "Validator"
+  ],
+  "beforeRouting": [
+    "PreRouting"
   ],
   "onUnrouted": [
     "Cors",
@@ -32,6 +37,7 @@
   "after": [
     "Cors",
     "AutoPrune",
-    "Logger"
+    "Logger",
+    "PreResponse"
   ]
 }
