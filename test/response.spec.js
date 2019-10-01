@@ -46,8 +46,12 @@ describe('Testing Response', { record: console }, () => {
     });
   });
 
-  it('Testing authorizer ok', (done) => {
-    api = Api({ preValidation: () => {} });
+  it('Testing hooks', (done) => {
+    api = Api({
+      preRouting: () => {},
+      preValidation: () => {},
+      preResponse: () => {}
+    });
     api.wrap('GET path', [], identity(api));
     api.router({
       httpMethod: 'GET',
