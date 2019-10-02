@@ -56,6 +56,7 @@ class Cors extends Plugin {
     const allowedHeaders = [
       'Content-Type',
       'Accept',
+      'Origin',
       ...(Array.isArray(this.allowedHeaders) ? this.allowedHeaders : await this.allowedHeaders(kwargs))
     ].map((h) => h.toLowerCase());
     if (!accessControlRequestHeaders.split(',').map((h) => h
