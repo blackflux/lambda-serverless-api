@@ -151,7 +151,7 @@ describe('Testing Response', { record: console }, () => {
         body: '',
         headers: {
           'Access-Control-Allow-Origin': 'https://some-origin.com',
-          'Access-Control-Allow-Headers': 'content-type,accept,x-custom',
+          'Access-Control-Allow-Headers': 'content-type,accept,origin,x-custom',
           'Access-Control-Allow-Methods': 'GET'
         }
       });

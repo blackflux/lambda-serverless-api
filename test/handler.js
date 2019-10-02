@@ -3,7 +3,6 @@ const Joi = require('joi-strict');
 const api = require('../src/index').Api({
   cors: {
     allowedHeaders: [
-      'Origin',
       'X-Requested-With',
       'X-Amz-Date',
       'Authorization',
