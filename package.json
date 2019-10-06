@@ -30,13 +30,13 @@
     "eslint-plugin-mocha": "6.1.1",
     "js-gardener": "2.0.103",
     "lambda-tdd": "2.10.16",
-    "nock": "11.3.5",
+    "nock": "11.3.6",
     "node-tdd": "2.5.13",
     "nyc": "14.1.1",
     "request": "2.88.0",
     "request-promise": "4.2.4",
     "semantic-release": "15.13.24",
-    "smart-fs": "1.10.1"
+    "smart-fs": "1.11.0"
   },
   "version": "0.0.0-development",
   "scripts": {
