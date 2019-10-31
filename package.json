@@ -31,7 +31,7 @@
     "js-gardener": "2.0.111",
     "lambda-tdd": "2.10.24",
     "nock": "11.6.0",
-    "node-tdd": "2.5.17",
+    "node-tdd": "2.5.18",
     "nyc": "14.1.1",
     "request": "2.88.0",
     "request-promise": "4.2.4",
