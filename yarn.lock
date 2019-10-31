@@ -544,6 +544,11 @@ app-root-path@2.2.1:
   resolved "https://registry.yarnpkg.com/app-root-path/-/app-root-path-2.2.1.tgz#d0df4a682ee408273583d43f6f79e9892624bc9a"
   integrity sha512-91IFKeKk7FjfmezPKkwtaRvSpnUc4gDwPAjA1YZ9Gn0q0PPeW+vbeUsZuyDwjI7+QTHhcLen2v25fi/AmhvbJA==
 
+app-root-path@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/app-root-path/-/app-root-path-3.0.0.tgz#210b6f43873227e18a4b810a032283311555d5ad"
+  integrity sha512-qMcx+Gy2UZynHjOHOIXPNvpf+9cjvk3cWrBBK7zg4gH9+clobJRb9NGzcT7mQTcV/6Gm/1WelUtqxVXnNlrwcw==
+
 append-transform@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/append-transform/-/append-transform-1.0.0.tgz#046a52ae582a228bd72f58acfbe2967c678759ab"
@@ -3820,12 +3825,12 @@ lambda-rate-limiter@2.4.26:
   dependencies:
     lru-cache "5.1.1"
 
-lambda-tdd@2.10.23:
-  version "2.10.23"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.10.23.tgz#923f91c3e7372b0c23507f29e749b8448ac6371e"
-  integrity sha512-khsxBCQgqwZyw8oMA9PpfDuZ/yBFwB4ASlXcDIes9rLOfgMjMimORNS4dRihJetzYSzzgOe63skpE1MenUR0Bg==
+lambda-tdd@2.10.24:
+  version "2.10.24"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.10.24.tgz#643ad99151abf6b36304401565309f3d124b4b2e"
+  integrity sha512-cKt3qNYaufqqEp7xVUXqXlSEHri/6iDGzfWS/TH5UgSrZWFO4v87KeCZdezEBnQhtIBgnHA1nHRc02otpEW2rA==
   dependencies:
-    app-root-path "2.2.1"
+    app-root-path "3.0.0"
     glob "7.1.5"
     joi-strict "1.1.7"
     js-yaml "3.13.1"
