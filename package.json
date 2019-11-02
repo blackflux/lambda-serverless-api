@@ -35,7 +35,7 @@
     "nyc": "14.1.1",
     "request": "2.88.0",
     "request-promise": "4.2.4",
-    "semantic-release": "15.13.28",
+    "semantic-release": "15.13.29",
     "smart-fs": "1.11.0"
   },
   "version": "0.0.0-development",
