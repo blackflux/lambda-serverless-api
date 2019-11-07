@@ -6,9 +6,14 @@ const { identity } = require('../misc');
 describe('Testing FieldsParam Parameter', () => {
   let queryParam;
   let jsonParam;
+  let queryParamOptionEnforce;
   before(() => {
     queryParam = api.FieldsParam('param', 'query', { fields: ['id', 'user.id', 'user.name'] });
     jsonParam = api.FieldsParam('param', 'json', { fields: () => ['id', 'user.id', 'user.name'] });
+    queryParamOptionEnforce = api.FieldsParam('param', 'query', {
+      fields: ['user.id', 'user.name'],
+      enforce: ['user.id', 'id']
+    });
   });
 
   it('Testing valid query param', () => {
@@ -50,5 +55,13 @@ describe('Testing FieldsParam Parameter', () => {
     ], identity(api)))
       .to.throw('Only one auto pruning "FieldsParam" per endpoint.');
     done();
+  });
+
+  it('Testing enforce option', () => {
+    expect(queryParamOptionEnforce.get({
+      queryStringParameters: {
+        param: 'user.id,user.name'
+      }
+    })).to.deep.equal(['user.id', 'user.name', 'id']);
   });
 });
