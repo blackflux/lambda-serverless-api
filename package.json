@@ -35,7 +35,7 @@
     "nyc": "14.1.1",
     "request": "2.88.0",
     "request-promise": "4.2.5",
-    "semantic-release": "15.13.30",
+    "semantic-release": "15.13.31",
     "smart-fs": "1.11.0"
   },
   "version": "0.0.0-development",
@@ -77,7 +77,7 @@
     "lib"
   ],
   "dependencies": {
-    "joi-strict": "1.1.7",
+    "joi-strict": "1.1.8",
     "lambda-async": "1.0.2",
     "lambda-monitor-logger": "2.2.2",
     "lambda-rate-limiter": "2.4.26",
