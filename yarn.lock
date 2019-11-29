@@ -3888,19 +3888,19 @@ lambda-rate-limiter@2.4.26:
   dependencies:
     lru-cache "5.1.1"
 
-lambda-tdd@2.11.0:
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.11.0.tgz#21a9db6b0ce4594073b1ebd2fc60fe9ba8c9aba7"
-  integrity sha512-vUA5wSdpAyRinpSDdIdTVe3ZEWxdv8BUXLmW+UB3Jj7PmVKBFt3eyUGLqonXFJR/vmyhMIElrcOb7ucx0EekSw==
+lambda-tdd@2.11.1:
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.11.1.tgz#7fc3c8ac0bde932807e1afb927d523a1f02a05d4"
+  integrity sha512-UaYiPjh2260zusK0/RDEmwyBTWib2otYjua29XMz1ILC11LYGKQ0g+ovaOOZoq+iuTN0CqduKWfbeWQ4Dt2fUA==
   dependencies:
     app-root-path "3.0.0"
     glob "7.1.6"
-    joi-strict "1.1.8"
+    joi-strict "1.1.9"
     js-yaml "3.13.1"
     lambda-wrapper "0.3.0"
     lodash.get "4.4.2"
     node-tdd "2.5.18"
-    smart-fs "1.11.1"
+    smart-fs "1.11.2"
 
 lambda-wrapper@0.3.0:
   version "0.3.0"
