@@ -29,7 +29,7 @@
     "eslint-plugin-markdown": "1.0.1",
     "eslint-plugin-mocha": "6.2.2",
     "js-gardener": "2.0.116",
-    "lambda-tdd": "2.11.1",
+    "lambda-tdd": "2.11.2",
     "nock": "11.7.0",
     "node-tdd": "2.5.20",
     "nyc": "14.1.1",
@@ -77,7 +77,7 @@
     "lib"
   ],
   "dependencies": {
-    "joi-strict": "1.1.8",
+    "joi-strict": "1.1.9",
     "lambda-async": "1.0.2",
     "lambda-monitor-logger": "2.2.2",
     "lambda-rate-limiter": "2.4.26",
