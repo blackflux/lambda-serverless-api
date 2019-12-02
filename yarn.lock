@@ -2159,10 +2159,10 @@ eslint-visitor-keys@^1.0.0, eslint-visitor-keys@^1.1.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.1.0.tgz#e2a82cea84ff246ad6fb57f9bde5b46621459ec2"
   integrity sha512-8y9YjtM1JBJU/A9Kc+SbaOV4y29sSWckBwMHa+FGtVj5gN/sbnKDf6xJUl+8g7FAij9LVaP8C24DUiH/f/2Z9A==
 
-eslint@6.7.1:
-  version "6.7.1"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-6.7.1.tgz#269ccccec3ef60ab32358a44d147ac209154b919"
-  integrity sha512-UWzBS79pNcsDSxgxbdjkmzn/B6BhsXMfUaOHnNwyE8nD+Q6pyT96ow2MccVayUTV4yMid4qLhMiQaywctRkBLA==
+eslint@6.7.2:
+  version "6.7.2"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-6.7.2.tgz#c17707ca4ad7b2d8af986a33feba71e18a9fecd1"
+  integrity sha512-qMlSWJaCSxDFr8fBPvJM9kJwbazrhNcBU3+DszDW1OlEwKBBRWsJc7NJFelvwQpanHCR14cOLD41x8Eqvo3Nng==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.10.0"
@@ -3876,10 +3876,10 @@ lambda-async@1.0.2:
   resolved "https://registry.yarnpkg.com/lambda-async/-/lambda-async-1.0.2.tgz#ae558377b659977b6c8aa3f07a1126371f208228"
   integrity sha512-kzkwDRknDlFrKmMGP5SMuxuY0YLxq+Ajbu5z4UFuecumLA7ioxM7R8SwYCs2Av6Fa/Jrp3xt6wuoAhci42Py4g==
 
-lambda-monitor-logger@2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.2.2.tgz#37c4858a63336a31b6a84c8bc8c27966569320ca"
-  integrity sha512-W77R4crzBq/iMTQzBQbgZrJLgmAJLCe4QEXbXMwnF3iQtQEQ8XkvngedVXip0zjv0WRucJtJs0TADDqJMnsunQ==
+lambda-monitor-logger@2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.2.3.tgz#f7d24894ec6b71af9875d313c751454ccf68beda"
+  integrity sha512-dbicLuGzZyiGthP/L/ubuhq2WGz9GegGrI4KPuUWy3AlAH4XIPtKwCD1lhIjDxq9Ce4dk4BQ7IUUlZghyqlCdw==
 
 lambda-rate-limiter@2.4.26:
   version "2.4.26"
