@@ -3973,10 +3973,10 @@ lambda-async@1.0.4:
   resolved "https://registry.yarnpkg.com/lambda-async/-/lambda-async-1.0.4.tgz#d5c618ce34561ae2b9c67a6e32fcbd963e97a2d4"
   integrity sha512-F/R+ynEMkaXb8saJnFRhrs/70uR0ZfCQSGIEnQQ8spXWhRb7x3s+9C8Zpnx335DEl5O4q0fPjv+31PFjBKNfQg==
 
-lambda-monitor-logger@2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.2.3.tgz#f7d24894ec6b71af9875d313c751454ccf68beda"
-  integrity sha512-dbicLuGzZyiGthP/L/ubuhq2WGz9GegGrI4KPuUWy3AlAH4XIPtKwCD1lhIjDxq9Ce4dk4BQ7IUUlZghyqlCdw==
+lambda-monitor-logger@2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.2.4.tgz#9dc189398fa3f0d99612a1f0b15ca0d4d925ce6a"
+  integrity sha512-5SihsBZ/q/V37xUTnnwQDn/LgMIMJ1smlo56UaIz6QoO73jHpMWcvUI1DXQOleqReKNmcyT6SivEq+V8nvGlyw==
 
 lambda-rate-limiter@2.4.28:
   version "2.4.28"
