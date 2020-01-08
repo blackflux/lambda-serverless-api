@@ -21,9 +21,13 @@ const asApiGatewayResponse = (resp, stringifyJson = true) => {
     body = JSON.stringify(body);
   }
 
-  const isBinaryResponse = get(resp, 'isBinaryResponse') === true;
+  const isBinaryResponse = (
+    get(resp, 'isBinaryResponse') === true
+    // eslint-disable-next-line no-control-regex
+    || (typeof body === 'string' && /[^\u0000-\u00ff]/.test(body))
+  );
   if (isBinaryResponse) {
-    body = body.toString('base64');
+    body = (Buffer.isBuffer(body) ? body : Buffer.from(body)).toString('base64');
   }
 
   return {
