@@ -1,0 +1,28 @@
+{
+  "handler": "json",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 200,
+      "isBase64Encoded": true,
+      "body": "eyJzb21lIjoi8J+YgyJ9"
+    }
+  },
+  "logs": {
+    "to.deep.equal": [
+      "INFO: 200 GET\n{\"event\":{\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"queryStringParameters\":{\"name\":\"😃\"},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":{\"some\":\"😃\"}}}"
+    ]
+  },
+  "event": {
+    "httpMethod": "GET",
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    },
+    "queryStringParameters": {
+      "name": "\uD83D\uDE03"
+    }
+  }
+}
