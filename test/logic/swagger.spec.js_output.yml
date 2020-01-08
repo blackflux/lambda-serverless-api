@@ -37,15 +37,7 @@ paths:
       consumes:
         - application/json
       description: ''
-      parameters:
-        - name: name
-          required: false
-          type: string
-          format: Str
-          in: query
-          pattern: >-
-            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
-            Object\])$/
+      parameters: []
       responses:
         default:
           description: Unexpected Error
