@@ -79,7 +79,7 @@
   "dependencies": {
     "joi-strict": "1.1.11",
     "lambda-async": "1.0.4",
-    "lambda-monitor-logger": "2.2.4",
+    "lambda-monitor-logger": "2.2.5",
     "lambda-rate-limiter": "2.4.28",
     "lodash.clonedeep": "4.5.0",
     "lodash.difference": "4.5.0",
