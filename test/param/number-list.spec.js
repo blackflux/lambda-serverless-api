@@ -58,12 +58,28 @@ describe('Testing NumberList Parameter', () => {
       })).to.throw('Invalid Value for query-Parameter "list" provided.');
     });
 
+    it('Testing valid min-value of list item in query param', () => {
+      expect(queryParamInValidMin.get({
+        queryStringParameters: {
+          list: '[1, 1, 200]'
+        }
+      })).to.deep.equal([1, 1, 200]);
+    });
+
     it('Testing invalid min-value of list item in json param', () => {
       expect(() => bodyParamInValidMin.get({
         body: {
           list: [0, 1, 200]
         }
       })).to.throw('Invalid Value for json-Parameter "list" provided.');
+    });
+
+    it('Testing valid min-value of list item in json param', () => {
+      expect(bodyParamInValidMin.get({
+        body: {
+          list: [1, 1, 200]
+        }
+      })).to.deep.equal([1, 1, 200]);
     });
   });
 
@@ -78,9 +94,17 @@ describe('Testing NumberList Parameter', () => {
     it('Testing invalid max-value of list item in query param', () => {
       expect(() => queryParamInValidMax.get({
         queryStringParameters: {
-          list: [101, 0, 1]
+          list: '[101, 0, 1]'
         }
       })).to.throw('Invalid Value for query-Parameter "list" provided.');
+    });
+
+    it('Testing valid max-value of list item in query param', () => {
+      expect(queryParamInValidMax.get({
+        queryStringParameters: {
+          list: '[98, 99, 100]'
+        }
+      })).to.deep.equal([98, 99, 100]);
     });
 
     it('Testing invalid max-value of list item in json param', () => {
@@ -89,6 +113,14 @@ describe('Testing NumberList Parameter', () => {
           list: [101, 0, 1]
         }
       })).to.throw('Invalid Value for json-Parameter "list" provided.');
+    });
+
+    it('Testing valid max-value of list item in json param', () => {
+      expect(bodyParamInValidMax.get({
+        body: {
+          list: [98, 99, 100]
+        }
+      })).to.deep.equal([98, 99, 100]);
     });
   });
 });
