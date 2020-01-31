@@ -1,7 +1,7 @@
 const assert = require('assert');
-const List = require('./list');
+const NumberList = require('./number-list');
 
-class IntList extends List {
+class IntList extends NumberList {
   constructor(name, position, opts = {}) {
     super(name, position, opts);
     this.items = { type: 'integer' };
@@ -20,12 +20,6 @@ class IntList extends List {
       valueParsed = JSON.parse(value);
     }
     if (valid && valueParsed.some((e) => !Number.isInteger(e))) {
-      valid = false;
-    }
-    if (valid && this.minItemValue !== undefined && valueParsed.some((e) => e < this.minItemValue)) {
-      valid = false;
-    }
-    if (valid && this.maxItemValue !== undefined && valueParsed.some((e) => e > this.maxItemValue)) {
       valid = false;
     }
     return valid;
