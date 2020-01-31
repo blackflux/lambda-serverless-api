@@ -61,7 +61,7 @@ describe('Testing IntList Parameter', () => {
     it('Testing invalid min-value of list item in query param', () => {
       expect(() => queryParamInValidMin.get({
         queryStringParameters: {
-          list: '[0, 1.2]'
+          list: '[0, 2]'
         }
       })).to.throw('Invalid Value for query-Parameter "list" provided.');
     });
