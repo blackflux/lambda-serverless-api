@@ -1,15 +1,15 @@
 const assert = require('assert');
 const List = require('./list');
 
-class NumberList extends List {
+class IntList extends List {
   constructor(name, position, opts = {}) {
     super(name, position, opts);
-    this.items = { type: 'number' };
+    this.items = { type: 'integer' };
 
-    assert(opts.minItemValue === undefined || (typeof opts.minItemValue === 'number'));
+    assert(opts.minItemValue === undefined || Number.isInteger(opts.minItemValue));
     this.minItemValue = opts.minItemValue;
 
-    assert(opts.maxItemValue === undefined || (typeof opts.maxItemValue === 'number'));
+    assert(opts.maxItemValue === undefined || Number.isInteger(opts.maxItemValue));
     this.maxItemValue = opts.maxItemValue;
   }
 
@@ -19,7 +19,8 @@ class NumberList extends List {
     if (valid && this.stringInput) {
       valueParsed = JSON.parse(value);
     }
-    if (valid && valueParsed.some((e) => typeof e !== 'number')) {
+
+    if (valid && valueParsed.some((e) => !Number.isInteger(e))) {
       valid = false;
     }
     if (valid && this.minItemValue !== undefined && valueParsed.some((e) => e < this.minItemValue)) {
@@ -31,4 +32,4 @@ class NumberList extends List {
     return valid;
   }
 }
-module.exports = NumberList;
+module.exports = IntList;
