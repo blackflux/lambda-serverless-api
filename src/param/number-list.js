@@ -6,10 +6,10 @@ class NumberList extends List {
     super(name, position, opts);
     this.items = { type: 'number' };
 
-    assert(opts.minItemValue === undefined || Number.isInteger(opts.minItemValue));
+    assert(opts.minItemValue === undefined || typeof opts.minItemValue === 'number');
     this.minItemValue = opts.minItemValue;
 
-    assert(opts.maxItemValue === undefined || Number.isInteger(opts.maxItemValue));
+    assert(opts.maxItemValue === undefined || typeof opts.maxItemValue === 'number');
     this.maxItemValue = opts.maxItemValue;
   }
 
