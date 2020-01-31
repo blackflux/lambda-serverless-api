@@ -19,7 +19,6 @@ class IntList extends List {
     if (valid && this.stringInput) {
       valueParsed = JSON.parse(value);
     }
-
     if (valid && valueParsed.some((e) => !Number.isInteger(e))) {
       valid = false;
     }
