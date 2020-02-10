@@ -30,7 +30,7 @@
     "eslint-plugin-mocha": "6.2.2",
     "js-gardener": "2.0.131",
     "lambda-tdd": "2.11.15",
-    "nock": "11.7.2",
+    "nock": "11.8.2",
     "node-tdd": "2.7.0",
     "nyc": "15.0.0",
     "request": "2.88.0",
