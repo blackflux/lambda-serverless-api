@@ -33,7 +33,7 @@
     "nock": "11.8.2",
     "node-tdd": "2.7.1",
     "nyc": "15.0.0",
-    "request": "2.88.0",
+    "request": "2.88.2",
     "request-promise": "4.2.5",
     "semantic-release": "17.0.2",
     "smart-fs": "1.11.8"
