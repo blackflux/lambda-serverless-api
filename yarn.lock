@@ -5292,11 +5292,6 @@ object-keys@^1.0.11, object-keys@^1.0.12, object-keys@^1.1.1:
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
-object-scan@11.0.0:
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-11.0.0.tgz#f7a69a08063be214e5c965852d405fcce480ccd5"
-  integrity sha512-dCCK4dsAiztD8rVwu8TS6eP+NdweL6gzW5zW5rmxFdfoTYTNRAJfZqolPeA2qrKwJSzgNFG7/RrZRMz0MzXuYw==
-
 object-scan@11.0.1:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-11.0.1.tgz#587aaec7eba4a01a7112dc81e5a567d22b1115b4"
