@@ -7,10 +7,10 @@
     "AutoPrune",
     "RateLimit",
     "Robots",
+    "Versioning",
     "PreValidation",
     "Validator",
     "ParamParser",
-    "Versioning",
     "Logger",
     "PreResponse"
   ],
@@ -31,10 +31,10 @@
   "before": [
     "PreProcessor",
     "RateLimit",
+    "Versioning",
     "PreValidation",
     "Validator",
-    "ParamParser",
-    "Versioning"
+    "ParamParser"
   ],
   "after": [
     "Cors",
