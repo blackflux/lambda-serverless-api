@@ -1,5 +1,5 @@
 # Rest Abstraction for Serverless API
- 
+
 [![Build Status](https://circleci.com/gh/blackflux/lambda-serverless-api.png?style=shield)](https://circleci.com/gh/blackflux/lambda-serverless-api)
 [![Test Coverage](https://img.shields.io/coveralls/blackflux/lambda-serverless-api/master.svg)](https://coveralls.io/github/blackflux/lambda-serverless-api?branch=master)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=blackflux/lambda-serverless-api)](https://dependabot.com)
@@ -18,6 +18,7 @@ Provides support for:
 - Abstraction for `text`, `json`, and `binary` response types
 - Full support for custom authentication
 - Full support for `cors`
+- Full support for versioning and deprecation
 - Automatic generation of [Swagger](https://swagger.io/) documentation
 - Rate limiting using [lambda-rate-limiter](https://github.com/blackflux/lambda-rate-limiter)
 - Access and error logging using [lambda-monitor](https://github.com/blackflux/lambda-monitor)
@@ -68,9 +69,10 @@ functions:
 The api is plugin based and all options are tied to plugins. The following plugins are customizable:
 
 - _cors_: Used to handle CORS Option requests as well as injecting CORS headers into responses
+- _versioning_: Used to declare valid api version and handle deprecation
 - _logger_: Log responses to console (CloudWatch), which can then be picked up by `lambda-monitor`
 - _preValidation_: Hook to allow pre-validation (e.g. authentication)
-- _rateLimit_: Used for rate limiting 
+- _rateLimit_: Used for rate limiting
 - _router_: Used to modify the router, e.g. set a custom route prefix
 - _robots_: Used to modify `robots.txt` response
 
@@ -130,7 +132,7 @@ Default: `true`
 
 #### nullable
 
-Allow input value to be `null`.<br> 
+Allow input value to be `null`.<br>
 _Note: Parameter position must be in [json, context]_
 
 Type: `boolean`<br>
@@ -195,7 +197,7 @@ By default the client IP (`['requestContext.identity.sourceIp']`) is used for ra
 ## General Notes
 
 Each endpoint definition can also be exposed as a separate lambda function. However this is not recommended for
-larger APIs due to CloudFormation limitations (maximum number of resources and stack invalidation issues). 
+larger APIs due to CloudFormation limitations (maximum number of resources and stack invalidation issues).
 
 Consider using [yaml-boost](https://github.com/blackflux/yaml-boost) for loading Serverless Framework configuration.
 

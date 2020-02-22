@@ -3,9 +3,12 @@
   "success": false,
   "timeout": 2000,
   "expect(message)": {
-    "to.equal": "Rate limit token not found\n{\"httpMethod\":\"GET\",\"headers\":{}}"
+    "to.equal": "Rate limit token not found\n{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"}}"
   },
   "event": {
-    "httpMethod": "GET"
+    "httpMethod": "GET",
+    "headers": {
+      "X-api-version": "1.0.1"
+    }
   }
 }
