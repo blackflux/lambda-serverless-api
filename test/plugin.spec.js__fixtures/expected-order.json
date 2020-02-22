@@ -10,6 +10,7 @@
     "PreValidation",
     "Validator",
     "ParamParser",
+    "Versioning",
     "Logger",
     "PreResponse"
   ],
@@ -32,11 +33,13 @@
     "RateLimit",
     "PreValidation",
     "Validator",
-    "ParamParser"
+    "ParamParser",
+    "Versioning"
   ],
   "after": [
     "Cors",
     "AutoPrune",
+    "Versioning",
     "Logger",
     "PreResponse"
   ]
