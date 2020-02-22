@@ -38,7 +38,7 @@ class Versioning extends Plugin {
         .sort((a, b) => {
           assert(a.version !== b.version);
           const asc = pv.test(`${a.version} < ${b.version}`);
-          assert(moment(asc ? a.date : b.date) <= moment(asc ? b.date : a.date));
+          assert(moment.utc(asc ? a.date : b.date) <= moment.utc(asc ? b.date : a.date));
           return asc ? -1 : 1;
         });
       return versionsAsList
@@ -52,7 +52,7 @@ class Versioning extends Plugin {
               isDeprecated: false
             };
           }
-          const deprecationDate = moment(versionsAsList[idx + 1].date);
+          const deprecationDate = moment.utc(versionsAsList[idx + 1].date);
           return {
             version,
             date,
