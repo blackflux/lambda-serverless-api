@@ -10,6 +10,9 @@
   },
   "event": {
     "httpMethod": "GET",
+    "headers": {
+      "X-api-version": "1.0.1"
+    },
     "requestContext": {
       "identity": {
         "sourceIp": "127.0.0.1"

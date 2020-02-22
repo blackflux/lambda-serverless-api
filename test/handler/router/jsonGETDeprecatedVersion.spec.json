@@ -1,0 +1,33 @@
+{
+  "handler": "router",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 200,
+      "body": "{\"some\":\"json\"}",
+      "headers": {
+        "sunset": "Wed, 29 Dec 2021 08:00:00 GMT",
+        "deprecation": "date=\"Wed, 01 Jan 2020 08:00:00 GMT\""
+      }
+    }
+  },
+  "logs": {
+    "to.deep.equal": [
+       "INFO: 200 GET json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.0\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"some\":\"json\"},\"headers\":{\"sunset\":\"Wed, 29 Dec 2021 08:00:00 GMT\",\"deprecation\":\"date=\\\"Wed, 01 Jan 2020 08:00:00 GMT\\\"\"}}}"
+
+    ]
+  },
+  "event": {
+    "path": "/json",
+    "httpMethod": "GET",
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    },
+    "headers": {
+      "X-api-version": "1.0.0"
+    }
+  }
+}
