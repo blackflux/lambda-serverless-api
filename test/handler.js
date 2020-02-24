@@ -19,6 +19,7 @@ const api = require('../src/index').Api({
   },
   versioning: {
     sunsetDurationInDays: 7 * 52 * 2,
+    forceSunset: process.env.FORCE_SUNSET === '1',
     apiVersionHeader: 'X-Api-Version',
     versions: {
       '1.0.1': '2020-01-01',
