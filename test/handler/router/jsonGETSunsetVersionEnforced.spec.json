@@ -1,0 +1,30 @@
+{
+  "handler": "router",
+  "success": true,
+  "timestamp": 1682569226,
+  "timeout": 2000,
+  "env": {
+    "FORCE_SUNSET": "1"
+  },
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 403,
+      "body": "{\"message\":\"Version \\\"1.0.0\\\" is sunset as of \\\"Wed, 29 Dec 2021 00:00:00 GMT\\\"\"}"
+    }
+  },
+  "logs": {
+    "to.deep.equal": []
+  },
+  "event": {
+    "path": "/json",
+    "httpMethod": "GET",
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    },
+    "headers": {
+      "X-api-version": "1.0.0"
+    }
+  }
+}
