@@ -22,7 +22,12 @@ const HEADER_REGEX = (() => {
   };
 })();
 
-const Executor = ({ apiVersionHeader, sunsetDurationInDays, versions: versionsRaw }) => {
+const Executor = ({
+  apiVersionHeader,
+  forceSunset,
+  sunsetDurationInDays,
+  versions: versionsRaw
+}) => {
   const versions = Object.entries(versionsRaw)
     .map(([version, date]) => ({ version, date, unix: Date.parse(date) }))
     .sort((a, b) => (pv.test(`${a.version} < ${b.version}`) ? -1 : 1))
@@ -52,7 +57,11 @@ const Executor = ({ apiVersionHeader, sunsetDurationInDays, versions: versionsRa
     if (versions[apiVersion] === undefined) {
       throw ApiError(`Unknown version "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
     }
-    return versions[apiVersion];
+    const apiVersionMeta = versions[apiVersion];
+    if (forceSunset && apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
+      throw ApiError(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate}"`, 403);
+    }
+    return apiVersionMeta;
   };
 
   return {
@@ -94,6 +103,7 @@ class Versioning extends Plugin {
     super(options);
     this.executor = Executor({
       apiVersionHeader: get(options, 'apiVersionHeader'),
+      forceSunset: get(options, 'forceSunset'),
       sunsetDurationInDays: get(options, 'sunsetDurationInDays'),
       versions: get(options, 'versions', {})
     });
@@ -103,6 +113,7 @@ class Versioning extends Plugin {
     return {
       versioning: Joi.object().keys({
         apiVersionHeader: Joi.string(),
+        forceSunset: Joi.boolean(),
         sunsetDurationInDays: Joi.number().integer().min(0),
         versions: Joi.object().pattern(
           Joi.string().pattern(VERSION_REGEX),
