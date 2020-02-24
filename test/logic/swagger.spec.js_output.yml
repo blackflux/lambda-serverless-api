@@ -344,3 +344,12 @@ paths:
       responses:
         default:
           description: Unexpected Error
+  /deprecated:
+    get:
+      consumes:
+        - application/json
+      description: ''
+      parameters: []
+      responses:
+        default:
+          description: Unexpected Error

@@ -16,7 +16,25 @@ const api = require('../src/index').Api({
   },
   logger: {
     redactSuccess: ['event.requestContext.identity.cognito*']
+  },
+  versioning: {
+    sunsetDurationInDays: 7 * 52 * 2,
+    apiVersionHeader: 'X-Api-Version',
+    versions: {
+      '1.0.1': '2020-01-01',
+      '0.9.0': '2018-01-01',
+      '1.0.0': '2019-01-01'
+    }
   }
+});
+
+module.exports.deprecated = api.wrap('GET deprecated', [], () => {
+  const date = new Date();
+  const headers = {
+    deprecation: `date="${date.toUTCString()}"`,
+    sunset: new Date(date.getTime() + (1000 * 60 * 60 * 24 * 7 * 52 * 2)).toUTCString()
+  };
+  return api.JsonResponse(JSON.parse(JSON.stringify(headers)), 200, headers);
 });
 
 module.exports.error = api.wrap('GET error', [], () => {

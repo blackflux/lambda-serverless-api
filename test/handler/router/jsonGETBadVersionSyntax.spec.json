@@ -5,21 +5,22 @@
   "expect": {
     "to.deep.equal()": {
       "statusCode": 403,
-      "body": "{\"message\":\"Required header \\\"X-Api-Version\\\" missing\"}"
+      "body": "{\"message\":\"Invalid format for header \\\"X-Api-Version\\\" provided\"}"
     }
   },
   "logs": {
-    "to.deep.equal": [
-    ]
+    "to.deep.equal": []
   },
   "event": {
-    "path": "/param2",
-    "httpMethod": "POST",
-    "headers": null,
+    "path": "/json",
+    "httpMethod": "GET",
     "requestContext": {
       "identity": {
         "sourceIp": "127.0.0.1"
       }
+    },
+    "headers": {
+      "X-api-version": "bad-format"
     }
   }
 }

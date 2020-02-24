@@ -21,6 +21,12 @@ class PreProcessor extends Plugin {
 
   // eslint-disable-next-line class-methods-use-this
   async before({ event }) {
+    Object.assign(event, {
+      headers: objectAsLowerCase(event.headers || {}),
+      ...(event.multiValueHeaders !== undefined
+        ? { multiValueHeaders: objectAsLowerCase(event.multiValueHeaders) }
+        : {})
+    });
     try {
       if (event.body !== undefined) {
         Object.assign(event, { body: JSON.parse(event.body) });
@@ -30,12 +36,6 @@ class PreProcessor extends Plugin {
         value: event.body
       });
     }
-    Object.assign(event, {
-      headers: objectAsLowerCase(event.headers || {}),
-      ...(event.multiValueHeaders !== undefined
-        ? { multiValueHeaders: objectAsLowerCase(event.multiValueHeaders) }
-        : {})
-    });
   }
 }
 module.exports = PreProcessor;
