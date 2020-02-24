@@ -59,7 +59,7 @@ const Executor = ({
     }
     const apiVersionMeta = versions[apiVersion];
     if (forceSunset && apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
-      throw ApiError(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate}"`, 403);
+      throw ApiError(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
     }
     return apiVersionMeta;
   };
