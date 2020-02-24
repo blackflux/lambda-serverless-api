@@ -58,7 +58,7 @@ const Executor = ({
       throw ApiError(`Unknown version "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
     }
     const apiVersionMeta = versions[apiVersion];
-    if (forceSunset && apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
+    if (forceSunset === true && apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
       throw ApiError(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
     }
     return apiVersionMeta;
