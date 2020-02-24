@@ -5,7 +5,7 @@
   "expect": {
     "to.deep.equal()": {
       "statusCode": 403,
-      "body": "{\"message\":\"Unknown version \\\"0.0.1\\\" provided\"}"
+      "body": "{\"message\":\"Unknown version \\\"0.0.1\\\" for header \\\"X-Api-Version\\\" provided\"}"
     }
   },
   "logs": {
