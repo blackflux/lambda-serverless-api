@@ -3981,14 +3981,14 @@ lambda-rate-limiter@2.4.29:
   dependencies:
     lru-cache "5.1.1"
 
-lambda-tdd@2.11.20:
-  version "2.11.20"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.11.20.tgz#6711324c6f244ead49f37d7106c0ed24361cee5f"
-  integrity sha512-0/ZqJ41N/QROJTNFw83sg89ilXQvRboyZbnFLBV+/NdJXFfriLkdltWhTIWpfU7emVj7EiIFPq1QbN5hnjw48A==
+lambda-tdd@2.11.21:
+  version "2.11.21"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.11.21.tgz#6f0ef7076383c9546a7108af03c99291c4b84c94"
+  integrity sha512-nVzRm64FaCWpyn7lJTeVZdYTSlV2UOppR9GuAObOZ7A98CLNzKqVljvcPh2RmOFwR7HhEN52BXLvuD3vNOsIiw==
   dependencies:
     app-root-path "3.0.0"
     glob "7.1.6"
-    joi-strict "1.1.11"
+    joi-strict "1.2.0"
     js-yaml "3.13.1"
     lambda-wrapper "0.3.0"
     lodash.get "4.4.2"
