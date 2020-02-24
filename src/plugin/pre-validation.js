@@ -14,7 +14,7 @@ class PreValidation extends Plugin {
   }
 
   static weight() {
-    return 2;
+    return 3;
   }
 
   async before(kwargs) {
