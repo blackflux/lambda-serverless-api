@@ -5,7 +5,7 @@
   "expect": {
     "to.deep.equal()": {
       "statusCode": 403,
-      "body": "{\"message\":\"Invalid format for header \\\"X-Api-Version\\\" provided\"}"
+      "body": "{\"message\":\"Invalid value \\\"bad-format\\\" for header \\\"X-Api-Version\\\" provided\"}"
     }
   },
   "logs": {
