@@ -79,7 +79,7 @@ module.exports.wrap = ({
       // eslint-disable-next-line no-await-in-loop
       kwargs.response = await apply[idx](kwargs.response);
     } catch (err) {
-      assert(isError === false, 'Error is re-raised');
+      assert(idx === 0, 'Should not throw from afterSuccess() or after()');
       kwargs.response = err;
       isError = true;
     }
