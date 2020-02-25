@@ -3981,14 +3981,14 @@ lambda-rate-limiter@2.4.29:
   dependencies:
     lru-cache "5.1.1"
 
-lambda-tdd@2.11.20:
-  version "2.11.20"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.11.20.tgz#6711324c6f244ead49f37d7106c0ed24361cee5f"
-  integrity sha512-0/ZqJ41N/QROJTNFw83sg89ilXQvRboyZbnFLBV+/NdJXFfriLkdltWhTIWpfU7emVj7EiIFPq1QbN5hnjw48A==
+lambda-tdd@2.11.21:
+  version "2.11.21"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.11.21.tgz#6f0ef7076383c9546a7108af03c99291c4b84c94"
+  integrity sha512-nVzRm64FaCWpyn7lJTeVZdYTSlV2UOppR9GuAObOZ7A98CLNzKqVljvcPh2RmOFwR7HhEN52BXLvuD3vNOsIiw==
   dependencies:
     app-root-path "3.0.0"
     glob "7.1.6"
-    joi-strict "1.1.11"
+    joi-strict "1.2.0"
     js-yaml "3.13.1"
     lambda-wrapper "0.3.0"
     lodash.get "4.4.2"
@@ -5657,12 +5657,13 @@ pacote@^9.1.0, pacote@^9.5.11, pacote@^9.5.3:
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-painless-version@1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/painless-version/-/painless-version-1.1.6.tgz#7329d35ed3089443b2c23326c0b4281c827fd306"
-  integrity sha512-vzLmNNsMiqAIqjKyOAprdMxSxU7qBCb9jfSCr+zQwJp2VQc1ymIyDnc8zg2KAZ6eOYSZL9aQw5PIq/lh2mRqIw==
+painless-version@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/painless-version/-/painless-version-1.2.2.tgz#de3fc12bfbdac828a1cff57143f8f3c03e6c669a"
+  integrity sha512-BhOL1DZG6aP+RxZiV0zhqfsoXe5tPZWRt2j5QZlz71h4b1pNK8kiDX79s2L8w/FcHUBYT6sWavCwfkPgOCnGoQ==
   dependencies:
     compare-versions "3.6.0"
+    lodash.set "4.3.2"
 
 parallel-transform@^1.1.0:
   version "1.2.0"
