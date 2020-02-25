@@ -52,8 +52,8 @@ const VersionManager = ({
       set(context, contextKey, cloneDeep(apiVersionMeta));
     },
     updateDeprecationHeaders: ({ headers }, context) => {
-      const apiVersionMeta = get(context, contextKey, null);
-      if (apiVersionMeta === null) {
+      const apiVersionMeta = get(context, contextKey);
+      if (apiVersionMeta === undefined) {
         return;
       }
       const { isDeprecated, deprecationDate, sunsetDate } = apiVersionMeta;
