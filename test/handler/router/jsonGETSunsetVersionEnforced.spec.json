@@ -13,7 +13,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal": [
+      "WARNING: 403 GET json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.0\"},\"pathParameters\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Version \\\"1.0.0\\\" is sunset as of \\\"Wed, 29 Dec 2021 00:00:00 GMT\\\"\"}}}"
+    ]
   },
   "event": {
     "path": "/json",
