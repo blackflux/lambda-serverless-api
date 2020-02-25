@@ -1,4 +1,6 @@
 const get = require('lodash.get');
+const set = require('lodash.set');
+const cloneDeep = require('lodash.clonedeep');
 const Joi = require('joi-strict');
 const pv = require('painless-version');
 const { Plugin } = require('../plugin');
@@ -6,12 +8,13 @@ const { ApiError } = require('../response');
 
 const VERSION_REGEX = /^\d+\.\d+\.\d+$/;
 
-const Executor = ({
+const VersionManager = ({
   apiVersionHeader,
   forceSunset,
   sunsetDurationInDays,
   versions: versionsRaw
 }) => {
+  const contextKey = 'custom.versioning.meta';
   const versions = Object.entries(versionsRaw)
     .map(([version, date]) => ({ version, date, unix: Date.parse(date) }))
     .sort((a, b) => (pv.test(`${a.version} < ${b.version}`) ? -1 : 1))
@@ -24,43 +27,40 @@ const Executor = ({
     }))
     .reduce((p, c) => Object.assign(p, { [c.version]: c }), {});
 
-  const getApiVersionMeta = ({ headers, httpMethod }) => {
-    if (httpMethod === 'OPTIONS') {
-      return null;
-    }
-    if (apiVersionHeader === undefined) {
-      return null;
-    }
-    const apiVersion = headers[apiVersionHeader.toLowerCase()];
-    if (apiVersion === undefined) {
-      throw ApiError(`Required header "${apiVersionHeader}" missing`, 403);
-    }
-    if (!VERSION_REGEX.test(apiVersion)) {
-      throw ApiError(`Invalid value "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
-    }
-    if (versions[apiVersion] === undefined) {
-      throw ApiError(`Unknown version "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
-    }
-    const apiVersionMeta = versions[apiVersion];
-    if (forceSunset === true && apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
-      throw ApiError(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
-    }
-    return apiVersionMeta;
-  };
-
   return {
-    getApiVersionMeta,
-    updateDeprecationHeader: (event, response) => {
-      const versionMeta = getApiVersionMeta(event);
-      if (versionMeta === null) {
+    storeApiVersionMeta: ({ headers, httpMethod }, context) => {
+      if (httpMethod === 'OPTIONS') {
         return;
       }
-      const { isDeprecated, deprecationDate, sunsetDate } = versionMeta;
+      if (apiVersionHeader === undefined) {
+        return;
+      }
+      const apiVersion = headers[apiVersionHeader.toLowerCase()];
+      if (apiVersion === undefined) {
+        throw ApiError(`Required header "${apiVersionHeader}" missing`, 403);
+      }
+      if (!VERSION_REGEX.test(apiVersion)) {
+        throw ApiError(`Invalid value "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
+      }
+      if (versions[apiVersion] === undefined) {
+        throw ApiError(`Unknown version "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
+      }
+      const apiVersionMeta = versions[apiVersion];
+      if (forceSunset === true && apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
+        throw ApiError(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
+      }
+      set(context, contextKey, cloneDeep(apiVersionMeta));
+    },
+    updateDeprecationHeaders: ({ headers }, context) => {
+      const apiVersionMeta = get(context, contextKey, null);
+      if (apiVersionMeta === null) {
+        return;
+      }
+      const { isDeprecated, deprecationDate, sunsetDate } = apiVersionMeta;
       if (!isDeprecated) {
         return;
       }
-
-      pv.updateDeprecationHeaders(response.headers, { deprecationDate, sunsetDate });
+      pv.updateDeprecationHeaders(headers, { deprecationDate, sunsetDate });
     }
   };
 };
@@ -68,7 +68,7 @@ const Executor = ({
 class Versioning extends Plugin {
   constructor(options) {
     super(options);
-    this.executor = Executor({
+    this.versionManager = VersionManager({
       apiVersionHeader: get(options, 'apiVersionHeader'),
       forceSunset: get(options, 'forceSunset'),
       sunsetDurationInDays: get(options, 'sunsetDurationInDays'),
@@ -94,12 +94,12 @@ class Versioning extends Plugin {
     return 2;
   }
 
-  async before({ event, response, router }) {
-    this.executor.getApiVersionMeta(event);
+  async before({ event, context }) {
+    this.versionManager.storeApiVersionMeta(event, context);
   }
 
-  async after({ event, response, router }) {
-    this.executor.updateDeprecationHeader(event, response);
+  async after({ response, context }) {
+    this.versionManager.updateDeprecationHeaders(response, context);
   }
 }
 
