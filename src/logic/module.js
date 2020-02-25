@@ -67,5 +67,9 @@ class Module {
   async after(kwargs) {
     return this.executeAsync('after', kwargs);
   }
+
+  async afterSuccess(kwargs) {
+    return this.executeAsync('afterSuccess', kwargs);
+  }
 }
 module.exports.Module = Module;
