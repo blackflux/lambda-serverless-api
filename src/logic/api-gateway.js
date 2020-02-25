@@ -54,6 +54,7 @@ module.exports.wrap = ({
     router,
     params
   };
+  let isError = false;
   const apply = [
     async () => {
       const resp = await module.before(kwargs);
@@ -61,12 +62,18 @@ module.exports.wrap = ({
       return handler(context.parsedParameters, context, event);
     },
     async (prevResp) => {
+      if (!isError) {
+        const resp = await module.afterSuccess(kwargs);
+        assert(resp === null, 'Plugin afterSuccess() should not return');
+      }
+      return prevResp;
+    },
+    async (prevResp) => {
       const resp = await module.after(kwargs);
       assert(resp === null, 'Plugin after() should not return');
       return prevResp;
     }
   ];
-  let isError = false;
   for (let idx = 0; idx < apply.length; idx += 1) {
     try {
       // eslint-disable-next-line no-await-in-loop
