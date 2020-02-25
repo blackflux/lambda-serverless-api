@@ -26,7 +26,7 @@ class AutoPrune extends Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async after({ params, context, response }) {
+  async afterSuccess({ params, context, response }) {
     const rawAutoPruneFieldsParam = params
       .find((p) => p.paramType === 'FieldsParam' && typeof p.autoPrune === 'string');
     if (rawAutoPruneFieldsParam !== undefined && context.parsedParameters[rawAutoPruneFieldsParam.name] !== undefined) {

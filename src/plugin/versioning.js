@@ -1,33 +1,20 @@
-const assert = require('assert');
 const get = require('lodash.get');
 const set = require('lodash.set');
+const cloneDeep = require('lodash.clonedeep');
 const Joi = require('joi-strict');
 const pv = require('painless-version');
 const { Plugin } = require('../plugin');
 const { ApiError } = require('../response');
 
 const VERSION_REGEX = /^\d+\.\d+\.\d+$/;
-const HEADER_REGEX = (() => {
-  const dateFormat = [
-    '(Sun|Mon|Tue|Wed|Thu|Fri|Sat), ',
-    '([1-9]?0[1-9]|[1-2]?[0-9]|3[01]) ',
-    '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) ',
-    '(19[0-9]{2}|[2-9][0-9]{3}) ',
-    '(2[0-3]|[0-1][0-9]):([0-5][0-9])(?::(60|[0-5][0-9])) ',
-    '([-\\+][0-9]{2}[0-5][0-9]|(?:UT|GMT|(?:E|C|M|P)(?:ST|DT)|[A-IK-Z]))'
-  ];
-  return {
-    deprecation: new RegExp(['^date="', ...dateFormat, '"$'].join('')),
-    sunset: new RegExp(['^', ...dateFormat, '$'].join(''))
-  };
-})();
 
-const Executor = ({
+const VersionManager = ({
   apiVersionHeader,
   forceSunset,
   sunsetDurationInDays,
   versions: versionsRaw
 }) => {
+  const contextKey = 'custom.versioning.meta';
   const versions = Object.entries(versionsRaw)
     .map(([version, date]) => ({ version, date, unix: Date.parse(date) }))
     .sort((a, b) => (pv.test(`${a.version} < ${b.version}`) ? -1 : 1))
@@ -40,60 +27,40 @@ const Executor = ({
     }))
     .reduce((p, c) => Object.assign(p, { [c.version]: c }), {});
 
-  const getApiVersionMeta = ({ headers, httpMethod }) => {
-    if (httpMethod === 'OPTIONS') {
-      return null;
-    }
-    if (apiVersionHeader === undefined) {
-      return null;
-    }
-    const apiVersion = headers[apiVersionHeader.toLowerCase()];
-    if (apiVersion === undefined) {
-      throw ApiError(`Required header "${apiVersionHeader}" missing`, 403);
-    }
-    if (!VERSION_REGEX.test(apiVersion)) {
-      throw ApiError(`Invalid value "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
-    }
-    if (versions[apiVersion] === undefined) {
-      throw ApiError(`Unknown version "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
-    }
-    const apiVersionMeta = versions[apiVersion];
-    if (forceSunset === true && apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
-      throw ApiError(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
-    }
-    return apiVersionMeta;
-  };
-
   return {
-    getApiVersionMeta,
-    updateDeprecationHeader: (event, response) => {
-      const versionMeta = getApiVersionMeta(event);
-      if (versionMeta === null) {
+    storeApiVersionMeta: ({ headers, httpMethod }, context) => {
+      if (httpMethod === 'OPTIONS') {
         return;
       }
-      const { isDeprecated, deprecationDate, sunsetDate } = versionMeta;
+      if (apiVersionHeader === undefined) {
+        return;
+      }
+      const apiVersion = headers[apiVersionHeader.toLowerCase()];
+      if (apiVersion === undefined) {
+        throw ApiError(`Required header "${apiVersionHeader}" missing`, 403);
+      }
+      if (!VERSION_REGEX.test(apiVersion)) {
+        throw ApiError(`Invalid value "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
+      }
+      if (versions[apiVersion] === undefined) {
+        throw ApiError(`Unknown version "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
+      }
+      const apiVersionMeta = versions[apiVersion];
+      if (forceSunset === true && apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
+        throw ApiError(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
+      }
+      set(context, contextKey, cloneDeep(apiVersionMeta));
+    },
+    updateDeprecationHeaders: ({ headers }, context) => {
+      const apiVersionMeta = get(context, contextKey);
+      if (apiVersionMeta === undefined) {
+        return;
+      }
+      const { isDeprecated, deprecationDate, sunsetDate } = apiVersionMeta;
       if (!isDeprecated) {
         return;
       }
-
-      ['deprecation', 'sunset'].forEach((header) => {
-        assert(
-          response.headers[header] === undefined || HEADER_REGEX[header].test(response.headers[header]),
-          `Bad format "${response.headers[header]}" for response header "${header}" detected`
-        );
-      });
-      if (
-        response.headers.deprecation === undefined
-        || deprecationDate < Date.parse(response.headers.deprecation.slice(6, -1))
-      ) {
-        set(response.headers, 'deprecation', `date="${deprecationDate.toUTCString()}"`);
-      }
-      if (
-        response.headers.sunset === undefined
-        || sunsetDate < Date.parse(response.headers.sunset)
-      ) {
-        set(response.headers, 'sunset', sunsetDate.toUTCString());
-      }
+      pv.updateDeprecationHeaders(headers, { deprecationDate, sunsetDate });
     }
   };
 };
@@ -101,7 +68,7 @@ const Executor = ({
 class Versioning extends Plugin {
   constructor(options) {
     super(options);
-    this.executor = Executor({
+    this.versionManager = VersionManager({
       apiVersionHeader: get(options, 'apiVersionHeader'),
       forceSunset: get(options, 'forceSunset'),
       sunsetDurationInDays: get(options, 'sunsetDurationInDays'),
@@ -127,12 +94,12 @@ class Versioning extends Plugin {
     return 2;
   }
 
-  async before({ event, response, router }) {
-    this.executor.getApiVersionMeta(event);
+  async before({ event, context }) {
+    this.versionManager.storeApiVersionMeta(event, context);
   }
 
-  async after({ event, response, router }) {
-    this.executor.updateDeprecationHeader(event, response);
+  async after({ response, context }) {
+    this.versionManager.updateDeprecationHeaders(response, context);
   }
 }
 
