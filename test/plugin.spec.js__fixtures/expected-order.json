@@ -38,9 +38,11 @@
   ],
   "after": [
     "Cors",
-    "AutoPrune",
     "Versioning",
     "Logger",
     "PreResponse"
+  ],
+  "afterSuccess": [
+    "AutoPrune"
   ]
 }
