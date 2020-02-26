@@ -18,7 +18,7 @@ class Robots extends Plugin {
   }
 
   static weight() {
-    return 1;
+    return 2;
   }
 
   async onUnrouted({ event }) {

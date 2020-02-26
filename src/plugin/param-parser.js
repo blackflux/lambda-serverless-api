@@ -15,7 +15,7 @@ class ParamParser extends Plugin {
   }
 
   static weight() {
-    return 5;
+    return 6;
   }
 
   // eslint-disable-next-line class-methods-use-this

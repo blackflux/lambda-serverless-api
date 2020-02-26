@@ -16,7 +16,7 @@ class Validator extends Plugin {
   }
 
   static weight() {
-    return 4;
+    return 5;
   }
 
   afterRegister({ request }) {
