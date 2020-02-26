@@ -1,10 +1,10 @@
 {
   "constructor": [
-    "Cors",
     "PreProcessor",
     "PreRouting",
     "Router",
     "AutoPrune",
+    "Cors",
     "RateLimit",
     "Robots",
     "Versioning",
@@ -30,6 +30,7 @@
   ],
   "before": [
     "PreProcessor",
+    "Cors",
     "RateLimit",
     "Versioning",
     "PreValidation",
