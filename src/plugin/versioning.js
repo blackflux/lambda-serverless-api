@@ -5,6 +5,7 @@ const Joi = require('joi-strict');
 const pv = require('painless-version');
 const { Plugin } = require('../plugin');
 const { ApiError } = require('../response');
+const Enum = require('../param/enum');
 
 const VERSION_REGEX = /^\d+\.\d+\.\d+$/;
 
@@ -28,6 +29,12 @@ const VersionManager = ({
     .reduce((p, c) => Object.assign(p, { [c.version]: c }), {});
 
   return {
+    injectVersionHeaderParam: (request) => {
+      if (apiVersionHeader === undefined) {
+        return;
+      }
+      request.params.push(new Enum(apiVersionHeader, 'header', { enums: Object.keys(versions) }));
+    },
     storeApiVersionMeta: ({ headers, httpMethod }, context) => {
       if (httpMethod === 'OPTIONS') {
         return;
@@ -92,6 +99,10 @@ class Versioning extends Plugin {
 
   static weight() {
     return 3;
+  }
+
+  beforeRegister({ request }) {
+    this.versionManager.injectVersionHeaderParam(request);
   }
 
   async before({ event, context }) {
