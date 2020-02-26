@@ -33,7 +33,7 @@ const VersionManager = ({
       if (apiVersionHeader === undefined) {
         return;
       }
-      request.params.push(new Enum(apiVersionHeader, 'header', { enums: Object.keys(versions) }));
+      request.params.push(new Enum(apiVersionHeader, 'header', { enums: Object.keys(versions).reverse() }));
     },
     storeApiVersionMeta: ({ headers, httpMethod }, context) => {
       if (httpMethod === 'OPTIONS') {
