@@ -15,7 +15,8 @@
     "PreResponse"
   ],
   "beforeRegister": [
-    "Router"
+    "Router",
+    "Versioning"
   ],
   "afterRegister": [
     "AutoPrune",
