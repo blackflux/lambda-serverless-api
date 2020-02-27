@@ -426,6 +426,14 @@ paths:
       responses:
         default:
           description: Unexpected Error
+    options:
+      consumes:
+        - application/json
+      description: ''
+      parameters: []
+      responses:
+        default:
+          description: Unexpected Error
   /binary:
     get:
       consumes:

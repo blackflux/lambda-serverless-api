@@ -102,6 +102,9 @@ class Versioning extends Plugin {
   }
 
   beforeRegister({ request }) {
+    if (request.method === 'OPTIONS') {
+      return;
+    }
     this.versionManager.injectVersionHeaderParam(request);
   }
 

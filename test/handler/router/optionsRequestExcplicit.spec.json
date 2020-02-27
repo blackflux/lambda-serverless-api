@@ -1,0 +1,26 @@
+{
+  "handler": "router",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 200,
+      "body": ""
+    }
+  },
+  "logs": {
+    "to.deep.equal": [
+      "INFO: 200 OPTIONS some/path\n{\"event\":{\"path\":\"/some/path\",\"httpMethod\":\"OPTIONS\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"multiValueHeaders\":{},\"pathParameters\":{},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":\"\"}}"
+    ]
+  },
+  "event": {
+    "path": "/some/path",
+    "httpMethod": "OPTIONS",
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    },
+    "multiValueHeaders": {}
+  }
+}
