@@ -3,6 +3,7 @@ const set = require('lodash.set');
 const cloneDeep = require('lodash.clonedeep');
 const Joi = require('joi-strict');
 const pv = require('painless-version');
+const { logger } = require('lambda-monitor-logger');
 const { Plugin } = require('../plugin');
 const { ApiError } = require('../response');
 const Enum = require('../param/enum');
@@ -59,8 +60,11 @@ const VersionManager = ({
         throw ApiError(`Unknown version "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
       }
       const apiVersionMeta = versions[apiVersion];
-      if (forceSunset === true && apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
-        throw ApiError(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
+      if (apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
+        logger.warn(`Sunset functionality accessed\n${JSON.stringify(event)}`);
+        if (forceSunset === true) {
+          throw ApiError(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
+        }
       }
       set(context, contextKey, cloneDeep(apiVersionMeta));
     },
