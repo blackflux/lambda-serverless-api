@@ -4,7 +4,10 @@ const Joi = require('joi-strict');
 const { Plugin } = require('../plugin');
 
 const headers = {
-  date: () => new Date().toUTCString()
+  date: () => new Date().toUTCString(),
+  'server-timing': ({ context }) => `total;dur=${
+    (new Date() / 1 - get(context, 'custom.responseHeaders.requestStart')) / 1000
+  }`
 };
 
 class ResponseHeaders extends Plugin {
@@ -25,11 +28,17 @@ class ResponseHeaders extends Plugin {
     return 0;
   }
 
-  async after({ response }) {
+  // eslint-disable-next-line class-methods-use-this
+  async beforeRouting({ context }) {
+    set(context, 'custom.responseHeaders.requestStart', new Date() / 1);
+  }
+
+  async after(kwargs) {
+    const { response } = kwargs;
     Object.entries(headers).forEach(([header, fn]) => {
       if (this.inject.includes(header)) {
         if (get(response, ['headers', header]) === undefined) {
-          set(response, ['headers', header], fn());
+          set(response, ['headers', header], fn(kwargs));
         }
       }
     });

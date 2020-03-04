@@ -28,7 +28,7 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
   it('Testing header injections', (done) => {
     api = Api({
       responseHeaders: {
-        inject: ['date']
+        inject: ['date', 'server-timing']
       }
     });
     api.wrap('GET path', [], identity(api));
@@ -41,7 +41,7 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
       expect(resp).to.deep.equal({
         statusCode: 200,
         body: '{}',
-        headers: { date: 'Wed, 04 Mar 2020 04:36:57 GMT' }
+        headers: { date: 'Wed, 04 Mar 2020 04:36:57 GMT', 'server-timing': 'total;dur=0' }
       });
       done();
     });
@@ -50,7 +50,7 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
   it('Testing header injections no overwrite', (done) => {
     api = Api({
       responseHeaders: {
-        inject: ['date']
+        inject: ['date', 'server-timing']
       }
     });
     api.wrap('GET path', [], () => api.JsonResponse({}, 200, { date: 'existing' }));
@@ -63,7 +63,7 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
       expect(resp).to.deep.equal({
         statusCode: 200,
         body: '{}',
-        headers: { date: 'existing' }
+        headers: { date: 'existing', 'server-timing': 'total;dur=0' }
       });
       done();
     });

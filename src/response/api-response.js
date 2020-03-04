@@ -2,7 +2,12 @@ class ApiResponse {
   constructor(payload, statusCode = 200, headers = {}) {
     this.payload = payload;
     this.statusCode = statusCode;
-    this.headers = Object.fromEntries(Object.entries(headers).map(([k, v]) => [k.toLowerCase(), v]));
+    this.headers = Object.entries(headers)
+      .reduce((p, [k, v]) => {
+        // eslint-disable-next-line no-param-reassign
+        p[k.toLowerCase()] = v;
+        return p;
+      }, {});
     this.isApiResponse = true;
     this.isApiError = false;
   }
