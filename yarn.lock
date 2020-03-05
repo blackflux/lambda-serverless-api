@@ -3904,10 +3904,12 @@ lambda-async@1.0.5:
   resolved "https://registry.yarnpkg.com/lambda-async/-/lambda-async-1.0.5.tgz#bebd1c92e98d15bfd6572dea27b1115efe7ec1a3"
   integrity sha512-K1ixfmh4MoMIM/M4RriWp8FA2ccwMmMJs6WDTGmTd5ekTsLzksPrNmpOnXfxb94zInPOPwLvJ5HeciisfHbz9Q==
 
-lambda-monitor-logger@2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.2.5.tgz#35784c40e4c77b0265e6755eee4a8df14621a461"
-  integrity sha512-0EaCCTru2wUGoWOICHlLzairo9ZUS0ZHikT9OvwT5fdywjiGGlGGyLoWsKOhsqLzd7y/9PMsOwtTbYE0BiQIQw==
+lambda-monitor-logger@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.3.0.tgz#a5fdbc614c9c77cbf8195da59bd56ae4e5befe3b"
+  integrity sha512-/cCSf435UUPu1M1AoJ2zKvQgKDX4aoYPhgcy57eBv+vrIsYu7zOoNmpQ585/BboYLuflzN1ZiorCUsyVi6xfqg==
+  dependencies:
+    joi-strict "1.2.0"
 
 lambda-rate-limiter@2.4.29:
   version "2.4.29"
@@ -4743,6 +4745,16 @@ nock@12.0.1:
     json-stringify-safe "^5.0.1"
     lodash "^4.17.13"
     mkdirp "^1.0.0"
+    propagate "^2.0.0"
+
+nock@12.0.2:
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/nock/-/nock-12.0.2.tgz#47617b34738e026b29d2294b4579e35b27e6a4d3"
+  integrity sha512-pTckyfP8QHvwXP/oX+zQuSIL3S/mWTd84ba4pOGZlS/FgRZyljv4C3ZyOjgMilvkydSaERML/aJEF13EBUuDTQ==
+  dependencies:
+    debug "^4.1.0"
+    json-stringify-safe "^5.0.1"
+    lodash "^4.17.13"
     propagate "^2.0.0"
 
 node-emoji@^1.0.3, node-emoji@^1.10.0:

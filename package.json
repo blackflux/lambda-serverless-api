@@ -30,7 +30,7 @@
     "eslint-plugin-mocha": "6.3.0",
     "js-gardener": "2.0.137",
     "lambda-tdd": "2.11.23",
-    "nock": "12.0.1",
+    "nock": "12.0.2",
     "node-tdd": "2.9.4",
     "nyc": "15.0.0",
     "request": "2.88.2",
@@ -79,7 +79,7 @@
   "dependencies": {
     "joi-strict": "1.2.0",
     "lambda-async": "1.0.5",
-    "lambda-monitor-logger": "2.2.5",
+    "lambda-monitor-logger": "2.3.0",
     "lambda-rate-limiter": "2.4.29",
     "lodash.clonedeep": "4.5.0",
     "lodash.difference": "4.5.0",
