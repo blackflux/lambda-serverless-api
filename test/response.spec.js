@@ -5,7 +5,7 @@ const { Api, ApiError } = require('../src/index');
 const { identity } = require('./misc');
 
 
-describe('Testing Response', { record: console }, () => {
+describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
   let api;
   beforeEach(() => {
     api = Api({
@@ -23,6 +23,50 @@ describe('Testing Response', { record: console }, () => {
     expect(() => api.wrap('GET path/{p2}', [], identity(api)))
       .to.throw('Path collision: GET path/{p2}');
     done();
+  });
+
+  it('Testing header injections', (done) => {
+    api = Api({
+      responseHeaders: {
+        inject: ['date', 'server-timing']
+      }
+    });
+    api.wrap('GET path', [], identity(api));
+    api.router({
+      httpMethod: 'GET',
+      path: '/path',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
+    }, {}, (err, resp) => {
+      expect(err).to.equal(null);
+      expect(resp).to.deep.equal({
+        statusCode: 200,
+        body: '{}',
+        headers: { date: 'Wed, 04 Mar 2020 04:36:57 GMT', 'server-timing': 'total;dur=0' }
+      });
+      done();
+    });
+  });
+
+  it('Testing header injections no overwrite', (done) => {
+    api = Api({
+      responseHeaders: {
+        inject: ['date', 'server-timing']
+      }
+    });
+    api.wrap('GET path', [], () => api.JsonResponse({}, 200, { date: 'existing' }));
+    api.router({
+      httpMethod: 'GET',
+      path: '/path',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
+    }, {}, (err, resp) => {
+      expect(err).to.equal(null);
+      expect(resp).to.deep.equal({
+        statusCode: 200,
+        body: '{}',
+        headers: { date: 'existing', 'server-timing': 'total;dur=0' }
+      });
+      done();
+    });
   });
 
   it('Testing authorizer deny', (done) => {
@@ -150,9 +194,9 @@ describe('Testing Response', { record: console }, () => {
         statusCode: 200,
         body: '',
         headers: {
-          'Access-Control-Allow-Origin': 'https://some-origin.com',
-          'Access-Control-Allow-Headers': 'content-type,accept,origin,x-custom',
-          'Access-Control-Allow-Methods': 'GET'
+          'access-control-allow-origin': 'https://some-origin.com',
+          'access-control-allow-headers': 'content-type,accept,origin,x-custom',
+          'access-control-allow-methods': 'GET'
         }
       });
       done();
