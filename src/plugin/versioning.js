@@ -108,7 +108,7 @@ class Versioning extends Plugin {
   }
 
   static weight() {
-    return 3;
+    return 4;
   }
 
   beforeRegister(kwargs) {

@@ -25,7 +25,7 @@ class Cors extends Plugin {
   }
 
   static weight() {
-    return 1;
+    return 2;
   }
 
   async onUnrouted(kwargs) {

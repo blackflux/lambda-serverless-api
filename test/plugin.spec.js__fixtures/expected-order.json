@@ -1,11 +1,11 @@
 {
   "constructor": [
-    "PreProcessor",
+    "PreRouting",
     "ResponseHeaders",
     "Router",
     "AutoPrune",
+    "PreProcessor",
     "Cors",
-    "PreRouting",
     "RateLimit",
     "Robots",
     "Versioning",
@@ -24,7 +24,6 @@
     "Validator"
   ],
   "beforeRouting": [
-    "ResponseHeaders",
     "PreRouting"
   ],
   "onUnrouted": [
@@ -32,6 +31,7 @@
     "Robots"
   ],
   "before": [
+    "ResponseHeaders",
     "PreProcessor",
     "Cors",
     "RateLimit",
