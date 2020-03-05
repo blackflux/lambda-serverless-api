@@ -29,7 +29,7 @@ class ResponseHeaders extends Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async beforeRouting({ context }) {
+  async before({ context }) {
     set(context, 'custom.responseHeaders.requestStart', new Date() / 1);
   }
 

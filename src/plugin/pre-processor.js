@@ -16,7 +16,7 @@ class PreProcessor extends Plugin {
   }
 
   static weight() {
-    return 0;
+    return 1;
   }
 
   // eslint-disable-next-line class-methods-use-this

@@ -14,7 +14,7 @@ class PreRouting extends Plugin {
   }
 
   static weight() {
-    return 1;
+    return 0;
   }
 
   async beforeRouting(kwargs) {
