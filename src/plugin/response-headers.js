@@ -6,7 +6,7 @@ const { Plugin } = require('../plugin');
 const headers = {
   date: () => new Date().toUTCString(),
   'server-timing': ({ context }) => `total;dur=${
-    (new Date() / 1 - get(context, 'custom.responseHeaders.requestStart')) / 1000
+    new Date() / 1 - get(context, 'custom.responseHeaders.requestStart')
   }`
 };
 
