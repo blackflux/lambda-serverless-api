@@ -1,14 +1,16 @@
 const get = require('lodash.get');
+const pv = require('painless-version');
 const SwaggerParser = require('swagger-parser');
 
-module.exports = ({ wrapper }) => {
+module.exports = ({ wrapper, options }) => {
   const { endpoints } = wrapper;
   const data = {
     swagger: '2.0',
     produces: ['application/json'],
     info: {
       title: 'Api Name',
-      version: '0.0.1'
+      version: Object.keys(get(options, 'versioning.versions', { '0.0.1': '' }))
+        .sort((a, b) => pv.test(`${a} < ${b}`))[0]
     },
     paths: {}
   };
