@@ -3,7 +3,7 @@ produces:
   - application/json
 info:
   title: Api Name
-  version: 0.0.1
+  version: 1.0.1
 paths:
   /error:
     get:
