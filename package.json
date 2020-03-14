@@ -90,7 +90,7 @@
     "object-scan": "11.0.1",
     "painless-version": "1.2.2",
     "route-recognizer": "0.3.4",
-    "swagger-parser": "8.0.4"
+    "swagger-parser": "9.0.0"
   },
   "peerDependencies": {},
   "nyc": {
