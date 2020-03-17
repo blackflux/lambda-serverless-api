@@ -4907,17 +4907,17 @@ node-tdd@2.9.11:
     uuid "7.0.2"
     xml2js "0.4.23"
 
-node-tdd@2.9.9:
-  version "2.9.9"
-  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.9.9.tgz#a7c13707b3e9aa70453d07a3029eedc0f7a1fea7"
-  integrity sha512-Y0mcSc0NFp8gkRd5RCXzboRIOGU5ApXAhr2aYnKhEU7pdqn594lEYL7Me2aEkdzl/UbasNg13PDCnlf68Ae2pg==
+node-tdd@2.9.13:
+  version "2.9.13"
+  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.9.13.tgz#b6b134a3f2f6957ccdbf272b35d2ddcce73e6904"
+  integrity sha512-/wDkhPQPQNA4udm7FYhgLA2OOmy8E65zJJ+WAjb6ekO4zXX3jZR15ZhhyiK5Umy4bJPUCMURtW5JpWA1tOPEZg==
   dependencies:
     callsites "3.1.0"
-    joi-strict "1.2.0"
+    joi-strict "1.2.1"
     lodash.get "4.4.2"
     minimist "1.2.5"
-    nock "12.0.2"
-    smart-fs "1.11.8"
+    nock "12.0.3"
+    smart-fs "1.11.9"
     timekeeper "2.2.0"
     tmp "0.1.0"
     uuid "7.0.2"
