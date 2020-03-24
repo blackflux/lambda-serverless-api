@@ -2721,15 +2721,6 @@ fromentries@^1.2.0:
   resolved "https://registry.yarnpkg.com/fromentries/-/fromentries-1.2.0.tgz#e6aa06f240d6267f913cea422075ef88b63e7897"
   integrity sha512-33X7H/wdfO99GdRLLgkjUrD4geAFdq/Uv0kl3HD4da6HDixd2GUg8Mw7dahLCV9r/EARkmtYBB6Tch4EEokFTQ==
 
-fs-extra@8.1.0, fs-extra@^8.0.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-8.1.0.tgz#49d43c45a88cd9677668cb7be1b46efdb8d2e1c0"
-  integrity sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==
-  dependencies:
-    graceful-fs "^4.2.0"
-    jsonfile "^4.0.0"
-    universalify "^0.1.0"
-
 fs-extra@9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-9.0.0.tgz#b6afc31036e247b2466dc99c29ae797d5d4580a3"
@@ -2739,6 +2730,15 @@ fs-extra@9.0.0:
     graceful-fs "^4.2.0"
     jsonfile "^6.0.1"
     universalify "^1.0.0"
+
+fs-extra@^8.0.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-8.1.0.tgz#49d43c45a88cd9677668cb7be1b46efdb8d2e1c0"
+  integrity sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==
+  dependencies:
+    graceful-fs "^4.2.0"
+    jsonfile "^4.0.0"
+    universalify "^0.1.0"
 
 fs-minipass@^1.2.5:
   version "1.2.7"
@@ -4030,10 +4030,10 @@ lambda-rate-limiter@2.4.29:
   dependencies:
     lru-cache "5.1.1"
 
-lambda-tdd@2.11.34:
-  version "2.11.34"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.11.34.tgz#20ec7c83ba4fd0ef57f2cd5b6a90691593dfcb77"
-  integrity sha512-6pOR5T9RfE5GsWDuCNm4ZhP4n/ShphFLEGXoKW9El2L96QRKMpq9yR1Bk/Ox5sqF9M939Zt39eqfqcr2SSu+oQ==
+lambda-tdd@2.11.35:
+  version "2.11.35"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.11.35.tgz#485baa8725f20f8658d01598e7fb43950db8426f"
+  integrity sha512-1tQxaIfs9Fxm6Mky3oPJxTIsGx1PNSAbLORfDKfNdp6hx7WhtZ41qFowvnlYtYWILhmFngWqSbjOeos0ZXIR6A==
   dependencies:
     app-root-path "3.0.0"
     glob "7.1.6"
@@ -4041,8 +4041,8 @@ lambda-tdd@2.11.34:
     js-yaml "3.13.1"
     lambda-wrapper "0.3.0"
     lodash.get "4.4.2"
-    node-tdd "2.10.1"
-    smart-fs "1.11.10"
+    node-tdd "2.10.3"
+    smart-fs "1.11.11"
 
 lambda-wrapper@0.3.0:
   version "0.3.0"
@@ -4924,22 +4924,6 @@ node-sass-tilde-importer@^1.0.2:
   integrity sha512-Swcmr38Y7uB78itQeBm3mThjxBy9/Ah/ykPIaURY/L6Nec9AyRoL/jJ7ECfMR+oZeCTVQNxVMu/aHU+TLRVbdg==
   dependencies:
     find-parent-dir "^0.3.0"
-
-node-tdd@2.10.1:
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.10.1.tgz#19940da016f1ddc745098960b1950b298ccd3871"
-  integrity sha512-32iEVH/LwVRoXKBIhIwsvud84VjVkEMvND0d8lP26u0MyV4LsMq+nzQXVeb+VXL/7gby2x9HYgo03BeZNYn3nQ==
-  dependencies:
-    callsites "3.1.0"
-    joi-strict "1.2.1"
-    lodash.get "4.4.2"
-    minimist "1.2.5"
-    nock "12.0.3"
-    smart-fs "1.11.10"
-    timekeeper "2.2.0"
-    tmp "0.1.0"
-    uuid "7.0.2"
-    xml2js "0.4.23"
 
 node-tdd@2.10.3:
   version "2.10.3"
@@ -6831,20 +6815,6 @@ smart-buffer@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.1.0.tgz#91605c25d91652f4661ea69ccf45f1b331ca21ba"
   integrity sha512-iVICrxOzCynf/SNaBQCw34eM9jROU/s5rzIhpOvzhzuYHfJR/DhZfDkXiZSgKXfgv26HT3Yni3AV/DGw0cGnnw==
-
-smart-fs@1.11.10:
-  version "1.11.10"
-  resolved "https://registry.yarnpkg.com/smart-fs/-/smart-fs-1.11.10.tgz#4a6c58a98e0c4a184705929556296cf19548158e"
-  integrity sha512-x848XvuVMoeoDp/KPK7kapHEJjH3bPHPErLOefJZQQvkOzZot8Z4/CnShj8mR/N1V0zb6mgpIPwbwfNe8zTvUA==
-  dependencies:
-    fs-extra "8.1.0"
-    js-yaml "3.13.1"
-    json-stringify-pretty-compact "2.0.0"
-    lodash.clonedeep "4.5.0"
-    lodash.isequal "4.5.0"
-    object-align "1.0.11"
-    xml-js "1.6.11"
-    yaml-boost "1.9.21"
 
 smart-fs@1.11.11:
   version "1.11.11"
