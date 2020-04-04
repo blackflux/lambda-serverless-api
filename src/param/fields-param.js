@@ -29,10 +29,10 @@ class FieldsParam extends Str {
   pruneFields(apiResponse, parsedFields) {
     assert(apiResponse.isJsonResponse === true, 'Can only prune JsonResponse');
     assert(typeof this.autoPrune === 'string');
-    objectFields.retain(
-      this.autoPrune === '' ? apiResponse.payload : get(apiResponse.payload, this.autoPrune),
-      parsedFields
-    );
+    const retain = objectFields.Retainer(parsedFields);
+    retain(this.autoPrune === ''
+      ? apiResponse.payload
+      : get(apiResponse.payload, this.autoPrune));
   }
 
   validate(value) {
