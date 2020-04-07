@@ -28,7 +28,7 @@ class Logger extends Plugin {
     const redactOptions = {
       joined: false,
       useArraySelector: false,
-      filterFn: (key, value, { parents }) => {
+      filterFn: ({ key, parents }) => {
         // eslint-disable-next-line no-param-reassign
         parents[0][key[key.length - 1]] = '**redacted**';
       }
@@ -86,4 +86,5 @@ class Logger extends Plugin {
     logger[level](`${prefix}\n${JSON.stringify(message)}`);
   }
 }
+
 module.exports = Logger;
