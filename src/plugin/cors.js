@@ -25,7 +25,7 @@ class Cors extends Plugin {
   }
 
   static weight() {
-    return 0;
+    return 2;
   }
 
   async onUnrouted(kwargs) {
@@ -71,20 +71,35 @@ class Cors extends Plugin {
     });
   }
 
-  async after(kwargs) {
-    const { event, response } = kwargs;
+  async before(kwargs) {
+    const { event } = kwargs;
     if (event.httpMethod === 'OPTIONS') {
       return;
     }
+
+    const cors = {
+      origin: undefined,
+      allowOrigin: false
+    };
+    set(kwargs, 'context.cors', cors);
+
     const origin = get(event, 'headers.origin');
     if (origin === undefined) {
       return;
     }
+    cors.origin = origin;
+
     const allowedOrigins = await extractOrigins(this.allowedOrigins, kwargs);
-    if (!allowedOrigins.includes(origin) && !allowedOrigins.includes('*')) {
-      return;
+    cors.allowOrigin = allowedOrigins.includes(origin) || allowedOrigins.includes('*');
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async after(kwargs) {
+    const cors = get(kwargs, 'context.cors', {});
+
+    if (cors.allowOrigin === true) {
+      set(kwargs.response, ['headers', 'Access-Control-Allow-Origin'], cors.origin);
     }
-    set(response, ['headers', 'Access-Control-Allow-Origin'], origin);
   }
 }
 module.exports = Cors;

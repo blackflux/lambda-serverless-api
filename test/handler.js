@@ -127,4 +127,6 @@ module.exports.binary = api.wrap('GET binary', [], () => api.BinaryResponse(Buff
 
 module.exports.path = api.wrap('GET some/path', [], () => api.JsonResponse({}));
 
+module.exports.options = api.wrap('OPTIONS some/path', [], () => api.ApiResponse(''));
+
 module.exports.router = api.router;

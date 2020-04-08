@@ -29,7 +29,7 @@ class RateLimit extends Plugin {
   }
 
   static weight() {
-    return 1;
+    return 3;
   }
 
   async before({ event, request }) {

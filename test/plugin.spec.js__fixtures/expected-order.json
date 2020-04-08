@@ -1,10 +1,11 @@
 {
   "constructor": [
-    "Cors",
-    "PreProcessor",
     "PreRouting",
+    "ResponseHeaders",
     "Router",
     "AutoPrune",
+    "PreProcessor",
+    "Cors",
     "RateLimit",
     "Robots",
     "Versioning",
@@ -15,7 +16,8 @@
     "PreResponse"
   ],
   "beforeRegister": [
-    "Router"
+    "Router",
+    "Versioning"
   ],
   "afterRegister": [
     "AutoPrune",
@@ -29,7 +31,9 @@
     "Robots"
   ],
   "before": [
+    "ResponseHeaders",
     "PreProcessor",
+    "Cors",
     "RateLimit",
     "Versioning",
     "PreValidation",
@@ -37,6 +41,7 @@
     "ParamParser"
   ],
   "after": [
+    "ResponseHeaders",
     "Cors",
     "Versioning",
     "Logger",

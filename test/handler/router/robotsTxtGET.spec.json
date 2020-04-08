@@ -10,7 +10,7 @@
   },
   "logs": {
     "to.deep.equal": [
-      "INFO: 200 GET /robots.txt\n{\"event\":{\"path\":\"/robots.txt\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.1\"}},\"response\":{\"statusCode\":200,\"body\":\"User-agent: *\\nDisallow: /\"}}"
+      "INFO: 200 GET /robots.txt\n{\"event\":{\"path\":\"/robots.txt\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":\"User-agent: *\\nDisallow: /\"}}"
     ]
   },
   "event": {
@@ -20,9 +20,6 @@
       "identity": {
         "sourceIp": "127.0.0.1"
       }
-    },
-    "headers": {
-      "X-api-version": "1.0.1"
     }
   }
 }

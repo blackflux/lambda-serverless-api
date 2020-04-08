@@ -18,7 +18,7 @@ const Api = (options = {}) => {
   return {
     wrap: wrapper.wrap,
     router: router.handler,
-    generateSwagger: () => swagger({ wrapper }),
+    generateSwagger: () => swagger({ wrapper, options }),
     ...response,
     ...param
   };

@@ -3,14 +3,26 @@ produces:
   - application/json
 info:
   title: Api Name
-  version: 0.0.1
+  version: 1.0.1
 paths:
   /error:
     get:
       consumes:
         - application/json
       description: ''
-      parameters: []
+      parameters:
+        - name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
       responses:
         default:
           description: Unexpected Error
@@ -19,7 +31,19 @@ paths:
       consumes:
         - application/json
       description: ''
-      parameters: []
+      parameters:
+        - name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
       responses:
         default:
           description: Unexpected Error
@@ -28,7 +52,19 @@ paths:
       consumes:
         - application/json
       description: ''
-      parameters: []
+      parameters:
+        - name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
       responses:
         default:
           description: Unexpected Error
@@ -37,7 +73,19 @@ paths:
       consumes:
         - application/json
       description: ''
-      parameters: []
+      parameters:
+        - name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
       responses:
         default:
           description: Unexpected Error
@@ -55,6 +103,18 @@ paths:
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
             Object\])$/
+        - name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
       responses:
         default:
           description: Unexpected Error
@@ -171,6 +231,18 @@ paths:
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
             Object\])$/
+        - in: header
+          name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
         - in: body
           name: bodyParamData
           schema:
@@ -274,6 +346,18 @@ paths:
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
             Object\])$/
+        - in: header
+          name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
         - in: body
           name: bodyParamData
           schema:
@@ -306,11 +390,43 @@ paths:
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
             Object\])$/
+        - name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
       responses:
         default:
           description: Unexpected Error
   /some/path:
     get:
+      consumes:
+        - application/json
+      description: ''
+      parameters:
+        - name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
+      responses:
+        default:
+          description: Unexpected Error
+    options:
       consumes:
         - application/json
       description: ''
@@ -323,7 +439,19 @@ paths:
       consumes:
         - application/json
       description: ''
-      parameters: []
+      parameters:
+        - name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
       responses:
         default:
           description: Unexpected Error
@@ -341,6 +469,18 @@ paths:
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
             Object\])$/
+        - name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
       responses:
         default:
           description: Unexpected Error
@@ -349,7 +489,19 @@ paths:
       consumes:
         - application/json
       description: ''
-      parameters: []
+      parameters:
+        - name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
       responses:
         default:
           description: Unexpected Error
