@@ -85,7 +85,7 @@
     "lodash.difference": "4.5.0",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
-    "moment": "2.24.0",
+    "moment": "2.25.0",
     "object-fields": "2.0.4",
     "object-scan": "13.0.1",
     "painless-version": "1.2.2",
