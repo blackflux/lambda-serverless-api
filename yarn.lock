@@ -4066,10 +4066,10 @@ lambda-rate-limiter@2.4.29:
   dependencies:
     lru-cache "5.1.1"
 
-lambda-tdd@2.11.39:
-  version "2.11.39"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.11.39.tgz#b681848b2a8083c9056033a620f9cec245585332"
-  integrity sha512-aNsm0L8/rZCZ39a18dIqCa27fYFR26HH3QzE1knRbXiYE+jNtRs1LZOa6ovJUngdJaXXd6g+lDbmHjV44Yi7QA==
+lambda-tdd@2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.12.0.tgz#81d9163261d59c592270a63cd4abd8d226609323"
+  integrity sha512-vE/ZcYdTKGASCJs0Oc+MQIW+y0t43vmRCHrzJVOhNXWVhFhtyon7YEsXDizZNMXccZJ+6ItvhURBL84tfXHnnA==
   dependencies:
     app-root-path "3.0.0"
     glob "7.1.6"
@@ -4077,7 +4077,7 @@ lambda-tdd@2.11.39:
     js-yaml "3.13.1"
     lambda-wrapper "0.3.0"
     lodash.get "4.4.2"
-    node-tdd "2.10.6"
+    node-tdd "2.11.0"
     smart-fs "1.11.11"
 
 lambda-wrapper@0.3.0:
@@ -4963,22 +4963,6 @@ node-sass-tilde-importer@^1.0.2:
   integrity sha512-Swcmr38Y7uB78itQeBm3mThjxBy9/Ah/ykPIaURY/L6Nec9AyRoL/jJ7ECfMR+oZeCTVQNxVMu/aHU+TLRVbdg==
   dependencies:
     find-parent-dir "^0.3.0"
-
-node-tdd@2.10.6:
-  version "2.10.6"
-  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.10.6.tgz#dbf2bdb85f7bdca109f3dd3a41a974b90759d1b6"
-  integrity sha512-EA5TfHFzcXs+r0O2oxyZJ788avuogGZSsXLgRNVuH3alHf/TI7rz4qKaqZSU0exrxcnyJeOjkHfw2DmxrVoOrQ==
-  dependencies:
-    callsites "3.1.0"
-    joi-strict "1.2.2"
-    lodash.get "4.4.2"
-    minimist "1.2.5"
-    nock "12.0.3"
-    smart-fs "1.11.11"
-    timekeeper "2.2.0"
-    tmp "0.2.1"
-    uuid "8.0.0"
-    xml2js "0.4.23"
 
 node-tdd@2.11.0:
   version "2.11.0"
