@@ -11,7 +11,12 @@ const positionMapping = {
 };
 
 class Abstract {
-  constructor(name, position, { required = true, nullable = false, getter = null } = {}) {
+  constructor(name, position, {
+    required = true,
+    nullable = false,
+    normalize = true,
+    getter = null
+  } = {}) {
     assert(Object.keys(positionMapping).includes(position), `Unknown Parameter Position: ${position}`);
     assert(
       nullable === false || ['json', 'context'].includes(position),
@@ -23,6 +28,7 @@ class Abstract {
     this.stringInput = !['json', 'context'].includes(position);
     this.required = required;
     this.nullable = nullable;
+    this.normalize = normalize;
     this.getter = getter;
     this.type = null;
   }
@@ -50,9 +56,18 @@ class Abstract {
         value: result
       });
     }
-    return this.getter !== null && ![undefined, null].includes(result)
+    const r = this.getter !== null && ![undefined, null].includes(result)
       ? (params) => this.getter(result, params)
       : result;
+    if (typeof r !== 'string' || this.normalize === false) {
+      return r;
+    }
+    return r
+      // eslint-disable-next-line no-control-regex
+      .replace(/[\x00-\x09\x0B\x1F\x7F-\x9F]/g, ' ')
+      .replace(/(?<=\s) /g, '')
+      .replace(/ (?=\s)/g, '')
+      .replace(/\s+$|^\s+/g, '');
   }
 }
 

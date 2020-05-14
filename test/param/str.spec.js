@@ -47,6 +47,19 @@ describe('Testing Str Parameter', () => {
         }
       })).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
+
+    it('Testing normalize', () => {
+      expect(jsonParam.get({ body: { value: 'a  b' } })).to.equal('a b');
+      expect(jsonParam.get({ body: { value: 'a   b' } })).to.equal('a b');
+      expect(jsonParam.get({ body: { value: '  a   b  ' } })).to.equal('a b');
+      expect(jsonParam.get({ body: { value: 'a \n b' } })).to.equal('a\nb');
+      expect(jsonParam.get({ body: { value: 'a \n \n b' } })).to.equal('a\n\nb');
+      expect(jsonParam.get({ body: { value: 'a   \n   \n   b' } })).to.equal('a\n\nb');
+      expect(jsonParam.get({ body: { value: 'a\n\nb' } })).to.equal('a\n\nb');
+      expect(jsonParam.get({ body: { value: 'a \t b' } })).to.equal('a b');
+      expect(jsonParam.get({ body: { value: ' b' } })).to.equal('b');
+      expect(jsonParam.get({ body: { value: 'a ' } })).to.equal('a');
+    });
   });
 
   describe('Testing options params', () => {
