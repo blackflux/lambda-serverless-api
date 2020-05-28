@@ -86,7 +86,7 @@
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
     "moment": "2.26.0",
-    "object-fields": "2.0.5",
+    "object-fields": "2.0.6",
     "object-scan": "13.0.3",
     "painless-version": "1.2.2",
     "route-recognizer": "0.3.4",
