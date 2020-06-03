@@ -7,6 +7,8 @@ module.exports.Wrapper = ({ router, module }) => {
   const wrapFn = (identifier, params, ...args) => {
     assert([1, 2].includes(args.length));
     const [options, handler] = args.length === 2 ? args : [{}, args[0]];
+    // todo: do strict validation of object with joi:
+    // all optional { limit: POS_INT, deprecated: API_VERSION_FORMAT }
     assert(options instanceof Object && !Array.isArray(options));
     assert(typeof handler === 'function');
 
