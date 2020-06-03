@@ -1,4 +1,5 @@
 const assert = require('assert');
+const Joi = require('joi-strict');
 const apiGateway = require('./api-gateway');
 
 module.exports.Wrapper = ({ router, module }) => {
@@ -7,9 +8,16 @@ module.exports.Wrapper = ({ router, module }) => {
   const wrapFn = (identifier, params, ...args) => {
     assert([1, 2].includes(args.length));
     const [options, handler] = args.length === 2 ? args : [{}, args[0]];
-    // todo: do strict validation of object with joi:
-    // all optional { limit: POS_INT, deprecated: API_VERSION_FORMAT }
+    // process.env.RATE_LIMIT is a string
     assert(options instanceof Object && !Array.isArray(options));
+    Joi.assert(options, Joi.object().keys({
+      limit: Joi.string()
+        // .integer()
+        // .min(0)
+        .allow(null)
+        .optional(),
+      deprecated: Joi.string().pattern(/[0-9]\.[0-9]\.[0-9]/).optional()
+    }).optional());
     assert(typeof handler === 'function');
 
     const request = {

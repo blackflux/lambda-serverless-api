@@ -46,6 +46,10 @@ module.exports.exception = api.wrap('GET exception', [], { limit: null }, () => 
   throw Error('Some Exception');
 });
 
+module.exports.deprecation = api.wrap('GET deprecation', [], {
+  limit: null, deprecated: '1.0.1'
+}, () => api.ApiResponse(''));
+
 module.exports.text = api
   .wrap('GET text', [], () => api.ApiResponse('some text', 200, { 'some-header': 123 }));
 
