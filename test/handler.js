@@ -29,6 +29,10 @@ const api = require('../src/index').Api({
   }
 });
 
+const limit = typeof process.env.RATE_LIMIT === 'string'
+  ? parseInt(process.env.RATE_LIMIT, 10)
+  : process.env.RATE_LIMIT;
+
 module.exports.deprecated = api.wrap('GET deprecated', [], () => {
   const date = new Date();
   const headers = {
@@ -53,19 +57,12 @@ module.exports.deprecation = api.wrap('GET deprecation', [], {
 module.exports.text = api
   .wrap('GET text', [], () => api.ApiResponse('some text', 200, { 'some-header': 123 }));
 
-module.exports.json = api.wrap('GET json', [],
-  process.env.RATE_LIMIT === undefined
-    ? {}
-    : { limit: parseInt(process.env.RATE_LIMIT, 10) },
-  () => api.JsonResponse({ some: 'json' }));
+module.exports.json = api
+  .wrap('GET json', [], { limit }, () => api.JsonResponse({ some: 'json' }));
 
 module.exports.echo = api.wrap('GET echo', [
   api.Str('name', 'query')
-],
-process.env.RATE_LIMIT === undefined
-  ? {}
-  : { limit: parseInt(process.env.RATE_LIMIT, 10) },
-({ name }) => api.JsonResponse({ name }));
+], { limit }, ({ name }) => api.JsonResponse({ name }));
 
 module.exports.proxy = api.wrap('GET proxy/{proxy+}', [
   api.Str('proxy+', 'path')
