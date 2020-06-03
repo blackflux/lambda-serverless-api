@@ -8,12 +8,12 @@ module.exports.Wrapper = ({ router, module }) => {
   const wrapFn = (identifier, params, ...args) => {
     assert([1, 2].includes(args.length));
     const [options, handler] = args.length === 2 ? args : [{}, args[0]];
-    // process.env.RATE_LIMIT is a string
-    assert(options instanceof Object && !Array.isArray(options));
     Joi.assert(options, Joi.object().keys({
-      limit: Joi.string()
-        // .integer()
-        // .min(0)
+      limit: Joi
+        .number()
+        .integer()
+        .min(0)
+        .max(Number.MAX_SAFE_INTEGER)
         .allow(null)
         .optional(),
       deprecated: Joi.string().pattern(/[0-9]\.[0-9]\.[0-9]/).optional()

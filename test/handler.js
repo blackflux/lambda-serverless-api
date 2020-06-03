@@ -47,18 +47,25 @@ module.exports.exception = api.wrap('GET exception', [], { limit: null }, () => 
 });
 
 module.exports.deprecation = api.wrap('GET deprecation', [], {
-  limit: null, deprecated: '1.0.1'
+  deprecated: '1.0.1'
 }, () => api.ApiResponse(''));
 
 module.exports.text = api
   .wrap('GET text', [], () => api.ApiResponse('some text', 200, { 'some-header': 123 }));
 
-module.exports.json = api
-  .wrap('GET json', [], { limit: process.env.RATE_LIMIT }, () => api.JsonResponse({ some: 'json' }));
+module.exports.json = api.wrap('GET json', [],
+  process.env.RATE_LIMIT === undefined
+    ? {}
+    : { limit: parseInt(process.env.RATE_LIMIT, 10) },
+  () => api.JsonResponse({ some: 'json' }));
 
 module.exports.echo = api.wrap('GET echo', [
   api.Str('name', 'query')
-], { limit: process.env.RATE_LIMIT }, ({ name }) => api.JsonResponse({ name }));
+],
+process.env.RATE_LIMIT === undefined
+  ? {}
+  : { limit: parseInt(process.env.RATE_LIMIT, 10) },
+({ name }) => api.JsonResponse({ name }));
 
 module.exports.proxy = api.wrap('GET proxy/{proxy+}', [
   api.Str('proxy+', 'path')
