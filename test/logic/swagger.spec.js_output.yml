@@ -505,3 +505,24 @@ paths:
       responses:
         default:
           description: Unexpected Error
+  /deprecation:
+    get:
+      consumes:
+        - application/json
+      description: ''
+      parameters:
+        - name: X-Api-Version
+          required: true
+          type: string
+          format: Enum
+          in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - 1.0.1
+            - 1.0.0
+            - 0.9.0
+      responses:
+        default:
+          description: Unexpected Error

@@ -1,5 +1,7 @@
 const assert = require('assert');
+const Joi = require('joi-strict');
 const apiGateway = require('./api-gateway');
+const { VERSION_REGEX } = require('../resources/format');
 
 module.exports.Wrapper = ({ router, module }) => {
   const endpoints = {};
@@ -7,7 +9,16 @@ module.exports.Wrapper = ({ router, module }) => {
   const wrapFn = (identifier, params, ...args) => {
     assert([1, 2].includes(args.length));
     const [options, handler] = args.length === 2 ? args : [{}, args[0]];
-    assert(options instanceof Object && !Array.isArray(options));
+    Joi.assert(options, Joi.object().keys({
+      limit: Joi
+        .number()
+        .integer()
+        .min(0)
+        .max(Number.MAX_SAFE_INTEGER)
+        .allow(null)
+        .optional(),
+      deprecated: Joi.string().pattern(VERSION_REGEX).optional()
+    }).optional());
     assert(typeof handler === 'function');
 
     const request = {
