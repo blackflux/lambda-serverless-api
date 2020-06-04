@@ -6,9 +6,8 @@ const pv = require('painless-version');
 const { logger } = require('lambda-monitor-logger');
 const { Plugin } = require('../plugin');
 const { ApiError } = require('../response');
+const { VERSION_REGEX } = require('../resources/format');
 const Enum = require('../param/enum');
-
-const VERSION_REGEX = /^\d+\.\d+\.\d+$/;
 
 const VersionManager = ({
   apiVersionHeader,
@@ -58,6 +57,10 @@ const VersionManager = ({
       }
       if (versions[apiVersion] === undefined) {
         throw ApiError(`Unknown version "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
+      }
+      const deprecated = get(request, 'options.deprecated');
+      if (deprecated !== undefined && pv.test(`${deprecated} <= ${apiVersion}`)) {
+        throw ApiError(`Endpoint deprecated since version "${deprecated}"`, 403);
       }
       const apiVersionMeta = versions[apiVersion];
       if (apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {

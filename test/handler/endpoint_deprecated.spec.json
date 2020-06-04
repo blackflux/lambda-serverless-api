@@ -1,0 +1,27 @@
+{
+  "handler": "deprecation",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 403,
+      "body": "{\"message\":\"Endpoint deprecated since version \\\"1.0.1\\\"\"}"
+    }
+  },
+  "logs": {
+    "to.deep.equal()": [
+      "WARNING: 403 GET\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Endpoint deprecated since version \\\"1.0.1\\\"\"}}}"
+    ]
+  },
+  "event": {
+    "httpMethod": "GET",
+    "headers": {
+      "X-api-version": "1.0.1"
+    },
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    }
+  }
+}

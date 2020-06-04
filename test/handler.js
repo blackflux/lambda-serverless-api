@@ -29,6 +29,10 @@ const api = require('../src/index').Api({
   }
 });
 
+const limit = process.env.RATE_LIMIT === undefined
+  ? undefined
+  : parseInt(process.env.RATE_LIMIT, 10);
+
 module.exports.deprecated = api.wrap('GET deprecated', [], () => {
   const date = new Date();
   const headers = {
@@ -46,15 +50,19 @@ module.exports.exception = api.wrap('GET exception', [], { limit: null }, () => 
   throw Error('Some Exception');
 });
 
+module.exports.deprecation = api.wrap('GET deprecation', [], {
+  deprecated: '1.0.1'
+}, () => api.ApiResponse(''));
+
 module.exports.text = api
   .wrap('GET text', [], () => api.ApiResponse('some text', 200, { 'some-header': 123 }));
 
 module.exports.json = api
-  .wrap('GET json', [], { limit: process.env.RATE_LIMIT }, () => api.JsonResponse({ some: 'json' }));
+  .wrap('GET json', [], { limit }, () => api.JsonResponse({ some: 'json' }));
 
 module.exports.echo = api.wrap('GET echo', [
   api.Str('name', 'query')
-], { limit: process.env.RATE_LIMIT }, ({ name }) => api.JsonResponse({ name }));
+], { limit }, ({ name }) => api.JsonResponse({ name }));
 
 module.exports.proxy = api.wrap('GET proxy/{proxy+}', [
   api.Str('proxy+', 'path')
