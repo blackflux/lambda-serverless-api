@@ -6,9 +6,8 @@ const pv = require('painless-version');
 const { logger } = require('lambda-monitor-logger');
 const { Plugin } = require('../plugin');
 const { ApiError } = require('../response');
+const { VERSION_REGEX } = require('../resources/format');
 const Enum = require('../param/enum');
-
-const VERSION_REGEX = /^\d+\.\d+\.\d+$/;
 
 const VersionManager = ({
   apiVersionHeader,

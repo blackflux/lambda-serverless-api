@@ -1,6 +1,7 @@
 const assert = require('assert');
 const Joi = require('joi-strict');
 const apiGateway = require('./api-gateway');
+const { VERSION_REGEX } = require('../resources/format');
 
 module.exports.Wrapper = ({ router, module }) => {
   const endpoints = {};
@@ -16,7 +17,7 @@ module.exports.Wrapper = ({ router, module }) => {
         .max(Number.MAX_SAFE_INTEGER)
         .allow(null)
         .optional(),
-      deprecated: Joi.string().pattern(/[0-9]\.[0-9]\.[0-9]/).optional()
+      deprecated: Joi.string().pattern(VERSION_REGEX).optional()
     }).optional());
     assert(typeof handler === 'function');
 
