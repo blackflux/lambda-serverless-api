@@ -29,9 +29,9 @@ const api = require('../src/index').Api({
   }
 });
 
-const limit = typeof process.env.RATE_LIMIT === 'string'
-  ? parseInt(process.env.RATE_LIMIT, 10)
-  : process.env.RATE_LIMIT;
+const limit = process.env.RATE_LIMIT === undefined
+  ? undefined
+  : parseInt(process.env.RATE_LIMIT, 10);
 
 module.exports.deprecated = api.wrap('GET deprecated', [], () => {
   const date = new Date();
