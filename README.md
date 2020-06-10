@@ -94,7 +94,7 @@ Note: The (slightly modified) original event and context can be accessed as addi
 There are various pre-defined parameters available
 
 - _Bool_: Boolean input
-- _Date_: Date input as `YYYY-MM-DD`
+- _IsoDate_: Date input as `YYYY-MM-DD`
 - _Email_: Email input
 - _Enum_: Enum input
 - _FieldsParam_: String input that gets parsed as [object-fields](https://github.com/blackflux/object-fields)
@@ -102,7 +102,7 @@ There are various pre-defined parameters available
 - _GeoRect_: GPS coordinate rectangle input
 - _GeoShape_: GPS coordinate polygon input
 - _Int_: Integer input
-- _IsoDate_: Iso date input
+- _IsoTimestamp_: Iso timestamp input
 - _Json_: Json input that has to conform to Joi schema
 - _List_: List input
 - _NumberList_: Number list input

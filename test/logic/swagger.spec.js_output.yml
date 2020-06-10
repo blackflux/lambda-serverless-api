@@ -262,11 +262,8 @@ paths:
                 type: string
                 format: IsoDate
                 pattern: >-
-                  /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/
-              dateParam:
-                type: string
-                format: Date
-                pattern: '/^\d{4}-\d{2}-\d{2}$/'
+                  /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+                  Object\])$/
               uuidParam:
                 type: string
                 format: UUID
@@ -327,6 +324,12 @@ paths:
               jsonParam:
                 type: object
                 format: Json
+              isoTimestampParam:
+                type: string
+                format: IsoTimestamp
+                pattern: >-
+                  /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+                  Object\])$/
             required:
               - username
       responses:

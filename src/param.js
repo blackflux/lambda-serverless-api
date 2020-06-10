@@ -1,9 +1,10 @@
 const Str = require('./param/str');
 const RegEx = require('./param/regex');
+const Schema = require('./param/schema');
 const Email = require('./param/email');
 const UUID = require('./param/uuid');
+const IsoTimestamp = require('./param/iso-timestamp');
 const IsoDate = require('./param/iso-date');
-const Date = require('./param/date');
 const Bool = require('./param/bool');
 const Enum = require('./param/enum');
 const Int = require('./param/int');
@@ -20,10 +21,11 @@ const NumberParam = require('./param/number-param');
 
 module.exports.Str = (...args) => new Str(...args);
 module.exports.RegEx = (...args) => new RegEx(...args);
+module.exports.Schema = (...args) => new Schema(...args);
 module.exports.Email = (...args) => new Email(...args);
 module.exports.UUID = (...args) => new UUID(...args);
+module.exports.IsoTimestamp = (...args) => new IsoTimestamp(...args);
 module.exports.IsoDate = (...args) => new IsoDate(...args);
-module.exports.Date = (...args) => new Date(...args);
 module.exports.Bool = (...args) => new Bool(...args);
 module.exports.Enum = (...args) => new Enum(...args);
 module.exports.Int = (...args) => new Int(...args);
