@@ -1,21 +1,20 @@
-const moment = require('moment');
-const RegEx = require('./regex');
+const Joi = require('joi-strict');
+const Schema = require('./schema');
 
-class IsoDate extends RegEx {
+class IsoDate extends Schema {
   constructor(name, position, opts) {
     super(name, position, {
       ...opts,
-      regex: new RegExp(
-        /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|/.source
-        + /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|/.source
-        + /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/.source
+      schema: Joi.alternatives().match('all').try(
+        Joi.date().iso(),
+        Joi.string().regex(/^\d{4}-\d{2}-\d{2}$/)
       )
     });
   }
 
   validate(value) {
     let valid = super.validate(value);
-    if (valid && !moment(value).isValid()) {
+    if (valid && new Date(value).toISOString().split('T')[0] !== value) {
       valid = false;
     }
     return valid;
