@@ -20,5 +20,4 @@ class IsoDate extends Schema {
     return valid;
   }
 }
-
 module.exports = IsoDate;
