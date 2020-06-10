@@ -1,5 +1,6 @@
 const Str = require('./param/str');
 const RegEx = require('./param/regex');
+const Schema = require('./param/schema');
 const Email = require('./param/email');
 const UUID = require('./param/uuid');
 const IsoDate = require('./param/iso-date');
@@ -20,6 +21,7 @@ const NumberParam = require('./param/number-param');
 
 module.exports.Str = (...args) => new Str(...args);
 module.exports.RegEx = (...args) => new RegEx(...args);
+module.exports.Schema = (...args) => new Schema(...args);
 module.exports.Email = (...args) => new Email(...args);
 module.exports.UUID = (...args) => new UUID(...args);
 module.exports.IsoDate = (...args) => new IsoDate(...args);
