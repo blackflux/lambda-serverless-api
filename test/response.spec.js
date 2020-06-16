@@ -4,7 +4,6 @@ const response = require('../src/response');
 const { Api, ApiError } = require('../src/index');
 const { identity } = require('./misc');
 
-
 describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
   let api;
   beforeEach(() => {
@@ -255,7 +254,6 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
       done();
     });
   });
-
 
   it('Testing Error Integration', (done) => {
     const error = new Error('other');
