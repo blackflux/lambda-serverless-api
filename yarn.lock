@@ -4137,10 +4137,10 @@ lambda-rate-limiter@2.4.29:
   dependencies:
     lru-cache "5.1.1"
 
-lambda-tdd@2.12.10:
-  version "2.12.10"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.12.10.tgz#fdce235a645e6d8042738148de544facbe0b6954"
-  integrity sha512-FnaubRdiyNSYbs7F5nqaREkQ8YRJCwU7/+MnC87a4yJC5Sj2e8qbWfZjnHd7osg2PlikKZhyJPshZ1cxqqC7KQ==
+lambda-tdd@2.12.12:
+  version "2.12.12"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.12.12.tgz#09a52b92cdba10692a2916b4d9ed9a3ca4f130de"
+  integrity sha512-viawH92VMkcXR2ti9ZDDuEnX3FNShKpS3fUOjRBd0U+kpOp1wd44p0/FGcOD+s3scqBl1o7NZlYr8cGFZY3HnQ==
   dependencies:
     app-root-path "3.0.0"
     glob "7.1.6"
@@ -4148,7 +4148,7 @@ lambda-tdd@2.12.10:
     js-yaml "3.14.0"
     lambda-wrapper "0.3.0"
     lodash.get "4.4.2"
-    node-tdd "2.12.1"
+    node-tdd "2.14.0"
     smart-fs "1.11.14"
 
 lambda-wrapper@0.3.0:
@@ -5017,22 +5017,6 @@ node-sass-tilde-importer@^1.0.2:
   integrity sha512-Swcmr38Y7uB78itQeBm3mThjxBy9/Ah/ykPIaURY/L6Nec9AyRoL/jJ7ECfMR+oZeCTVQNxVMu/aHU+TLRVbdg==
   dependencies:
     find-parent-dir "^0.3.0"
-
-node-tdd@2.12.1:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.12.1.tgz#57da3b5990f28646ff16e7ee6d4e69ae51f20d28"
-  integrity sha512-loTASAqn14N/19Nh1Q25ha6Pnjn4ajwkJOmdWUwGKgqJtRr4uDaBThd41eryNTZcRgIAIGWij4cN8jk+w2OUkw==
-  dependencies:
-    callsites "3.1.0"
-    joi-strict "1.2.2"
-    lodash.get "4.4.2"
-    minimist "1.2.5"
-    nock "12.0.3"
-    smart-fs "1.11.14"
-    timekeeper "2.2.0"
-    tmp "0.2.1"
-    uuid "8.1.0"
-    xml2js "0.4.23"
 
 node-tdd@2.14.0:
   version "2.14.0"
@@ -7869,11 +7853,6 @@ uuid@3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
-
-uuid@8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.1.0.tgz#6f1536eb43249f473abc6bd58ff983da1ca30d8d"
-  integrity sha512-CI18flHDznR0lq54xBycOVmphdCYnQLKn8abKn7PXUiKUGdEd+/l9LWNJmugXel4hXq7S+RMNl34ecyC9TntWg==
 
 uuid@8.2.0:
   version "8.2.0"
