@@ -13,7 +13,7 @@
   ],
   "author": "Lukas Siemon",
   "devDependencies": {
-    "@babel/cli": "7.10.1",
+    "@babel/cli": "7.10.3",
     "@babel/core": "7.10.2",
     "@babel/plugin-proposal-object-rest-spread": "7.10.3",
     "@babel/register": "7.10.1",
