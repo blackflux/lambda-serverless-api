@@ -40,6 +40,7 @@ const VersionManager = ({
       if (versioning) {
         request.params.push(new Enum(apiVersionHeader, 'header', { enums: Object.keys(versions).reverse() }));
       } else {
+        // effectively disallowing this header
         request.params.push(new Enum(apiVersionHeader, 'header', { enums: [''], required: false }));
       }
     },
