@@ -36,7 +36,12 @@ const VersionManager = ({
       if (apiVersionHeader === undefined) {
         return;
       }
-      request.params.push(new Enum(apiVersionHeader, 'header', { enums: Object.keys(versions).reverse() }));
+      const versioning = get(request, ['options', 'versioning']) !== false;
+      if (versioning) {
+        request.params.push(new Enum(apiVersionHeader, 'header', { enums: Object.keys(versions).reverse() }));
+      } else {
+        request.params.push(new Enum(apiVersionHeader, 'header', { enums: [''], required: false }));
+      }
     },
     storeApiVersionMeta: ({ request, event, context }) => {
       if (request.routed === false) {
@@ -46,6 +51,9 @@ const VersionManager = ({
         return;
       }
       if (apiVersionHeader === undefined) {
+        return;
+      }
+      if (get(request, ['options', 'versioning']) === false) {
         return;
       }
       const apiVersion = event.headers[apiVersionHeader.toLowerCase()];

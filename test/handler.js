@@ -54,6 +54,10 @@ module.exports.deprecation = api.wrap('GET deprecation', [], {
   deprecated: '1.0.1'
 }, () => api.ApiResponse(''));
 
+module.exports.versioning = api.wrap('GET versioning', [], {
+  versioning: false
+}, () => api.ApiResponse(''));
+
 module.exports.text = api
   .wrap('GET text', [], () => api.ApiResponse('some text', 200, { 'some-header': 123 }));
 
