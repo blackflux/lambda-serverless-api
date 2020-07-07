@@ -1,0 +1,27 @@
+{
+  "handler": "versioning",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 400,
+      "body": "{\"message\":\"Invalid Value for header-Parameter \\\"X-Api-Version\\\" provided.\",\"messageId\":99003,\"context\":{\"value\":\"1.0.0\"}}"
+    }
+  },
+  "logs": {
+    "to.deep.equal()": [
+      "WARNING: 400 99003 GET\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.0\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Value for header-Parameter \\\"X-Api-Version\\\" provided.\",\"messageId\":99003,\"context\":{\"value\":\"1.0.0\"}}}}"
+    ]
+  },
+  "event": {
+    "httpMethod": "GET",
+    "headers": {
+      "X-api-version": "1.0.0"
+    },
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    }
+  }
+}

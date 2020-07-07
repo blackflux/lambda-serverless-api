@@ -529,3 +529,22 @@ paths:
       responses:
         default:
           description: Unexpected Error
+  /versioning:
+    get:
+      consumes:
+        - application/json
+      description: ''
+      parameters:
+        - name: X-Api-Version
+          required: false
+          type: string
+          format: Enum
+          in: header
+          pattern: >-
+            /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+            Object\])$/
+          enum:
+            - ''
+      responses:
+        default:
+          description: Unexpected Error
