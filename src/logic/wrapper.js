@@ -17,7 +17,11 @@ module.exports.Wrapper = ({ router, module }) => {
         .max(Number.MAX_SAFE_INTEGER)
         .allow(null)
         .optional(),
-      deprecated: Joi.string().pattern(VERSION_REGEX).optional(),
+      deprecated: Joi.alternatives().conditional('versioning', {
+        is: false,
+        then: Joi.forbidden(),
+        otherwise: Joi.string().pattern(VERSION_REGEX)
+      }).optional(),
       versioning: Joi.boolean().optional()
     }).optional());
     assert(typeof handler === 'function');
