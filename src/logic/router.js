@@ -51,7 +51,7 @@ module.exports.Router = ({ module }) => {
       pathParameters: matchedRoutes[0].params
     }), context);
   };
-  handler.router = true;
+  handler.isRouter = true;
   handler.isApiEndpoint = true;
   handler.route = 'ANY';
 
