@@ -279,10 +279,10 @@
   dependencies:
     smart-fs "1.11.14"
 
-"@blackflux/robo-config-plugin@3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@blackflux/robo-config-plugin/-/robo-config-plugin-3.5.0.tgz#5c8d913e5a5962769ea2f4180208add41f4ccf86"
-  integrity sha512-W8htBdBpwK/lNmDYdO6X6WNfot8g4wMwni+5fv/jSHv4ccIelJya8qTJ0iNX1+Wi9sPVD3SRdhEK73/6kfhaVA==
+"@blackflux/robo-config-plugin@3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@blackflux/robo-config-plugin/-/robo-config-plugin-3.5.1.tgz#e04cb23793f5cf507a74aad68b804c9157663016"
+  integrity sha512-BD3hqZFQHrvfPGFmTLTi8rpqxUDmlKDn5De5f3ZzDofYXqAbc1m+0sHh3cxMnVIIu0xTVRmRi1BEREtx1+XZJQ==
 
 "@hapi/address@^4.0.1":
   version "4.0.1"
@@ -5817,10 +5817,10 @@ pacote@^9.1.0, pacote@^9.5.12, pacote@^9.5.3:
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-painless-version@1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/painless-version/-/painless-version-1.2.2.tgz#de3fc12bfbdac828a1cff57143f8f3c03e6c669a"
-  integrity sha512-BhOL1DZG6aP+RxZiV0zhqfsoXe5tPZWRt2j5QZlz71h4b1pNK8kiDX79s2L8w/FcHUBYT6sWavCwfkPgOCnGoQ==
+painless-version@1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/painless-version/-/painless-version-1.2.3.tgz#32686f5db2ad0f1289c2ff765ca41491bc9651da"
+  integrity sha512-DgbK3zPhhwGoOYD3iZfotclXhGg7qy1W5uu/MlUNKY51w+ZvjLUFuI8EXJu6K0IhlqmFKXtzKItIsvO6mpmBHg==
   dependencies:
     compare-versions "3.6.0"
     lodash.set "4.3.2"
