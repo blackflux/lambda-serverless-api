@@ -86,7 +86,7 @@
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
     "object-fields": "2.0.9",
-    "object-scan": "13.1.1",
+    "object-scan": "13.1.2",
     "painless-version": "1.2.3",
     "route-recognizer": "0.3.4",
     "swagger-parser": "10.0.0"
