@@ -85,7 +85,7 @@
     "lodash.difference": "4.5.0",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
-    "object-fields": "2.0.9",
+    "object-fields": "2.0.10",
     "object-scan": "13.1.2",
     "painless-version": "1.2.3",
     "route-recognizer": "0.3.4",
