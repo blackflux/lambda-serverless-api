@@ -4129,12 +4129,12 @@ lambda-async@1.0.6:
   resolved "https://registry.yarnpkg.com/lambda-async/-/lambda-async-1.0.6.tgz#5089e704ae019ddde7c31ac00d89575192fc3f46"
   integrity sha512-Kq/9YhpSS5Q0Dp7lNZMC4aHWzC3sDT9I8k1ElsIJAFDIZemWgGxgJj75JQh6Qlpbts6gcyeEoZO2SaSFUAJCBQ==
 
-lambda-monitor-logger@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.4.0.tgz#c8666d5848b141091ec116a0e1cf037d1dc6b818"
-  integrity sha512-5oB/H63ZMxq5LfBEOgHxKfRBLE+jj3RZI30WzhujOei/o0aoR88QpSR6aPkcDV68Dn0M0hIkhtsro6aXaUKwCA==
+lambda-monitor-logger@2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.4.2.tgz#16d6e9036753df05c3bfee3a0b01a9cdf6534536"
+  integrity sha512-crE4gmxDY8+ctvKo1gkavzm2oCllTbbpm4TLDqvNhBaiF1vzZdxxxQl9ec/AivLqfKOcKj7FxVfXFt/SGBGzRw==
   dependencies:
-    joi-strict "1.2.2"
+    joi-strict "1.2.3"
 
 lambda-rate-limiter@2.4.31:
   version "2.4.31"
