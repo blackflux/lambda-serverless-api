@@ -12,6 +12,7 @@
     "PreValidation",
     "Validator",
     "ParamParser",
+    "PreLogic",
     "Logger",
     "PreResponse"
   ],
@@ -38,7 +39,8 @@
     "Versioning",
     "PreValidation",
     "Validator",
-    "ParamParser"
+    "ParamParser",
+    "PreLogic"
   ],
   "after": [
     "ResponseHeaders",
