@@ -26,7 +26,8 @@ const api = require('../src/index').Api({
       '0.9.0': '2018-01-01',
       '1.0.0': '2019-01-01'
     }
-  }
+  },
+  preLogic: () => {}
 });
 
 const limit = process.env.RATE_LIMIT === undefined
