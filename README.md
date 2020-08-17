@@ -76,6 +76,7 @@ The api is plugin based and all options are tied to plugins. The following plugi
 - _router_: Used to modify the router, e.g. set a custom route prefix
 - _robots_: Used to modify `robots.txt` response
 - _responseHeaders_: Used to inject certain predefined response headers, such as `Date`
+- _preLogic_: Used to e.g. modify parameters after they are parsed
 
 Please see implementation for details.
 
