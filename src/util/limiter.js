@@ -2,7 +2,6 @@ const crypto = require('crypto');
 const objectHash = require('object-hash-strict');
 const LRU = require('lru-cache-ext');
 
-const { ApiError } = require('../response');
 const Storage = require('./storage');
 
 const generateInterval = (identifier) => `${identifier}/${
@@ -22,8 +21,11 @@ module.exports = ({ bucket, globalLimit, defaultRouteLimit }) => {
     const interval = `${generateInterval(identifier)}/`;
     const routeHash = objectHash(route);
     const prefix = `${interval}${routeHash}/`;
-    if (memoryCache.has(interval) || memoryCache.has(prefix)) {
-      throw ApiError('Rate limit exceeded.', 429);
+    if (memoryCache.has(interval)) {
+      throw new Error('Global limit hit');
+    }
+    if (memoryCache.has(prefix)) {
+      throw new Error('Endpoint limit hit');
     }
     const [keys] = await Promise.all([
       storage.list(interval),
@@ -31,11 +33,11 @@ module.exports = ({ bucket, globalLimit, defaultRouteLimit }) => {
     ]);
     if (keys.length >= globalLimit) {
       memoryCache.set(interval, true);
-      throw ApiError('Rate limit exceeded.', 429);
+      throw new Error('Global limit hit');
     }
     if (keys.filter((key) => key.startsWith(prefix)).length >= routeLimit) {
       memoryCache.set(prefix, true);
-      throw ApiError('Rate limit exceeded.', 429);
+      throw new Error('Endpoint limit hit');
     }
   };
 };

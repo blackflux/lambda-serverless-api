@@ -2,6 +2,7 @@ const assert = require('assert');
 const get = require('lodash.get');
 const Joi = require('joi-strict');
 
+const { ApiError } = require('../response');
 const { Plugin } = require('../plugin');
 const Limiter = require('../util/limiter');
 
@@ -50,12 +51,20 @@ class RateLimit extends Plugin {
       throw new Error(`Rate limit identifier not found\n${JSON.stringify(event)}`);
     }
 
-    await this.limiter({
-      identifier,
-      route: request.route,
-      data: { event, request },
-      routeLimit
-    });
+    try {
+      await this.limiter({
+        identifier,
+        route: request.route,
+        data: { event, request },
+        routeLimit
+      });
+    } catch (e) {
+      const err = ApiError('Rate limit exceeded.', 429);
+      err.headers = {
+        'X-Rate-Limit-Reset': 60 - new Date().getSeconds()
+      };
+      throw err;
+    }
   }
 }
 module.exports = RateLimit;
