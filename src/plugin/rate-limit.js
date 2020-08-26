@@ -8,7 +8,6 @@ const Limiter = require('../util/limiter');
 class RateLimit extends Plugin {
   constructor(options) {
     super(options);
-    this.enabled = get(options, 'enabled', true);
     this.identifierPaths = get(options, 'identifierPaths', ['requestContext.identity.sourceIp']);
     this.limiter = Limiter({
       bucket: get(options, 'bucket', null),
@@ -20,7 +19,6 @@ class RateLimit extends Plugin {
   static schema() {
     return {
       rateLimit: Joi.object().keys({
-        enabled: Joi.boolean().optional(),
         identifierPaths: Joi.array().items(Joi.string()).optional(),
         bucket: Joi.string().optional(),
         // eslint-disable-next-line
@@ -37,9 +35,6 @@ class RateLimit extends Plugin {
 
   async before({ event, request }) {
     assert(typeof request.route === 'string');
-    if (this.enabled !== true) {
-      return;
-    }
     if (event.httpMethod === 'OPTIONS') {
       return;
     }
