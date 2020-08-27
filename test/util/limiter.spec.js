@@ -4,8 +4,7 @@ const Limiter = require('../../src/util/limiter');
 
 describe('Testing limiter.js', {
   timestamp: 1598115247,
-  cryptoSeed: 'd99efde9-9c6a-4336-bd99-18339fc38a38',
-  envVarsFile: '../env.yml'
+  cryptoSeed: 'd99efde9-9c6a-4336-bd99-18339fc38a38'
 }, () => {
   let callLimiter;
 

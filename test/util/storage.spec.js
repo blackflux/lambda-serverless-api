@@ -5,8 +5,7 @@ const Storage = require('../../src/util/storage');
 describe('Testing storage.js', {
   useNock: true,
   timestamp: 1598115247,
-  cryptoSeed: 'd99efde9-9c6a-4336-bd99-18339fc38a38',
-  envVarsFile: '../env.yml'
+  cryptoSeed: 'd99efde9-9c6a-4336-bd99-18339fc38a38'
 }, () => {
   let prefix;
   let key;
