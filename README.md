@@ -20,7 +20,7 @@ Provides support for:
 - Full support for `cors`
 - Full support for versioning and deprecation
 - Automatic generation of [Swagger](https://swagger.io/) documentation
-- Rate limiting using [lambda-rate-limiter](https://github.com/blackflux/lambda-rate-limiter)
+- Rate limiting using in-memory or [S3](https://aws.amazon.com/s3/)
 - Access and error logging using [lambda-monitor](https://github.com/blackflux/lambda-monitor)
 
 ## Install
@@ -192,7 +192,7 @@ Please see implementation for details.
 Done globally through the API configuration. However can be overwritten on a per-endpoint basis
 by specifying `limit` as an integer in the endpoint definition option.
 
-Rate limiting uses [lambda-rate-limiter](https://github.com/blackflux/lambda-rate-limiter). Note that there are some serious restrictions because it does not use centralized storage!
+Rate limiting uses memory by default, which is not shared across function containers. However one can configure S3 to share the rate limiting (recommended). This will (1) increase latency and (2) increase costs per api call.
 
 By default the client IP (`['requestContext.identity.sourceIp']`) is used for rate limiting. However this can be customized.
 

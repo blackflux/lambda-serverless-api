@@ -1,29 +1,31 @@
 const assert = require('assert');
 const get = require('lodash.get');
 const Joi = require('joi-strict');
-const Limiter = require('lambda-rate-limiter');
-const { Plugin } = require('../plugin');
+
 const { ApiError } = require('../response');
+const { Plugin } = require('../plugin');
+const Limiter = require('../util/limiter');
 
 class RateLimit extends Plugin {
   constructor(options) {
     super(options);
-    this.globalLimit = get(options, 'globalLimit', 100);
-    this.tokenPaths = get(options, 'tokenPaths', ['requestContext.identity.sourceIp']);
+    this.identifierPaths = get(options, 'identifierPaths', ['requestContext.identity.sourceIp']);
     this.limiter = Limiter({
-      interval: get(options, 'interval', 60000),
-      uniqueTokenPerInterval: get(options, 'uniqueTokenPerInterval', 500)
+      bucket: get(options, 'bucket', null),
+      globalLimit: get(options, 'globalLimit', 200),
+      defaultRouteLimit: get(options, 'defaultRouteLimit', 100)
     });
   }
 
   static schema() {
     return {
       rateLimit: Joi.object().keys({
-        globalLimit: Joi.number().integer().min(0).allow(null)
-          .optional(),
-        tokenPaths: Joi.array().items(Joi.string()).optional(),
-        interval: Joi.number().integer().min(0).optional(),
-        uniqueTokenPerInterval: Joi.number().integer().min(0).optional()
+        identifierPaths: Joi.array().items(Joi.string()).optional(),
+        bucket: Joi.string().optional(),
+        // eslint-disable-next-line
+        globalLimit: Joi.number().integer().min(0).allow(null).optional(),
+        // eslint-disable-next-line
+        defaultRouteLimit: Joi.number().integer().min(0).allow(null).optional()
       }).optional()
     };
   }
@@ -37,21 +39,31 @@ class RateLimit extends Plugin {
     if (event.httpMethod === 'OPTIONS') {
       return;
     }
-    const endpointLimit = get(request.options, 'limit', this.globalLimit);
-    if (endpointLimit === null) {
+    const routeLimit = get(request.options, 'limit');
+    if (routeLimit === null) {
       return;
     }
-    let token;
-    for (let idx = 0; idx < this.tokenPaths.length && token === undefined; idx += 1) {
-      token = get(event, this.tokenPaths[idx]);
+    let identifier;
+    for (let idx = 0; idx < this.identifierPaths.length && identifier === undefined; idx += 1) {
+      identifier = get(event, this.identifierPaths[idx]);
     }
-    if (token === undefined) {
-      throw new Error(`Rate limit token not found\n${JSON.stringify(event)}`);
+    if (identifier === undefined) {
+      throw new Error(`Rate limit identifier not found\n${JSON.stringify(event)}`);
     }
+
     try {
-      await this.limiter.check(endpointLimit, `${token}/${request.route}`);
+      await this.limiter({
+        identifier,
+        route: request.route,
+        data: { event, request },
+        routeLimit
+      });
     } catch (e) {
-      throw ApiError('Rate limit exceeded.', 429);
+      const err = ApiError('Rate limit exceeded.', 429);
+      err.headers = {
+        'X-Rate-Limit-Reset': 60 - new Date().getSeconds()
+      };
+      throw err;
     }
   }
 }
