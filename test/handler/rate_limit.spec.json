@@ -4,16 +4,20 @@
   },
   "handler": "json",
   "success": true,
+  "timestamp": 1598466804,
   "timeout": 2000,
   "expect": {
     "to.deep.equal()": {
       "statusCode": 429,
-      "body": "{\"message\":\"Rate limit exceeded.\"}"
+      "body": "{\"message\":\"Rate limit exceeded.\"}",
+      "headers": {
+        "X-Rate-Limit-Reset": 36
+      }
     }
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: 429 GET\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":429,\"body\":{\"message\":\"Rate limit exceeded.\"}}}"
+      "WARNING: 429 GET\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":429,\"body\":{\"message\":\"Rate limit exceeded.\"},\"headers\":{\"X-Rate-Limit-Reset\":36}}}"
     ]
   },
   "event": {
