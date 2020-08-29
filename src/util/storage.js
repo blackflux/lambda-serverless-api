@@ -13,7 +13,11 @@ module.exports = (bucket) => {
       if (useMemory) {
         memoryStorage.set(key, true);
       } else {
-        await s3.putGzipObject({ bucket, key, data });
+        await s3.putGzipObject({
+          bucket,
+          key,
+          data: JSON.stringify(data)
+        });
       }
     },
     list: async (prefix) => {

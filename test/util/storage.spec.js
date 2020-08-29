@@ -14,7 +14,7 @@ describe('Testing storage.js', {
   before(() => {
     prefix = 'prefix';
     key = `${prefix}/suffix`;
-    data = '{}';
+    data = {};
   });
 
   it('Testing storage with bucket', async () => {
