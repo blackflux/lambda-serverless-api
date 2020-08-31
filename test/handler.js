@@ -27,6 +27,9 @@ const api = require('../src/index').Api({
       '1.0.0': '2019-01-01'
     }
   },
+  rateLimit: {
+    enabled: process.env.RATE_LIMIT_ENABLED === 'true'
+  },
   preLogic: () => {}
 });
 
