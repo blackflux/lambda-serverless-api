@@ -1,0 +1,30 @@
+{
+  "env": {
+    "RATE_LIMIT_ENABLED": "false"
+  },
+  "handler": "json",
+  "success": true,
+  "timeout": 2000,
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 200,
+      "body": "{\"some\":\"json\"}"
+    }
+  },
+  "logs": {
+    "to.deep.equal": [
+      "INFO: 200 GET\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":200,\"body\":{\"some\":\"json\"}}}"
+    ]
+  },
+  "event": {
+    "httpMethod": "GET",
+    "headers": {
+      "X-api-version": "1.0.1"
+    },
+    "requestContext": {
+      "identity": {
+        "sourceIp": "127.0.0.1"
+      }
+    }
+  }
+}
