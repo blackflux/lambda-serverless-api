@@ -9,7 +9,8 @@
       "projectName": "lambda-serverless-api",
       "owner": "simlu",
       "ownerName": "Lukas Siemon",
-      "mergeBot": "MrsFlux"
+      "mergeBot": "MrsFlux",
+      "nodeVersion": "10"
     }
   }
 }
