@@ -89,7 +89,7 @@
     "lru-cache-ext": "1.1.13",
     "object-fields": "2.0.10",
     "object-hash-strict": "1.2.28",
-    "object-scan": "13.1.4",
+    "object-scan": "13.1.5",
     "painless-version": "1.2.4",
     "route-recognizer": "0.3.4",
     "swagger-parser": "10.0.2"
