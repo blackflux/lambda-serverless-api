@@ -78,7 +78,7 @@
     "lib"
   ],
   "dependencies": {
-    "aws-sdk-wrap": "4.4.12",
+    "aws-sdk-wrap": "4.4.15",
     "joi-strict": "1.2.3",
     "lambda-async": "1.0.6",
     "lambda-monitor-logger": "2.4.2",
