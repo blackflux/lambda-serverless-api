@@ -4230,10 +4230,10 @@ lambda-monitor-logger@2.4.2:
   dependencies:
     joi-strict "1.2.3"
 
-lambda-tdd@2.13.5:
-  version "2.13.5"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.13.5.tgz#8dd59d55954bfe9bc3f1a2ddb36cc70e7f63277b"
-  integrity sha512-VtqpXsW7EIFxB6pTX0JUhYoXO9+7+N/naa5UueCNHZnn35GKVvrnPN9DL76fMwthQWOP02dIHpZ1nN1wRfwuXg==
+lambda-tdd@2.13.7:
+  version "2.13.7"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.13.7.tgz#3c268a52a6c63e71a8dde3220b2fa1bc0f65d772"
+  integrity sha512-Qtr4s8svjxDx5YfqemYE/Dyqgwu19qHkgWChlAS/QAoHQYXGSJO6Lyo7KX7W/peQPs3GfyzalF8wGV/dBizaoQ==
   dependencies:
     app-root-path "3.0.0"
     glob "7.1.6"
@@ -4242,7 +4242,7 @@ lambda-tdd@2.13.5:
     lambda-wrapper "0.3.0"
     lodash.get "4.4.2"
     node-tdd "2.18.4"
-    smart-fs "1.11.18"
+    smart-fs "1.11.19"
 
 lambda-wrapper@0.3.0:
   version "0.3.0"
