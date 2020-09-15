@@ -5556,13 +5556,13 @@ object-fields@2.0.13:
   dependencies:
     object-scan "13.1.5"
 
-object-hash-strict@1.2.31:
-  version "1.2.31"
-  resolved "https://registry.yarnpkg.com/object-hash-strict/-/object-hash-strict-1.2.31.tgz#09dfac8480151cdfd0ec9b037489c79982305326"
-  integrity sha512-y4BqKvKZ/PwD4OTVeWnfKiGiWzjZYhgDPQ8AcPUQ7gcRIA6kDEjXKe5DrSruF9Qcj2rHiglKADZiicMnyPz3oQ==
+object-hash-strict@1.2.32:
+  version "1.2.32"
+  resolved "https://registry.yarnpkg.com/object-hash-strict/-/object-hash-strict-1.2.32.tgz#e87cdd0d7db505787dfb3b20bd8c581901b7e09b"
+  integrity sha512-HksS+7Njzagh7iEBskwfC49d1RdfOEya+KGluxXS5GU2TDw76HsUsAwbllKep2S9LtQG/D+e8EwXGfPilLDFMg==
   dependencies:
     object-hash "2.0.3"
-    object-scan "13.1.5"
+    object-scan "13.1.6"
 
 object-hash@2.0.3:
   version "2.0.3"
