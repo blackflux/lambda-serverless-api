@@ -4228,12 +4228,12 @@ lambda-async@1.0.7:
   resolved "https://registry.yarnpkg.com/lambda-async/-/lambda-async-1.0.7.tgz#3789c08fe606a87c41d7eace35888ef8e7015b3a"
   integrity sha512-fdtZ/4QljF5CrqvbxB/6cnbqRJqi55t5rUl/pffnviqozf1CsGFNi3PGOCs11pdZUDfoMYb3hZx4qZYZLYUlhQ==
 
-lambda-monitor-logger@2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.4.2.tgz#16d6e9036753df05c3bfee3a0b01a9cdf6534536"
-  integrity sha512-crE4gmxDY8+ctvKo1gkavzm2oCllTbbpm4TLDqvNhBaiF1vzZdxxxQl9ec/AivLqfKOcKj7FxVfXFt/SGBGzRw==
+lambda-monitor-logger@2.4.5:
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.4.5.tgz#917fad29ad76bed5a16b2820e68f86b7a67d504a"
+  integrity sha512-6k0kSJ/ajPG6dKq370nBQzyOtcL1vfBg4dHupOEePEnUf1oiGJ8Dhifj+DeeTdyBYhbrDM5OCnLT+iTrV4pJZw==
   dependencies:
-    joi-strict "1.2.3"
+    joi-strict "1.2.5"
 
 lambda-tdd@2.13.9:
   version "2.13.9"
