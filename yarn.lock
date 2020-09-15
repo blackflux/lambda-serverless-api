@@ -4046,13 +4046,6 @@ jmespath@0.15.0:
   resolved "https://registry.yarnpkg.com/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
   integrity sha1-o/Iiqarp+Wb10nx5ZRDigJF2Qhc=
 
-joi-strict@1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.2.3.tgz#5dd21345fde40b953a7265e76299682d023fc6f0"
-  integrity sha512-Z7vwDXSwG0h1oKK97lXaML68jQnpLR4z7ygI/I9gE442hO+yiEgS8+ZTn+BrDRrmt5s1jTUytdF4xSk0DGXV2w==
-  dependencies:
-    "@hapi/joi" "17.1.1"
-
 joi-strict@1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.2.4.tgz#714396979db995962b9a252e775cab8202611144"
@@ -5147,24 +5140,6 @@ node-tdd@2.18.10:
     nock "13.0.4"
     object-scan "13.1.6"
     smart-fs "1.11.21"
-    timekeeper "2.2.0"
-    tmp "0.2.1"
-    uuid "8.3.0"
-    xml2js "0.4.23"
-
-node-tdd@2.18.8:
-  version "2.18.8"
-  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.18.8.tgz#ceb126a9424b5995a338e34114d0105b8fc30f11"
-  integrity sha512-5I2qgMRhutPCFonYPpfyAsRt4kdU3PJpe4PRW9zVT9qO2bvmPQZmOvceS+BoPPfAQwAsTBKxAKxhW4XDVZ4olQ==
-  dependencies:
-    callsites "3.1.0"
-    joi-strict "1.2.3"
-    lodash.clonedeep "4.5.0"
-    lodash.get "4.4.2"
-    minimist "1.2.5"
-    nock "13.0.4"
-    object-scan "13.1.5"
-    smart-fs "1.11.19"
     timekeeper "2.2.0"
     tmp "0.2.1"
     uuid "8.3.0"
