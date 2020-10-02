@@ -73,7 +73,7 @@ const VersionManager = ({
       }
       const apiVersionMeta = versions[apiVersion];
       if (apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
-        logger.warn(`Sunset functionality accessed\n${JSON.stringify(event)}`);
+        onSunset({ event });
         if (forceSunset === true) {
           throw ApiError(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
         }
@@ -101,7 +101,9 @@ class Versioning extends Plugin {
       apiVersionHeader: get(options, 'apiVersionHeader'),
       forceSunset: get(options, 'forceSunset'),
       sunsetDurationInDays: get(options, 'sunsetDurationInDays'),
-      versions: get(options, 'versions', {})
+      versions: get(options, 'versions', {}),
+      onSunset: get(options, 'onSunset',
+        ({ event }) => logger.warn(`Sunset functionality accessed\n${JSON.stringify(event)}`))
     });
   }
 
@@ -114,7 +116,8 @@ class Versioning extends Plugin {
         versions: Joi.object().pattern(
           Joi.string().pattern(VERSION_REGEX),
           Joi.date().iso()
-        )
+        ),
+        onSunset: Joi.function().optional()
       }).optional()
     };
   }
