@@ -13,7 +13,8 @@ const VersionManager = ({
   apiVersionHeader,
   forceSunset,
   sunsetDurationInDays,
-  versions: versionsRaw
+  versions: versionsRaw,
+  onSunset
 }) => {
   const contextKey = 'custom.versioning.meta';
   const versions = Object.entries(versionsRaw)
@@ -102,8 +103,9 @@ class Versioning extends Plugin {
       forceSunset: get(options, 'forceSunset'),
       sunsetDurationInDays: get(options, 'sunsetDurationInDays'),
       versions: get(options, 'versions', {}),
-      onSunset: get(options, 'onSunset',
-        ({ event }) => logger.warn(`Sunset functionality accessed\n${JSON.stringify(event)}`))
+      onSunset: get(options, 'onSunset', ({ event }) => {
+        logger.warn(`Sunset functionality accessed\n${JSON.stringify(event)}`);
+      })
     });
   }
 

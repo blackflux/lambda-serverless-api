@@ -25,8 +25,7 @@ const api = require('../src/index').Api({
       '1.0.1': '2020-01-01',
       '0.9.0': '2018-01-01',
       '1.0.0': '2019-01-01'
-    },
-    onSunset: () => {}
+    }
   },
   rateLimit: {
     enabled: process.env.RATE_LIMIT_ENABLED === 'true'
