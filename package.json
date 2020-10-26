@@ -90,7 +90,7 @@
     "object-fields": "2.0.14",
     "object-hash-strict": "1.2.34",
     "object-scan": "13.6.1",
-    "painless-version": "1.2.5",
+    "painless-version": "1.2.6",
     "route-recognizer": "0.3.4",
     "swagger-parser": "10.0.2"
   },
