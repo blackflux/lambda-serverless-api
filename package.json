@@ -79,7 +79,7 @@
   ],
   "dependencies": {
     "aws-sdk-wrap": "4.5.1",
-    "joi-strict": "1.2.5",
+    "joi-strict": "1.2.6",
     "lambda-async": "1.0.9",
     "lambda-monitor-logger": "2.4.6",
     "lodash.clonedeep": "4.5.0",
