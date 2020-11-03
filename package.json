@@ -86,7 +86,7 @@
     "lodash.difference": "4.5.0",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
-    "lru-cache-ext": "1.2.1",
+    "lru-cache-ext": "1.2.2",
     "object-fields": "2.0.16",
     "object-hash-strict": "1.2.34",
     "object-scan": "13.6.5",
