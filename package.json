@@ -81,7 +81,7 @@
     "aws-sdk-wrap": "4.5.1",
     "joi-strict": "1.2.6",
     "lambda-async": "1.0.9",
-    "lambda-monitor-logger": "2.4.6",
+    "lambda-monitor-logger": "2.4.7",
     "lodash.clonedeep": "4.5.0",
     "lodash.difference": "4.5.0",
     "lodash.get": "4.4.2",
