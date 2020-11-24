@@ -100,7 +100,7 @@ describe('Testing IntShort Parameter', () => {
     });
   });
 
-  describe('Testing "max" setting ignore', () => {
+  describe('Testing "max" setting ignored', () => {
     let jsonParamMax;
     let jsonParamMin;
     before(() => {
