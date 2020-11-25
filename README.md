@@ -103,6 +103,7 @@ There are various pre-defined parameters available
 - _GeoRect_: GPS coordinate rectangle input
 - _GeoShape_: GPS coordinate polygon input
 - _Int_: Integer input
+- _IntShort_: Short Integer input
 - _IsoTimestamp_: Iso timestamp input
 - _Json_: Json input that has to conform to Joi schema
 - _List_: List input
