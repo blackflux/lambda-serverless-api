@@ -153,6 +153,13 @@ paths:
           in: query
           minimum: 10
           maximum: 20
+        - name: numberShortParam
+          required: false
+          type: integer
+          format: IntShort
+          in: query
+          minimum: -32768
+          maximum: 32767
         - name: listParam
           required: false
           type: string
@@ -223,11 +230,11 @@ paths:
           type: string
           format: Json
           in: query
-        - name: paramWithGetter
+        - in: query
+          name: paramWithGetter
           required: false
           type: string
           format: Str
-          in: query
           pattern: >-
             /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
             Object\])$/
@@ -258,6 +265,12 @@ paths:
                 type: string
                 format: Email
                 pattern: '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/'
+              isoTimestampParam:
+                type: string
+                format: IsoTimestamp
+                pattern: >-
+                  /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
+                  Object\])$/
               isoDateParam:
                 type: string
                 format: IsoDate
@@ -324,12 +337,9 @@ paths:
               jsonParam:
                 type: object
                 format: Json
-              isoTimestampParam:
-                type: string
-                format: IsoTimestamp
-                pattern: >-
-                  /!?^(|undefined|undef|null|NULL|\(null\)|<null>|nil|NIL|true|false|True|False|TRUE|FALSE|None|NaN|Infinity|\-Infinity|INF|"|'|""|''|%|_|\-|\-\-|NUL|\[object
-                  Object\])$/
+              numberShortParam:
+                type: integer
+                format: IntShort
             required:
               - username
       responses:
