@@ -4190,10 +4190,10 @@ lambda-monitor-logger@2.4.7:
   dependencies:
     joi-strict "1.2.6"
 
-lambda-tdd@2.13.11:
-  version "2.13.11"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.13.11.tgz#b6dbee4b0d52e5d7d0dd3ec027a4095f0b1494d1"
-  integrity sha512-gSo0XItdGHRPi4soQLAzZmnvZlvlI6dxQ9uKrDScn7+bAk4fXu3htow0Us5rfxROeTiFoFm+2dmQEGjaU63fLw==
+lambda-tdd@2.13.12:
+  version "2.13.12"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.13.12.tgz#474a4c4591c0b83735f20c7c27c12090f9aec046"
+  integrity sha512-4RpTNA93AZSzTIzGNIjLJeqMW6O9sATLj8NBtssc3Z4OlR9Ty3iCPrX9SBTXQ+Qcifs/nTa/SmHDlsOesvSa8w==
   dependencies:
     app-root-path "3.0.0"
     glob "7.1.6"
@@ -5115,10 +5115,10 @@ node-tdd@2.18.10:
     uuid "8.3.0"
     xml2js "0.4.23"
 
-node-tdd@2.18.11:
-  version "2.18.11"
-  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.18.11.tgz#a16a8c25250da48255a05b55d3beac2ae01508f7"
-  integrity sha512-toKrT9AyqkklkQU+YMD6wcDO4tS7fga56XmtGHNITGWMpY1R6Am8e8TB3lvckAVzB2yzwyVcrY2p4BpF+ylbSA==
+node-tdd@2.18.12:
+  version "2.18.12"
+  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.18.12.tgz#9d8f11f359219c9277f2897dafe77adcf6b306e1"
+  integrity sha512-zG1OfPNgRWk8vh/bGohwYT3hbBJKl1gRrVmWx4m8HiYj6z8pQVrc0YQhLRLcm6QOqI1FvK1Gx9GktNo3OGwapg==
   dependencies:
     callsites "3.1.0"
     joi-strict "1.2.5"
@@ -5570,10 +5570,10 @@ object-scan@13.6.6:
   resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-13.6.6.tgz#e44677a7f5411b96bf5d5f66ce627e94ea09e599"
   integrity sha512-Ag+m0/43i2HhbxMptWA9gZT0XvEQAv2fsvPkUQzvZTgo8sGcFgqdXEDFtru1VnYSTZpBWcEePy8dI0yyyFI5wA==
 
-object-scan@13.6.7:
-  version "13.6.7"
-  resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-13.6.7.tgz#bdd7386c0d8b134f98d526f77fbb1661237a3260"
-  integrity sha512-4srLoK81bMdUhT/A/9BHr9Iv2iG8TauegngTqrqi1JVX9cKitZBDp/nm6dpZ6+chLBjJUm+R/JI6NfXoMWce/Q==
+object-scan@13.6.9:
+  version "13.6.9"
+  resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-13.6.9.tgz#0f3e58a53457cacfc47ff2e629c8cb0c4ad21cc1"
+  integrity sha512-313rLSzH9uE9I9aGIt+seNP/k1XvB6iAOyuDYJdnqEmG/wyVb9enG7rOtTTe6cO3KEp4B9K//D2hSj8iVlMzLA==
 
 object-treeify@1.1.29:
   version "1.1.29"
