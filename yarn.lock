@@ -5538,12 +5538,12 @@ object-deep-contain@1.0.28:
   resolved "https://registry.yarnpkg.com/object-deep-contain/-/object-deep-contain-1.0.28.tgz#a9a820657ac22b475631dbf9b7555792f5cbcefa"
   integrity sha512-rlu9yObPELlwx7qkB5yCfT/PVwyBM3Ct5owNxVmH0lXMvZF+KXf/MfpJNs0JIYOB9IjlC2ImqFcfWCNEua1xZQ==
 
-object-fields@2.0.17:
-  version "2.0.17"
-  resolved "https://registry.yarnpkg.com/object-fields/-/object-fields-2.0.17.tgz#bb98485cc4ec4e99bbd1eb6800cbb1cba50e7c36"
-  integrity sha512-qnwje98C2VlBbz603hybJK+hOybfHvpVBfShuxGP2Y8LBhzcC5G1gR/wk5OLHbUChMYmDURcv+7g5OS2Mj5mDw==
+object-fields@2.0.19:
+  version "2.0.19"
+  resolved "https://registry.yarnpkg.com/object-fields/-/object-fields-2.0.19.tgz#19403db205e83fadaf292dc117049b0c08256b5d"
+  integrity sha512-CAmnldaVHpT1K+IBed3nyNx4qVSiZIy4eSeCTkvPA+fDbB/sSd57WcjSqpsTopExfWrbkmFSTCTlHcq6Q/raHw==
   dependencies:
-    object-scan "13.6.6"
+    object-scan "13.6.9"
 
 object-hash-strict@1.2.35:
   version "1.2.35"
