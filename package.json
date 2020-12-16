@@ -88,7 +88,7 @@
     "lodash.set": "4.3.2",
     "lru-cache-ext": "1.2.3",
     "object-fields": "2.0.19",
-    "object-hash-strict": "1.2.35",
+    "object-hash-strict": "1.2.37",
     "object-scan": "13.6.9",
     "painless-version": "1.2.6",
     "route-recognizer": "0.3.4",
