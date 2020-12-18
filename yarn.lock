@@ -4205,10 +4205,10 @@ lambda-monitor-logger@2.4.7:
   dependencies:
     joi-strict "1.2.6"
 
-lambda-tdd@2.13.12:
-  version "2.13.12"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.13.12.tgz#474a4c4591c0b83735f20c7c27c12090f9aec046"
-  integrity sha512-4RpTNA93AZSzTIzGNIjLJeqMW6O9sATLj8NBtssc3Z4OlR9Ty3iCPrX9SBTXQ+Qcifs/nTa/SmHDlsOesvSa8w==
+lambda-tdd@2.13.13:
+  version "2.13.13"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-2.13.13.tgz#ce70044a5a5aa20dc1bd5716b424b2ba889ddfdc"
+  integrity sha512-cj0oFgsXhyd6Y+BC0ffsQrCVqFhM55D17p5HcwQbRHq+p6KgVuYmzdl8YCThzw/fRaHL1rDf4M7pLCqbkTdyWQ==
   dependencies:
     app-root-path "3.0.0"
     glob "7.1.6"
@@ -4216,7 +4216,7 @@ lambda-tdd@2.13.12:
     js-yaml "3.14.0"
     lambda-wrapper "0.3.0"
     lodash.get "4.4.2"
-    node-tdd "2.18.10"
+    node-tdd "2.18.12"
     smart-fs "1.11.21"
 
 lambda-wrapper@0.3.0:
@@ -5112,10 +5112,10 @@ node-sass-tilde-importer@^1.0.2:
   dependencies:
     find-parent-dir "^0.3.0"
 
-node-tdd@2.18.10:
-  version "2.18.10"
-  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.18.10.tgz#e6069e0c6e08fab45a04a78c739b7e8cf8fc4cb7"
-  integrity sha512-i839seHZSiuKk8zzV05vq7cg49h6i04y8Ugfq4S9WoW1LY751Vp7Dt9pgyDs+LOlNK+lu0G0udY4zs8jtmXbFA==
+node-tdd@2.18.12:
+  version "2.18.12"
+  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.18.12.tgz#9d8f11f359219c9277f2897dafe77adcf6b306e1"
+  integrity sha512-zG1OfPNgRWk8vh/bGohwYT3hbBJKl1gRrVmWx4m8HiYj6z8pQVrc0YQhLRLcm6QOqI1FvK1Gx9GktNo3OGwapg==
   dependencies:
     callsites "3.1.0"
     joi-strict "1.2.5"
