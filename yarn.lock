@@ -4027,6 +4027,13 @@ joi-strict@1.2.6:
   dependencies:
     "@hapi/joi" "17.1.1"
 
+joi-strict@1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.2.9.tgz#d92e27afcf1abc60fa77ef6a2c3db5e66fca8210"
+  integrity sha512-/6NTRabO3cSoqV7mBJZN5XwAsXY8KP2SmAtWHo/c0FaBs3Z/i43MYleVVIZSWahT1CLkS1qH4qFnKhZkvfyjNA==
+  dependencies:
+    "@hapi/joi" "17.1.1"
+
 js-gardener@2.0.181:
   version "2.0.181"
   resolved "https://registry.yarnpkg.com/js-gardener/-/js-gardener-2.0.181.tgz#e9cbeab8ecc74275d9613615cb8652c0bf19a496"
