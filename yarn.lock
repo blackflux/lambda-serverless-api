@@ -5889,10 +5889,10 @@ pacote@^9.1.0, pacote@^9.5.12, pacote@^9.5.3:
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-painless-version@1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/painless-version/-/painless-version-1.2.6.tgz#dcb2589ccaf4974146788045c60e19e854540cbc"
-  integrity sha512-kNU4TdhW6cCIzVT+IbkXSAbyebvr6qqsV9dNhz7YtlKMVzWSkKicgKPC49g8JKDyv0EPAAqsM5QfULy/scX8fQ==
+painless-version@1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/painless-version/-/painless-version-1.2.7.tgz#a3914769f4f5b5fb2f5f766b40717ae5763c8c29"
+  integrity sha512-T/v+f+M/h1qY9/B1zfVsJBCj1eXfbEKdl57104eVzKapluZyLhKXyfokoXTB3NpEiNkfiX8nmhXMU8EzHx9Wcg==
   dependencies:
     compare-versions "3.6.0"
     lodash.set "4.3.2"
