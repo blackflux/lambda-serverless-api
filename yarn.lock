@@ -5130,19 +5130,19 @@ node-tdd@2.18.12:
     uuid "8.3.0"
     xml2js "0.4.23"
 
-node-tdd@2.19.0:
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.19.0.tgz#a42c1a8bd4db7ea17c974b71def4feb8953deb99"
-  integrity sha512-ejkJw9gnqLuRyLgjA9MKmi4Mxj6zKZHCuhFiFATrUhhjnjaYEGOiTLDAvNN8zsoaJY68jXhNZMO1neGj+j10Jw==
+node-tdd@2.19.1:
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.19.1.tgz#1b1ff2503ecaae9f39b92a877b6db8e8088be3a0"
+  integrity sha512-fEtIFSyVT4ftAA/P3raH/ZIbH4jpPvuYkiV2rteujYOBVpT+KHu0GMKjuFnoaNqNVffNoEz/cptXZKeWhoLCPA==
   dependencies:
     callsites "3.1.0"
-    joi-strict "1.2.5"
+    joi-strict "1.2.9"
     lodash.clonedeep "4.5.0"
     lodash.get "4.4.2"
     minimist "1.2.5"
-    nock "13.0.4"
-    object-scan "13.6.9"
-    smart-fs "1.11.21"
+    nock "13.0.5"
+    object-scan "13.7.1"
+    smart-fs "1.12.3"
     timekeeper "2.2.0"
     tmp "0.2.1"
     uuid "8.3.0"
@@ -5589,6 +5589,11 @@ object-scan@13.6.9:
   version "13.6.9"
   resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-13.6.9.tgz#0f3e58a53457cacfc47ff2e629c8cb0c4ad21cc1"
   integrity sha512-313rLSzH9uE9I9aGIt+seNP/k1XvB6iAOyuDYJdnqEmG/wyVb9enG7rOtTTe6cO3KEp4B9K//D2hSj8iVlMzLA==
+
+object-scan@13.7.1:
+  version "13.7.1"
+  resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-13.7.1.tgz#2ce78454ae6a35ea45da7f26f2209f5545613122"
+  integrity sha512-akfqDKVs77wfaRhcln8p9IVIjfQ6MdgfsqsstAAgBWHHO9OqWjs74IUUqiGihDStpvgKA3fFUqdLpdD2Oi7YkQ==
 
 object-treeify@1.1.29:
   version "1.1.29"
