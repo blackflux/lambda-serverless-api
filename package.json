@@ -28,15 +28,15 @@
     "eslint-plugin-json": "2.1.2",
     "eslint-plugin-markdown": "1.0.2",
     "eslint-plugin-mocha": "8.0.0",
-    "js-gardener": "2.0.181",
+    "js-gardener": "2.0.183",
     "lambda-tdd": "2.13.13",
     "nock": "13.0.5",
-    "node-tdd": "2.19.0",
+    "node-tdd": "2.19.1",
     "nyc": "15.1.0",
     "request": "2.88.2",
     "request-promise": "4.2.6",
     "semantic-release": "17.3.0",
-    "smart-fs": "1.12.3"
+    "smart-fs": "1.12.4"
   },
   "version": "0.0.0-development",
   "scripts": {
@@ -87,7 +87,7 @@
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
     "lru-cache-ext": "1.2.3",
-    "object-fields": "2.0.19",
+    "object-fields": "2.0.20",
     "object-hash-strict": "1.2.37",
     "object-scan": "13.6.9",
     "painless-version": "1.2.7",
