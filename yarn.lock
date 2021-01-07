@@ -5581,14 +5581,6 @@ object-fields@2.0.20:
   dependencies:
     object-scan "13.7.1"
 
-object-hash-strict@1.2.37:
-  version "1.2.37"
-  resolved "https://registry.yarnpkg.com/object-hash-strict/-/object-hash-strict-1.2.37.tgz#f7a5ea269c9c2fd26c1316ab418113a71a50c5cb"
-  integrity sha512-TH3q9e7VThrLmk2IZW27eTeynu02ta8rU0nJWj3u5AzTCF3p1UfK4bKz2ahXUzb9D4bx8mpawjQGgGXlHViqFw==
-  dependencies:
-    object-hash "2.0.3"
-    object-scan "13.6.9"
-
 object-hash-strict@1.2.38:
   version "1.2.38"
   resolved "https://registry.yarnpkg.com/object-hash-strict/-/object-hash-strict-1.2.38.tgz#03bca3064d61283f40049fd82e6842237ea051aa"
@@ -5596,11 +5588,6 @@ object-hash-strict@1.2.38:
   dependencies:
     object-hash "2.1.1"
     object-scan "13.7.1"
-
-object-hash@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-2.0.3.tgz#d12db044e03cd2ca3d77c0570d87225b02e1e6ea"
-  integrity sha512-JPKn0GMu+Fa3zt3Bmr66JhokJU5BaNBIh4ZeTlaCBzrBsOeXzwcKKAK1tbLiPKgvwmPXsDvvLHoWh5Bm7ofIYg==
 
 object-hash@2.1.1:
   version "2.1.1"
