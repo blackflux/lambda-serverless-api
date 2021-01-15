@@ -80,7 +80,7 @@
   "dependencies": {
     "aws-sdk-wrap": "4.8.3",
     "joi-strict": "1.2.9",
-    "lambda-async": "1.0.9",
+    "lambda-async": "1.0.10",
     "lambda-monitor-logger": "2.4.7",
     "lodash.clonedeep": "4.5.0",
     "lodash.difference": "4.5.0",
