@@ -4002,13 +4002,6 @@ jmespath@0.15.0:
   resolved "https://registry.yarnpkg.com/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
   integrity sha1-o/Iiqarp+Wb10nx5ZRDigJF2Qhc=
 
-joi-strict@1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.2.6.tgz#2aed6ae784efa2adbf66175a198eb6d650418f1f"
-  integrity sha512-ShSxfxxoRA/ETL885BNCc+fOCYSoQgkc0ObTT4LWKcU3TBlKsGaxDuyYLOP17oie8dir2ZUvT6YvABpdfj2t8Q==
-  dependencies:
-    "@hapi/joi" "17.1.1"
-
 joi-strict@1.2.9:
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.2.9.tgz#d92e27afcf1abc60fa77ef6a2c3db5e66fca8210"
@@ -4187,12 +4180,12 @@ lambda-async@1.0.10:
   resolved "https://registry.yarnpkg.com/lambda-async/-/lambda-async-1.0.10.tgz#328e2794b0ce189625cf1a3dad6fd09fa0667056"
   integrity sha512-zi6lvMe8B4JcNX21bA896QwLknSEf04ZUbq5YHHwatkiixUHvvSK/PXM9CfJlOCFaWjGR0ZQE6CV9rTq0rW/vQ==
 
-lambda-monitor-logger@2.4.7:
-  version "2.4.7"
-  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.4.7.tgz#53318272cc31d6c8dcf91f9a183b0cfdab5ee65a"
-  integrity sha512-mCb+EAz5RTNKmN/A/ALJqXZRLcCv8nbMDMOjzVZiDg0nLEeS8WaOdnPvpHV0lGJWInJ1FqNmiVZru7l6EYFziA==
+lambda-monitor-logger@2.4.9:
+  version "2.4.9"
+  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-2.4.9.tgz#2403da632fc5314db983cfc2d2c3cf319e729c17"
+  integrity sha512-8nIzzabHGcXh/4ftz0QkCWSef8kWHV3etCzqaqICuCXqig5aN7PpfkiUB4WYHlBuWP8v1Q1ogORsL+hNF1rT3w==
   dependencies:
-    joi-strict "1.2.6"
+    joi-strict "1.2.9"
 
 lambda-tdd@2.13.15:
   version "2.13.15"
