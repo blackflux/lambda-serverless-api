@@ -228,6 +228,7 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
   it('Testing ApiResponse Integration', (done) => {
     api.wrap('GET test', [], (event, context) => api.ApiResponse('promiseResponse'))({
       httpMethod: 'GET',
+      path: '/test',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {}, (err, resp) => {
       expect(err).to.equal(null);
@@ -244,6 +245,7 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
       throw api.ApiError('promiseError');
     })({
       httpMethod: 'GET',
+      path: '/test',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {}, (err, resp) => {
       expect(err).to.equal(null);
@@ -261,6 +263,7 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
       throw error;
     })({
       httpMethod: 'GET',
+      path: '/test',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {}, (err, resp) => {
       expect(err).to.equal(error);
@@ -277,6 +280,7 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
       baz: 'quz'
     }))({
       httpMethod: 'GET',
+      path: '/test',
       queryStringParameters: {
         fields: 'foo'
       },
@@ -301,6 +305,7 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
       }
     }))({
       httpMethod: 'GET',
+      path: '/test',
       queryStringParameters: {
         fields: 'foo'
       },
@@ -323,6 +328,7 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
       baz: 'quz'
     }))({
       httpMethod: 'GET',
+      path: '/test',
       queryStringParameters: {
         fields: 'foo'
       },

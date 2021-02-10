@@ -11,10 +11,11 @@
   },
   "logs": {
     "to.deep.equal": [
-      "INFO: 200 POST\n{\"event\":{\"httpMethod\":\"POST\",\"body\":{\"username\":\"username\"},\"headers\":{\"x-api-version\":\"1.0.1\"},\"queryStringParameters\":{\"paramWithGetter\":\"customParam\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"username\",\"paramWithGetter\":\"customParamResult\",\"xApiVersion\":\"1.0.1\"}}}"
+      "INFO: 200 POST param\n{\"event\":{\"path\":\"/param\",\"httpMethod\":\"POST\",\"body\":{\"username\":\"username\"},\"headers\":{\"x-api-version\":\"1.0.1\"},\"queryStringParameters\":{\"paramWithGetter\":\"customParam\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"username\",\"paramWithGetter\":\"customParamResult\",\"xApiVersion\":\"1.0.1\"}}}"
     ]
   },
   "event": {
+    "path": "/param",
     "httpMethod": "POST",
     "body|JSON.stringify": {
       "username": "username"

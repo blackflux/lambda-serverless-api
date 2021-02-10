@@ -11,10 +11,11 @@
   },
   "logs": {
     "to.deep.equal": [
-      "INFO: 200 POST\n{\"event\":{\"body\":{\"username\":\"Anja Smith\"},\"httpMethod\":\"POST\",\"headers\":{\"x-custom-header\":\"value\",\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"email\":\"default\",\"xCustomHeader\":\"value\"}}}"
+      "INFO: 200 POST param2\n{\"event\":{\"path\":\"/param2\",\"body\":{\"username\":\"Anja Smith\"},\"httpMethod\":\"POST\",\"headers\":{\"x-custom-header\":\"value\",\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"email\":\"default\",\"xCustomHeader\":\"value\"}}}"
     ]
   },
   "event": {
+    "path": "/param2",
     "body": "{\"username\": \"Anja Smith\"}",
     "httpMethod": "POST",
     "headers": {
