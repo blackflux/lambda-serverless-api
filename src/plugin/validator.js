@@ -2,6 +2,7 @@ const get = require('lodash.get');
 const difference = require('lodash.difference');
 const Joi = require('joi-strict');
 const { logger } = require('lambda-monitor-logger');
+const { viaRouter } = require('../logic/symbols');
 const { Plugin } = require('../plugin');
 const { ApiError } = require('../response');
 
@@ -59,16 +60,19 @@ class Validator extends Plugin {
       return;
     }
 
-    const matched = router.recognize(event.httpMethod, get(event, 'path', ''));
-    if (matched === undefined || matched[0].handler.route !== request.route) {
-      const routeSubstituted = request.route
-        .replace(' ', ' /')
-        .replace(/{([^}]+?)\+?}/g, (_, e) => get(event, ['pathParameters', e]));
-      logger.warn([
-        'Server Configuration Error: Bad Routing',
-        `Expected route to match "${routeSubstituted}"`
-      ].join('\n'));
-      throw ApiError('Server Configuration Error.', 400, 99006);
+    // eslint-disable-next-line no-underscore-dangle
+    if (event[viaRouter] !== true) {
+      const matched = router.recognize(event.httpMethod, get(event, 'path', ''));
+      if (matched === undefined || matched[0].handler.route !== request.route) {
+        const routeSubstituted = request.route
+          .replace(' ', ' /')
+          .replace(/{([^}]+?)\+?}/g, (_, e) => get(event, ['pathParameters', e]));
+        logger.warn([
+          'Server Configuration Error: Bad Routing',
+          `Expected route to match "${routeSubstituted}"`
+        ].join('\n'));
+        throw ApiError('Server Configuration Error.', 400, 99006);
+      }
     }
 
     const invalidQsParams = difference(
