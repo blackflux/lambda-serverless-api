@@ -56,7 +56,6 @@ module.exports.Wrapper = ({ router, module }) => {
       assert(resp === null, 'Plugin should not return from afterRegister()');
     })();
 
-    // todo: eventually return router.handler here (or undefined?)
     return apiGateway.wrapAsync(handlerFn);
   };
 
