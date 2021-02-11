@@ -59,25 +59,16 @@ class Validator extends Plugin {
       return;
     }
 
-    const routeSubstituted = request.route
-      .replace(' ', ' /')
-      .replace(/{([^}]+?)\+?}/g, (_, e) => get(event, ['pathParameters', e]));
-
     const matched = router.recognize(event.httpMethod, get(event, 'path', ''));
     if (matched === undefined || matched[0].handler.route !== request.route) {
+      const routeSubstituted = request.route
+        .replace(' ', ' /')
+        .replace(/{([^}]+?)\+?}/g, (_, e) => get(event, ['pathParameters', e]));
       logger.warn([
         'Server Configuration Error: Bad Routing',
         `Expected route to match "${routeSubstituted}"`
       ].join('\n'));
       throw ApiError('Server Configuration Error.', 400, 99006);
-    }
-
-    if (routeSubstituted.slice(routeSubstituted.indexOf(' ') + 1) !== get(event, 'path', '')) {
-      logger.warn([
-        'Server Configuration Error: Bad Routing',
-        `Expected route to match "${routeSubstituted}"`
-      ].join('\n'));
-      throw ApiError('Server Configuration Error.', 400, 99007);
     }
 
     const invalidQsParams = difference(
