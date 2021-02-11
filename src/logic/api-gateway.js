@@ -48,9 +48,11 @@ module.exports.wrap = ({
   }
 
   if (!('path' in event)) {
-    event.path = request.route
-      .replace(/^[^\s]+ \/?/, '/')
-      .replace(/{([^}]+?)\+?}/g, (_, e) => get(event, ['pathParameters', e]));
+    Object.assign(event, {
+      path: request.route
+        .replace(/^[^\s]+ \/?/, '/')
+        .replace(/{([^}]+?)\+?}/g, (_, e) => get(event, ['pathParameters', e]))
+    });
   }
 
   const kwargs = {
