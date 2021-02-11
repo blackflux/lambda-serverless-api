@@ -10,11 +10,10 @@
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: 400 99003 POST param\n{\"event\":{\"path\":\"/param\",\"body\":{\"username\":{}},\"httpMethod\":\"POST\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Value for json-Parameter \\\"username\\\" provided.\",\"messageId\":99003,\"context\":{\"value\":{}}}}}"
+      "WARNING: 400 99003 POST param\n{\"event\":{\"body\":{\"username\":{}},\"httpMethod\":\"POST\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param\"},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Value for json-Parameter \\\"username\\\" provided.\",\"messageId\":99003,\"context\":{\"value\":{}}}}}"
     ]
   },
   "event": {
-    "path": "/param",
     "body": "{\"username\": {}}",
     "httpMethod": "POST",
     "headers": {

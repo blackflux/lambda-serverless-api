@@ -10,11 +10,10 @@
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: 400 99002 POST param\n{\"event\":{\"path\":\"/param\",\"body\":null,\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.1\"}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Required json-Parameter \\\"username\\\" missing.\",\"messageId\":99002}}}"
+      "WARNING: 400 99002 POST param\n{\"event\":{\"body\":null,\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.1\"},\"path\":\"/param\"},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Required json-Parameter \\\"username\\\" missing.\",\"messageId\":99002}}}"
     ]
   },
   "event": {
-    "path": "/param",
     "body": null,
     "httpMethod": "POST",
     "requestContext": {

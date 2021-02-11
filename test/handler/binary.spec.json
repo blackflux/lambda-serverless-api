@@ -11,11 +11,10 @@
   },
   "logs": {
     "to.deep.equal": [
-      "INFO: 200 GET binary\n{\"event\":{\"path\":\"/binary\",\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":200,\"body\":\"dGVzdA==\",\"isBase64Encoded\":true}}"
+      "INFO: 200 GET binary\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/binary\"},\"response\":{\"statusCode\":200,\"body\":\"dGVzdA==\",\"isBase64Encoded\":true}}"
     ]
   },
   "event": {
-    "path": "/binary",
     "httpMethod": "GET",
     "headers": {
       "X-api-version": "1.0.1"
