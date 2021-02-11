@@ -13,11 +13,10 @@
   },
   "logs": {
     "to.deep.equal": [
-      "INFO: 200 GET json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":200,\"body\":{\"some\":\"json\"}}}"
+      "INFO: 200 GET json\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/json\"},\"response\":{\"statusCode\":200,\"body\":{\"some\":\"json\"}}}"
     ]
   },
   "event": {
-    "path": "/json",
     "httpMethod": "GET",
     "headers": {
       "X-api-version": "1.0.1"

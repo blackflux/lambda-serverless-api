@@ -10,11 +10,10 @@
   },
   "logs": {
     "to.deep.equal": [
-      "WARNING: 400 99005 POST param\n{\"event\":{\"path\":\"/param\",\"body\":{\"unknown\":\"value\"},\"headers\":{\"x-api-version\":\"1.0.1\"},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Json Body Param(s) detected.\",\"messageId\":99005,\"context\":{\"value\":[\"unknown\"]}}}}"
+      "WARNING: 400 99005 POST param\n{\"event\":{\"body\":{\"unknown\":\"value\"},\"headers\":{\"x-api-version\":\"1.0.1\"},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param\"},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Json Body Param(s) detected.\",\"messageId\":99005,\"context\":{\"value\":[\"unknown\"]}}}}"
     ]
   },
   "event": {
-    "path": "/param",
     "body|JSON.stringify": {
       "unknown": "value"
     },

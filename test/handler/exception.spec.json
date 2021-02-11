@@ -9,7 +9,6 @@
     "to.deep.equal()": []
   },
   "event": {
-    "path": "/exception",
     "httpMethod": "GET",
     "headers": {
       "X-api-version": "1.0.1"
