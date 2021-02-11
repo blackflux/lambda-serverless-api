@@ -10,10 +10,11 @@
   },
   "logs": {
     "to.deep.equal()": [
-      "WARNING: 400 99003 POST\n{\"event\":{\"body\":{\"username\":\"Anja Smith\",\"email\":\"invalid@email\"},\"httpMethod\":\"POST\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Value for json-Parameter \\\"email\\\" provided.\",\"messageId\":99003,\"context\":{\"value\":\"invalid@email\"}}}}"
+      "WARNING: 400 99003 POST param\n{\"event\":{\"path\":\"/param\",\"body\":{\"username\":\"Anja Smith\",\"email\":\"invalid@email\"},\"httpMethod\":\"POST\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Value for json-Parameter \\\"email\\\" provided.\",\"messageId\":99003,\"context\":{\"value\":\"invalid@email\"}}}}"
     ]
   },
   "event": {
+    "path": "/param",
     "body": "{\"username\": \"Anja Smith\", \"email\": \"invalid@email\"}",
     "httpMethod": "POST",
     "headers": {
