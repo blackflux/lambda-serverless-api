@@ -60,7 +60,6 @@ class Validator extends Plugin {
       return;
     }
 
-    // eslint-disable-next-line no-underscore-dangle
     if (event[viaRouter] !== true) {
       const matched = router.recognize(event.httpMethod, get(event, 'path', ''));
       if (matched === undefined || matched[0].handler.route !== request.route) {
