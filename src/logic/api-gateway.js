@@ -46,6 +46,15 @@ module.exports.wrap = ({
   if (!event.httpMethod) {
     return Promise.resolve('OK - No API Gateway call detected.');
   }
+
+  if (!('path' in event)) {
+    Object.assign(event, {
+      path: request.route
+        .replace(/^[^\s]+ \/?/, '/')
+        .replace(/{([^}]+?)\+?}/g, (_, e) => get(event, ['pathParameters', e]))
+    });
+  }
+
   const kwargs = {
     request,
     event,

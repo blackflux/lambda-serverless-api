@@ -1,5 +1,6 @@
 const get = require('lodash.get');
 const Router = require('route-recognizer');
+const { viaRouter } = require('./symbols');
 const apiGateway = require('./api-gateway');
 const { ApiError } = require('../response');
 
@@ -47,9 +48,9 @@ module.exports.Router = ({ module }) => {
         module
       })(event, context);
     }
-    return matchedRoutes[0].handler(Object.assign(event, {
-      pathParameters: matchedRoutes[0].params
-    }), context);
+    Object.assign(event, { pathParameters: matchedRoutes[0].params });
+    Object.defineProperty(event, viaRouter, { value: true, writable: false });
+    return matchedRoutes[0].handler(event, context);
   };
   handler.isRouter = true;
   handler.isApiEndpoint = true;
