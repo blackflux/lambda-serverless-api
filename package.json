@@ -78,6 +78,7 @@
     "lib"
   ],
   "dependencies": {
+    "@turf/kinks": "6.3.0",
     "aws-sdk-wrap": "7.2.1",
     "joi-strict": "1.2.9",
     "lambda-async": "1.0.10",
@@ -92,7 +93,8 @@
     "object-scan": "13.9.1",
     "painless-version": "1.2.7",
     "route-recognizer": "0.3.4",
-    "swagger-parser": "10.0.2"
+    "swagger-parser": "10.0.2",
+    "turf-polygon": "1.0.3"
   },
   "peerDependencies": {},
   "nyc": {
