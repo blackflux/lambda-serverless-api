@@ -30,12 +30,13 @@
     "eslint-plugin-mocha": "8.0.0",
     "js-gardener": "2.0.185",
     "lambda-tdd": "2.13.15",
+    "moment-timezone": "0.5.33",
     "nock": "13.0.8",
     "node-tdd": "2.19.1",
     "nyc": "15.1.0",
     "request": "2.88.2",
     "request-promise": "4.2.6",
-    "semantic-release": "17.3.9",
+    "semantic-release": "17.4.0",
     "smart-fs": "1.12.5"
   },
   "version": "0.0.0-development",
@@ -79,7 +80,7 @@
   ],
   "dependencies": {
     "@turf/kinks": "6.3.0",
-    "aws-sdk-wrap": "7.2.1",
+    "aws-sdk-wrap": "7.2.2",
     "joi-strict": "1.2.9",
     "lambda-async": "1.0.10",
     "lambda-monitor-logger": "2.4.9",
