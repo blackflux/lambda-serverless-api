@@ -8,7 +8,14 @@ const api = require('../../src/index').Api();
 describe('Testing Timezone Parameter', () => {
   it('Testing to have an updated timezones list', () => {
     expect(
-      fs.smartWrite(path.join(__dirname, '..', '..', 'src', 'resources', 'timezones.json'), moment.tz.names()),
+      fs.smartWrite(path.join(__dirname, '..', '..', 'src', 'resources', 'timezones.js'), [
+        'module.exports = [',
+        ...moment.tz.names()
+          .map((t, i, arr) => (arr.length - 1 === i
+            ? `  '${t}'`
+            : `  '${t}',`)),
+        '];'
+      ]),
       'Timezones updated. Please re-run.'
     ).to.equal(false);
   });

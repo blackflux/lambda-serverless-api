@@ -36,7 +36,8 @@
     "nyc": "15.1.0",
     "request": "2.88.2",
     "request-promise": "4.2.6",
-    "semantic-release": "17.3.9"
+    "semantic-release": "17.3.9",
+    "smart-fs": "1.12.5"
   },
   "version": "0.0.0-development",
   "scripts": {
@@ -92,7 +93,6 @@
     "object-scan": "13.9.1",
     "painless-version": "1.2.7",
     "route-recognizer": "0.3.4",
-    "smart-fs": "1.12.5",
     "swagger-parser": "10.0.2"
   },
   "peerDependencies": {},
