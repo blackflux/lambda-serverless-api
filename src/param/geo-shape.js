@@ -1,5 +1,7 @@
 const assert = require('assert');
 const Joi = require('joi-strict');
+const polygon = require('turf-polygon');
+const kinks = require('@turf/kinks').default;
 const Json = require('./json');
 
 class GeoShape extends Json {
@@ -50,6 +52,10 @@ class GeoShape extends Json {
       valid = false;
     }
     if (valid && this.relaxed !== true && valueParsed.some((p) => p[0] === 0 || p[1] === 0)) {
+      valid = false;
+    }
+    // check for self intersections
+    if (valid && kinks(polygon([valueParsed])).features.length !== 0) {
       valid = false;
     }
     return valid;

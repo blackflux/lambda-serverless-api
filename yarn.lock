@@ -695,6 +695,18 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
   integrity sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==
 
+"@turf/helpers@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-6.3.0.tgz#87f90f806c3f8ad6385ef8d2041d3662bf3c9fb1"
+  integrity sha512-kr6KuD4Z0GZ30tblTEvi90rvvVNlKieXuMC8CTzE/rVQb0/f/Cb29zCXxTD7giQTEQY/P2nRW23wEqqyNHulCg==
+
+"@turf/kinks@6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/kinks/-/kinks-6.3.0.tgz#a16b4ccc5a5aae139d43e36271e0a0494fdb4bf7"
+  integrity sha512-BLWvbl2/fa4SeJzVMbleT6Vo1cmzwmzRfxL2xxMei2jmf6JSvqDoMJFwIHGXrLZXvhOCb1b2C+MhBfhtc7kYkQ==
+  dependencies:
+    "@turf/helpers" "^6.3.0"
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -6987,10 +6999,10 @@ sax@>=0.6.0, sax@^1.2.4:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-semantic-release@17.3.9:
-  version "17.3.9"
-  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-17.3.9.tgz#99ebe7ef7c6b79b3bfb44baeaf242c6fc6a31f09"
-  integrity sha512-iPDySFcAXG+7KiM0JH4bvF++imkf85VmfXpIBPAyDxK/P4+pe19KNFCfkzTKwUJkTIAyLUIr7WOg3W5h5aMwNg==
+semantic-release@17.4.0:
+  version "17.4.0"
+  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-17.4.0.tgz#a7f86b20534f77870e6471ec6609b160aa672ae4"
+  integrity sha512-FrPUpqKobak39F/6HnxhBK6LdL2ZEHadz5qVDTIJ9qlJ6bw8BQ5sguZ2j0ewI0aqRcLf/u9LGy/kOnUy0v7NbQ==
   dependencies:
     "@semantic-release/commit-analyzer" "^8.0.0"
     "@semantic-release/error" "^2.2.0"
@@ -7864,6 +7876,11 @@ tunnel-agent@^0.6.0:
   integrity sha1-J6XeoGs2sEoKmWZ3SykIaPD8QP0=
   dependencies:
     safe-buffer "^5.0.1"
+
+turf-polygon@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/turf-polygon/-/turf-polygon-1.0.3.tgz#671dd34849864509281af18e236f67a7448c6363"
+  integrity sha1-Zx3TSEmGRQkoGvGOI29np0SMY2M=
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
