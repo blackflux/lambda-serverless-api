@@ -80,7 +80,7 @@
   ],
   "dependencies": {
     "@turf/kinks": "6.3.0",
-    "aws-sdk-wrap": "8.0.0",
+    "aws-sdk-wrap": "8.0.1",
     "joi-strict": "1.2.9",
     "lambda-async": "1.0.10",
     "lambda-monitor-logger": "2.4.9",
