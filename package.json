@@ -31,7 +31,7 @@
     "js-gardener": "2.0.185",
     "lambda-tdd": "2.13.15",
     "moment-timezone": "0.5.33",
-    "nock": "13.0.10",
+    "nock": "13.0.11",
     "node-tdd": "2.19.1",
     "nyc": "15.1.0",
     "request": "2.88.2",
