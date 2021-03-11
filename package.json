@@ -92,7 +92,7 @@
     "object-fields": "2.0.21",
     "object-hash-strict": "2.0.2",
     "object-scan": "14.0.0",
-    "painless-version": "1.2.8",
+    "painless-version": "1.2.9",
     "route-recognizer": "0.3.4",
     "swagger-parser": "10.0.2",
     "turf-polygon": "1.0.3"
