@@ -80,10 +80,10 @@
   ],
   "dependencies": {
     "@turf/kinks": "6.3.0",
-    "aws-sdk-wrap": "9.1.1",
+    "aws-sdk-wrap": "9.2.6",
     "joi-strict": "2.0.0",
     "lambda-async": "2.0.0",
-    "lambda-monitor-logger": "2.4.11",
+    "lambda-monitor-logger": "3.0.0",
     "lodash.clonedeep": "4.5.0",
     "lodash.difference": "4.5.0",
     "lodash.get": "4.4.2",
