@@ -4441,10 +4441,10 @@ lambda-monitor-logger@2.4.11:
   dependencies:
     joi-strict "1.2.10"
 
-lambda-tdd@3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-3.0.2.tgz#b05e056d2f6cd3ea4b9d74d07ad65355f3a8aaaa"
-  integrity sha512-9XPL6dSSjlMckoytrXaYWvdHPoqZqWYXBameJNTgCSNM2tyVKRmAhxk+EgvZKYRhc6eyqJ+BXHp7/FdIsKwEiw==
+lambda-tdd@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-3.0.3.tgz#123d861f2843e31124e60efe35a3459015f98a25"
+  integrity sha512-bt56S/4vdHiK9avpcOIz7BiuiQ9TcZQfef9jCadzyBGzPNtnizcCAvE22iU4tfi6dNzyAVULZwDjh49d6C67/w==
   dependencies:
     app-root-path "3.0.0"
     glob "7.1.6"
@@ -4453,7 +4453,7 @@ lambda-tdd@3.0.2:
     lambda-wrapper "0.3.0"
     lodash.get "4.4.2"
     node-tdd "3.0.1"
-    smart-fs "2.0.0"
+    smart-fs "2.0.1"
 
 lambda-wrapper@0.3.0:
   version "0.3.0"
@@ -7370,6 +7370,20 @@ smart-fs@2.0.0:
     xml-js "1.6.11"
     yaml-boost "1.10.7"
 
+smart-fs@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/smart-fs/-/smart-fs-2.0.1.tgz#ab4cc9c4f7960557b742b327203ab65b448f57a8"
+  integrity sha512-546boWSVG4HPBNPVuoYWl7mi6bp0Xn8IqTJJv9e+qqArJNV5RUIhsIzFv05/bK8iNpFarEKK0M0+o0NUoIz/fQ==
+  dependencies:
+    fs-extra "9.1.0"
+    js-yaml "4.0.0"
+    json-stringify-pretty-compact "3.0.0"
+    lodash.clonedeep "4.5.0"
+    lodash.isequal "4.5.0"
+    object-lib "2.1.2"
+    xml-js "1.6.11"
+    yaml-boost "2.0.0"
+
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
@@ -8691,6 +8705,16 @@ yaml-boost@1.10.7:
   version "1.10.7"
   resolved "https://registry.yarnpkg.com/yaml-boost/-/yaml-boost-1.10.7.tgz#121e32ad386e4d4561bb2a9a8500e0b0d7ca8265"
   integrity sha512-X/NooMiFNKvVYDLwJY26YohPdDHyoiNHLd9H9TM1BMxwCrznnQy1HMXLEB7DLXNDe95KduBEAqC0jVqSabvrEA==
+  dependencies:
+    js-yaml "4.0.0"
+    lodash.get "4.4.2"
+    lodash.mergewith "4.6.2"
+    lodash.set "4.3.2"
+
+yaml-boost@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/yaml-boost/-/yaml-boost-2.0.0.tgz#7c0b69acfa7dce07ff6eac87e3947da022e347cd"
+  integrity sha512-zyjDFxwxd7AQ4FZO+03Dsv/Glb38gwT59UduDTZL8NC2cr8Q+UH6LRJqTuHkn9dPMWkSM5zV1xPqE0/LFg+G4g==
   dependencies:
     js-yaml "4.0.0"
     lodash.get "4.4.2"
