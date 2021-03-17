@@ -7294,20 +7294,6 @@ smart-fs@1.12.6:
     xml-js "1.6.11"
     yaml-boost "1.10.5"
 
-smart-fs@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/smart-fs/-/smart-fs-2.0.0.tgz#10a2136594d593e7b683ccbe8e2ec120434701dd"
-  integrity sha512-QdXwIvNL9igSKThXvf5b4UMJVAfv9zrbJALDwjO1ATidaW+wvAVo/MNk2EQ3uSNATuhqaRnjgKB+diA1wnZgGQ==
-  dependencies:
-    fs-extra "9.1.0"
-    js-yaml "4.0.0"
-    json-stringify-pretty-compact "3.0.0"
-    lodash.clonedeep "4.5.0"
-    lodash.isequal "4.5.0"
-    object-lib "2.1.2"
-    xml-js "1.6.11"
-    yaml-boost "1.10.7"
-
 smart-fs@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/smart-fs/-/smart-fs-2.0.1.tgz#ab4cc9c4f7960557b742b327203ab65b448f57a8"
@@ -8637,16 +8623,6 @@ yaml-boost@1.10.5:
   version "1.10.5"
   resolved "https://registry.yarnpkg.com/yaml-boost/-/yaml-boost-1.10.5.tgz#684d7352f1e600d84a1ff90dab03e34c9e465e9b"
   integrity sha512-fR6D5X8miG6SNs23UWtrzSKPsyNsEtQwKdi5C2pYeHgbJEIQPeHn78uCaxOGfwKZhIaHk/q+gKCQBCjH+lSvhA==
-  dependencies:
-    js-yaml "4.0.0"
-    lodash.get "4.4.2"
-    lodash.mergewith "4.6.2"
-    lodash.set "4.3.2"
-
-yaml-boost@1.10.7:
-  version "1.10.7"
-  resolved "https://registry.yarnpkg.com/yaml-boost/-/yaml-boost-1.10.7.tgz#121e32ad386e4d4561bb2a9a8500e0b0d7ca8265"
-  integrity sha512-X/NooMiFNKvVYDLwJY26YohPdDHyoiNHLd9H9TM1BMxwCrznnQy1HMXLEB7DLXNDe95KduBEAqC0jVqSabvrEA==
   dependencies:
     js-yaml "4.0.0"
     lodash.get "4.4.2"
