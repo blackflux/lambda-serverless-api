@@ -5788,17 +5788,17 @@ object-copy@^0.1.0:
     define-property "^0.2.5"
     kind-of "^3.0.3"
 
-object-fields@2.0.21:
-  version "2.0.21"
-  resolved "https://registry.yarnpkg.com/object-fields/-/object-fields-2.0.21.tgz#e68683a49e8d668210467d1e7584fc6f1b4a395a"
-  integrity sha512-QS92P494Ncth3DTvZnaV2houZn7mH7LYWjGqNfAtkfRIAZUHdH+USOaAIvkjQDSisTQsy7kxegfD7tgZn0boQw==
-  dependencies:
-    object-scan "13.9.1"
-
 object-fields@2.0.22:
   version "2.0.22"
   resolved "https://registry.yarnpkg.com/object-fields/-/object-fields-2.0.22.tgz#31d7943d7ad8297e86e44698df461b83a41c3215"
   integrity sha512-RzLvuwTC4uqjF/QVLxrYnIBmcBoqrrOlgdi1zEgaZrNlpoJMgE+wQRkaJEAZlp8sx4jwxkJz+gHAa5T+WBDX/w==
+  dependencies:
+    object-scan "14.0.0"
+
+object-fields@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/object-fields/-/object-fields-3.0.0.tgz#90614dc7e973c5c168f596da023e33f5a83c65d1"
+  integrity sha512-b+y0vFLAPvxUv+9CFeOobkDONuuMVpRITGKsMaoxUqzEBa8qOFt/iLfnHN6aRrNHW/bqHJ0Y/EOYi1nSLGNOzg==
   dependencies:
     object-scan "14.0.0"
 
