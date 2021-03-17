@@ -29,7 +29,7 @@
     "eslint-plugin-markdown": "2.0.0",
     "eslint-plugin-mocha": "8.1.0",
     "js-gardener": "3.0.1",
-    "lambda-tdd": "3.0.2",
+    "lambda-tdd": "3.0.3",
     "moment-timezone": "0.5.33",
     "nock": "13.0.11",
     "node-tdd": "3.0.0",
