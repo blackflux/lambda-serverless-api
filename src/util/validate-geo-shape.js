@@ -9,26 +9,22 @@ const isDirectional = (arr, clockwise) => {
   return clockwise ? result > 0 : result < 0;
 };
 
-module.exports = ({ valueParsed, clockwise, relaxed }) => {
+module.exports = ({ geoShape, clockwise, relaxed }) => {
   // check direction
-  if (clockwise !== undefined && !isDirectional(valueParsed, clockwise)) {
+  if (clockwise !== undefined && !isDirectional(geoShape, clockwise)) {
     return false;
   }
   // ensure closed polygon
   if (
-    valueParsed[0][0] !== valueParsed[valueParsed.length - 1][0]
-    || valueParsed[0][1] !== valueParsed[valueParsed.length - 1][1]) {
+    geoShape[0][0] !== geoShape[geoShape.length - 1][0]
+    || geoShape[0][1] !== geoShape[geoShape.length - 1][1]) {
     return false;
   }
-  // ensure non-degenerate polygon
-  if (new Set(valueParsed.map((p) => `${p[0]}${p[1]}`)).size !== valueParsed.length - 1) {
-    return false;
-  }
-  if (relaxed !== true && valueParsed.some((p) => p[0] === 0 || p[1] === 0)) {
+  if (relaxed !== true && geoShape.some((p) => p[0] === 0 || p[1] === 0)) {
     return false;
   }
   // check for self intersections
-  if (kinks(polygon([valueParsed])).features.length !== 0) {
+  if (kinks(polygon([geoShape])).features.length !== 0) {
     return false;
   }
   return true;
