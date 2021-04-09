@@ -102,6 +102,7 @@ There are various pre-defined parameters available
 - _GeoPoint_: GPS coordinate input
 - _GeoRect_: GPS coordinate rectangle input
 - _GeoShape_: GPS coordinate polygon input
+- _GeoShapeList_: GPS coordinate polygon list input
 - _Int_: Integer input
 - _IntShort_: Short Integer input
 - _IsoTimestamp_: Iso timestamp input

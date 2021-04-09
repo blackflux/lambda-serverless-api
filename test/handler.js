@@ -99,6 +99,11 @@ module.exports.param = api.wrap('POST param', [
   api.GeoRect('geoRectParam', 'json', { required: false }),
   api.GeoShape('geoShapeParam', 'json', { required: false }),
   api.List('listParam', 'query', { required: false }),
+  api.GeoShapeList('geoShapeListParam', 'json', {
+    required: false,
+    maxItems: 3,
+    minItems: 1
+  }),
   api.StrList('strListParam', 'query', {
     required: false,
     enums: ['enum1', 'enum2'],

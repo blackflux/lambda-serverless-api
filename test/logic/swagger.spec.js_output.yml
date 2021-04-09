@@ -89,7 +89,7 @@ paths:
       responses:
         default:
           description: Unexpected Error
-  '/proxy/{proxy+}':
+  /proxy/{proxy+}:
     get:
       consumes:
         - application/json
@@ -264,7 +264,7 @@ paths:
               email:
                 type: string
                 format: Email
-                pattern: '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/'
+                pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
               isoTimestampParam:
                 type: string
                 format: IsoTimestamp
@@ -334,6 +334,15 @@ paths:
                   type: array
                   items:
                     type: number
+              geoShapeListParam:
+                type: array
+                format: GeoShapeList
+                items:
+                  type: array
+                  items:
+                    type: array
+                minItems: 1
+                maxItems: 3
               jsonParam:
                 type: object
                 format: Json
@@ -385,11 +394,11 @@ paths:
               email:
                 type: string
                 format: Email
-                pattern: '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/'
+                pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
       responses:
         default:
           description: Unexpected Error
-  '/path/{param}':
+  /path/{param}:
     post:
       consumes:
         - application/json
