@@ -10,27 +10,26 @@ const isDirectional = (arr, clockwise) => {
 };
 
 module.exports = ({ valueParsed, clockwise, relaxed }) => {
-  let valid = true;
   // check direction
   if (clockwise !== undefined && !isDirectional(valueParsed, clockwise)) {
-    valid = false;
+    return false;
   }
   // ensure closed polygon
-  if (valid && (
+  if (
     valueParsed[0][0] !== valueParsed[valueParsed.length - 1][0]
-    || valueParsed[0][1] !== valueParsed[valueParsed.length - 1][1])) {
-    valid = false;
+    || valueParsed[0][1] !== valueParsed[valueParsed.length - 1][1]) {
+    return false;
   }
   // ensure non-degenerate polygon
-  if (valid && new Set(valueParsed.map((p) => `${p[0]}${p[1]}`)).size !== valueParsed.length - 1) {
-    valid = false;
+  if (new Set(valueParsed.map((p) => `${p[0]}${p[1]}`)).size !== valueParsed.length - 1) {
+    return false;
   }
-  if (valid && relaxed !== true && valueParsed.some((p) => p[0] === 0 || p[1] === 0)) {
-    valid = false;
+  if (relaxed !== true && valueParsed.some((p) => p[0] === 0 || p[1] === 0)) {
+    return false;
   }
   // check for self intersections
-  if (valid && kinks(polygon([valueParsed])).features.length !== 0) {
-    valid = false;
+  if (kinks(polygon([valueParsed])).features.length !== 0) {
+    return false;
   }
-  return valid;
+  return true;
 };

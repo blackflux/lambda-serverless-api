@@ -22,20 +22,23 @@ class GeoShape extends Json {
   }
 
   validate(value) {
-    const valid = super.validate(value);
+    let valid = super.validate(value);
     let valueParsed = value;
     if (valid && this.stringInput) {
       // already validated by super
       valueParsed = JSON.parse(value);
     }
-    if (valid === false) {
-      return valid;
+    if (
+      valid
+      && !validateGeoShape({
+        valueParsed,
+        clockwise: this.clockwise,
+        relaxed: this.relaxed
+      })
+    ) {
+      valid = false;
     }
-    return validateGeoShape({
-      valueParsed,
-      clockwise: this.clockwise,
-      relaxed: this.relaxed
-    });
+    return valid;
   }
 
   get(event) {
