@@ -31,7 +31,7 @@ class GeoShape extends Json {
     if (
       valid
       && !validateGeoShape({
-        valueParsed,
+        geoShape: valueParsed,
         clockwise: this.clockwise,
         relaxed: this.relaxed
       })
