@@ -20,6 +20,10 @@ module.exports = ({ geoShape, clockwise, relaxed }) => {
     || geoShape[0][1] !== geoShape[geoShape.length - 1][1]) {
     return false;
   }
+  // ensure non-degenerate polygon
+  if (new Set(geoShape.map((p) => `${p[0]}${p[1]}`)).size !== geoShape.length - 1) {
+    return false;
+  }
   if (relaxed !== true && geoShape.some((p) => p[0] === 0 || p[1] === 0)) {
     return false;
   }
