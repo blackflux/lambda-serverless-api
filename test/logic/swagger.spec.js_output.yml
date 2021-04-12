@@ -231,6 +231,11 @@ paths:
           format: Json
           in: query
         - in: query
+          name: jsonListParam
+          required: false
+          type: string
+          format: JsonList
+        - in: query
           name: paramWithGetter
           required: false
           type: string
@@ -340,6 +345,13 @@ paths:
               numberShortParam:
                 type: integer
                 format: IntShort
+              jsonListParam:
+                type: array
+                format: JsonList
+                items:
+                  type: array
+                  items:
+                    type: object
             required:
               - username
       responses:
