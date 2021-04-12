@@ -5,7 +5,7 @@ const validateGeoShape = require('../util/validate-geo-shape');
 
 const genSchema = ({ maxPoints, clockwise, relaxed }) => {
   assert(relaxed === undefined || typeof relaxed === 'boolean');
-  let schema = Joi.array().items(Joi.array().ordered(
+  const schema = Joi.array().items(Joi.array().ordered(
     Joi.number().min(-180).max(180),
     Joi.number().min(-90).max(90)
   )).custom((value, _) => {
@@ -18,10 +18,7 @@ const genSchema = ({ maxPoints, clockwise, relaxed }) => {
     }
     return value;
   });
-  if (maxPoints !== undefined) {
-    schema = schema.max(maxPoints);
-  }
-  return schema;
+  return maxPoints === undefined ? schema : schema.max(maxPoints);
 };
 
 class GeoShape extends Json {
