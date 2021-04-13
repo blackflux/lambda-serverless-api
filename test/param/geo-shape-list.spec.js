@@ -18,7 +18,7 @@ describe('Testing GeoShapeList Parameter', () => {
     })).to.deep.equal([[[0.5, 0.5], [0.5, 1], [1, 1], [1, 0.5], [0.5, 0.5]]]);
   });
 
-  it('Testing invalid query parameter2', () => {
+  it('Testing invalid query parameter', () => {
     [
       'invalid', // parse error
       '[[[0.5,0.5],[0.5,1],[1,1],[1,0.5]]]', // open polygon
@@ -58,7 +58,7 @@ describe('Testing GeoShapeList Parameter', () => {
       .to.throw('Invalid Value for json-Parameter "geoShapeList" provided.');
   });
 
-  it('Testing invalid json parameter (generic)3', () => {
+  it('Testing invalid json parameter (generic)', () => {
     [
       [[[0.5, 0.5], [0.5, 1], [1, 1], [1, 0.5]]], // open polygon
       [[[0.5, 0.5], [0.5, 1], [1, 1], [1, 1], [1, 0.5], [0.5, 0.5]]], // degenerate polygon
