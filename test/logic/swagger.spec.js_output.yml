@@ -339,6 +339,15 @@ paths:
                   type: array
                   items:
                     type: number
+              geoShapeListParam:
+                type: array
+                format: GeoShapeList
+                items:
+                  type: array
+                  items:
+                    type: array
+                minItems: 1
+                maxItems: 3
               jsonParam:
                 type: object
                 format: Json

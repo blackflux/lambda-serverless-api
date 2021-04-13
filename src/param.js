@@ -20,6 +20,7 @@ const JsonList = require('./param/json-list');
 const GeoPoint = require('./param/geo-point');
 const GeoRect = require('./param/geo-rect');
 const GeoShape = require('./param/geo-shape');
+const GeoShapeList = require('./param/geo-shape-list');
 const NumberParam = require('./param/number-param');
 
 module.exports.Str = (...args) => new Str(...args);
@@ -44,4 +45,5 @@ module.exports.JsonList = (...args) => new JsonList(...args);
 module.exports.GeoPoint = (...args) => new GeoPoint(...args);
 module.exports.GeoRect = (...args) => new GeoRect(...args);
 module.exports.GeoShape = (...args) => new GeoShape(...args);
+module.exports.GeoShapeList = (...args) => new GeoShapeList(...args);
 module.exports.Number = (...args) => new NumberParam(...args);
