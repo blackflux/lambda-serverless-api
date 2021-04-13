@@ -3,7 +3,11 @@ const { genSchema } = require('../util/geo-shape');
 
 class GeoShape extends Json {
   constructor(name, position, opts = {}) {
-    const schema = genSchema(opts);
+    const schema = genSchema({
+      maxPoints: opts.maxPoints,
+      clockwise: opts.clockwise,
+      relaxed: opts.relaxed
+    });
     super(name, position, { ...opts, schema });
     this.type = 'array';
     this.items = { type: 'array', items: { type: 'number' } };
