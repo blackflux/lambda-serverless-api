@@ -1,7 +1,6 @@
 const assert = require('assert');
 const get = require('lodash.get');
 const NumberList = require('./number-list');
-const validateGeoPoint = require('../util/validate-geo-point');
 
 class GeoPoint extends NumberList {
   constructor(name, position, opts = {}) {
@@ -18,7 +17,13 @@ class GeoPoint extends NumberList {
     if (valid && this.stringInput) {
       valueParsed = JSON.parse(value);
     }
-    if (valid && !validateGeoPoint(valueParsed)) {
+    if (valid && (
+      valueParsed.length !== 2
+      || valueParsed[0] < -180
+      || valueParsed[0] > 180
+      || valueParsed[1] < -90
+      || valueParsed[1] > 90
+    )) {
       valid = false;
     }
     if (valid && this.relaxed !== true && (valueParsed[0] === 0 || valueParsed[1] === 0)) {
