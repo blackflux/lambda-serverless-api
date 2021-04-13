@@ -160,6 +160,11 @@ paths:
           in: query
           minimum: -32768
           maximum: 32767
+        - name: geoPolyParam
+          required: false
+          type: string
+          format: GeoPoly
+          in: query
         - name: listParam
           required: false
           type: string
@@ -318,6 +323,13 @@ paths:
               number:
                 type: integer
                 format: Int
+              geoPolyParam:
+                type: array
+                format: GeoPoly
+                items:
+                  type: array
+                  items:
+                    type: array
               geoPointParam:
                 type: array
                 format: GeoPoint

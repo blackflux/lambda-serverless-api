@@ -95,6 +95,8 @@ module.exports.param = api.wrap('POST param', [
   api.Int('number', 'query', { required: false, min: 10, max: 20 }),
   api.IntShort('numberShortParam', 'json', { required: false }),
   api.IntShort('numberShortParam', 'query', { required: false }),
+  api.GeoPoly('geoPolyParam', 'json', { required: false }),
+  api.GeoPoly('geoPolyParam', 'query', { required: false }),
   api.GeoPoint('geoPointParam', 'json', { required: false }),
   api.GeoRect('geoRectParam', 'json', { required: false }),
   api.GeoShape('geoShapeParam', 'json', { required: false }),
