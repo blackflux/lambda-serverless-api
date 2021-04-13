@@ -22,7 +22,7 @@
     "babel-preset-latest-node": "5.5.1",
     "chai": "4.3.4",
     "coveralls": "3.1.0",
-    "eslint": "7.23.0",
+    "eslint": "7.24.0",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-json": "2.1.2",
@@ -80,7 +80,7 @@
   ],
   "dependencies": {
     "@turf/kinks": "6.3.0",
-    "aws-sdk-wrap": "9.4.0",
+    "aws-sdk-wrap": "9.4.1",
     "joi-strict": "2.0.0",
     "lambda-async": "2.0.0",
     "lambda-monitor-logger": "3.0.0",

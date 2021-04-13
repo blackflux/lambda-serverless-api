@@ -124,6 +124,8 @@ module.exports.param = api.wrap('POST param', [
   api.GeoShape('geoShapeParam', 'query', { required: false }),
   api.Json('jsonParam', 'json', { required: false, schema: Joi.object() }),
   api.Json('jsonParam', 'query', { required: false, schema: Joi.object() }),
+  api.JsonList('jsonListParam', 'json', { required: false, schema: Joi.object() }),
+  api.JsonList('jsonListParam', 'query', { required: false, schema: Joi.object() }),
   api.Str('paramWithGetter', 'query', {
     required: false,
     getter: () => request({ uri: 'https://foo.com', json: true })

@@ -107,6 +107,7 @@ There are various pre-defined parameters available
 - _IntShort_: Short Integer input
 - _IsoTimestamp_: Iso timestamp input
 - _Json_: Json input that has to conform to Joi schema
+- _Json-list_: List of Json input that has to conform to Joi schema
 - _List_: List input
 - _NumberList_: Number list input
 - _NumberParam_: Number input
