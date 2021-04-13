@@ -18,9 +18,9 @@ describe('Testing GeoPoly Parameter', () => {
   it('Testing valid query parameter with only perimeter', () => {
     expect(queryParam.get({
       queryStringParameters: {
-        geoPoly: JSON.stringify([counterClockwisePolygon, clockwisePolygon])
+        geoPoly: JSON.stringify([counterClockwisePolygon])
       }
-    })).to.deep.equal([counterClockwisePolygon, clockwisePolygon]);
+    })).to.deep.equal([counterClockwisePolygon]);
   });
 
   it('Testing valid query parameter with holes', () => {
