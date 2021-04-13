@@ -40,7 +40,7 @@ class GeoShapeList extends List {
     if (
       valid
       && !valueParsed.every((geoShape) => validateGeoShape({
-        valueParsed: geoShape,
+        geoShape,
         clockwise: this.clockwise,
         relaxed: this.relaxed
       }))
