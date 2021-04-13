@@ -159,7 +159,7 @@ describe('Testing GeoPoly Parameter', () => {
     })).to.throw('Invalid Value for json-Parameter "geoPolicy" provided.');
   });
 
-  it('Testing self intersecting geo shape', () => {
+  it('Testing self intersecting geo poly', () => {
     const geoPoly = [[
       [-125.0266542, 49.6833014], [-125.0270233, 49.6873752], [-125.0033871, 49.6927488], [-124.999281, 49.6995009],
       [-124.991976, 49.6974828], [-124.9972442, 49.7041643], [-125.0126418, 49.7072946], [-124.9955406, 49.7164821],
