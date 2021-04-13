@@ -19,10 +19,10 @@ module.exports.genSchema = ({
     .items(holesSchema)
     .custom((value, _) => {
       if (maxHoles !== undefined && value.slice(1).length > maxHoles) {
-        throw new Error('Invalid number of polygon holes');
+        throw new Error('Total number of polygon holes exceeded');
       }
       if (maxPoints !== undefined && value.reduce((prev, cur) => prev + cur.length, 0) > maxPoints) {
-        throw new Error('Invalid max geo points total');
+        throw new Error('Total number of geo points exceeded');
       }
       return value;
     });
