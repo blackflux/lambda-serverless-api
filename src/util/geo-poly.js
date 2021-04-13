@@ -2,15 +2,15 @@ const Joi = require('joi-strict');
 const { genSchema: genSchemaGeoShape } = require('./geo-shape');
 
 module.exports.genSchema = ({
-  maxPoints, relaxed, maxHoles, maxPointsTotal, maxPointsPerShape, maxPointsPerHole
+  maxPoints, relaxed, maxHoles, maxPointsPerimeter, maxPointsPerHole
 }) => {
   const perimeterSchema = genSchemaGeoShape({
-    maxPoints,
+    maxPoints: maxPointsPerimeter,
     clockwise: false,
     relaxed
   });
   const holesSchema = genSchemaGeoShape({
-    maxPoints,
+    maxPoints: maxPointsPerHole,
     clockwise: true,
     relaxed
   });
@@ -21,14 +21,8 @@ module.exports.genSchema = ({
       if (maxHoles !== undefined && value.slice(1).length > maxHoles) {
         throw new Error('Invalid number of polygon holes');
       }
-      if (maxPointsTotal !== undefined && value.reduce((prev, cur) => prev + cur.length, 0) > maxPointsTotal) {
+      if (maxPoints !== undefined && value.reduce((prev, cur) => prev + cur.length, 0) > maxPoints) {
         throw new Error('Invalid max geo points total');
-      }
-      if (maxPointsPerShape !== undefined && value[0].length > maxPointsPerShape) {
-        throw new Error('Invalid max geo points for shape');
-      }
-      if (maxPointsPerHole !== undefined && value.slice(1).some((holes) => holes.length > maxPointsPerHole)) {
-        throw new Error('Invalid max geo points for holes');
       }
       return value;
     });

@@ -10,8 +10,7 @@ class GeoPoly extends Json {
       maxPoints: opts.maxPoints,
       relaxed: opts.relaxed,
       maxHoles: opts.maxHoles,
-      maxPointsTotal: opts.maxPointsTotal,
-      maxPointsPerShape: opts.maxPointsPerShape,
+      maxPointsPerimeter: opts.maxPointsPerimeter,
       maxPointsPerHole: opts.maxPointsPerHole
     });
     super(name, position, { ...opts, schema });

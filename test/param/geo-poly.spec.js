@@ -82,15 +82,8 @@ describe('Testing GeoPoly Parameter', () => {
     })).to.deep.equal([counterClockwisePolygon, clockwisePolygon]);
   });
 
-  it('Testing valid json parameter (maxPointsTotal)', () => {
-    const param = api.GeoPoly('geoPoly', 'json', { maxPointsTotal: 10 });
-    expect(param.get({
-      body: { geoPoly: [counterClockwisePolygon, clockwisePolygon] }
-    })).to.deep.equal([counterClockwisePolygon, clockwisePolygon]);
-  });
-
-  it('Testing valid json parameter (maxPointsPerShape)', () => {
-    const param = api.GeoPoly('geoPoly', 'json', { maxPointsPerShape: 5 });
+  it('Testing valid json parameter (maxPointsPerimeter)', () => {
+    const param = api.GeoPoly('geoPoly', 'json', { maxPointsPerimeter: 5 });
     expect(param.get({
       body: { geoPoly: [counterClockwisePolygon] }
     })).to.deep.equal([counterClockwisePolygon]);
@@ -124,15 +117,8 @@ describe('Testing GeoPoly Parameter', () => {
     })).to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
   });
 
-  it('Testing invalid json parameter (maxPointsTotal)', () => {
-    const param = api.GeoPoly('geoPoly', 'json', { maxPointsTotal: 4 });
-    expect(() => param.get({
-      body: { geoPoly: [counterClockwisePolygon] }
-    })).to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
-  });
-
-  it('Testing invalid json parameter (maxPointsPerShape)', () => {
-    const param = api.GeoPoly('geoPoly', 'json', { maxPointsPerShape: 4 });
+  it('Testing invalid json parameter (maxPointsPerimeter)', () => {
+    const param = api.GeoPoly('geoPoly', 'json', { maxPointsPerimeter: 4 });
     expect(() => param.get({
       body: { geoPoly: [counterClockwisePolygon] }
     })).to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
