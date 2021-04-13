@@ -5,7 +5,6 @@ class GeoShapeList extends JsonList {
   constructor(name, position, opts = {}) {
     const schema = genSchema(opts);
     super(name, position, { schema, ...opts });
-    this.type = 'array';
     this.items = { type: 'array', items: { type: 'array' } };
   }
 }
