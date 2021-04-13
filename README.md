@@ -100,8 +100,11 @@ There are various pre-defined parameters available
 - _Enum_: Enum input
 - _FieldsParam_: String input that gets parsed as [object-fields](https://github.com/blackflux/object-fields)
 - _GeoPoint_: GPS coordinate input
+- _GeoPoly_: GPS coordinate of polygon input and holes
+- _GeoPolyList_: List of GPS coordinate of polygon input and holes
 - _GeoRect_: GPS coordinate rectangle input
 - _GeoShape_: GPS coordinate polygon input
+- _GeoShapeList_: GPS coordinate polygon list input
 - _Int_: Integer input
 - _IntShort_: Short Integer input
 - _IsoTimestamp_: Iso timestamp input

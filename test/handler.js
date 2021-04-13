@@ -95,10 +95,19 @@ module.exports.param = api.wrap('POST param', [
   api.Int('number', 'query', { required: false, min: 10, max: 20 }),
   api.IntShort('numberShortParam', 'json', { required: false }),
   api.IntShort('numberShortParam', 'query', { required: false }),
+  api.GeoPoly('geoPolyParam', 'json', { required: false }),
+  api.GeoPoly('geoPolyParam', 'query', { required: false }),
+  api.GeoPolyList('geoPolyListParam', 'query', { required: false }),
+  api.GeoPolyList('geoPolyListParam', 'json', { required: false }),
   api.GeoPoint('geoPointParam', 'json', { required: false }),
   api.GeoRect('geoRectParam', 'json', { required: false }),
   api.GeoShape('geoShapeParam', 'json', { required: false }),
   api.List('listParam', 'query', { required: false }),
+  api.GeoShapeList('geoShapeListParam', 'json', {
+    required: false,
+    maxItems: 3,
+    minItems: 1
+  }),
   api.StrList('strListParam', 'query', {
     required: false,
     enums: ['enum1', 'enum2'],
