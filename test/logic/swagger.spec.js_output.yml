@@ -89,7 +89,7 @@ paths:
       responses:
         default:
           description: Unexpected Error
-  /proxy/{proxy+}:
+  '/proxy/{proxy+}':
     get:
       consumes:
         - application/json
@@ -269,7 +269,7 @@ paths:
               email:
                 type: string
                 format: Email
-                pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+                pattern: '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/'
               isoTimestampParam:
                 type: string
                 format: IsoTimestamp
@@ -406,11 +406,11 @@ paths:
               email:
                 type: string
                 format: Email
-                pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+                pattern: '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/'
       responses:
         default:
           description: Unexpected Error
-  /path/{param}:
+  '/path/{param}':
     post:
       consumes:
         - application/json
