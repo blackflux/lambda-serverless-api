@@ -165,6 +165,11 @@ paths:
           type: string
           format: GeoPoly
           in: query
+        - name: geoPolyListParam
+          required: false
+          type: string
+          format: GeoPolyList
+          in: query
         - name: listParam
           required: false
           type: string
@@ -326,6 +331,13 @@ paths:
               geoPolyParam:
                 type: array
                 format: GeoPoly
+                items:
+                  type: array
+                  items:
+                    type: array
+              geoPolyListParam:
+                type: array
+                format: GeoPolyList
                 items:
                   type: array
                   items:
