@@ -1,13 +1,13 @@
 const assert = require('assert');
 const Joi = require('joi-strict');
 const validateGeoShape = require('./validate-geo-shape');
+const { genSchema: genSchemaGeoPoint } = require('./geo-point');
 
-module.exports.genSchema = ({ maxPoints, clockwise, relaxed }) => {
+module.exports.genSchema = ({
+  maxPoints, clockwise, relaxed, maxPrecision
+}) => {
   assert(relaxed === undefined || typeof relaxed === 'boolean');
-  const schema = Joi.array().items(Joi.array().ordered(
-    Joi.number().min(-180).max(180),
-    Joi.number().min(-90).max(90)
-  )).custom((value, _) => {
+  const schema = Joi.array().items(genSchemaGeoPoint({ maxPrecision })).custom((value, _) => {
     if (!validateGeoShape({
       geoShape: value,
       clockwise,
