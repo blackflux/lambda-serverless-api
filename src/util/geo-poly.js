@@ -2,17 +2,19 @@ const Joi = require('joi-strict');
 const { genSchema: genSchemaGeoShape } = require('./geo-shape');
 
 module.exports.genSchema = ({
-  maxPoints, relaxed, maxHoles, maxPointsPerimeter, maxPointsPerHole
+  maxPoints, relaxed, maxHoles, maxPointsPerimeter, maxPointsPerHole, maxPrecision
 }) => {
   const perimeterSchema = genSchemaGeoShape({
     maxPoints: maxPointsPerimeter,
     clockwise: false,
-    relaxed
+    relaxed,
+    maxPrecision
   });
   const holesSchema = genSchemaGeoShape({
     maxPoints: maxPointsPerHole,
     clockwise: true,
-    relaxed
+    relaxed,
+    maxPrecision
   });
   return Joi.array()
     .ordered(perimeterSchema)

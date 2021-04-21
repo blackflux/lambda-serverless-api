@@ -1,6 +1,8 @@
 const assert = require('assert');
 const get = require('lodash.get');
+const Joi = require('joi-strict');
 const NumberList = require('./number-list');
+const { genSchema: genSchemaGeoPoint } = require('../util/geo-point');
 
 class GeoRect extends NumberList {
   constructor(name, position, opts = {}) {
@@ -9,6 +11,7 @@ class GeoRect extends NumberList {
     this.minItems = 4;
     this.maxItems = 4;
     this.relaxed = get(opts, 'relaxed', false);
+    this.schema = genSchemaGeoPoint({ maxPrecision: get(opts, 'maxPrecision', 5) });
   }
 
   validate(value) {
@@ -20,14 +23,8 @@ class GeoRect extends NumberList {
     if (valid && (
       valueParsed.length !== 4
       // check bounds
-      || valueParsed[0] < -180
-      || valueParsed[0] > 180
-      || valueParsed[1] < -90
-      || valueParsed[1] > 90
-      || valueParsed[2] < -180
-      || valueParsed[2] > 180
-      || valueParsed[3] < -90
-      || valueParsed[3] > 90
+      || !Joi.test([valueParsed[0], valueParsed[1]], this.schema)
+      || !Joi.test([valueParsed[2], valueParsed[3]], this.schema)
       // check latitude (longitude always valid because rect covering anti-meridian valid in es)
       || valueParsed[1] < valueParsed[3]
     )) {

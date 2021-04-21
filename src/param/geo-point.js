@@ -1,6 +1,8 @@
 const assert = require('assert');
 const get = require('lodash.get');
+const Joi = require('joi-strict');
 const NumberList = require('./number-list');
+const { genSchema: genSchemaGeoPoint } = require('../util/geo-point');
 
 class GeoPoint extends NumberList {
   constructor(name, position, opts = {}) {
@@ -9,6 +11,7 @@ class GeoPoint extends NumberList {
     this.minItems = 2;
     this.maxItems = 2;
     this.relaxed = get(opts, 'relaxed', false);
+    this.schema = genSchemaGeoPoint({ maxPrecision: get(opts, 'maxPrecision', 5) });
   }
 
   validate(value) {
@@ -17,13 +20,7 @@ class GeoPoint extends NumberList {
     if (valid && this.stringInput) {
       valueParsed = JSON.parse(value);
     }
-    if (valid && (
-      valueParsed.length !== 2
-      || valueParsed[0] < -180
-      || valueParsed[0] > 180
-      || valueParsed[1] < -90
-      || valueParsed[1] > 90
-    )) {
+    if (valid && !Joi.test(valueParsed, this.schema)) {
       valid = false;
     }
     if (valid && this.relaxed !== true && (valueParsed[0] === 0 || valueParsed[1] === 0)) {
