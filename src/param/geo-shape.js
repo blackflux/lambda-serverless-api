@@ -1,3 +1,4 @@
+const get = require('lodash.get');
 const Json = require('./json');
 const { genSchema } = require('../util/geo-shape');
 
@@ -6,7 +7,8 @@ class GeoShape extends Json {
     const schema = genSchema({
       maxPoints: opts.maxPoints,
       clockwise: opts.clockwise,
-      relaxed: opts.relaxed
+      relaxed: opts.relaxed,
+      maxPrecision: get(opts, 'maxPrecision', 5)
     });
     super(name, position, { ...opts, schema });
     this.type = 'array';
