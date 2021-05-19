@@ -65,9 +65,13 @@ describe('Testing Str Parameter', () => {
   describe('Testing options params', () => {
     let jsonParamOptional;
     let jsonParamRelaxed;
+    let jsonParamMinLength;
+    let jsonParamMaxLength;
     before(() => {
       jsonParamOptional = api.Str('value', 'json', { required: false });
       jsonParamRelaxed = api.Str('value', 'json', { relaxed: true });
+      jsonParamMinLength = api.Str('value', 'json', { minLength: 2 });
+      jsonParamMaxLength = api.Str('value', 'json', { maxLength: 1 });
     });
 
     it('Testing optional json parameter', () => {
@@ -82,6 +86,38 @@ describe('Testing Str Parameter', () => {
           value: 'undefined'
         }
       })).to.equal('undefined');
+    });
+
+    it('Testing minLength json parameter valid', () => {
+      expect(jsonParamMinLength.get({
+        body: {
+          value: 'ab'
+        }
+      })).to.equal('ab');
+    });
+
+    it('Testing minLength json parameter invalid', () => {
+      expect(() => jsonParamMinLength.get({
+        body: {
+          value: 'a'
+        }
+      })).to.throw('Invalid Value for json-Parameter "value" provided.');
+    });
+
+    it('Testing maxLength json parameter valid', () => {
+      expect(jsonParamMaxLength.get({
+        body: {
+          value: 'a'
+        }
+      })).to.equal('a');
+    });
+
+    it('Testing maxLength json parameter invalid', () => {
+      expect(() => jsonParamMaxLength.get({
+        body: {
+          value: 'ab'
+        }
+      })).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
   });
 });
