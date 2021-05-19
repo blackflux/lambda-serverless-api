@@ -41,7 +41,11 @@ class Str extends Abstract {
     super(name, position, opts);
     this.type = 'string';
     this.relaxed = get(opts, 'relaxed', false);
+    this.minLength = get(opts, 'minLength', null);
+    this.maxLength = get(opts, 'maxLength', null);
     assert(typeof this.relaxed === 'boolean');
+    assert(this.minLength === null || Number.isInteger(this.minLength));
+    assert(this.maxLength === null || Number.isInteger(this.maxLength));
     if (this.relaxed !== true) {
       this.regex = new RegExp(`!?^(${rejectedStrings.map((s) => escapeRegExp(s)).join('|')})$`);
     }
@@ -53,6 +57,12 @@ class Str extends Abstract {
       valid = false;
     }
     if (valid && this.relaxed !== true && rejectedStrings.includes(value)) {
+      valid = false;
+    }
+    if (valid && this.minLength !== null && value.length < this.minLength) {
+      valid = false;
+    }
+    if (valid && this.maxLength !== null && value.length > this.maxLength) {
       valid = false;
     }
     return valid;
