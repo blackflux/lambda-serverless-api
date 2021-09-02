@@ -48,7 +48,6 @@ api.wrap('POST register', [
 });
 
 module.exports = api;
-
 ```
 
 then hook the router endpoint into the [Serverless Framework](https://serverless.com/) configuration as
