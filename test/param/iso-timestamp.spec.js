@@ -17,7 +17,7 @@ describe('Testing IsoTimestamp Parameter', () => {
       queryStringParameters: {
         value: '2008-09-15T15:53:00+05:00'
       }
-    })).to.equal('2008-09-15T15:53:00+05:00');
+    })).to.equal('2008-09-15T10:53:00.000Z');
   });
 
   it('Testing invalid query parameter (date range)', () => {
@@ -41,7 +41,7 @@ describe('Testing IsoTimestamp Parameter', () => {
       body: {
         value: '2008-09-15T15:53:00+05:00'
       }
-    })).to.equal('2008-09-15T15:53:00+05:00');
+    })).to.equal('2008-09-15T10:53:00.000Z');
   });
 
   it('Testing invalid json parameter (date range)', () => {

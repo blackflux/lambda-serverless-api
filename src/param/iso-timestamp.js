@@ -23,5 +23,13 @@ class IsoTimestamp extends Schema {
     }
     return valid;
   }
+
+  get(event) {
+    const result = super.get(event);
+    if ([undefined, null].includes(result)) {
+      return result;
+    }
+    return new Date(result).toISOString();
+  }
 }
 module.exports = IsoTimestamp;
