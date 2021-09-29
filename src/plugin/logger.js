@@ -88,8 +88,7 @@ class Logger extends Plugin {
       signature,
       success,
       level,
-      event: message.event,
-      response: message.response
+      ...message
     });
   }
 }
