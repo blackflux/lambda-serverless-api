@@ -10,7 +10,8 @@
   },
   "logs": {
     "to.deep.equal()": [
-      "INFO: 200 GET versioning\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/versioning\"},\"response\":{\"statusCode\":200,\"body\":\"\"}}"
+      "INFO: 200 GET versioning\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/versioning\"},\"response\":{\"statusCode\":200,\"body\":\"\"}}",
+      "JSON: {\"level\":\"info\",\"success\":true,\"prefix\":\"200 GET versioning\",\"message\":{\"event\":{\"httpMethod\":\"GET\",\"headers\":{},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/versioning\"},\"response\":{\"statusCode\":200,\"body\":\"\"}}}"
     ]
   },
   "event": {

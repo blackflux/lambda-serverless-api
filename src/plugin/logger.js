@@ -3,7 +3,7 @@ const get = require('lodash.get');
 const Joi = require('joi-strict');
 const cloneDeep = require('lodash.clonedeep');
 const objectScan = require('object-scan');
-const { logger } = require('lambda-monitor-logger');
+const { logger, json } = require('lambda-monitor-logger');
 const { Plugin } = require('../plugin');
 const { asApiGatewayResponse } = require('../logic/api-gateway');
 
@@ -84,6 +84,13 @@ class Logger extends Plugin {
     const level = this.level({ success, prefix, message });
     (success ? this.redactSuccess : this.redactError)(message);
     logger[level](`${prefix}\n${JSON.stringify(message)}`);
+
+    json.log({
+      level,
+      success,
+      prefix,
+      message
+    });
   }
 }
 

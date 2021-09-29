@@ -9,8 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": [
-      "INFO: 200 OPTIONS some/path\n{\"event\":{\"path\":\"/some/path\",\"httpMethod\":\"OPTIONS\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"multiValueHeaders\":{},\"pathParameters\":{},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":\"\"}}"
+    "to.deep.equal()": [
+      "INFO: 200 OPTIONS some/path\n{\"event\":{\"path\":\"/some/path\",\"httpMethod\":\"OPTIONS\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"multiValueHeaders\":{},\"pathParameters\":{},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":\"\"}}",
+      "JSON: {\"level\":\"info\",\"success\":true,\"prefix\":\"200 OPTIONS some/path\",\"message\":{\"event\":{\"path\":\"/some/path\",\"httpMethod\":\"OPTIONS\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"multiValueHeaders\":{},\"pathParameters\":{},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":\"\"}}}"
     ]
   },
   "event": {

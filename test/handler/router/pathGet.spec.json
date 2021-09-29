@@ -9,8 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": [
-      "INFO: 200 GET some/path\n{\"event\":{\"path\":\"/some/path\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.1\"},\"multiValueHeaders\":{},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{}}}"
+    "to.deep.equal()": [
+      "INFO: 200 GET some/path\n{\"event\":{\"path\":\"/some/path\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.1\"},\"multiValueHeaders\":{},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{}}}",
+      "JSON: {\"level\":\"info\",\"success\":true,\"prefix\":\"200 GET some/path\",\"message\":{\"event\":{\"path\":\"/some/path\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.1\"},\"multiValueHeaders\":{},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{}}}}"
     ]
   },
   "event": {

@@ -6,7 +6,7 @@
     "to.equal()": "Request Method Mismatch"
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal()": []
   },
   "event": {
     "httpMethod": "GET",

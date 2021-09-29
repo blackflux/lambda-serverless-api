@@ -9,8 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": [
-      "WARNING: 400 99001 POST param\n{\"event\":{\"body\":\"invalid_json_string\",\"httpMethod\":\"POST\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param\"},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Json Body detected.\",\"messageId\":99001,\"context\":{\"value\":\"invalid_json_string\"}}}}"
+    "to.deep.equal()": [
+      "WARNING: 400 99001 POST param\n{\"event\":{\"body\":\"invalid_json_string\",\"httpMethod\":\"POST\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param\"},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Json Body detected.\",\"messageId\":99001,\"context\":{\"value\":\"invalid_json_string\"}}}}",
+      "JSON: {\"level\":\"warn\",\"success\":false,\"prefix\":\"400 99001 POST param\",\"message\":{\"event\":{\"body\":\"invalid_json_string\",\"httpMethod\":\"POST\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param\"},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Json Body detected.\",\"messageId\":99001,\"context\":{\"value\":\"invalid_json_string\"}}}}}"
     ]
   },
   "event": {

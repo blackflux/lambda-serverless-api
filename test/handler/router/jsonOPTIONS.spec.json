@@ -14,8 +14,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": [
-      "INFO: 200 OPTIONS /json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"headers\":{\"access-control-request-method\":\"GET\",\"access-control-request-headers\":\"origin, x-requested-with\",\"origin\":\"https://test.com\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":200,\"body\":\"\",\"headers\":{\"access-control-allow-origin\":\"https://test.com\",\"access-control-allow-headers\":\"content-type,accept,origin,x-requested-with,x-amz-date,authorization,x-api-key,x-amz-security-token,x-amz-user-agent\",\"access-control-allow-methods\":\"GET\"}}}"
+    "to.deep.equal()": [
+      "INFO: 200 OPTIONS /json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"headers\":{\"access-control-request-method\":\"GET\",\"access-control-request-headers\":\"origin, x-requested-with\",\"origin\":\"https://test.com\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":200,\"body\":\"\",\"headers\":{\"access-control-allow-origin\":\"https://test.com\",\"access-control-allow-headers\":\"content-type,accept,origin,x-requested-with,x-amz-date,authorization,x-api-key,x-amz-security-token,x-amz-user-agent\",\"access-control-allow-methods\":\"GET\"}}}",
+      "JSON: {\"level\":\"info\",\"success\":true,\"prefix\":\"200 OPTIONS /json\",\"message\":{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"headers\":{\"access-control-request-method\":\"GET\",\"access-control-request-headers\":\"origin, x-requested-with\",\"origin\":\"https://test.com\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":200,\"body\":\"\",\"headers\":{\"access-control-allow-origin\":\"https://test.com\",\"access-control-allow-headers\":\"content-type,accept,origin,x-requested-with,x-amz-date,authorization,x-api-key,x-amz-security-token,x-amz-user-agent\",\"access-control-allow-methods\":\"GET\"}}}}"
     ]
   },
   "event": {

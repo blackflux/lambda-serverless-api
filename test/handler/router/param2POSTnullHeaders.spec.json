@@ -9,8 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": [
-      "WARNING: 403 POST param2\n{\"event\":{\"path\":\"/param2\",\"httpMethod\":\"POST\",\"headers\":{},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Required header \\\"X-Api-Version\\\" missing\"}}}"
+    "to.deep.equal()": [
+      "WARNING: 403 POST param2\n{\"event\":{\"path\":\"/param2\",\"httpMethod\":\"POST\",\"headers\":{},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Required header \\\"X-Api-Version\\\" missing\"}}}",
+      "JSON: {\"level\":\"warn\",\"success\":false,\"prefix\":\"403 POST param2\",\"message\":{\"event\":{\"path\":\"/param2\",\"httpMethod\":\"POST\",\"headers\":{},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"pathParameters\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Required header \\\"X-Api-Version\\\" missing\"}}}}"
     ]
   },
   "event": {

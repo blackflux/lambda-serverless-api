@@ -14,8 +14,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": [
-      "INFO: 200 GET deprecated\n{\"event\":{\"path\":\"/deprecated\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.0\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"deprecation\":\"date=\\\"Sat, 22 Feb 2020 00:32:38 GMT\\\"\",\"sunset\":\"Sat, 19 Feb 2022 00:32:38 GMT\"},\"headers\":{\"deprecation\":\"date=\\\"Wed, 01 Jan 2020 00:00:00 GMT\\\"\",\"sunset\":\"Wed, 29 Dec 2021 00:00:00 GMT\"}}}"
+    "to.deep.equal()": [
+      "INFO: 200 GET deprecated\n{\"event\":{\"path\":\"/deprecated\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.0\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"deprecation\":\"date=\\\"Sat, 22 Feb 2020 00:32:38 GMT\\\"\",\"sunset\":\"Sat, 19 Feb 2022 00:32:38 GMT\"},\"headers\":{\"deprecation\":\"date=\\\"Wed, 01 Jan 2020 00:00:00 GMT\\\"\",\"sunset\":\"Wed, 29 Dec 2021 00:00:00 GMT\"}}}",
+      "JSON: {\"level\":\"info\",\"success\":true,\"prefix\":\"200 GET deprecated\",\"message\":{\"event\":{\"path\":\"/deprecated\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.0\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"deprecation\":\"date=\\\"Sat, 22 Feb 2020 00:32:38 GMT\\\"\",\"sunset\":\"Sat, 19 Feb 2022 00:32:38 GMT\"},\"headers\":{\"deprecation\":\"date=\\\"Wed, 01 Jan 2020 00:00:00 GMT\\\"\",\"sunset\":\"Wed, 29 Dec 2021 00:00:00 GMT\"}}}}"
     ]
   },
   "event": {
