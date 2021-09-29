@@ -6,7 +6,7 @@
     "to.equal()": "OK - No API Gateway call detected."
   },
   "logs": {
-    "to.deep.equal": []
+    "to.deep.equal()": []
   },
   "event": {}
 }

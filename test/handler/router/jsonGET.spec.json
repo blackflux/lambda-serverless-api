@@ -9,8 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": [
-      "INFO: 200 GET json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.1\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"some\":\"json\"}}}"
+    "to.deep.equal()": [
+      "INFO: 200 GET json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.1\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"some\":\"json\"}}}",
+      "JSON: {\"signature\":\"200 GET json\",\"success\":true,\"level\":\"info\",\"event\":{\"path\":\"/json\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.1\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"some\":\"json\"}}}"
     ]
   },
   "event": {

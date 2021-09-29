@@ -9,8 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": [
-      "WARNING: 400 2341 GET error\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/error\"},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Some Error\",\"messageId\":2341}}}"
+    "to.deep.equal()": [
+      "WARNING: 400 2341 GET error\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/error\"},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Some Error\",\"messageId\":2341}}}",
+      "JSON: {\"signature\":\"400 2341 GET error\",\"success\":false,\"level\":\"warn\",\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/error\"},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Some Error\",\"messageId\":2341}}}"
     ]
   },
   "event": {

@@ -11,7 +11,8 @@
   "logs": {
     "to.deep.equal()": [
       "WARNING: Server Configuration Error: Bad Routing\nExpected route to match \"GET /proxy/other/path\"",
-      "WARNING: 400 99006 GET /other/path\n{\"event\":{\"httpMethod\":\"GET\",\"path\":\"/other/path\",\"pathParameters\":{\"proxy\":\"other/path\"},\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Server Configuration Error.\",\"messageId\":99006}}}"
+      "WARNING: 400 99006 GET /other/path\n{\"event\":{\"httpMethod\":\"GET\",\"path\":\"/other/path\",\"pathParameters\":{\"proxy\":\"other/path\"},\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Server Configuration Error.\",\"messageId\":99006}}}",
+      "JSON: {\"signature\":\"400 99006 GET /other/path\",\"success\":false,\"level\":\"warn\",\"event\":{\"httpMethod\":\"GET\",\"path\":\"/other/path\",\"pathParameters\":{\"proxy\":\"other/path\"},\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Server Configuration Error.\",\"messageId\":99006}}}"
     ]
   },
   "event": {

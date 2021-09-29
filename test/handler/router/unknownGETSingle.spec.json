@@ -9,8 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": [
-      "WARNING: 403 GET /unknown\n{\"event\":{\"path\":\"/unknown\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method / Route not allowed\"}}}"
+    "to.deep.equal()": [
+      "WARNING: 403 GET /unknown\n{\"event\":{\"path\":\"/unknown\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method / Route not allowed\"}}}",
+      "JSON: {\"signature\":\"403 GET /unknown\",\"success\":false,\"level\":\"warn\",\"event\":{\"path\":\"/unknown\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method / Route not allowed\"}}}"
     ]
   },
   "event": {

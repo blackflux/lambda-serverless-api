@@ -9,8 +9,9 @@
     }
   },
   "logs": {
-    "to.deep.equal": [
-      "WARNING: 403 OPTIONS /json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Required header missing\"}}}"
+    "to.deep.equal()": [
+      "WARNING: 403 OPTIONS /json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Required header missing\"}}}",
+      "JSON: {\"signature\":\"403 OPTIONS /json\",\"success\":false,\"level\":\"warn\",\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Required header missing\"}}}"
     ]
   },
   "event": {
