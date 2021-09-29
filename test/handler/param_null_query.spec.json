@@ -11,7 +11,7 @@
   "logs": {
     "to.deep.equal()": [
       "INFO: 200 POST param\n{\"event\":{\"queryStringParameters\":null,\"body\":{\"username\":\"Anja Smith\",\"email\":\"anja@test.ca\"},\"httpMethod\":\"POST\",\"requestContext\":{\"authorizer\":\"Auth Info Context\",\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"authorizer\":\"Auth Info Header\",\"x-api-version\":\"1.0.1\"},\"path\":\"/param\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"email\":\"anja@test.ca\",\"authorizer\":\"Auth Info Header\",\"xApiVersion\":\"1.0.1\"}}}",
-      "JSON: {\"level\":\"info\",\"success\":true,\"prefix\":\"200 POST param\",\"message\":{\"event\":{\"queryStringParameters\":null,\"body\":{\"username\":\"Anja Smith\",\"email\":\"anja@test.ca\"},\"httpMethod\":\"POST\",\"requestContext\":{\"authorizer\":\"Auth Info Context\",\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"authorizer\":\"Auth Info Header\",\"x-api-version\":\"1.0.1\"},\"path\":\"/param\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"email\":\"anja@test.ca\",\"authorizer\":\"Auth Info Header\",\"xApiVersion\":\"1.0.1\"}}}}"
+      "JSON: {\"signature\":\"200 POST param\",\"success\":true,\"event\":{\"queryStringParameters\":null,\"body\":{\"username\":\"Anja Smith\",\"email\":\"anja@test.ca\"},\"httpMethod\":\"POST\",\"requestContext\":{\"authorizer\":\"Auth Info Context\",\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"authorizer\":\"Auth Info Header\",\"x-api-version\":\"1.0.1\"},\"path\":\"/param\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"email\":\"anja@test.ca\",\"authorizer\":\"Auth Info Header\",\"xApiVersion\":\"1.0.1\"}}}"
     ]
   },
   "event": {

@@ -16,7 +16,7 @@
   "logs": {
     "to.deep.equal()": [
       "INFO: 200 GET deprecated\n{\"event\":{\"path\":\"/deprecated\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.0\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"deprecation\":\"date=\\\"Sun, 18 Apr 2004 23:39:18 GMT\\\"\",\"sunset\":\"Sun, 16 Apr 2006 23:39:18 GMT\"},\"headers\":{\"deprecation\":\"date=\\\"Sun, 18 Apr 2004 23:39:18 GMT\\\"\",\"sunset\":\"Sun, 16 Apr 2006 23:39:18 GMT\"}}}",
-      "JSON: {\"level\":\"info\",\"success\":true,\"prefix\":\"200 GET deprecated\",\"message\":{\"event\":{\"path\":\"/deprecated\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.0\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"deprecation\":\"date=\\\"Sun, 18 Apr 2004 23:39:18 GMT\\\"\",\"sunset\":\"Sun, 16 Apr 2006 23:39:18 GMT\"},\"headers\":{\"deprecation\":\"date=\\\"Sun, 18 Apr 2004 23:39:18 GMT\\\"\",\"sunset\":\"Sun, 16 Apr 2006 23:39:18 GMT\"}}}}"
+      "JSON: {\"signature\":\"200 GET deprecated\",\"success\":true,\"event\":{\"path\":\"/deprecated\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.0\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"deprecation\":\"date=\\\"Sun, 18 Apr 2004 23:39:18 GMT\\\"\",\"sunset\":\"Sun, 16 Apr 2006 23:39:18 GMT\"},\"headers\":{\"deprecation\":\"date=\\\"Sun, 18 Apr 2004 23:39:18 GMT\\\"\",\"sunset\":\"Sun, 16 Apr 2006 23:39:18 GMT\"}}}"
     ]
   },
   "event": {

@@ -11,7 +11,7 @@
   "logs": {
     "to.deep.equal()": [
       "WARNING: 403 OPTIONS /json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"headers\":{\"access-control-request-method\":\"GET\",\"access-control-request-headers\":\"origin, x-requested-with, bad-unknown-header\",\"origin\":\"https://test.com\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Header not allowed\"}}}",
-      "JSON: {\"level\":\"warn\",\"success\":false,\"prefix\":\"403 OPTIONS /json\",\"message\":{\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"headers\":{\"access-control-request-method\":\"GET\",\"access-control-request-headers\":\"origin, x-requested-with, bad-unknown-header\",\"origin\":\"https://test.com\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Header not allowed\"}}}}"
+      "JSON: {\"signature\":\"403 OPTIONS /json\",\"success\":false,\"event\":{\"path\":\"/json\",\"httpMethod\":\"OPTIONS\",\"headers\":{\"access-control-request-method\":\"GET\",\"access-control-request-headers\":\"origin, x-requested-with, bad-unknown-header\",\"origin\":\"https://test.com\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Header not allowed\"}}}"
     ]
   },
   "event": {

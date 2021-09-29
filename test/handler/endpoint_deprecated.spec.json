@@ -11,7 +11,7 @@
   "logs": {
     "to.deep.equal()": [
       "WARNING: 403 GET deprecation\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/deprecation\"},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Endpoint deprecated since version \\\"1.0.1\\\"\"}}}",
-      "JSON: {\"level\":\"warn\",\"success\":false,\"prefix\":\"403 GET deprecation\",\"message\":{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/deprecation\"},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Endpoint deprecated since version \\\"1.0.1\\\"\"}}}}"
+      "JSON: {\"signature\":\"403 GET deprecation\",\"success\":false,\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/deprecation\"},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Endpoint deprecated since version \\\"1.0.1\\\"\"}}}"
     ]
   },
   "event": {

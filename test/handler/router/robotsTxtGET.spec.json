@@ -11,7 +11,7 @@
   "logs": {
     "to.deep.equal()": [
       "INFO: 200 GET /robots.txt\n{\"event\":{\"path\":\"/robots.txt\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":\"User-agent: *\\nDisallow: /\"}}",
-      "JSON: {\"level\":\"info\",\"success\":true,\"prefix\":\"200 GET /robots.txt\",\"message\":{\"event\":{\"path\":\"/robots.txt\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":\"User-agent: *\\nDisallow: /\"}}}"
+      "JSON: {\"signature\":\"200 GET /robots.txt\",\"success\":true,\"event\":{\"path\":\"/robots.txt\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":200,\"body\":\"User-agent: *\\nDisallow: /\"}}"
     ]
   },
   "event": {

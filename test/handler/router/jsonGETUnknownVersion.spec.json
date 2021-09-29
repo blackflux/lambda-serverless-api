@@ -11,7 +11,7 @@
   "logs": {
     "to.deep.equal()": [
       "WARNING: 403 GET json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"0.0.1\"},\"pathParameters\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Unknown version \\\"0.0.1\\\" for header \\\"X-Api-Version\\\" provided\"}}}",
-      "JSON: {\"level\":\"warn\",\"success\":false,\"prefix\":\"403 GET json\",\"message\":{\"event\":{\"path\":\"/json\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"0.0.1\"},\"pathParameters\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Unknown version \\\"0.0.1\\\" for header \\\"X-Api-Version\\\" provided\"}}}}"
+      "JSON: {\"signature\":\"403 GET json\",\"success\":false,\"event\":{\"path\":\"/json\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"0.0.1\"},\"pathParameters\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Unknown version \\\"0.0.1\\\" for header \\\"X-Api-Version\\\" provided\"}}}"
     ]
   },
   "event": {

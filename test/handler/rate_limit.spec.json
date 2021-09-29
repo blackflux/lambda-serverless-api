@@ -18,7 +18,7 @@
   "logs": {
     "to.deep.equal()": [
       "WARNING: 429 GET json\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/json\"},\"response\":{\"statusCode\":429,\"body\":{\"message\":\"Rate limit exceeded.\"},\"headers\":{\"X-Rate-Limit-Reset\":36}}}",
-      "JSON: {\"level\":\"warn\",\"success\":false,\"prefix\":\"429 GET json\",\"message\":{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/json\"},\"response\":{\"statusCode\":429,\"body\":{\"message\":\"Rate limit exceeded.\"},\"headers\":{\"X-Rate-Limit-Reset\":36}}}}"
+      "JSON: {\"signature\":\"429 GET json\",\"success\":false,\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/json\"},\"response\":{\"statusCode\":429,\"body\":{\"message\":\"Rate limit exceeded.\"},\"headers\":{\"X-Rate-Limit-Reset\":36}}}"
     ]
   },
   "event": {
