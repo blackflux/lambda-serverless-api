@@ -17,7 +17,7 @@
   "logs": {
     "to.deep.equal()": [
       "INFO: 200 POST param2\n{\"event\":{\"body\":{\"email\":null},\"headers\":{\"x-api-version\":\"1.0.1\"},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param2\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"default\",\"email\":null,\"xCustomHeader\":null}}}",
-      "JSON: {\"signature\":\"200 POST param2\",\"success\":true,\"event\":{\"body\":{\"email\":null},\"headers\":{\"x-api-version\":\"1.0.1\"},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param2\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"default\",\"email\":null,\"xCustomHeader\":null}}}"
+      "JSON: {\"signature\":\"200 POST param2\",\"success\":true,\"level\":\"info\",\"event\":{\"body\":{\"email\":null},\"headers\":{\"x-api-version\":\"1.0.1\"},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param2\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"default\",\"email\":null,\"xCustomHeader\":null}}}"
     ]
   },
   "event": {

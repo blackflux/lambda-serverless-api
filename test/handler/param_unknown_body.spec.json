@@ -11,7 +11,7 @@
   "logs": {
     "to.deep.equal()": [
       "WARNING: 400 99005 POST param\n{\"event\":{\"body\":{\"unknown\":\"value\"},\"headers\":{\"x-api-version\":\"1.0.1\"},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param\"},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Json Body Param(s) detected.\",\"messageId\":99005,\"context\":{\"value\":[\"unknown\"]}}}}",
-      "JSON: {\"signature\":\"400 99005 POST param\",\"success\":false,\"event\":{\"body\":{\"unknown\":\"value\"},\"headers\":{\"x-api-version\":\"1.0.1\"},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param\"},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Json Body Param(s) detected.\",\"messageId\":99005,\"context\":{\"value\":[\"unknown\"]}}}}"
+      "JSON: {\"signature\":\"400 99005 POST param\",\"success\":false,\"level\":\"warn\",\"event\":{\"body\":{\"unknown\":\"value\"},\"headers\":{\"x-api-version\":\"1.0.1\"},\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param\"},\"response\":{\"statusCode\":400,\"body\":{\"message\":\"Invalid Json Body Param(s) detected.\",\"messageId\":99005,\"context\":{\"value\":[\"unknown\"]}}}}"
     ]
   },
   "event": {

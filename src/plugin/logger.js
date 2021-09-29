@@ -87,7 +87,9 @@ class Logger extends Plugin {
     json.log({
       signature,
       success,
-      ...message
+      level,
+      event: message.event,
+      response: message.response
     });
   }
 }
