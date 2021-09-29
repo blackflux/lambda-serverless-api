@@ -3,14 +3,14 @@ const get = require('lodash.get');
 const Joi = require('joi-strict');
 const cloneDeep = require('lodash.clonedeep');
 const objectScan = require('object-scan');
-const { logger } = require('lambda-monitor-logger');
+const { logger, json } = require('lambda-monitor-logger');
 const { Plugin } = require('../plugin');
 const { asApiGatewayResponse } = require('../logic/api-gateway');
 
 class Logger extends Plugin {
   constructor(options) {
     super(options);
-    this.prefix = get(options, 'prefix', [
+    this.signature = get(options, 'signature', [
       'response.statusCode',
       'response.body.messageId',
       'event.httpMethod',
@@ -40,7 +40,7 @@ class Logger extends Plugin {
   static schema() {
     return {
       logger: Joi.object().keys({
-        prefix: Joi.array().items(Joi.string()).optional(),
+        signature: Joi.array().items(Joi.string()).optional(),
         logSuccess: Joi.boolean().optional(),
         logError: Joi.boolean().optional(),
         parse: Joi.function().optional(),
@@ -70,7 +70,7 @@ class Logger extends Plugin {
       return;
     }
 
-    const prefix = this.prefix
+    const signature = this.signature
       .map((p) => {
         if (p === '$ROUTE') {
           const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
@@ -79,11 +79,18 @@ class Logger extends Plugin {
         return get(message, p);
       })
       .filter((e) => !!e).join(' ');
-    assert(prefix !== '');
+    assert(signature !== '');
 
-    const level = this.level({ success, prefix, message });
+    const level = this.level({ success, signature, message });
     (success ? this.redactSuccess : this.redactError)(message);
-    logger[level](`${prefix}\n${JSON.stringify(message)}`);
+    logger[level](`${signature}\n${JSON.stringify(message)}`);
+    json.log({
+      signature,
+      success,
+      level,
+      event: message.event,
+      response: message.response
+    });
   }
 }
 
