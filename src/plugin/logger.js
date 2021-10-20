@@ -84,6 +84,14 @@ class Logger extends Plugin {
     const level = this.level({ success, signature, message });
     (success ? this.redactSuccess : this.redactError)(message);
     logger[level](`${signature}\n${JSON.stringify(message)}`);
+    objectScan(['event.body'], {
+      filterFn: ({ parent, property, value }) => {
+        if (typeof value !== 'string') {
+          // eslint-disable-next-line no-param-reassign
+          parent[property] = JSON.stringify(value);
+        }
+      }
+    })(message);
     json.log({
       signature,
       success,

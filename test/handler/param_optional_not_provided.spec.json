@@ -12,7 +12,7 @@
   "logs": {
     "to.deep.equal()": [
       "INFO: 200 POST param2\n{\"event\":{\"body\":{\"username\":\"Anja Smith\"},\"httpMethod\":\"POST\",\"headers\":{\"x-custom-header\":\"value\",\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param2\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"email\":\"default\",\"xCustomHeader\":\"value\"}}}",
-      "JSON: {\"signature\":\"200 POST param2\",\"success\":true,\"level\":\"info\",\"event\":{\"body\":{\"username\":\"Anja Smith\"},\"httpMethod\":\"POST\",\"headers\":{\"x-custom-header\":\"value\",\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param2\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"email\":\"default\",\"xCustomHeader\":\"value\"}}}"
+      "JSON: {\"signature\":\"200 POST param2\",\"success\":true,\"level\":\"info\",\"event\":{\"body\":\"{\\\"username\\\":\\\"Anja Smith\\\"}\",\"httpMethod\":\"POST\",\"headers\":{\"x-custom-header\":\"value\",\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param2\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"email\":\"default\",\"xCustomHeader\":\"value\"}}}"
     ]
   },
   "event": {
