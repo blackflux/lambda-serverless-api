@@ -204,14 +204,16 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
 
   it('Testing Default Options Request Fails', async () => {
     api.wrap('GET path', [], identity(api));
-    const [err, resp] = await new Promise((resolve) => api.router({
-      httpMethod: 'OPTIONS',
-      path: '/path',
-      requestContext: { identity: { sourceIp: '127.0.0.1' } },
-      headers: {
-        Origin: 'https://some-origin.com'
-      }
-    }, {}, (...args) => resolve(args)));
+    const [err, resp] = await new Promise((resolve) => {
+      api.router({
+        httpMethod: 'OPTIONS',
+        path: '/path',
+        requestContext: { identity: { sourceIp: '127.0.0.1' } },
+        headers: {
+          Origin: 'https://some-origin.com'
+        }
+      }, {}, (...args) => resolve(args));
+    });
     expect(err).to.equal(null);
     expect(resp).to.deep.equal({
       statusCode: 403,
