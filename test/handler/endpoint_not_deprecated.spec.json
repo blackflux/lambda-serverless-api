@@ -1,6 +1,7 @@
 {
   "handler": "deprecation",
   "success": true,
+  "timestamp": "2021-01-05T17:10:37.653Z",
   "timeout": 2000,
   "expect": {
     "to.deep.equal()": {
