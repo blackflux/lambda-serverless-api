@@ -56,7 +56,9 @@ class Logger extends Plugin {
     return 9999;
   }
 
-  async after({ event, response, router }) {
+  async after({
+    event, context, response, router
+  }) {
     if (!this.logError && !this.logSuccess) {
       return;
     }
@@ -88,6 +90,9 @@ class Logger extends Plugin {
       signature,
       success,
       level,
+      timings: {
+        duration: new Date() / 1 - get(context, 'custom.executionStart')
+      },
       ...message
     });
   }
