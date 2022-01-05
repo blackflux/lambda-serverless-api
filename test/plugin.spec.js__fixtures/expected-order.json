@@ -32,7 +32,6 @@
     "Robots"
   ],
   "before": [
-    "ResponseHeaders",
     "PreProcessor",
     "Cors",
     "RateLimit",

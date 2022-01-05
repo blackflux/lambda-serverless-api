@@ -1,4 +1,5 @@
 const assert = require('assert');
+const set = require('lodash.set');
 const get = require('lodash.get');
 const { wrap: wrapAsync } = require('lambda-async');
 
@@ -46,6 +47,8 @@ module.exports.wrap = ({
   if (!event.httpMethod) {
     return Promise.resolve('OK - No API Gateway call detected.');
   }
+
+  set(context, 'custom.executionStart', new Date() / 1);
 
   if (!('path' in event)) {
     Object.assign(event, {

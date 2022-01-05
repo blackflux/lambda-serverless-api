@@ -6,7 +6,7 @@ const { Plugin } = require('../plugin');
 const headers = {
   date: () => new Date().toUTCString(),
   'server-timing': ({ context }) => `total;dur=${
-    new Date() / 1 - get(context, 'custom.responseHeaders.requestStart')
+    new Date() / 1 - get(context, 'custom.executionStart')
   }`
 };
 
@@ -26,11 +26,6 @@ class ResponseHeaders extends Plugin {
 
   static weight() {
     return 0;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  async before({ context }) {
-    set(context, 'custom.responseHeaders.requestStart', new Date() / 1);
   }
 
   async after(kwargs) {

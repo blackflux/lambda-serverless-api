@@ -1,6 +1,7 @@
 {
   "handler": "router",
   "success": true,
+  "timestamp": "2022-01-05T17:31:29.390Z",
   "timeout": 2000,
   "expect": {
     "to.deep.equal()": {
@@ -11,7 +12,7 @@
   "logs": {
     "to.deep.equal()": [
       "WARNING: 403 GET /unknown\n{\"event\":{\"path\":\"/unknown\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method / Route not allowed\"}}}",
-      "JSON: {\"signature\":\"403 GET /unknown\",\"success\":false,\"level\":\"warn\",\"event\":{\"path\":\"/unknown\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method / Route not allowed\"}}}"
+      "JSON: {\"signature\":\"403 GET /unknown\",\"success\":false,\"level\":\"warn\",\"timings\":{\"duration\":0},\"event\":{\"path\":\"/unknown\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method / Route not allowed\"}}}"
     ]
   },
   "event": {
