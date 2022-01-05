@@ -17,7 +17,7 @@
     "to.deep.equal()": [
       "WARNING: Sunset functionality accessed\n{\"path\":\"/json\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.0\"},\"pathParameters\":{}}",
       "INFO: 200 GET json\n{\"event\":{\"path\":\"/json\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.0\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"some\":\"json\"},\"headers\":{\"deprecation\":\"date=\\\"Wed, 01 Jan 2020 00:00:00 GMT\\\"\",\"sunset\":\"Wed, 29 Dec 2021 00:00:00 GMT\"}}}",
-      "JSON: {\"signature\":\"200 GET json\",\"success\":true,\"level\":\"info\",\"event\":{\"path\":\"/json\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.0\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"some\":\"json\"},\"headers\":{\"deprecation\":\"date=\\\"Wed, 01 Jan 2020 00:00:00 GMT\\\"\",\"sunset\":\"Wed, 29 Dec 2021 00:00:00 GMT\"}}}"
+      "JSON: {\"signature\":\"200 GET json\",\"success\":true,\"level\":\"info\",\"timings\":{\"duration\":0},\"event\":{\"path\":\"/json\",\"httpMethod\":\"GET\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"x-api-version\":\"1.0.0\"},\"pathParameters\":{}},\"response\":{\"statusCode\":200,\"body\":{\"some\":\"json\"},\"headers\":{\"deprecation\":\"date=\\\"Wed, 01 Jan 2020 00:00:00 GMT\\\"\",\"sunset\":\"Wed, 29 Dec 2021 00:00:00 GMT\"}}}"
     ]
   },
   "event": {
