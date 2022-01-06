@@ -37,7 +37,10 @@ describe('Testing Iso Date Parameter', () => {
   describe('Testing json param', () => {
     let jsonParam;
     before(() => {
-      jsonParam = api.IsoDate('value', 'json');
+      jsonParam = api.IsoDate('value', 'json', {
+        nullAsInfinity: true,
+        nullable: true
+      });
     });
 
     it('Testing valid json parameter', () => {
@@ -46,6 +49,14 @@ describe('Testing Iso Date Parameter', () => {
           value: '2019-06-18'
         }
       })).to.equal('2019-06-18');
+    });
+
+    it('Testing valid json parameter, null', () => {
+      expect(jsonParam.get({
+        body: {
+          value: null
+        }
+      })).to.equal('9999-01-01');
     });
 
     it('Testing invalid json parameter (date range)', () => {

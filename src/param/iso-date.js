@@ -10,6 +10,7 @@ class IsoDate extends Schema {
         Joi.string().regex(/^\d{4}-\d{2}-\d{2}$/)
       )
     });
+    this.nullAsInfinity = opts?.nullAsInfinity;
   }
 
   validate(value) {
@@ -18,6 +19,14 @@ class IsoDate extends Schema {
       valid = false;
     }
     return valid;
+  }
+
+  get(event) {
+    const result = super.get(event);
+    if (this.nullAsInfinity && result === null) {
+      return '9999-01-01';
+    }
+    return result;
   }
 }
 module.exports = IsoDate;
