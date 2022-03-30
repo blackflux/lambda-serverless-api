@@ -1,11 +1,11 @@
-const assert = require('assert');
-const get = require('lodash.get');
-const Joi = require('joi-strict');
-const cloneDeep = require('lodash.clonedeep');
-const objectScan = require('object-scan');
-const { logger, json } = require('lambda-monitor-logger');
-const { Plugin } = require('../plugin');
-const { asApiGatewayResponse } = require('../logic/api-gateway');
+import assert from 'assert';
+import get from 'lodash.get';
+import Joi from 'joi-strict';
+import cloneDeep from 'lodash.clonedeep';
+import objectScan from 'object-scan';
+import { logger, json } from 'lambda-monitor-logger';
+import { Plugin } from '../plugin.js';
+import { asApiGatewayResponse } from '../logic/api-gateway.js';
 
 class Logger extends Plugin {
   constructor(options) {
@@ -98,4 +98,4 @@ class Logger extends Plugin {
   }
 }
 
-module.exports = Logger;
+export default Logger;

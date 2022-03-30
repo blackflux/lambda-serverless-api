@@ -1,7 +1,7 @@
-const Joi = require('joi-strict');
-const { Plugin } = require('../plugin');
-const { ApiError } = require('../response');
-const objectAsLowerCase = require('../util/object-rekey-lower-case');
+import Joi from 'joi-strict';
+import { Plugin } from '../plugin.js';
+import { ApiError } from '../response/api-error.js';
+import objectAsLowerCase from '../util/object-rekey-lower-case.js';
 
 class PreProcessor extends Plugin {
   // eslint-disable-next-line no-useless-constructor
@@ -38,4 +38,4 @@ class PreProcessor extends Plugin {
     }
   }
 }
-module.exports = PreProcessor;
+export default PreProcessor;

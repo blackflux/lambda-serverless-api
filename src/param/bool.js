@@ -1,4 +1,4 @@
-const Abstract = require('./_abstract');
+import Abstract from './_abstract.js';
 
 class Bool extends Abstract {
   constructor(...args) {
@@ -22,4 +22,4 @@ class Bool extends Abstract {
     return this.stringInput ? ['1', 'true'].indexOf(result) !== -1 : result === true;
   }
 }
-module.exports = Bool;
+export default Bool;

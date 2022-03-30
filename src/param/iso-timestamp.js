@@ -1,5 +1,5 @@
-const Joi = require('joi-strict');
-const Schema = require('./schema');
+import Joi from 'joi-strict';
+import Schema from './schema.js';
 
 class IsoTimestamp extends Schema {
   constructor(name, position, opts) {
@@ -32,4 +32,4 @@ class IsoTimestamp extends Schema {
     return new Date(result).toISOString();
   }
 }
-module.exports = IsoTimestamp;
+export default IsoTimestamp;

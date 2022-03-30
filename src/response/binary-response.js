@@ -1,10 +1,9 @@
-const { ApiResponseClass } = require('./api-response');
+import { ApiResponseClass } from './api-response.js';
 
-class BinaryResponse extends ApiResponseClass {
+export class BinaryResponseClass extends ApiResponseClass {
   constructor(...args) {
     super(...args);
     this.isBinaryResponse = true;
   }
 }
-module.exports.BinaryResponseClass = BinaryResponse;
-module.exports.BinaryResponse = (...args) => new BinaryResponse(...args);
+export const BinaryResponse = (...args) => new BinaryResponseClass(...args);

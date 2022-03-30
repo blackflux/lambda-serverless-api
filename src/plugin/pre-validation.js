@@ -1,5 +1,5 @@
-const Joi = require('joi-strict');
-const { Plugin } = require('../plugin');
+import Joi from 'joi-strict';
+import { Plugin } from '../plugin.js';
 
 class PreValidation extends Plugin {
   constructor(options) {
@@ -21,4 +21,4 @@ class PreValidation extends Plugin {
     await this.preValidation(kwargs);
   }
 }
-module.exports = PreValidation;
+export default PreValidation;

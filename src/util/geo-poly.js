@@ -1,7 +1,7 @@
-const Joi = require('joi-strict');
-const { genSchema: genSchemaGeoShape } = require('./geo-shape');
+import Joi from 'joi-strict';
+import { genSchema as genSchemaGeoShape } from './geo-shape.js';
 
-module.exports.genSchema = ({
+export const genSchema = ({
   maxPoints, relaxed, maxHoles, maxPointsPerimeter, maxPointsPerHole, maxPrecision
 }) => {
   const perimeterSchema = genSchemaGeoShape({

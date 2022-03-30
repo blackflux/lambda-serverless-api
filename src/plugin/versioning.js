@@ -1,13 +1,13 @@
-const get = require('lodash.get');
-const set = require('lodash.set');
-const cloneDeep = require('lodash.clonedeep');
-const Joi = require('joi-strict');
-const pv = require('painless-version');
-const { logger } = require('lambda-monitor-logger');
-const { Plugin } = require('../plugin');
-const { ApiError } = require('../response');
-const { VERSION_REGEX } = require('../resources/format');
-const Enum = require('../param/enum');
+import get from 'lodash.get';
+import set from 'lodash.set';
+import cloneDeep from 'lodash.clonedeep';
+import Joi from 'joi-strict';
+import pv from 'painless-version';
+import { logger } from 'lambda-monitor-logger';
+import { Plugin } from '../plugin.js';
+import { ApiError } from '../response/api-error.js';
+import { VERSION_REGEX } from '../resources/format.js';
+import Enum from '../param/enum.js';
 
 const VersionManager = ({
   apiVersionHeader,
@@ -141,4 +141,4 @@ class Versioning extends Plugin {
   }
 }
 
-module.exports = Versioning;
+export default Versioning;

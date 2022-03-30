@@ -1,9 +1,18 @@
-const assert = require('assert');
-const LRU = require('lru-cache-ext');
-const { logger } = require('lambda-monitor-logger');
-const { s3 } = require('aws-sdk-wrap')({ logger });
+import assert from 'assert';
+import LRU from 'lru-cache-ext';
+import { logger } from 'lambda-monitor-logger';
+import AwsSdkWrap from 'aws-sdk-wrap';
+import AWS from './aws.cjs';
 
-module.exports = (bucket) => {
+const aws = AwsSdkWrap({
+  logger,
+  services: {
+    S3: AWS.S3
+  }
+});
+const { s3 } = aws;
+
+export default (bucket) => {
   assert(bucket === null || typeof bucket === 'string');
   const memoryStorage = new LRU({ maxAge: 60 * 1000 });
   const useMemory = bucket === null;

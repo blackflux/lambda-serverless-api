@@ -1,8 +1,8 @@
-const assert = require('assert');
-const get = require('lodash.get');
-const Joi = require('joi-strict');
-const NumberList = require('./number-list');
-const { genSchema: genSchemaGeoPoint } = require('../util/geo-point');
+import assert from 'assert';
+import get from 'lodash.get';
+import Joi from 'joi-strict';
+import NumberList from './number-list.js';
+import { genSchema as genSchemaGeoPoint } from '../util/geo-point.js';
 
 class GeoRect extends NumberList {
   constructor(name, position, opts = {}) {
@@ -36,4 +36,4 @@ class GeoRect extends NumberList {
     return valid;
   }
 }
-module.exports = GeoRect;
+export default GeoRect;

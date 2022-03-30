@@ -1,8 +1,8 @@
-const get = require('lodash.get');
-const pv = require('painless-version');
-const SwaggerParser = require('swagger-parser');
+import get from 'lodash.get';
+import pv from 'painless-version';
+import SwaggerParser from 'swagger-parser';
 
-module.exports = ({ wrapper, options }) => {
+export default ({ wrapper, options }) => {
   const { endpoints } = wrapper;
   const data = {
     swagger: '2.0',

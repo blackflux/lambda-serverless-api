@@ -1,6 +1,8 @@
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const api = require('../../src/index').Api();
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import { Api } from '../../src/index.js';
+
+const api = Api();
 
 describe('Testing Int Parameter', () => {
   let queryParam;

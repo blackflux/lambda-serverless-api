@@ -1,6 +1,6 @@
-const get = require('lodash.get');
-const JsonList = require('./json-list');
-const { genSchema } = require('../util/geo-shape');
+import get from 'lodash.get';
+import JsonList from './json-list.js';
+import { genSchema } from '../util/geo-shape.js';
 
 class GeoShapeList extends JsonList {
   constructor(name, position, opts = {}) {
@@ -15,4 +15,4 @@ class GeoShapeList extends JsonList {
   }
 }
 
-module.exports = GeoShapeList;
+export default GeoShapeList;

@@ -1,7 +1,9 @@
-const expect = require('chai').expect;
-const Joi = require('joi-strict');
-const { describe } = require('node-tdd');
-const api = require('../../src/index').Api();
+import { expect } from 'chai';
+import Joi from 'joi-strict';
+import { describe } from 'node-tdd';
+import { Api } from '../../src/index.js';
+
+const api = Api();
 
 describe('Testing Schema Parameter', () => {
   let queryParam;

@@ -1,7 +1,7 @@
-const assert = require('assert');
-const Joi = require('joi-strict');
+import assert from 'assert';
+import Joi from 'joi-strict';
 
-module.exports.genSchema = ({ maxPrecision }) => {
+export const genSchema = ({ maxPrecision }) => {
   assert(Number.isInteger(maxPrecision));
   return Joi.array().ordered(
     Joi.number().min(-180).max(180).precision(maxPrecision),

@@ -1,8 +1,7 @@
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const response = require('../src/response');
-const { Api, ApiError } = require('../src/index');
-const { identity } = require('./misc');
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import { Api, ApiError } from '../src/index.js';
+import { identity } from './misc.js';
 
 describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
   let api;
@@ -222,8 +221,8 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
   });
 
   it('Testing ApiError', (done) => {
-    const apiError = response.ApiError();
-    expect(apiError instanceof response.ApiErrorClass).to.equal(true);
+    const apiError = api.ApiError();
+    expect(apiError instanceof api.ApiErrorClass).to.equal(true);
     done();
   });
 

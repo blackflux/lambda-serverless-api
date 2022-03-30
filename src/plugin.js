@@ -1,6 +1,6 @@
-const assert = require('assert');
+import assert from 'assert';
 
-class Plugin {
+export class Plugin {
   constructor(options) {
     if (new.target === Plugin) {
       throw new TypeError(`Class "${new.target.name}" is abstract`);
@@ -38,4 +38,3 @@ class Plugin {
   // eslint-disable-next-line class-methods-use-this,no-empty-function
   async afterSuccess(kwargs) {}
 }
-module.exports.Plugin = Plugin;

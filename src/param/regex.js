@@ -1,5 +1,5 @@
-const assert = require('assert');
-const Str = require('./str');
+import assert from 'assert';
+import Str from './str.js';
 
 class RegEx extends Str {
   constructor(name, position, opts) {
@@ -16,4 +16,4 @@ class RegEx extends Str {
     return valid;
   }
 }
-module.exports = RegEx;
+export default RegEx;

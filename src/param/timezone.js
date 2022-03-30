@@ -1,5 +1,5 @@
-const timezones = require('../resources/timezones');
-const Enum = require('./enum');
+import timezones from '../resources/timezones.js';
+import Enum from './enum.js';
 
 class Timezone extends Enum {
   constructor(name, position, opts) {
@@ -9,4 +9,4 @@ class Timezone extends Enum {
     });
   }
 }
-module.exports = Timezone;
+export default Timezone;

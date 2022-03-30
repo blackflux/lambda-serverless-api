@@ -1,5 +1,5 @@
-const Joi = require('joi-strict');
-const { Plugin } = require('../plugin');
+import Joi from 'joi-strict';
+import { Plugin } from '../plugin.js';
 
 class PreResponse extends Plugin {
   constructor(options) {
@@ -21,4 +21,4 @@ class PreResponse extends Plugin {
     await this.preResponse(kwargs);
   }
 }
-module.exports = PreResponse;
+export default PreResponse;

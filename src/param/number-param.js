@@ -1,5 +1,5 @@
-const Joi = require('joi-strict');
-const Json = require('./json');
+import Joi from 'joi-strict';
+import Json from './json.js';
 
 class NumberParam extends Json {
   constructor(name, position, opts = {}) {
@@ -23,4 +23,4 @@ class NumberParam extends Json {
     return super.get(event);
   }
 }
-module.exports = NumberParam;
+export default NumberParam;

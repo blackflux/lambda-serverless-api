@@ -1,9 +1,9 @@
-const assert = require('assert');
-const set = require('lodash.set');
-const get = require('lodash.get');
-const { wrap: wrapAsync } = require('lambda-async');
+import assert from 'assert';
+import set from 'lodash.set';
+import get from 'lodash.get';
+import { wrap as lambdaAsyncWrap } from 'lambda-async';
 
-const asApiGatewayResponse = (resp, stringifyJson = true) => {
+export const asApiGatewayResponse = (resp, stringifyJson = true) => {
   if (get(resp, 'isApiResponse') !== true) {
     throw resp;
   }
@@ -34,9 +34,8 @@ const asApiGatewayResponse = (resp, stringifyJson = true) => {
     ...(isBinaryResponse ? { isBase64Encoded: true } : {})
   };
 };
-module.exports.asApiGatewayResponse = asApiGatewayResponse;
 
-module.exports.wrap = ({
+export const wrap = ({
   handler,
   request,
   route,
@@ -103,8 +102,8 @@ module.exports.wrap = ({
   return asApiGatewayResponse(kwargs.response);
 };
 
-module.exports.wrapAsync = (handler) => Object.assign(
-  wrapAsync(handler),
+export const wrapAsync = (handler) => Object.assign(
+  lambdaAsyncWrap(handler),
   Object
     .entries(handler)
     .reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {})

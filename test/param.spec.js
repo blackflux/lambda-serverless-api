@@ -1,7 +1,9 @@
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const api = require('../src/index').Api();
-const { identity } = require('./misc');
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import { identity } from './misc.js';
+import { Api } from '../src/index.js';
+
+const api = Api();
 
 describe('Testing Params', () => {
   it('Testing Error for GET And JSON Param', (done) => {
