@@ -1,10 +1,10 @@
-const get = require('lodash.get');
-const difference = require('lodash.difference');
-const Joi = require('joi-strict');
-const { logger } = require('lambda-monitor-logger');
-const { viaRouter } = require('../logic/symbols');
-const { Plugin } = require('../plugin');
-const { ApiError } = require('../response');
+import get from 'lodash.get';
+import difference from 'lodash.difference';
+import Joi from 'joi-strict';
+import { logger } from 'lambda-monitor-logger';
+import { symbols } from '../logic/symbols.js';
+import { Plugin } from '../plugin.js';
+import { ApiError } from '../response/api-error.js';
 
 class Validator extends Plugin {
   constructor(options) {
@@ -60,7 +60,7 @@ class Validator extends Plugin {
       return;
     }
 
-    if (event[viaRouter] !== true) {
+    if (event[symbols.viaRouter] !== true) {
       const matched = router.recognize(event.httpMethod, get(event, 'path', ''));
       if (matched === undefined || matched[0].handler.route !== request.route) {
         const routeSubstituted = request.route
@@ -95,4 +95,4 @@ class Validator extends Plugin {
     }
   }
 }
-module.exports = Validator;
+export default Validator;

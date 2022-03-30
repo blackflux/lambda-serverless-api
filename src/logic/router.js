@@ -1,12 +1,12 @@
-const get = require('lodash.get');
-const Router = require('route-recognizer');
-const { viaRouter } = require('./symbols');
-const apiGateway = require('./api-gateway');
-const { ApiError } = require('../response');
+import get from 'lodash.get';
+import RouteRecognizer from 'route-recognizer';
+import { symbols } from './symbols.js';
+import * as apiGateway from './api-gateway.js';
+import { ApiError } from '../response/api-error.js';
 
-module.exports.Router = ({ module }) => {
+export const Router = ({ module }) => {
   const router = (() => {
-    const routerRec = new Router();
+    const routerRec = new RouteRecognizer();
     return {
       register: (route, handler) => routerRec.add([{
         path: route.split(/[\s/]/g).map((e) => e.replace(
@@ -49,7 +49,7 @@ module.exports.Router = ({ module }) => {
       })(event, context);
     }
     Object.assign(event, { pathParameters: matchedRoutes[0].params });
-    Object.defineProperty(event, viaRouter, { value: true, writable: false });
+    Object.defineProperty(event, symbols.viaRouter, { value: true, writable: false });
     return matchedRoutes[0].handler(event, context);
   };
   handler.isRouter = true;

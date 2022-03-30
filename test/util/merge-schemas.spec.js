@@ -1,6 +1,6 @@
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const mergeSchemas = require('../../src/util/merge-schemas');
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import mergeSchemas from '../../src/util/merge-schemas.js';
 
 describe('Testing merge-schemas.js', () => {
   it('Testing multi-option-path target throws error', () => {

@@ -1,4 +1,4 @@
-class ApiError extends Error {
+export class ApiErrorClass extends Error {
   constructor(message, statusCode = 400, messageId = undefined, context = undefined) {
     super(message);
     this.name = this.constructor.name;
@@ -12,5 +12,4 @@ class ApiError extends Error {
     this.isApiError = true;
   }
 }
-module.exports.ApiErrorClass = ApiError;
-module.exports.ApiError = (...args) => new ApiError(...args);
+export const ApiError = (...args) => new ApiErrorClass(...args);

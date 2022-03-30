@@ -1,15 +1,17 @@
-const path = require('path');
-const expect = require('chai').expect;
-const fs = require('smart-fs');
-const { describe } = require('node-tdd');
-const moment = require('moment-timezone');
-const api = require('../../src/index').Api();
+import fs from 'smart-fs';
+import path from 'path';
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import moment from 'moment-timezone';
+import { Api } from '../../src/index.js';
+
+const api = Api();
 
 describe('Testing Timezone Parameter', () => {
   it('Testing to have an updated timezones list', () => {
     expect(
-      fs.smartWrite(path.join(__dirname, '..', '..', 'src', 'resources', 'timezones.js'), [
-        'module.exports = [',
+      fs.smartWrite(path.join(fs.dirname(import.meta.url), '..', '..', 'src', 'resources', 'timezones.js'), [
+        'export default [',
         ...moment.tz.names()
           .map((t, i, arr) => (arr.length - 1 === i
             ? `  '${t}'`

@@ -1,6 +1,6 @@
-const assert = require('assert');
-const Joi = require('joi-strict');
-const List = require('./list');
+import assert from 'assert';
+import Joi from 'joi-strict';
+import List from './list.js';
 
 class JsonList extends List {
   constructor(name, position, opts) {
@@ -23,4 +23,4 @@ class JsonList extends List {
     return valid;
   }
 }
-module.exports = JsonList;
+export default JsonList;

@@ -3,7 +3,7 @@
   "success": true,
   "timestamp": 1682569226,
   "timeout": 2000,
-  "env": {
+  "envVars": {
     "FORCE_SUNSET": "1"
   },
   "expect": {

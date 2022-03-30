@@ -1,7 +1,7 @@
-const get = require('lodash.get');
-const Joi = require('joi-strict');
-const { Plugin } = require('../plugin');
-const { ApiResponse } = require('../response');
+import get from 'lodash.get';
+import Joi from 'joi-strict';
+import { Plugin } from '../plugin.js';
+import { ApiResponse } from '../response/api-response.js';
 
 class Robots extends Plugin {
   constructor(options) {
@@ -28,4 +28,4 @@ class Robots extends Plugin {
     return ApiResponse(this.response);
   }
 }
-module.exports = Robots;
+export default Robots;

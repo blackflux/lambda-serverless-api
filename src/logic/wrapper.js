@@ -1,9 +1,9 @@
-const assert = require('assert');
-const Joi = require('joi-strict');
-const apiGateway = require('./api-gateway');
-const { VERSION_REGEX } = require('../resources/format');
+import assert from 'assert';
+import Joi from 'joi-strict';
+import * as apiGateway from './api-gateway.js';
+import { VERSION_REGEX } from '../resources/format.js';
 
-module.exports.Wrapper = ({ router, module }) => {
+export const Wrapper = ({ router, module }) => {
   const endpoints = {};
 
   const wrapFn = (identifier, params, ...args) => {

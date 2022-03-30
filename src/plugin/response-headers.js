@@ -1,7 +1,7 @@
-const get = require('lodash.get');
-const set = require('lodash.set');
-const Joi = require('joi-strict');
-const { Plugin } = require('../plugin');
+import get from 'lodash.get';
+import set from 'lodash.set';
+import Joi from 'joi-strict';
+import { Plugin } from '../plugin.js';
 
 const headers = {
   date: () => new Date().toUTCString(),
@@ -39,4 +39,4 @@ class ResponseHeaders extends Plugin {
     });
   }
 }
-module.exports = ResponseHeaders;
+export default ResponseHeaders;

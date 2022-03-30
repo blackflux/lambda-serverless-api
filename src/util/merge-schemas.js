@@ -1,6 +1,6 @@
-const Joi = require('joi-strict');
+import Joi from 'joi-strict';
 
-module.exports = (schemas) => {
+export default (schemas) => {
   const collisions = Object
     .entries(schemas
       .reduce((p, c) => {

@@ -1,6 +1,6 @@
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const Storage = require('../../src/util/storage');
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import Storage from '../../src/util/storage.js';
 
 describe('Testing storage.js', {
   useNock: true,

@@ -1,6 +1,6 @@
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const Limiter = require('../../src/util/limiter');
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import Limiter from '../../src/util/limiter.js';
 
 describe('Testing limiter.js', {
   timestamp: 1598115247,

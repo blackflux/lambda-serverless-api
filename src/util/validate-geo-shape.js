@@ -1,5 +1,5 @@
-const polygon = require('turf-polygon');
-const kinks = require('@turf/kinks').default;
+import polygon from 'turf-polygon';
+import kinks from '@turf/kinks';
 
 const isDirectional = (arr, clockwise) => {
   let result = (arr[arr.length - 1][1] * arr[0][0]) - (arr[0][1] * arr[arr.length - 1][0]);
@@ -9,7 +9,7 @@ const isDirectional = (arr, clockwise) => {
   return clockwise ? result > 0 : result < 0;
 };
 
-module.exports = ({ geoShape, clockwise, relaxed }) => {
+export default ({ geoShape, clockwise, relaxed }) => {
   // check direction
   if (clockwise !== undefined && !isDirectional(geoShape, clockwise)) {
     return false;

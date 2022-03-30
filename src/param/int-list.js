@@ -1,5 +1,5 @@
-const assert = require('assert');
-const NumberList = require('./number-list');
+import assert from 'assert';
+import NumberList from './number-list.js';
 
 class IntList extends NumberList {
   constructor(name, position, opts = {}) {
@@ -25,4 +25,4 @@ class IntList extends NumberList {
     return valid;
   }
 }
-module.exports = IntList;
+export default IntList;

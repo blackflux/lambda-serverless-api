@@ -1,6 +1,6 @@
-const get = require('lodash.get');
-const Joi = require('joi-strict');
-const { Plugin } = require('../plugin');
+import get from 'lodash.get';
+import Joi from 'joi-strict';
+import { Plugin } from '../plugin.js';
 
 class Router extends Plugin {
   constructor(options) {
@@ -27,4 +27,4 @@ class Router extends Plugin {
     }
   }
 }
-module.exports = Router;
+export default Router;

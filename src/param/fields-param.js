@@ -1,8 +1,8 @@
-const assert = require('assert');
-const get = require('lodash.get');
-const difference = require('lodash.difference');
-const objectFields = require('object-fields');
-const Str = require('./str');
+import assert from 'assert';
+import get from 'lodash.get';
+import difference from 'lodash.difference';
+import objectFields from 'object-fields';
+import Str from './str.js';
 
 class FieldsParam extends Str {
   static evaluatePaths(fields) {
@@ -56,4 +56,4 @@ class FieldsParam extends Str {
     return result;
   }
 }
-module.exports = FieldsParam;
+export default FieldsParam;

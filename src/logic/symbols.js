@@ -1,3 +1,3 @@
-module.exports.symbols = {
+export const symbols = {
   viaRouter: Symbol('via_router')
 };
