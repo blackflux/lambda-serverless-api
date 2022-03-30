@@ -96,5 +96,7 @@
     "swagger-parser": "10.0.3",
     "turf-polygon": "1.0.3"
   },
-  "peerDependencies": {}
+  "peerDependencies": {
+    "aws-sdk": "^2.1001.0"
+  }
 }
