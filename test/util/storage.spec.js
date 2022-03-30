@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { describe } from 'node-tdd';
+import AWS from 'aws-sdk';
 import Storage from '../../src/util/storage.js';
 
 describe('Testing storage.js', {
@@ -18,21 +19,21 @@ describe('Testing storage.js', {
   });
 
   it('Testing storage with bucket', async () => {
-    const storage = Storage('bucket');
+    const storage = Storage(AWS.S3, 'bucket');
     await storage.set(key, data);
     const result = await storage.list(prefix);
     expect(result).to.deep.equal([key]);
   });
 
   it('Testing storage with memory', async () => {
-    const storage = Storage(null);
+    const storage = Storage(AWS.S3, null);
     await storage.set(key, data);
     const result = await storage.list(prefix);
     expect(result).to.deep.equal([key]);
   });
 
   it('Testing storage with memory different prefix', async () => {
-    const storage = Storage(null);
+    const storage = Storage(AWS.S3, null);
     await storage.set(key, data);
     const result = await storage.list('test');
     expect(result).to.deep.equal([]);

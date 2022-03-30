@@ -8,9 +8,11 @@ const generateInterval = (identifier) => `${identifier}/${
   new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '/')
 }`;
 
-export default ({ bucket, globalLimit, defaultRouteLimit }) => {
+export default ({
+  S3, bucket, globalLimit, defaultRouteLimit
+}) => {
   const memoryCache = new LRU({ maxAge: 60 * 1000 });
-  const storage = Storage(bucket);
+  const storage = Storage(S3, bucket);
 
   return async ({
     identifier,

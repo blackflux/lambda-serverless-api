@@ -576,7 +576,7 @@ aws-sdk-wrap@12.0.1:
     object-scan "18.0.0"
     promise-pool-ext "2.1.2"
 
-aws-sdk@^2.4.0:
+aws-sdk@2.1104.0, aws-sdk@^2.4.0:
   version "2.1104.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1104.0.tgz#254f9c50490d9c704c0ba1e6eb650da51526eb54"
   integrity sha512-MQbjCtU+1el6XkHcOgC+FYTEdC/dQvG6Qn5kO3EbPmVKctMRjuEXYzpRB+vTYR+iZbdJYBE7A6EEthdg3iQkbA==
