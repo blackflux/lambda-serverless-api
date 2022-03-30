@@ -1,8 +1,9 @@
-const get = require('lodash.get');
-const set = require('lodash.set');
-const Joi = require('joi-strict');
-const { Plugin } = require('../plugin');
-const { ApiResponse, ApiError } = require('../response');
+import get from 'lodash.get';
+import set from 'lodash.set';
+import Joi from 'joi-strict';
+import { Plugin } from '../plugin.js';
+import { ApiError } from '../response/api-error.js';
+import { ApiResponse } from '../response/api-response.js';
 
 const extractOrigins = (allowedOrigins, kwargs) => (Array.isArray(allowedOrigins)
   ? allowedOrigins
@@ -102,4 +103,4 @@ class Cors extends Plugin {
     }
   }
 }
-module.exports = Cors;
+export default Cors;

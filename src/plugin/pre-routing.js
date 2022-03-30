@@ -1,5 +1,5 @@
-const Joi = require('joi-strict');
-const { Plugin } = require('../plugin');
+import Joi from 'joi-strict';
+import { Plugin } from '../plugin.js';
 
 class PreRouting extends Plugin {
   constructor(options) {
@@ -21,4 +21,4 @@ class PreRouting extends Plugin {
     await this.preRouting(kwargs);
   }
 }
-module.exports = PreRouting;
+export default PreRouting;

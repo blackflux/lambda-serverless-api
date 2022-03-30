@@ -1,6 +1,6 @@
-const assert = require('assert');
-const Joi = require('joi-strict');
-const Str = require('./str');
+import assert from 'assert';
+import Joi from 'joi-strict';
+import Str from './str.js';
 
 class Schema extends Str {
   constructor(name, position, opts) {
@@ -18,4 +18,4 @@ class Schema extends Str {
     return valid;
   }
 }
-module.exports = Schema;
+export default Schema;

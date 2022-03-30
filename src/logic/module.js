@@ -1,14 +1,40 @@
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
-const get = require('lodash.get');
+import assert from 'assert';
+import get from 'lodash.get';
+import AutoPrune from '../plugin/auto-prune.js';
+import Cors from '../plugin/cors.js';
+import Logger from '../plugin/logger.js';
+import ParamParser from '../plugin/param-parser.js';
+import PreLogic from '../plugin/pre-logic.js';
+import PreProcessor from '../plugin/pre-processor.js';
+import PreResponse from '../plugin/pre-response.js';
+import PreRouting from '../plugin/pre-routing.js';
+import PreValidation from '../plugin/pre-validation.js';
+import RateLimit from '../plugin/rate-limit.js';
+import ResponseHeaders from '../plugin/response-headers.js';
+import Robots from '../plugin/robots.js';
+import Router from '../plugin/router.js';
+import Validator from '../plugin/validator.js';
+import Versioning from '../plugin/versioning.js';
 
-class Module {
-  constructor(pluginPath, options) {
-    const plugins = fs
-      .readdirSync(pluginPath)
-      // eslint-disable-next-line import/no-dynamic-require,global-require
-      .map((pluginFile) => require(path.join(pluginPath, pluginFile)))
+export class Module {
+  constructor(options) {
+    const plugins = [
+      AutoPrune,
+      Cors,
+      Logger,
+      ParamParser,
+      PreLogic,
+      PreProcessor,
+      PreResponse,
+      PreRouting,
+      PreValidation,
+      RateLimit,
+      ResponseHeaders,
+      Robots,
+      Router,
+      Validator,
+      Versioning
+    ]
       .sort((P1, P2) => (P1.weight() - P2.weight()) || P1.name.localeCompare(P2.name))
       .map((P) => [P, P.schema()]);
     this.schemas = plugins.map(([_, schema]) => schema);
@@ -72,4 +98,3 @@ class Module {
     return this.executeAsync('afterSuccess', kwargs);
   }
 }
-module.exports.Module = Module;

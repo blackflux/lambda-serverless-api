@@ -1,7 +1,7 @@
-const assert = require('assert');
-const get = require('lodash.get');
-const JsonList = require('./json-list');
-const { genSchema } = require('../util/geo-poly');
+import assert from 'assert';
+import get from 'lodash.get';
+import JsonList from './json-list.js';
+import { genSchema } from '../util/geo-poly.js';
 
 class GeoPolyList extends JsonList {
   constructor(name, position, opts = {}) {
@@ -20,4 +20,4 @@ class GeoPolyList extends JsonList {
     this.items = { type: 'array', items: { type: 'array' } };
   }
 }
-module.exports = GeoPolyList;
+export default GeoPolyList;

@@ -1,9 +1,9 @@
-const assert = require('assert');
-const Joi = require('joi-strict');
-const validateGeoShape = require('./validate-geo-shape');
-const { genSchema: genSchemaGeoPoint } = require('./geo-point');
+import assert from 'assert';
+import Joi from 'joi-strict';
+import validateGeoShape from './validate-geo-shape.js';
+import { genSchema as genSchemaGeoPoint } from './geo-point.js';
 
-module.exports.genSchema = ({
+export const genSchema = ({
   maxPoints, clockwise, relaxed, maxPrecision
 }) => {
   assert(relaxed === undefined || typeof relaxed === 'boolean');

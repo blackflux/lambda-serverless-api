@@ -1,14 +1,14 @@
-const crypto = require('crypto');
-const objectHash = require('object-hash-strict');
-const LRU = require('lru-cache-ext');
+import crypto from 'crypto';
+import objectHash from 'object-hash-strict';
+import LRU from 'lru-cache-ext';
 
-const Storage = require('./storage');
+import Storage from './storage.js';
 
 const generateInterval = (identifier) => `${identifier}/${
   new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '/')
 }`;
 
-module.exports = ({ bucket, globalLimit, defaultRouteLimit }) => {
+export default ({ bucket, globalLimit, defaultRouteLimit }) => {
   const memoryCache = new LRU({ maxAge: 60 * 1000 });
   const storage = Storage(bucket);
 

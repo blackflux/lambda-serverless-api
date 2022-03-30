@@ -1,7 +1,7 @@
-const assert = require('assert');
-const get = require('lodash.get');
-const Abstract = require('./_abstract');
-const escapeRegExp = require('../util/escape-reg-exp');
+import assert from 'assert';
+import get from 'lodash.get';
+import Abstract from './_abstract.js';
+import escapeRegExp from '../util/escape-reg-exp.js';
 
 const rejectedStrings = [
   '',
@@ -68,4 +68,4 @@ class Str extends Abstract {
     return valid;
   }
 }
-module.exports = Str;
+export default Str;

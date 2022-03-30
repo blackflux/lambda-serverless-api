@@ -1,12 +1,12 @@
-const fs = require('smart-fs');
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const api = require('../../src');
-const testApi = require('../handler').internalApi;
+import fs from 'smart-fs';
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import * as api from '../../src/index.js';
+import { internalApi as testApi } from '../handler.js';
 
 describe('Testing Swagger', () => {
   it('Updating Swagger File with API definitions.', async () => {
-    const swaggerFile = `${__filename}_output.yml`;
+    const swaggerFile = `${fs.filename(import.meta.url)}_output.yml`;
     const swaggerContent = await testApi.generateSwagger();
     const result = fs.smartWrite(swaggerFile, swaggerContent);
     expect(result, 'Swagger file updated').to.equal(false);

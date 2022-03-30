@@ -1,13 +1,12 @@
-const path = require('path');
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const { Plugin } = require('../src/plugin');
-const { Module } = require('../src/logic/module');
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import { Plugin } from '../src/plugin.js';
+import { Module } from '../src/logic/module.js';
 
 describe('Testing Plugin', () => {
   let module;
   before(() => {
-    module = new Module(path.join(__dirname, '..', 'src', 'plugin'), {});
+    module = new Module({});
   });
 
   it('Testing Abstract Plugin Definition', async ({ fixture }) => {

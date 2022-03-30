@@ -1,4 +1,4 @@
-class ApiResponse {
+export class ApiResponseClass {
   constructor(payload, statusCode = 200, headers = {}) {
     this.payload = payload;
     this.statusCode = statusCode;
@@ -12,5 +12,4 @@ class ApiResponse {
     this.isApiError = false;
   }
 }
-module.exports.ApiResponseClass = ApiResponse;
-module.exports.ApiResponse = (...args) => new ApiResponse(...args);
+export const ApiResponse = (...args) => new ApiResponseClass(...args);

@@ -1,5 +1,5 @@
-const Joi = require('joi-strict');
-const { Plugin } = require('../plugin');
+import Joi from 'joi-strict';
+import { Plugin } from '../plugin.js';
 
 class AutoPrune extends Plugin {
   // eslint-disable-next-line no-useless-constructor
@@ -34,4 +34,4 @@ class AutoPrune extends Plugin {
     }
   }
 }
-module.exports = AutoPrune;
+export default AutoPrune;

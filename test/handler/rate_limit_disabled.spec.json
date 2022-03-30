@@ -1,5 +1,5 @@
 {
-  "env": {
+  "envVars": {
     "RATE_LIMIT_ENABLED": "false"
   },
   "handler": "json",

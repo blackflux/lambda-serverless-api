@@ -1,1 +1,1 @@
-module.exports.identity = (api) => (args) => api.JsonResponse(args);
+export const identity = (api) => (args) => api.JsonResponse(args);

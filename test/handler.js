@@ -1,6 +1,8 @@
-const request = require('request-promise');
-const Joi = require('joi-strict');
-const api = require('../src/index').Api({
+import request from 'request-promise';
+import Joi from 'joi-strict';
+import { Api } from '../src/index.js';
+
+const api = Api({
   cors: {
     allowedHeaders: [
       'X-Requested-With',
@@ -37,7 +39,7 @@ const limit = process.env.RATE_LIMIT === undefined
   ? undefined
   : parseInt(process.env.RATE_LIMIT, 10);
 
-module.exports.deprecated = api.wrap('GET deprecated', [], () => {
+export const deprecated = api.wrap('GET deprecated', [], () => {
   const date = new Date();
   const headers = {
     deprecation: `date="${date.toUTCString()}"`,
@@ -46,37 +48,37 @@ module.exports.deprecated = api.wrap('GET deprecated', [], () => {
   return api.JsonResponse(JSON.parse(JSON.stringify(headers)), 200, headers);
 });
 
-module.exports.error = api.wrap('GET error', [], () => {
+export const error = api.wrap('GET error', [], () => {
   throw api.ApiError('Some Error', 400, 2341);
 });
 
-module.exports.exception = api.wrap('GET exception', [], { limit: null }, () => {
+export const exception = api.wrap('GET exception', [], { limit: null }, () => {
   throw Error('Some Exception');
 });
 
-module.exports.deprecation = api.wrap('GET deprecation', [], {
+export const deprecation = api.wrap('GET deprecation', [], {
   deprecated: '1.0.1'
 }, () => api.ApiResponse(''));
 
-module.exports.versioning = api.wrap('GET versioning', [], {
+export const versioning = api.wrap('GET versioning', [], {
   versioning: false
 }, () => api.ApiResponse(''));
 
-module.exports.text = api
+export const text = api
   .wrap('GET text', [], () => api.ApiResponse('some text', 200, { 'some-header': 123 }));
 
-module.exports.json = api
+export const json = api
   .wrap('GET json', [], { limit }, () => api.JsonResponse({ some: 'json' }));
 
-module.exports.echo = api.wrap('GET echo', [
+export const echo = api.wrap('GET echo', [
   api.Str('name', 'query')
 ], { limit }, ({ name }) => api.JsonResponse({ name }));
 
-module.exports.proxy = api.wrap('GET proxy/{proxy+}', [
+export const proxy = api.wrap('GET proxy/{proxy+}', [
   api.Str('proxy+', 'path')
-], ({ proxy }) => api.JsonResponse({ path: proxy }));
+], ({ proxy: p }) => api.JsonResponse({ path: p }));
 
-module.exports.param = api.wrap('POST param', [
+export const param = api.wrap('POST param', [
   api.Str('username', 'json'),
   api.Email('email', 'json', { required: false }),
   api.Str('ref', 'query', { required: false }),
@@ -136,7 +138,7 @@ module.exports.param = api.wrap('POST param', [
   })
 ], (params) => api.JsonResponse(params));
 
-module.exports.param2 = api.wrap('POST param2', [
+export const param2 = api.wrap('POST param2', [
   api.Str('username', 'json', { required: false }),
   api.Email('email', 'json', { required: false, nullable: true }),
   api.Str('X-Custom-Header', 'header', { required: false })
@@ -146,16 +148,16 @@ module.exports.param2 = api.wrap('POST param2', [
   xCustomHeader = null
 }) => api.JsonResponse({ username, email, xCustomHeader }));
 
-module.exports.internalApi = api;
+export const internalApi = api;
 
-module.exports.pathParam = api.wrap('POST path/{param}', [
+export const pathParam = api.wrap('POST path/{param}', [
   api.Str('param', 'path')
-], ({ param }) => api.JsonResponse({ param }));
+], ({ param: p }) => api.JsonResponse({ param: p }));
 
-module.exports.binary = api.wrap('GET binary', [], () => api.BinaryResponse(Buffer.from('test', 'utf8')));
+export const binary = api.wrap('GET binary', [], () => api.BinaryResponse(Buffer.from('test', 'utf8')));
 
-module.exports.path = api.wrap('GET some/path', [], () => api.JsonResponse({}));
+export const path = api.wrap('GET some/path', [], () => api.JsonResponse({}));
 
-module.exports.options = api.wrap('OPTIONS some/path', [], () => api.ApiResponse(''));
+export const options = api.wrap('OPTIONS some/path', [], () => api.ApiResponse(''));
 
-module.exports.router = api.router;
+export const router = api.router;

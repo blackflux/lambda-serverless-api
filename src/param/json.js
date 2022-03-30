@@ -1,6 +1,6 @@
-const assert = require('assert');
-const Joi = require('joi-strict');
-const Abstract = require('./_abstract');
+import assert from 'assert';
+import Joi from 'joi-strict';
+import Abstract from './_abstract.js';
 
 class Json extends Abstract {
   constructor(name, position, opts) {
@@ -35,4 +35,4 @@ class Json extends Abstract {
     return this.stringInput ? JSON.parse(result) : result;
   }
 }
-module.exports = Json;
+export default Json;

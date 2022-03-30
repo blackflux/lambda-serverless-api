@@ -1,5 +1,5 @@
-const assert = require('assert');
-const Abstract = require('./_abstract');
+import assert from 'assert';
+import Abstract from './_abstract.js';
 
 class List extends Abstract {
   constructor(name, position, opts = {}) {
@@ -51,4 +51,4 @@ class List extends Abstract {
     return this.stringInput ? JSON.parse(result) : result;
   }
 }
-module.exports = List;
+export default List;

@@ -1,10 +1,10 @@
-const assert = require('assert');
-const get = require('lodash.get');
-const Joi = require('joi-strict');
+import assert from 'assert';
+import get from 'lodash.get';
+import Joi from 'joi-strict';
 
-const { ApiError } = require('../response');
-const { Plugin } = require('../plugin');
-const Limiter = require('../util/limiter');
+import { ApiError } from '../response/api-error.js';
+import { Plugin } from '../plugin.js';
+import Limiter from '../util/limiter.js';
 
 class RateLimit extends Plugin {
   constructor(options) {
@@ -72,4 +72,4 @@ class RateLimit extends Plugin {
     }
   }
 }
-module.exports = RateLimit;
+export default RateLimit;

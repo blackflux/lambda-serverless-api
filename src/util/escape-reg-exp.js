@@ -1,1 +1,1 @@
-module.exports = (s) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+export default (s) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');

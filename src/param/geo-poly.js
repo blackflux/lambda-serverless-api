@@ -1,7 +1,7 @@
-const assert = require('assert');
-const get = require('lodash.get');
-const Json = require('./json');
-const { genSchema } = require('../util/geo-poly');
+import assert from 'assert';
+import get from 'lodash.get';
+import Json from './json.js';
+import { genSchema } from '../util/geo-poly.js';
 
 class GeoPoly extends Json {
   constructor(name, position, opts = {}) {
@@ -20,4 +20,4 @@ class GeoPoly extends Json {
     this.items = { type: 'array', items: { type: 'array' } };
   }
 }
-module.exports = GeoPoly;
+export default GeoPoly;

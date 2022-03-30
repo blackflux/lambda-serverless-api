@@ -1,6 +1,6 @@
-const Joi = require('joi-strict');
-const { Plugin } = require('../plugin');
-const toCamelCase = require('../util/to-camel-case');
+import Joi from 'joi-strict';
+import { Plugin } from '../plugin.js';
+import toCamelCase from '../util/to-camel-case.js';
 
 class ParamParser extends Plugin {
   // eslint-disable-next-line no-useless-constructor
@@ -31,4 +31,4 @@ class ParamParser extends Plugin {
     });
   }
 }
-module.exports = ParamParser;
+export default ParamParser;

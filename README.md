@@ -33,7 +33,9 @@ Define api and handlers in `handler.js` as follows:
 
 <!-- eslint-disable import/no-unresolved -->
 ```js
-const api = require('lambda-serverless-api').Api({/* options */});
+import { Api } from 'lambda-serverless-api';
+
+const api = Api({/* options */});
 
 api.wrap('POST register', [
   api.Str('name', 'json', { required: false }),
@@ -47,7 +49,7 @@ api.wrap('POST register', [
   return api.JsonResponse({ message: 'Success!' });
 });
 
-module.exports = api;
+export default api;
 ```
 
 then hook the router endpoint into the [Serverless Framework](https://serverless.com/) configuration as
@@ -164,7 +166,7 @@ Default: `null`
 <!-- eslint-disable no-undef, no-console -->
 ```javascript
 /* { "name": "  John   "} */
-module.exports = api.wrap('POST name', [
+export default api.wrap('POST name', [
   api.Str('name', 'json', true, { getter: (input, params) => input.trim() })
 ], ({ name }) => {
   console.log(name); // "John"
@@ -217,11 +219,11 @@ _Example_
 
 <!-- eslint-disable import/no-extraneous-dependencies,no-undef -->
 ```js
-const fs = require('smart-fs');
-const path = require('path');
+import fs from 'smart-fs';
+import path from 'path';
 
 const updateSwagger = async () => {
-  const swaggerFile = path.join(__dirname, '..', 'swagger.yml');
+  const swaggerFile = path.join(fs.dirname(import.meta.url), '..', 'swagger.yml');
   const swaggerContent = await api.generateSwagger();
   const result = fs.smartWrite(swaggerFile, swaggerContent);
   expect(result, 'Swagger file updated').to.equal(false);

@@ -1,5 +1,5 @@
-const assert = require('assert');
-const List = require('./list');
+import assert from 'assert';
+import List from './list.js';
 
 class StrList extends List {
   constructor(name, position, opts = {}) {
@@ -39,4 +39,4 @@ class StrList extends List {
     return valid;
   }
 }
-module.exports = StrList;
+export default StrList;

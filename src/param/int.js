@@ -1,5 +1,5 @@
-const assert = require('assert');
-const Abstract = require('./_abstract');
+import assert from 'assert';
+import Abstract from './_abstract.js';
 
 class Int extends Abstract {
   constructor(name, position, opts = {}) {
@@ -35,4 +35,4 @@ class Int extends Abstract {
     return this.stringInput ? Number(result) : result;
   }
 }
-module.exports = Int;
+export default Int;
