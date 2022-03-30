@@ -19,6 +19,7 @@
     "@babel/register": "7.17.7",
     "@blackflux/eslint-plugin-rules": "2.1.0",
     "@blackflux/robo-config-plugin": "7.4.2",
+    "aws-sdk": "2.1104.0",
     "c8": "7.11.0",
     "chai": "4.3.6",
     "coveralls": "3.1.1",
@@ -95,8 +96,5 @@
     "route-recognizer": "0.3.4",
     "swagger-parser": "10.0.3",
     "turf-polygon": "1.0.3"
-  },
-  "peerDependencies": {
-    "aws-sdk": "^2.1001.0"
   }
 }

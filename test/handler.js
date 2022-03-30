@@ -1,5 +1,6 @@
 import request from 'request-promise';
 import Joi from 'joi-strict';
+import AWS from 'aws-sdk';
 import { Api } from '../src/index.js';
 
 const api = Api({
@@ -30,7 +31,8 @@ const api = Api({
     }
   },
   rateLimit: {
-    enabled: process.env.RATE_LIMIT_ENABLED === 'true'
+    enabled: process.env.RATE_LIMIT_ENABLED === 'true',
+    S3: AWS.S3
   },
   preLogic: () => {}
 });
