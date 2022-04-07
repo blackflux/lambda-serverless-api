@@ -15,7 +15,11 @@ const api = Api({
     ],
     allowedOrigins: [
       'https://test.com'
-    ]
+    ],
+    responseHeaders: {
+      'Cache-Control': 'public, max-age=86400',
+      Vary: 'Origin'
+    }
   },
   logger: {
     redactSuccess: ['event.requestContext.identity.cognito*']
