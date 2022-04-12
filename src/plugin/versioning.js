@@ -5,7 +5,7 @@ import Joi from 'joi-strict';
 import pv from 'painless-version';
 import { logger } from 'lambda-monitor-logger';
 import { Plugin } from '../plugin.js';
-import { ApiError } from '../response/api-error.js';
+import { ApiErrorFn } from '../response/api-error.js';
 import { VERSION_REGEX } from '../resources/format.js';
 import Enum from '../param/enum.js';
 
@@ -60,23 +60,23 @@ const VersionManager = ({
       }
       const apiVersion = event.headers[apiVersionHeader.toLowerCase()];
       if (apiVersion === undefined) {
-        throw ApiError(`Required header "${apiVersionHeader}" missing`, 403);
+        throw ApiErrorFn(`Required header "${apiVersionHeader}" missing`, 403);
       }
       if (!VERSION_REGEX.test(apiVersion)) {
-        throw ApiError(`Invalid value "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
+        throw ApiErrorFn(`Invalid value "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
       }
       if (versions[apiVersion] === undefined) {
-        throw ApiError(`Unknown version "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
+        throw ApiErrorFn(`Unknown version "${apiVersion}" for header "${apiVersionHeader}" provided`, 403);
       }
       const deprecated = get(request, 'options.deprecated');
       if (deprecated !== undefined && pv.test(`${deprecated} <= ${apiVersion}`)) {
-        throw ApiError(`Endpoint deprecated since version "${deprecated}"`, 403);
+        throw ApiErrorFn(`Endpoint deprecated since version "${deprecated}"`, 403);
       }
       const apiVersionMeta = versions[apiVersion];
       if (apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
         onSunset({ request, event });
         if (forceSunset === true) {
-          throw ApiError(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
+          throw ApiErrorFn(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
         }
       }
       set(context, contextKey, cloneDeep(apiVersionMeta));

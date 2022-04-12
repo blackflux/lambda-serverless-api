@@ -2,7 +2,7 @@ import assert from 'assert';
 import get from 'lodash.get';
 import Joi from 'joi-strict';
 
-import { ApiError } from '../response/api-error.js';
+import { ApiErrorFn } from '../response/api-error.js';
 import { Plugin } from '../plugin.js';
 import Limiter from '../util/limiter.js';
 
@@ -66,7 +66,7 @@ class RateLimit extends Plugin {
         routeLimit
       });
     } catch (e) {
-      const err = ApiError('Rate limit exceeded.', 429);
+      const err = ApiErrorFn('Rate limit exceeded.', 429);
       err.headers = {
         'X-Rate-Limit-Reset': 60 - new Date().getSeconds()
       };

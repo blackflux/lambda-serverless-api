@@ -1,7 +1,7 @@
 import get from 'lodash.get';
 import Joi from 'joi-strict';
 import { Plugin } from '../plugin.js';
-import { ApiResponse } from '../response/api-response.js';
+import { ApiResponseFn } from '../response/api-response.js';
 
 class Robots extends Plugin {
   constructor(options) {
@@ -25,7 +25,7 @@ class Robots extends Plugin {
     if (event.path !== '/robots.txt' || event.httpMethod !== 'GET') {
       return null;
     }
-    return ApiResponse(this.response);
+    return ApiResponseFn(this.response);
   }
 }
 export default Robots;

@@ -1,6 +1,6 @@
 import Joi from 'joi-strict';
 import { Plugin } from '../plugin.js';
-import { ApiError } from '../response/api-error.js';
+import { ApiErrorFn } from '../response/api-error.js';
 import objectAsLowerCase from '../util/object-rekey-lower-case.js';
 
 class PreProcessor extends Plugin {
@@ -32,7 +32,7 @@ class PreProcessor extends Plugin {
         Object.assign(event, { body: JSON.parse(event.body) });
       }
     } catch (e) {
-      throw ApiError('Invalid Json Body detected.', 400, 99001, {
+      throw ApiErrorFn('Invalid Json Body detected.', 400, 99001, {
         value: event.body
       });
     }

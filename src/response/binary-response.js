@@ -1,9 +1,9 @@
-import { ApiResponseClass } from './api-response.js';
+import { ApiResponse } from './api-response.js';
 
-export class BinaryResponseClass extends ApiResponseClass {
+export class BinaryResponse extends ApiResponse {
   constructor(...args) {
     super(...args);
     this.isBinaryResponse = true;
   }
 }
-export const BinaryResponse = (...args) => new BinaryResponseClass(...args);
+export const BinaryResponseFn = (...args) => new BinaryResponse(...args);
