@@ -2,8 +2,8 @@ import get from 'lodash.get';
 import set from 'lodash.set';
 import Joi from 'joi-strict';
 import { Plugin } from '../plugin.js';
-import { ApiError } from '../response/api-error.js';
-import { ApiResponse } from '../response/api-response.js';
+import { ApiErrorFn } from '../response/api-error.js';
+import { ApiResponseFn } from '../response/api-response.js';
 
 const compile = (staticOrFn, kwargs) => (typeof staticOrFn === 'function' ? staticOrFn(kwargs) : staticOrFn);
 
@@ -44,15 +44,15 @@ class Cors extends Plugin {
       accessControlRequestMethod,
       accessControlRequestHeaders
     ].some((h) => h === undefined)) {
-      throw ApiError('Required header missing', 403);
+      throw ApiErrorFn('Required header missing', 403);
     }
 
     const allowedOrigins = await compile(this.allowedOrigins, kwargs);
     if (!allowedOrigins.includes(origin) && !allowedOrigins.includes('*')) {
-      throw ApiError('Origin not allowed', 403);
+      throw ApiErrorFn('Origin not allowed', 403);
     }
     if (!router.recognize(accessControlRequestMethod, get(event, 'path', ''))) {
-      throw ApiError('Method not allowed', 403);
+      throw ApiErrorFn('Method not allowed', 403);
     }
     const allowedHeaders = [
       'Content-Type',
@@ -62,10 +62,10 @@ class Cors extends Plugin {
     ].map((h) => h.toLowerCase());
     if (!accessControlRequestHeaders.split(',').map((h) => h
       .trim().toLowerCase()).every((h) => allowedHeaders.includes(h))) {
-      throw ApiError('Header not allowed', 403);
+      throw ApiErrorFn('Header not allowed', 403);
     }
 
-    return ApiResponse('', 200, {
+    return ApiResponseFn('', 200, {
       'Access-Control-Allow-Origin': origin,
       'Access-Control-Allow-Headers': allowedHeaders.join(','),
       'Access-Control-Allow-Methods': accessControlRequestMethod,

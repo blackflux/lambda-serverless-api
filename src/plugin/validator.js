@@ -4,7 +4,7 @@ import Joi from 'joi-strict';
 import { logger } from 'lambda-monitor-logger';
 import { symbols } from '../logic/symbols.js';
 import { Plugin } from '../plugin.js';
-import { ApiError } from '../response/api-error.js';
+import { ApiErrorFn } from '../response/api-error.js';
 
 class Validator extends Plugin {
   constructor(options) {
@@ -70,7 +70,7 @@ class Validator extends Plugin {
           'Server Configuration Error: Bad Routing',
           `Expected route to match "${routeSubstituted}"`
         ].join('\n'));
-        throw ApiError('Server Configuration Error.', 400, 99006);
+        throw ApiErrorFn('Server Configuration Error.', 400, 99006);
       }
     }
 
@@ -79,7 +79,7 @@ class Validator extends Plugin {
       request.params.filter((p) => p.position === 'query').map((p) => p.name)
     );
     if (invalidQsParams.length !== 0) {
-      throw ApiError('Invalid Query Param(s) detected.', 400, 99004, {
+      throw ApiErrorFn('Invalid Query Param(s) detected.', 400, 99004, {
         value: invalidQsParams
       });
     }
@@ -89,7 +89,7 @@ class Validator extends Plugin {
       request.params.filter((p) => p.position === 'json').map((p) => p.name)
     );
     if (invalidJsonParams.length !== 0) {
-      throw ApiError('Invalid Json Body Param(s) detected.', 400, 99005, {
+      throw ApiErrorFn('Invalid Json Body Param(s) detected.', 400, 99005, {
         value: invalidJsonParams
       });
     }

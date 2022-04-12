@@ -1,6 +1,6 @@
 import assert from 'assert';
 import get from 'lodash.get';
-import { ApiError } from '../response/api-error.js';
+import { ApiErrorFn } from '../response/api-error.js';
 
 const positionMapping = {
   query: 'queryStringParameters',
@@ -45,14 +45,14 @@ class Abstract {
     }`);
     if (result === undefined) {
       if (this.required) {
-        throw ApiError(`Required ${this.position}-Parameter "${this.name}" missing.`, 400, 99002);
+        throw ApiErrorFn(`Required ${this.position}-Parameter "${this.name}" missing.`, 400, 99002);
       }
     } else if (result === null) {
       if (this.nullable !== true) {
-        throw ApiError(`Non-nullable ${this.position}-Parameter "${this.name}" is null.`, 400, 99006);
+        throw ApiErrorFn(`Non-nullable ${this.position}-Parameter "${this.name}" is null.`, 400, 99006);
       }
     } else if (!this.validate(result)) {
-      throw ApiError(`Invalid Value for ${this.position}-Parameter "${this.name}" provided.`, 400, 99003, {
+      throw ApiErrorFn(`Invalid Value for ${this.position}-Parameter "${this.name}" provided.`, 400, 99003, {
         value: result
       });
     }

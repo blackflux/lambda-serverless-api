@@ -6,20 +6,20 @@ import swagger from './logic/swagger.js';
 import mergeSchemas from './util/merge-schemas.js';
 
 import {
-  ApiError as ApiError_,
-  ApiErrorClass as ApiErrorClass_
+  ApiErrorFn,
+  ApiError as ApiErrorClass_
 } from './response/api-error.js';
 import {
-  ApiResponse as ApiResponse_,
-  ApiResponseClass as ApiResponseClass_
+  ApiResponseFn,
+  ApiResponse as ApiResponseClass_
 } from './response/api-response.js';
 import {
-  JsonResponse as JsonResponse_,
-  JsonResponseClass as JsonResponseClass_
+  JsonResponseFn,
+  JsonResponse as JsonResponseClass_
 } from './response/json-response.js';
 import {
-  BinaryResponse as BinaryResponse_,
-  BinaryResponseClass as BinaryResponseClass_
+  BinaryResponseFn,
+  BinaryResponse as BinaryResponseClass_
 } from './response/binary-response.js';
 
 import StrClass from './param/str.js';
@@ -49,13 +49,13 @@ import GeoShapeClass from './param/geo-shape.js';
 import GeoShapeListClass from './param/geo-shape-list.js';
 import NumberParamClass from './param/number-param.js';
 
-export const ApiError = ApiError_;
+export const ApiError = ApiErrorFn;
 export const ApiErrorClass = ApiErrorClass_;
-export const ApiResponse = ApiResponse_;
+export const ApiResponse = ApiResponseFn;
 export const ApiResponseClass = ApiResponseClass_;
-export const JsonResponse = JsonResponse_;
+export const JsonResponse = JsonResponseFn;
 export const JsonResponseClass = JsonResponseClass_;
-export const BinaryResponse = BinaryResponse_;
+export const BinaryResponse = BinaryResponseFn;
 export const BinaryResponseClass = BinaryResponseClass_;
 
 export const Str = (...args) => new StrClass(...args);
