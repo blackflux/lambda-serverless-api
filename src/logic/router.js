@@ -2,7 +2,7 @@ import get from 'lodash.get';
 import RouteRecognizer from 'route-recognizer';
 import { symbols } from './symbols.js';
 import * as apiGateway from './api-gateway.js';
-import { ApiError } from '../response/api-error.js';
+import { ApiErrorFn } from '../response/api-error.js';
 
 export const Router = ({ module }) => {
   const router = (() => {
@@ -39,7 +39,7 @@ export const Router = ({ module }) => {
             router
           });
           if (resp === null) {
-            throw ApiError('Method / Route not allowed', 403);
+            throw ApiErrorFn('Method / Route not allowed', 403);
           }
           return resp;
         },

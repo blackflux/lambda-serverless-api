@@ -1,9 +1,9 @@
-import { ApiResponseClass } from './api-response.js';
+import { ApiResponse } from './api-response.js';
 
-export class JsonResponseClass extends ApiResponseClass {
+export class JsonResponse extends ApiResponse {
   constructor(...args) {
     super(...args);
     this.isJsonResponse = true;
   }
 }
-export const JsonResponse = (...args) => new JsonResponseClass(...args);
+export const JsonResponseFn = (...args) => new JsonResponse(...args);

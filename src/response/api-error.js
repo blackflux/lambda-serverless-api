@@ -1,7 +1,6 @@
-export class ApiErrorClass extends Error {
+export class ApiError extends Error {
   constructor(message, statusCode = 400, messageId = undefined, context = undefined) {
     super(message);
-    this.name = 'ApiError';
     Error.captureStackTrace(this, this.constructor);
     this.statusCode = statusCode;
     this.headers = {};
@@ -12,4 +11,4 @@ export class ApiErrorClass extends Error {
     this.isApiError = true;
   }
 }
-export const ApiError = (...args) => new ApiErrorClass(...args);
+export const ApiErrorFn = (...args) => new ApiError(...args);
