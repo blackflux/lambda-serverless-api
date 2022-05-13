@@ -31,7 +31,13 @@ export default ({
     }
     const [keys] = await Promise.all([
       storage.list(interval),
-      storage.set(`${prefix}${crypto.randomBytes(16).toString('hex')}.json.gz`, data)
+      storage.set(`${prefix}${
+        data?.event?.requestContext?.requestId === undefined
+          ? crypto.randomBytes(16)
+          : crypto.createHash('md5').update(
+            data?.event?.requestContext?.requestId
+          ).digest('hex')
+      }.json.gz`, data)
     ]);
     if (keys.length >= globalLimit) {
       memoryCache.set(interval, true);
