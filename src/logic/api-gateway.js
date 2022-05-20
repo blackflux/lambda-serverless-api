@@ -117,7 +117,7 @@ export const wrapAsync = (handler) => {
       }, {
         stripLineBreaks: false,
         replace: [
-          [path.join(fs.dirname(import.meta.url), '..'), '<root>'],
+          [path.join(fs.dirname(import.meta.url), '..', '..'), '<root>'],
           [process.env.TEST_SEED, '<seed>']
         ]
       })

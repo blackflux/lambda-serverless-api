@@ -10,7 +10,7 @@
   },
   "logs": {
     "to.deep.equal()": [
-      "WARNING: GET exception: Some Exception\n{ context: 'lambda-serverless-api',\n  route: 'GET exception',\n  error:\n   Error: Some Exception\n       at file:///home/vinc/Code/blackflux/lambda-serverless-api/test/handler.js?id=<seed>:62:9\n       at Array.<anonymous> (file://<root>/logic/api-gateway.js?id=<seed>:77:14)\n       at async file://<root>/logic/api-gateway.js?id=<seed>:95:25 }"
+      "WARNING: GET exception: Some Exception\n{ context: 'lambda-serverless-api',\n  route: 'GET exception',\n  error:\n   Error: Some Exception\n       at file://<root>/test/handler.js?id=<seed>:62:9\n       at Array.<anonymous> (file://<root>/src/logic/api-gateway.js?id=<seed>:77:14)\n       at async file://<root>/src/logic/api-gateway.js?id=<seed>:95:25 }"
     ]
   },
   "event": {

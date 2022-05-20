@@ -11,7 +11,7 @@
   },
   "logs": {
     "to.deep.equal()": [
-      "WARNING: POST param: Request Method Mismatch\n{ context: 'lambda-serverless-api',\n  route: 'POST param',\n  error:\n   Error: Request Method Mismatch\n       at Validator.before (file://<root>/plugin/validator.js:56:13)\n       at Module.executeAsync (file://<root>/logic/module.js?id=<seed>:49:49)\n       at async Array.<anonymous> (file://<root>/logic/api-gateway.js?id=<seed>:75:20)\n       at async file://<root>/logic/api-gateway.js?id=<seed>:95:25 }"
+      "WARNING: POST param: Request Method Mismatch\n{ context: 'lambda-serverless-api',\n  route: 'POST param',\n  error:\n   Error: Request Method Mismatch\n       at Validator.before (file://<root>/src/plugin/validator.js:56:13)\n       at Module.executeAsync (file://<root>/src/logic/module.js?id=<seed>:49:49)\n       at async Array.<anonymous> (file://<root>/src/logic/api-gateway.js?id=<seed>:75:20)\n       at async file://<root>/src/logic/api-gateway.js?id=<seed>:95:25 }"
     ]
   },
   "event": {
