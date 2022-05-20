@@ -109,7 +109,7 @@ export const wrap = ({
 export const wrapAsync = (handler) => {
   const h = (...kwargs) => handler(...kwargs).catch((error) => {
     logger.warn([
-      `Exception: ${error.message}`,
+      `${handler.route}: ${error.message}`,
       abbrev({
         context: 'lambda-serverless-api',
         route: handler.route,
