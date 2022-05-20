@@ -6,7 +6,7 @@ import { expect } from 'chai';
 import { describe } from 'node-tdd';
 import LambdaTdd from 'lambda-tdd';
 import * as api from '../src/index.js';
-import { stripHeaders, flush, modifiers } from './handler.conf.js';
+import { stripHeaders, modifiers } from './handler.conf.js';
 
 LambdaTdd({
   cwd: path.join(fs.dirname(import.meta.url), '..'),
@@ -21,7 +21,6 @@ LambdaTdd({
   envVarYmlRecording: path.join(fs.dirname(import.meta.url), 'env.recording.yml'),
   testFolder: path.join(fs.dirname(import.meta.url), 'handler'),
   stripHeaders,
-  flush,
   modifiers
 }).execute();
 

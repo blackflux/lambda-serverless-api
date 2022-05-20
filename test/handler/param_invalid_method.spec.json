@@ -6,7 +6,9 @@
     "to.equal()": "Request Method Mismatch"
   },
   "logs": {
-    "to.deep.equal()": []
+    "to.deep.equal()": [
+      "WARNING: Request Method Mismatch\n{ context: 'lambda-serverless-api',\n  plugin: 'Validator',\n  error:\n   Error: Request Method Mismatch\n       at Validator.before (file://<root>/plugin/validator.js:56:13)\n       at Module.executeAsync (file://<root>/logic/module.js?id=<seed>:72:49)\n       at async Array.<anonymous> (file://<root>/logic/api-gateway.js:71:20)\n       at async file://<root>/logic/api-gateway.js:91:25 }"
+    ]
   },
   "event": {
     "httpMethod": "GET",

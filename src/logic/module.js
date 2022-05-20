@@ -1,5 +1,8 @@
 import assert from 'assert';
+import path from 'path';
 import get from 'lodash.get';
+import fs from 'smart-fs';
+import { logger, abbrev } from 'lambda-monitor-logger';
 import AutoPrune from '../plugin/auto-prune.js';
 import Cors from '../plugin/cors.js';
 import Logger from '../plugin/logger.js';
@@ -15,6 +18,26 @@ import Robots from '../plugin/robots.js';
 import Router from '../plugin/router.js';
 import Validator from '../plugin/validator.js';
 import Versioning from '../plugin/versioning.js';
+
+const handleError = (error, plugin) => {
+  if (!error.isApiResponse) {
+    logger.warn([
+      error.message,
+      abbrev({
+        context: 'lambda-serverless-api',
+        plugin: plugin.constructor.name,
+        error
+      }, {
+        stripLineBreaks: false,
+        replace: [
+          [path.join(fs.dirname(import.meta.url), '..'), '<root>'],
+          [process.env.TEST_SEED, '<seed>']
+        ]
+      })
+    ].join('\n'));
+  }
+  throw error;
+};
 
 export class Module {
   constructor(options) {
@@ -46,7 +69,8 @@ export class Module {
     this.executeAsync = async (fn, kwargs) => {
       for (let idx = 0; idx < this.plugins.length; idx += 1) {
         // eslint-disable-next-line no-await-in-loop
-        const resp = await this.plugins[idx][fn](kwargs);
+        const resp = await this.plugins[idx][fn](kwargs)
+          .catch((error) => handleError(error, this.plugins[idx]));
         if (![null, undefined].includes(resp)) {
           return resp;
         }
@@ -55,8 +79,12 @@ export class Module {
     };
     this.executeSync = (fn, kwargs) => {
       for (let idx = 0; idx < this.plugins.length; idx += 1) {
-        const resp = this.plugins[idx][fn](kwargs);
-        assert(resp === undefined, 'Plugin must not return from this function');
+        try {
+          const resp = this.plugins[idx][fn](kwargs);
+          assert(resp === undefined, 'Plugin must not return from this function');
+        } catch (error) {
+          handleError(error, this.plugins[idx]);
+        }
       }
       return null;
     };

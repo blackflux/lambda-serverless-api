@@ -11,7 +11,10 @@ const generateInterval = (identifier) => `${identifier}/${
 export default ({
   S3, bucket, globalLimit, defaultRouteLimit
 }) => {
-  const memoryCache = new LRU({ maxAge: 60 * 1000 });
+  const memoryCache = new LRU({
+    ttl: 60 * 1000,
+    max: 10000
+  });
   const storage = Storage(S3, bucket);
 
   return async ({
