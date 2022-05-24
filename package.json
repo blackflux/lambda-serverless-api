@@ -93,6 +93,7 @@
     "object-scan": "18.0.1",
     "painless-version": "2.0.1",
     "route-recognizer": "0.3.4",
+    "serialize-error": "11.0.0",
     "smart-fs": "3.0.1",
     "swagger-parser": "10.0.3",
     "turf-polygon": "1.0.3"
