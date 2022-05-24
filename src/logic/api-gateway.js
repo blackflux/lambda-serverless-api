@@ -3,7 +3,8 @@ import assert from 'assert';
 import set from 'lodash.set';
 import get from 'lodash.get';
 import { wrap as lambdaAsyncWrap } from 'lambda-async';
-import { abbrev, logger } from 'lambda-monitor-logger';
+import { logger } from 'lambda-monitor-logger';
+import { serializeError } from 'serialize-error';
 
 export const asApiGatewayResponse = (resp, stringifyJson = true) => {
   if (get(resp, 'isApiResponse') !== true) {
@@ -38,13 +39,13 @@ export const asApiGatewayResponse = (resp, stringifyJson = true) => {
 };
 
 export const wrap = ({
-  handler,
-  request,
-  route,
-  router,
-  module,
-  params = []
-}) => async (event, context) => {
+                       handler,
+                       request,
+                       route,
+                       router,
+                       module,
+                       params = []
+                     }) => async (event, context) => {
   if (!event.httpMethod) {
     return Promise.resolve('OK - No API Gateway call detected.');
   }
@@ -108,14 +109,11 @@ export const wrapAsync = (handler) => {
   const h = (...kwargs) => handler(...kwargs).catch((error) => {
     logger.warn([
       `${handler.route}: ${error.message}`,
-      abbrev(
-        {
-          context: 'lambda-serverless-api',
-          route: handler.route,
-          error
-        },
-        { stripLineBreaks: false }
-      )
+      JSON.stringify({
+        context: 'lambda-serverless-api',
+        route: handler.route,
+        error: serializeError(error)
+      })
     ].join('\n'));
     return {
       statusCode: 500,
