@@ -1,12 +1,18 @@
 {
   "handler": "param",
-  "success": false,
+  "success": true,
   "timeout": 2000,
-  "expect(message)": {
-    "to.equal()": "Request Method Mismatch"
+  "timestamp": "2022-05-20T22:21:19.535Z",
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 500,
+      "body": "{\"message\":\"Internal Server Error\"}"
+    }
   },
   "logs": {
-    "to.deep.equal()": []
+    "to.deep.equal()": [
+      "WARNING: POST param: Request Method Mismatch\n{ context: 'lambda-serverless-api',\n  route: 'POST param',\n  error:\n   Error: Request Method Mismatch\n       at Validator.before (file://<root>/src/plugin/validator.js:56:13)\n       at Module.executeAsync (file://<root>/src/logic/module.js?id=<seed>:49:49)\n       at async Array.<anonymous> (file://<root>/src/logic/api-gateway.js?id=<seed>:75:20)\n       at async file://<root>/src/logic/api-gateway.js?id=<seed>:95:25 }"
+    ]
   },
   "event": {
     "httpMethod": "GET",

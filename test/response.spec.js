@@ -264,8 +264,8 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
       httpMethod: 'GET',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
     }, {}, (err, resp) => {
-      expect(err).to.equal(error);
-      expect(resp).to.equal(undefined);
+      expect(err).to.equal(null);
+      expect(resp).to.deep.equal({ statusCode: 500, body: '{"message":"Internal Server Error"}' });
       done();
     });
   });

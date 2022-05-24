@@ -1,9 +1,18 @@
 {
   "handler": "json",
-  "success": false,
+  "success": true,
   "timeout": 2000,
-  "expect(message)": {
-    "to.equal": "Rate limit identifier not found\n{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"path\":\"/json\"}"
+  "timestamp": "2022-05-20T22:21:19.535Z",
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 500,
+      "body": "{\"message\":\"Internal Server Error\"}"
+    }
+  },
+  "logs": {
+    "to.deep.equal()": [
+      "WARNING: GET json: Rate limit identifier not found\n{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"path\":\"/json\"}\n{ context: 'lambda-serverless-api',\n  route: 'GET json',\n  error:\n   Error: Rate limit identifier not found\n   {\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"path\":\"/json\"}\n       at RateLimit.before (file://<root>/src/plugin/rate-limit.js?id=<seed>:58:13)\n       at Module.executeAsync (file://<root>/src/logic/module.js?id=<seed>:49:49)\n       at async Array.<anonymous> (file://<root>/src/logic/api-gateway.js?id=<seed>:75:20)\n       at async file://<root>/src/logic/api-gateway.js?id=<seed>:95:25 }"
+    ]
   },
   "event": {
     "httpMethod": "GET",

@@ -1,12 +1,17 @@
 {
   "handler": "exception",
-  "success": false,
+  "success": true,
   "timeout": 2000,
-  "expect(message)": {
-    "to.deep.equal()": "Some Exception"
+  "expect": {
+    "to.deep.equal()": {
+      "statusCode": 500,
+      "body": "{\"message\":\"Internal Server Error\"}"
+    }
   },
   "logs": {
-    "to.deep.equal()": []
+    "to.deep.equal()": [
+      "WARNING: GET exception: Some Exception\n{ context: 'lambda-serverless-api',\n  route: 'GET exception',\n  error:\n   Error: Some Exception\n       at file://<root>/test/handler.js?id=<seed>:62:9\n       at Array.<anonymous> (file://<root>/src/logic/api-gateway.js?id=<seed>:77:14)\n       at async file://<root>/src/logic/api-gateway.js?id=<seed>:95:25 }"
+    ]
   },
   "event": {
     "httpMethod": "GET",

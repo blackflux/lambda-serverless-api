@@ -5,7 +5,10 @@ import AwsSdkWrap from 'aws-sdk-wrap';
 
 export default (S3, bucket) => {
   assert(bucket === null || typeof bucket === 'string');
-  const memoryStorage = new LRU({ maxAge: 60 * 1000 });
+  const memoryStorage = new LRU({
+    ttl: 60 * 1000,
+    max: 10000
+  });
   const useMemory = bucket === null;
 
   const { s3 } = AwsSdkWrap({

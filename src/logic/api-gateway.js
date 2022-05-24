@@ -1,7 +1,11 @@
+/* load-hot */
 import assert from 'assert';
+import path from 'path';
 import set from 'lodash.set';
 import get from 'lodash.get';
 import { wrap as lambdaAsyncWrap } from 'lambda-async';
+import { abbrev, logger } from 'lambda-monitor-logger';
+import fs from 'smart-fs';
 
 export const asApiGatewayResponse = (resp, stringifyJson = true) => {
   if (get(resp, 'isApiResponse') !== true) {
@@ -102,9 +106,31 @@ export const wrap = ({
   return asApiGatewayResponse(kwargs.response);
 };
 
-export const wrapAsync = (handler) => Object.assign(
-  lambdaAsyncWrap(handler),
-  Object
-    .entries(handler)
-    .reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {})
-);
+export const wrapAsync = (handler) => {
+  const h = (...kwargs) => handler(...kwargs).catch((error) => {
+    logger.warn([
+      `${handler.route}: ${error.message}`,
+      abbrev({
+        context: 'lambda-serverless-api',
+        route: handler.route,
+        error
+      }, {
+        stripLineBreaks: false,
+        replace: [
+          [path.join(fs.dirname(import.meta.url), '..', '..'), '<root>'],
+          [process.env.TEST_SEED, '<seed>']
+        ]
+      })
+    ].join('\n'));
+    return {
+      statusCode: 500,
+      body: '{"message":"Internal Server Error"}'
+    };
+  });
+  return Object.assign(
+    lambdaAsyncWrap(h),
+    Object
+      .entries(handler)
+      .reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {})
+  );
+};
