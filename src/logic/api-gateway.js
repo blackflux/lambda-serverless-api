@@ -39,13 +39,13 @@ export const asApiGatewayResponse = (resp, stringifyJson = true) => {
 };
 
 export const wrap = ({
-                       handler,
-                       request,
-                       route,
-                       router,
-                       module,
-                       params = []
-                     }) => async (event, context) => {
+  handler,
+  request,
+  route,
+  router,
+  module,
+  params = []
+}) => async (event, context) => {
   if (!event.httpMethod) {
     return Promise.resolve('OK - No API Gateway call detected.');
   }
