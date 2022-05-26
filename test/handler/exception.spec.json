@@ -10,7 +10,7 @@
   },
   "logs": {
     "to.deep.equal()": [
-      "WARNING: GET exception: Some Exception\n{\"context\":\"lambda-serverless-api\",\"route\":\"GET exception\",\"error\":{\"name\":\"Error\",\"message\":\"Some Exception\",\"stack\":\"Error: Some Exception\\n    at file://<root>/test/handler.js?id=<seed>:62:9\\n    at Array.<anonymous> (file://<root>/src/logic/api-gateway.js?id=<seed>:76:14)\\n    at async file://<root>/src/logic/api-gateway.js?id=<seed>:94:25\"}}"
+      "WARNING: Some Exception: GET exception\n{\"context\":\"lambda-serverless-api\",\"route\":\"GET exception\",\"error\":{\"name\":\"Error\",\"message\":\"Some Exception\",\"stack\":\"Error: Some Exception\\n    at file://<root>/test/handler.js?id=<seed>:62:9\\n    at Array.<anonymous> (file://<root>/src/logic/api-gateway.js?id=<seed>:76:14)\\n    at async file://<root>/src/logic/api-gateway.js?id=<seed>:94:25\"}}"
     ]
   },
   "event": {
