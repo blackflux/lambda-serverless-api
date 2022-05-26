@@ -6,6 +6,8 @@ import { wrap as lambdaAsyncWrap } from 'lambda-async';
 import { logger } from 'lambda-monitor-logger';
 import { serializeError } from 'serialize-error';
 
+const getErrorMessage = (error) => String(get(error, 'message', 'Exception')).split('\n')[0];
+
 export const asApiGatewayResponse = (resp, stringifyJson = true) => {
   if (get(resp, 'isApiResponse') !== true) {
     throw resp;
@@ -108,7 +110,7 @@ export const wrap = ({
 export const wrapAsync = (handler) => {
   const h = (...kwargs) => handler(...kwargs).catch((error) => {
     logger.warn([
-      `${handler.route}: ${error.message}`,
+      `${getErrorMessage(error)}: ${handler.route}`,
       JSON.stringify({
         context: 'lambda-serverless-api',
         route: handler.route,
