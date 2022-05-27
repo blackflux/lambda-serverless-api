@@ -15,7 +15,8 @@ class Abstract {
     required = true,
     nullable = false,
     normalize = true,
-    getter = null
+    getter = null,
+    lowercase = false
   } = {}) {
     assert(Object.keys(positionMapping).includes(position), `Unknown Parameter Position: ${position}`);
     assert(
@@ -29,6 +30,7 @@ class Abstract {
     this.required = required;
     this.nullable = nullable;
     this.normalize = normalize;
+    this.lowercase = lowercase;
     this.getter = getter;
     this.type = null;
   }
@@ -38,7 +40,7 @@ class Abstract {
   }
 
   get(event) {
-    const result = get(event, `${positionMapping[this.position]}.${
+    let result = get(event, `${positionMapping[this.position]}.${
       this.position === 'header'
         ? this.name.toLowerCase()
         : this.name
@@ -56,18 +58,23 @@ class Abstract {
         value: result
       });
     }
-    const r = this.getter !== null && ![undefined, null].includes(result)
+    result = this.getter !== null && ![undefined, null].includes(result)
       ? (params) => this.getter(result, params)
       : result;
-    if (typeof r !== 'string' || this.normalize === false) {
-      return r;
+    if (typeof result === 'string') {
+      if (this.normalize !== false) {
+        result = result
+          // eslint-disable-next-line no-control-regex
+          .replace(/[\x00-\x09\x0B\x1F\x7F-\x9F]/g, ' ')
+          .replace(/(?<=\s) /g, '')
+          .replace(/ (?=\s)/g, '')
+          .replace(/\s+$|^\s+/g, '');
+      }
+      if (this.lowercase === true) {
+        result = result.toLowerCase();
+      }
     }
-    return r
-      // eslint-disable-next-line no-control-regex
-      .replace(/[\x00-\x09\x0B\x1F\x7F-\x9F]/g, ' ')
-      .replace(/(?<=\s) /g, '')
-      .replace(/ (?=\s)/g, '')
-      .replace(/\s+$|^\s+/g, '');
+    return result;
   }
 }
 
