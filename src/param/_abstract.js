@@ -1,14 +1,6 @@
 import assert from 'assert';
-import get from 'lodash.get';
 import { ApiErrorFn } from '../response/api-error.js';
-
-const positionMapping = {
-  query: ['queryStringParameters', 'query'],
-  json: ['body'],
-  path: ['pathParameters', 'path'],
-  header: ['headers'],
-  identity: ['requestContext.identity', 'identity']
-};
+import { hasPosition, getPosition } from '../lookup.js';
 
 class Abstract {
   constructor(name, position, {
@@ -18,7 +10,7 @@ class Abstract {
     getter = null,
     lowercase = false
   } = {}) {
-    assert(Object.keys(positionMapping).includes(position), `Unknown Parameter Position: ${position}`);
+    assert(hasPosition(position), `Unknown Parameter Position: ${position}`);
     assert(
       nullable === false || ['json', 'identity'].includes(position),
       `Parameter Position cannot be nullable: ${position}`
@@ -40,19 +32,7 @@ class Abstract {
   }
 
   get(event) {
-    let result;
-    const positions = positionMapping[this.position];
-    for (let i = 0; i < positions.length; i += 1) {
-      const path = `${positions[i]}.${
-        this.position === 'header'
-          ? this.name.toLowerCase()
-          : this.name
-      }`;
-      result = get(event, path);
-      if (result !== undefined) {
-        break;
-      }
-    }
+    let result = getPosition(event, this.position, this.name);
     if (result === undefined) {
       if (this.required) {
         throw ApiErrorFn(`Required ${this.position}-Parameter "${this.name}" missing.`, 400, 99002);
