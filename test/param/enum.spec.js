@@ -12,19 +12,11 @@ describe('Testing Enum Parameter', () => {
     });
 
     it('Testing valid query parameter', () => {
-      expect(queryParam.get({
-        queryStringParameters: {
-          value: 'value'
-        }
-      })).to.equal('value');
+      expect(queryParam.get('value')).to.equal('value');
     });
 
     it('Testing invalid query parameter', () => {
-      expect(() => queryParam.get({
-        queryStringParameters: {
-          value: 'invalid'
-        }
-      })).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "value" provided.');
     });
   });
 
@@ -35,19 +27,11 @@ describe('Testing Enum Parameter', () => {
     });
 
     it('Testing valid json parameter', () => {
-      expect(jsonParam.get({
-        body: {
-          value: 'value'
-        }
-      })).to.equal('value');
+      expect(jsonParam.get('value')).to.equal('value');
     });
 
     it('Testing invalid json parameter', () => {
-      expect(() => jsonParam.get({
-        body: {
-          value: 'invalid'
-        }
-      })).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => jsonParam.get('invalid')).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
   });
 });

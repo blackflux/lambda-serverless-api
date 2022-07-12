@@ -3,6 +3,7 @@ import RouteRecognizer from 'route-recognizer';
 import { symbols } from './symbols.js';
 import * as apiGateway from './api-gateway.js';
 import { ApiErrorFn } from '../response/api-error.js';
+import Lookup from '../lookup.js';
 
 export const Router = ({ module }) => {
   const router = (() => {
@@ -35,6 +36,7 @@ export const Router = ({ module }) => {
         handler: async () => {
           const resp = await module.onUnrouted({
             event,
+            lookup: Lookup(event),
             context,
             router
           });

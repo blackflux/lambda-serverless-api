@@ -13,35 +13,19 @@ describe('Testing NumberList Parameter', () => {
   });
 
   it('Testing valid query parameter', () => {
-    expect(queryParam.get({
-      queryStringParameters: {
-        list: '[123.123,345.234]'
-      }
-    })).to.deep.equal([123.123, 345.234]);
+    expect(queryParam.get('[123.123,345.234]')).to.deep.equal([123.123, 345.234]);
   });
 
   it('Testing invalid query parameter', () => {
-    expect(() => queryParam.get({
-      queryStringParameters: {
-        list: 'invalid'
-      }
-    })).to.throw('Invalid Value for query-Parameter "list" provided.');
+    expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "list" provided.');
   });
 
   it('Testing valid json parameter', () => {
-    expect(jsonParam.get({
-      body: {
-        list: [123.123, 345.234]
-      }
-    })).to.deep.equal([123.123, 345.234]);
+    expect(jsonParam.get([123.123, 345.234])).to.deep.equal([123.123, 345.234]);
   });
 
   it('Testing invalid json parameter', () => {
-    expect(() => jsonParam.get({
-      body: {
-        list: ['123', 213]
-      }
-    })).to.throw('Invalid Value for json-Parameter "list" provided.');
+    expect(() => jsonParam.get(['123', 213])).to.throw('Invalid Value for json-Parameter "list" provided.');
   });
 
   describe('Testing optional parameter "minItemValue"', () => {
@@ -53,35 +37,19 @@ describe('Testing NumberList Parameter', () => {
     });
 
     it('Testing invalid min-value of list item in query param', () => {
-      expect(() => queryParamInValidMin.get({
-        queryStringParameters: {
-          list: '[1, 1.2]'
-        }
-      })).to.throw('Invalid Value for query-Parameter "list" provided.');
+      expect(() => queryParamInValidMin.get('[1, 1.2]')).to.throw('Invalid Value for query-Parameter "list" provided.');
     });
 
     it('Testing valid min-value of list item in query param', () => {
-      expect(queryParamInValidMin.get({
-        queryStringParameters: {
-          list: '[1.2, 3]'
-        }
-      })).to.deep.equal([1.2, 3]);
+      expect(queryParamInValidMin.get('[1.2, 3]')).to.deep.equal([1.2, 3]);
     });
 
     it('Testing invalid min-value of list item in json param', () => {
-      expect(() => bodyParamInValidMin.get({
-        body: {
-          list: [1, 1.2]
-        }
-      })).to.throw('Invalid Value for json-Parameter "list" provided.');
+      expect(() => bodyParamInValidMin.get([1, 1.2])).to.throw('Invalid Value for json-Parameter "list" provided.');
     });
 
     it('Testing valid min-value of list item in json param', () => {
-      expect(bodyParamInValidMin.get({
-        body: {
-          list: [1.2, 3]
-        }
-      })).to.deep.equal([1.2, 3]);
+      expect(bodyParamInValidMin.get([1.2, 3])).to.deep.equal([1.2, 3]);
     });
   });
 
@@ -94,35 +62,19 @@ describe('Testing NumberList Parameter', () => {
     });
 
     it('Testing invalid max-value of list item in query param', () => {
-      expect(() => queryParamInValidMax.get({
-        queryStringParameters: {
-          list: '[10.4, 10]'
-        }
-      })).to.throw('Invalid Value for query-Parameter "list" provided.');
+      expect(() => queryParamInValidMax.get('[10.4, 10]')).to.throw('Invalid Value for query-Parameter "list" provided.');
     });
 
     it('Testing valid max-value of list item in query param', () => {
-      expect(queryParamInValidMax.get({
-        queryStringParameters: {
-          list: '[10.3, 9]'
-        }
-      })).to.deep.equal([10.3, 9]);
+      expect(queryParamInValidMax.get('[10.3, 9]')).to.deep.equal([10.3, 9]);
     });
 
     it('Testing invalid max-value of list item in json param', () => {
-      expect(() => bodyParamInValidMax.get({
-        body: {
-          list: [10.4, 10]
-        }
-      })).to.throw('Invalid Value for json-Parameter "list" provided.');
+      expect(() => bodyParamInValidMax.get([10.4, 10])).to.throw('Invalid Value for json-Parameter "list" provided.');
     });
 
     it('Testing valid max-value of list item in json param', () => {
-      expect(bodyParamInValidMax.get({
-        body: {
-          list: [10.3, 9]
-        }
-      })).to.deep.equal([10.3, 9]);
+      expect(bodyParamInValidMax.get([10.3, 9])).to.deep.equal([10.3, 9]);
     });
   });
 });

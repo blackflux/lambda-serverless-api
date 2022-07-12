@@ -15,56 +15,30 @@ describe('Testing Bool Parameter', () => {
   });
 
   it('Testing valid query parameter (true)', () => {
-    expect(queryParam.get({
-      queryStringParameters: {
-        enabled: 'true'
-      }
-    })).to.equal(true);
+    expect(queryParam.get('true')).to.equal(true);
   });
 
   it('Testing valid query parameter (false)', () => {
-    expect(queryParam.get({
-      queryStringParameters: {
-        enabled: 'false'
-      }
-    })).to.equal(false);
+    expect(queryParam.get('false')).to.equal(false);
   });
 
   it('Testing invalid query parameter', () => {
-    expect(() => queryParam.get({
-      queryStringParameters: {
-        enabled: 'invalid'
-      }
-    })).to.throw('Invalid Value for query-Parameter "enabled" provided.');
+    expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "enabled" provided.');
   });
 
   it('Testing valid json parameter (true)', () => {
-    expect(jsonParam.get({
-      body: {
-        enabled: true
-      }
-    })).to.equal(true);
+    expect(jsonParam.get(true)).to.equal(true);
   });
 
   it('Testing valid json parameter (false)', () => {
-    expect(jsonParam.get({
-      body: {
-        enabled: false
-      }
-    })).to.equal(false);
+    expect(jsonParam.get(false)).to.equal(false);
   });
 
   it('Testing invalid json parameter', () => {
-    expect(() => jsonParam.get({
-      body: {
-        enabled: 1
-      }
-    })).to.throw('Invalid Value for json-Parameter "enabled" provided.');
+    expect(() => jsonParam.get(1)).to.throw('Invalid Value for json-Parameter "enabled" provided.');
   });
 
   it('Testing optional, undefined json parameter', () => {
-    expect(jsonParamOptional.get({
-      body: {}
-    })).to.equal(undefined);
+    expect(jsonParamOptional.get(undefined)).to.equal(undefined);
   });
 });

@@ -20,20 +20,20 @@ class PreProcessor extends Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async before({ event }) {
+  async before({ event, lookup }) {
     Object.assign(event, {
-      headers: objectAsLowerCase(event.headers || {}),
-      ...(event.multiValueHeaders !== undefined
-        ? { multiValueHeaders: objectAsLowerCase(event.multiValueHeaders) }
+      headers: objectAsLowerCase(lookup.get('header') || {}),
+      ...(lookup.has('mvheader')
+        ? { [lookup.key('mvheader')]: objectAsLowerCase(lookup.get('mvheader') || {}) }
         : {})
     });
     try {
-      if (event.body !== undefined) {
-        Object.assign(event, { body: JSON.parse(event.body) });
+      if (lookup.has('json')) {
+        Object.assign(event, { [lookup.key('json')]: JSON.parse(lookup.get('json')) });
       }
     } catch (e) {
       throw ApiErrorFn('Invalid Json Body detected.', 400, 99001, {
-        value: event.body
+        value: lookup.get('json')
       });
     }
   }

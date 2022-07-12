@@ -1,4 +1,3 @@
-import get from 'lodash.get';
 import difference from 'lodash.difference';
 import Joi from 'joi-strict';
 import { logger } from 'lambda-monitor-logger';
@@ -50,8 +49,10 @@ class Validator extends Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async before({ router, request, event }) {
-    const receivedRequestMethod = event.httpMethod;
+  async before({
+    router, request, event, lookup
+  }) {
+    const receivedRequestMethod = lookup.get('method');
     if (receivedRequestMethod !== request.method) {
       throw new Error('Request Method Mismatch');
     }
@@ -60,12 +61,17 @@ class Validator extends Plugin {
       return;
     }
 
+    // todo: adjust this file (use dynamic) and find parameters elsewhere in project
+    // ...
     if (event[symbols.viaRouter] !== true) {
-      const matched = router.recognize(event.httpMethod, get(event, 'path', ''));
+      const matched = router.recognize(
+        lookup.get('method'),
+        lookup.get('uri') || ''
+      );
       if (matched === undefined || matched[0].handler.route !== request.route) {
         const routeSubstituted = request.route
           .replace(' ', ' /')
-          .replace(/{([^}]+?)\+?}/g, (_, e) => get(event, ['pathParameters', e]));
+          .replace(/{([^}]+?)\+?}/g, (_, e) => lookup.get('path', e));
         logger.warn([
           'Server Configuration Error: Bad Routing',
           `Expected route to match "${routeSubstituted}"`
@@ -75,7 +81,7 @@ class Validator extends Plugin {
     }
 
     const invalidQsParams = difference(
-      Object.keys(event.queryStringParameters || {}),
+      Object.keys(lookup.get('query') || {}),
       request.params.filter((p) => p.position === 'query').map((p) => p.name)
     );
     if (invalidQsParams.length !== 0) {
@@ -85,7 +91,7 @@ class Validator extends Plugin {
     }
 
     const invalidJsonParams = difference(
-      Object.keys(event.body || {}),
+      Object.keys(lookup.get('json') || {}),
       request.params.filter((p) => p.position === 'json').map((p) => p.name)
     );
     if (invalidJsonParams.length !== 0) {

@@ -15,41 +15,23 @@ describe('Testing IntShort Parameter', () => {
   });
 
   it('Testing valid query parameter', () => {
-    expect(queryParam.get({
-      queryStringParameters: {
-        value: '-43'
-      }
-    })).to.equal(-43);
+    expect(queryParam.get('-43')).to.equal(-43);
   });
 
   it('Testing invalid query parameter', () => {
-    expect(() => queryParam.get({
-      queryStringParameters: {
-        value: 'invalid'
-      }
-    })).to.throw('Invalid Value for query-Parameter "value" provided.');
+    expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "value" provided.');
   });
 
   it('Testing valid json parameter', () => {
-    expect(jsonParam.get({
-      body: {
-        value: -43
-      }
-    })).to.equal(-43);
+    expect(jsonParam.get(-43)).to.equal(-43);
   });
 
   it('Testing invalid json parameter', () => {
-    expect(() => jsonParam.get({
-      body: {
-        value: 'invalid'
-      }
-    })).to.throw('Invalid Value for json-Parameter "value" provided.');
+    expect(() => jsonParam.get('invalid')).to.throw('Invalid Value for json-Parameter "value" provided.');
   });
 
   it('Testing undefined optional json parameter', () => {
-    expect(jsonParamOptional.get({
-      body: {}
-    })).to.equal(undefined);
+    expect(jsonParamOptional.get(undefined)).to.equal(undefined);
   });
 
   describe('Testing "max" limit', () => {
@@ -61,19 +43,11 @@ describe('Testing IntShort Parameter', () => {
     });
 
     it('testing invalid max query parameter', () => {
-      expect(() => queryParamInvalidMax.get({
-        queryStringParameters: {
-          value: '32768'
-        }
-      })).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParamInvalidMax.get('32768')).to.throw('Invalid Value for query-Parameter "value" provided.');
     });
 
     it('testing invalid max json parameter', () => {
-      expect(() => bodyParamInvalidMax.get({
-        body: {
-          value: 32768
-        }
-      })).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => bodyParamInvalidMax.get(32768)).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
   });
 
@@ -86,19 +60,11 @@ describe('Testing IntShort Parameter', () => {
     });
 
     it('testing invalid min query parameter', () => {
-      expect(() => queryParamInvalidMin.get({
-        queryStringParameters: {
-          value: '-32769'
-        }
-      })).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParamInvalidMin.get('-32769')).to.throw('Invalid Value for query-Parameter "value" provided.');
     });
 
     it('testing invalid min json parameter', () => {
-      expect(() => bodyParamInvalidMin.get({
-        body: {
-          value: -32769
-        }
-      })).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => bodyParamInvalidMin.get(-32769)).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
   });
 
@@ -111,19 +77,11 @@ describe('Testing IntShort Parameter', () => {
     });
 
     it('Testing user "max" setting ignored', () => {
-      expect(jsonParamMax.get({
-        body: {
-          value: 11
-        }
-      })).to.equal(11);
+      expect(jsonParamMax.get(11)).to.equal(11);
     });
 
     it('Testing user "min" setting ignored', () => {
-      expect(jsonParamMin.get({
-        body: {
-          value: -11
-        }
-      })).to.equal(-11);
+      expect(jsonParamMin.get(-11)).to.equal(-11);
     });
   });
 });

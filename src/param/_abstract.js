@@ -1,6 +1,8 @@
 import assert from 'assert';
 import { ApiErrorFn } from '../response/api-error.js';
-import { hasPosition, getPosition } from '../lookup.js';
+
+const paramPositions = ['query', 'json', 'path', 'header', 'identity'];
+const objParamPositions = ['json', 'identity'];
 
 class Abstract {
   constructor(name, position, {
@@ -10,7 +12,7 @@ class Abstract {
     getter = null,
     lowercase = false
   } = {}) {
-    assert(hasPosition(position), `Unknown Parameter Position: ${position}`);
+    assert(paramPositions.includes(position), `Unknown Parameter Position: ${position}`);
     assert(
       nullable === false || ['json', 'identity'].includes(position),
       `Parameter Position cannot be nullable: ${position}`
@@ -18,7 +20,7 @@ class Abstract {
     this.nameOriginal = name;
     this.name = name.endsWith('+') ? name.slice(0, name.length - 1) : name;
     this.position = position;
-    this.stringInput = !['json', 'identity'].includes(position);
+    this.stringInput = !objParamPositions.includes(position);
     this.required = required;
     this.nullable = nullable;
     this.normalize = normalize;
@@ -31,8 +33,8 @@ class Abstract {
     return !(this.stringInput && typeof value !== 'string');
   }
 
-  get(event) {
-    let result = getPosition(event, this.position, this.name);
+  get(value) {
+    let result = value;
     if (result === undefined) {
       if (this.required) {
         throw ApiErrorFn(`Required ${this.position}-Parameter "${this.name}" missing.`, 400, 99002);

@@ -16,40 +16,22 @@ describe('Testing Schema Parameter', () => {
   });
 
   it('Testing valid query parameter', () => {
-    expect(queryParam.get({
-      queryStringParameters: {
-        param: 'value'
-      }
-    })).to.equal('value');
+    expect(queryParam.get('value')).to.equal('value');
   });
 
   it('Testing invalid query parameter', () => {
-    expect(() => queryParam.get({
-      queryStringParameters: {
-        param: 'invalid'
-      }
-    })).to.throw('Invalid Value for query-Parameter "param" provided.');
+    expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "param" provided.');
   });
 
   it('Testing valid json parameter', () => {
-    expect(jsonParam.get({
-      body: {
-        param: 'value'
-      }
-    })).to.equal('value');
+    expect(jsonParam.get('value')).to.equal('value');
   });
 
   it('Testing invalid json parameter', () => {
-    expect(() => jsonParam.get({
-      body: {
-        param: 'invalid'
-      }
-    })).to.throw('Invalid Value for json-Parameter "param" provided.');
+    expect(() => jsonParam.get('invalid')).to.throw('Invalid Value for json-Parameter "param" provided.');
   });
 
   it('Testing optional, undefined json parameter', () => {
-    expect(jsonParamOptional.get({
-      body: {}
-    })).to.equal(undefined);
+    expect(jsonParamOptional.get(undefined)).to.equal(undefined);
   });
 });

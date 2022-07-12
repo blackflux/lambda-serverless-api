@@ -19,35 +19,19 @@ describe('Testing FieldsParam Parameter', () => {
   });
 
   it('Testing valid query param', () => {
-    expect(queryParam.get({
-      queryStringParameters: {
-        param: 'id,user.id,user.name'
-      }
-    })).to.deep.equal(['id', 'user.id', 'user.name']);
+    expect(queryParam.get('id,user.id,user.name')).to.deep.equal(['id', 'user.id', 'user.name']);
   });
 
   it('Testing invalid query param', () => {
-    expect(() => queryParam.get({
-      queryStringParameters: {
-        param: 'invalid'
-      }
-    })).to.throw('Invalid Value for query-Parameter "param" provided.');
+    expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "param" provided.');
   });
 
   it('Testing valid json param', () => {
-    expect(jsonParam.get({
-      body: {
-        param: 'id,user.id,user.name'
-      }
-    })).to.deep.equal(['id', 'user.id', 'user.name']);
+    expect(jsonParam.get('id,user.id,user.name')).to.deep.equal(['id', 'user.id', 'user.name']);
   });
 
   it('Testing invalid json param', () => {
-    expect(() => jsonParam.get({
-      body: {
-        param: 'invalid'
-      }
-    })).to.throw('Invalid Value for json-Parameter "param" provided.');
+    expect(() => jsonParam.get('invalid')).to.throw('Invalid Value for json-Parameter "param" provided.');
   });
 
   it('Testing only one autoPrune FieldsParam per request', (done) => {
@@ -60,10 +44,6 @@ describe('Testing FieldsParam Parameter', () => {
   });
 
   it('Testing enforce option', () => {
-    expect(queryParamOptionEnforce.get({
-      queryStringParameters: {
-        param: 'user.id,user.name'
-      }
-    })).to.deep.equal(['user.id', 'user.name', 'id']);
+    expect(queryParamOptionEnforce.get('user.id,user.name')).to.deep.equal(['user.id', 'user.name', 'id']);
   });
 });

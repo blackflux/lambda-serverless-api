@@ -45,11 +45,13 @@ const VersionManager = ({
         request.params.push(new Enum(apiVersionHeader, 'header', { enums: [''], required: false }));
       }
     },
-    storeApiVersionMeta: ({ request, event, context }) => {
+    storeApiVersionMeta: ({
+      request, event, lookup, context
+    }) => {
       if (request.routed === false) {
         return;
       }
-      if (event.httpMethod === 'OPTIONS') {
+      if (lookup.get('method') === 'OPTIONS') {
         return;
       }
       if (apiVersionHeader === undefined) {
@@ -58,7 +60,7 @@ const VersionManager = ({
       if (get(request, ['options', 'versioning']) === false) {
         return;
       }
-      const apiVersion = event.headers[apiVersionHeader.toLowerCase()];
+      const apiVersion = lookup.get('header', apiVersionHeader);
       if (apiVersion === undefined) {
         throw ApiErrorFn(`Required header "${apiVersionHeader}" missing`, 403);
       }

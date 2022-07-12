@@ -15,11 +15,7 @@ describe('Testing GeoRect Parameter', () => {
   });
 
   it('Testing valid query parameter', () => {
-    expect(queryParam.get({
-      queryStringParameters: {
-        geoRect: '[-119.491,49.892,-121.491,49.101]'
-      }
-    })).to.deep.equal([-119.491, 49.892, -121.491, 49.101]);
+    expect(queryParam.get('[-119.491,49.892,-121.491,49.101]')).to.deep.equal([-119.491, 49.892, -121.491, 49.101]);
   });
 
   it('Testing invalid query parameter', () => {
@@ -35,11 +31,7 @@ describe('Testing GeoRect Parameter', () => {
   });
 
   it('Testing valid json parameter', () => {
-    expect(jsonParam.get({
-      body: {
-        geoRect: [-119.491, 49.892, -121.491, 49.101]
-      }
-    })).to.deep.equal([-119.491, 49.892, -121.491, 49.101]);
+    expect(jsonParam.get([-119.491, 49.892, -121.491, 49.101])).to.deep.equal([-119.491, 49.892, -121.491, 49.101]);
   });
 
   it('Testing invalid json parameter', () => {
@@ -55,18 +47,10 @@ describe('Testing GeoRect Parameter', () => {
   });
 
   it('Testing invalid json parameter (relaxed disabled)', () => {
-    expect(() => jsonParam.get({
-      body: {
-        geoRect: [-119.491, 0, -121.491, 0]
-      }
-    })).to.throw('Invalid Value for json-Parameter "geoRect" provided.');
+    expect(() => jsonParam.get([-119.491, 0, -121.491, 0])).to.throw('Invalid Value for json-Parameter "geoRect" provided.');
   });
 
   it('Testing valid json parameter (relaxed enabled)', () => {
-    expect(jsonParamRelaxed.get({
-      body: {
-        geoRect: [-119.491, 0, -121.491, 0]
-      }
-    })).to.deep.equal([-119.491, 0, -121.491, 0]);
+    expect(jsonParamRelaxed.get([-119.491, 0, -121.491, 0])).to.deep.equal([-119.491, 0, -121.491, 0]);
   });
 });

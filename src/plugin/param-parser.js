@@ -19,8 +19,11 @@ class ParamParser extends Plugin {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async before({ request, event, context }) {
-    const paramsPending = request.params.map((curParam) => [toCamelCase(curParam.name), curParam.get(event)]);
+  async before({ request, lookup, context }) {
+    const paramsPending = request.params.map((curParam) => [
+      toCamelCase(curParam.name),
+      curParam.get(lookup.get(curParam.position, curParam.name))
+    ]);
     const paramsPendingObj = paramsPending.reduce((prev, [key, value]) => Object
       .assign(prev, { [key]: value }), {});
     const resolvedParams = await Promise.all(paramsPending

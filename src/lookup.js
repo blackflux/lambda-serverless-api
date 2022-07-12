@@ -1,25 +1,39 @@
-import get from 'lodash.get';
+import assert from 'assert';
+import get_ from 'lodash.get';
 
-const positionMap = {
-  query: ['queryStringParameters', 'query'],
-  json: ['body'],
-  path: ['pathParameters', 'path'],
-  header: ['headers'],
-  identity: ['requestContext.identity', 'identity']
-};
-
-const positionKeys = Object.keys(positionMap);
-
-export const hasPosition = (position) => positionKeys.includes(position);
-export const getPosition = (event, position, key) => {
-  const positions = positionMap[position];
-  for (let i = 0; i < positions.length; i += 1) {
-    const path = positions[i].split('.');
-    path.push(position === 'header' ? key.toLowerCase() : key);
-    const result = get(event, path);
-    if (result !== undefined) {
-      return result;
+export default (event) => {
+  const integration = 'method' in event ? 'lambda' : 'proxy';
+  const lookup = {
+    proxy: {
+      query: 'queryStringParameters',
+      json: 'body',
+      path: 'pathParameters',
+      header: 'headers',
+      mvheader: 'multiValueHeaders',
+      identity: 'requestContext.identity',
+      method: 'httpMethod',
+      uri: 'path'
+    },
+    lambda: {
+      query: 'query',
+      json: 'body',
+      path: 'path',
+      header: 'headers',
+      mvheader: null,
+      identity: 'identity',
+      method: 'method',
+      uri: 'requestPath'
     }
-  }
-  return undefined;
+  }[integration];
+
+  const get = (position, field = null) => {
+    const fullpath = lookup[position].split('.');
+    if (field !== null) {
+      fullpath.push(position === 'header' ? field.toLowerCase() : field);
+    }
+    return get_(event, fullpath);
+  };
+  const has = (position, field = null) => get(position, field) !== undefined;
+  const key = (position) => lookup[position];
+  return { get, has, key };
 };

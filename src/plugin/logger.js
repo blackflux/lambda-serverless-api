@@ -13,6 +13,7 @@ class Logger extends Plugin {
     this.signature = get(options, 'signature', [
       'response.statusCode',
       'response.body.messageId',
+      // todo: fix this
       'event.httpMethod',
       '$ROUTE'
     ]);
@@ -57,7 +58,7 @@ class Logger extends Plugin {
   }
 
   async after({
-    event, context, response, router
+    event, lookup, context, response, router
   }) {
     if (!this.logError && !this.logSuccess) {
       return;
@@ -75,8 +76,13 @@ class Logger extends Plugin {
     const signature = this.signature
       .map((p) => {
         if (p === '$ROUTE') {
-          const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
-          return matchedRoute ? matchedRoute[0].handler.route.split(' ')[1] : get(message, 'event.path');
+          const matchedRoute = router.recognize(
+            lookup.get('method'),
+            lookup.get('uri') || ''
+          );
+          return matchedRoute
+            ? matchedRoute[0].handler.route.split(' ')[1]
+            : lookup.get('uri');
         }
         return get(message, p);
       })

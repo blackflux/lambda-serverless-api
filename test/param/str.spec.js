@@ -12,19 +12,11 @@ describe('Testing Str Parameter', () => {
     });
 
     it('Testing valid query parameter', () => {
-      expect(queryParam.get({
-        queryStringParameters: {
-          value: 'value'
-        }
-      })).to.equal('value');
+      expect(queryParam.get('value')).to.equal('value');
     });
 
     it('Testing invalid query parameter (rejected string)', () => {
-      expect(() => queryParam.get({
-        queryStringParameters: {
-          value: ''
-        }
-      })).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get('')).to.throw('Invalid Value for query-Parameter "value" provided.');
     });
   });
 
@@ -35,32 +27,24 @@ describe('Testing Str Parameter', () => {
     });
 
     it('Testing valid json parameter', () => {
-      expect(jsonParam.get({
-        body: {
-          value: 'value'
-        }
-      })).to.equal('value');
+      expect(jsonParam.get('value')).to.equal('value');
     });
 
     it('Testing invalid json parameter (rejected string)', () => {
-      expect(() => jsonParam.get({
-        body: {
-          value: 'undefined'
-        }
-      })).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => jsonParam.get('undefined')).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
 
     it('Testing normalize', () => {
-      expect(jsonParam.get({ body: { value: 'a  b' } })).to.equal('a b');
-      expect(jsonParam.get({ body: { value: 'a   b' } })).to.equal('a b');
-      expect(jsonParam.get({ body: { value: '  a   b  ' } })).to.equal('a b');
-      expect(jsonParam.get({ body: { value: 'a \n b' } })).to.equal('a\nb');
-      expect(jsonParam.get({ body: { value: 'a \n \n b' } })).to.equal('a\n\nb');
-      expect(jsonParam.get({ body: { value: 'a   \n   \n   b' } })).to.equal('a\n\nb');
-      expect(jsonParam.get({ body: { value: 'a\n\nb' } })).to.equal('a\n\nb');
-      expect(jsonParam.get({ body: { value: 'a \t b' } })).to.equal('a b');
-      expect(jsonParam.get({ body: { value: ' b' } })).to.equal('b');
-      expect(jsonParam.get({ body: { value: 'a ' } })).to.equal('a');
+      expect(jsonParam.get('a  b')).to.equal('a b');
+      expect(jsonParam.get('a   b')).to.equal('a b');
+      expect(jsonParam.get('  a   b  ')).to.equal('a b');
+      expect(jsonParam.get('a \n b')).to.equal('a\nb');
+      expect(jsonParam.get('a \n \n b')).to.equal('a\n\nb');
+      expect(jsonParam.get('a   \n   \n   b')).to.equal('a\n\nb');
+      expect(jsonParam.get('a\n\nb')).to.equal('a\n\nb');
+      expect(jsonParam.get('a \t b')).to.equal('a b');
+      expect(jsonParam.get(' b')).to.equal('b');
+      expect(jsonParam.get('a ')).to.equal('a');
     });
   });
 
@@ -77,49 +61,27 @@ describe('Testing Str Parameter', () => {
     });
 
     it('Testing optional json parameter', () => {
-      expect(jsonParamOptional.get({
-        body: {}
-      })).to.equal(undefined);
+      expect(jsonParamOptional.get(undefined)).to.equal(undefined);
     });
 
     it('Testing relaxed json parameter', () => {
-      expect(jsonParamRelaxed.get({
-        body: {
-          value: 'undefined'
-        }
-      })).to.equal('undefined');
+      expect(jsonParamRelaxed.get('undefined')).to.equal('undefined');
     });
 
     it('Testing minLength json parameter valid', () => {
-      expect(jsonParamMinLength.get({
-        body: {
-          value: 'ab'
-        }
-      })).to.equal('ab');
+      expect(jsonParamMinLength.get('ab')).to.equal('ab');
     });
 
     it('Testing minLength json parameter invalid', () => {
-      expect(() => jsonParamMinLength.get({
-        body: {
-          value: 'a'
-        }
-      })).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => jsonParamMinLength.get('a')).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
 
     it('Testing maxLength json parameter valid', () => {
-      expect(jsonParamMaxLength.get({
-        body: {
-          value: 'a'
-        }
-      })).to.equal('a');
+      expect(jsonParamMaxLength.get('a')).to.equal('a');
     });
 
     it('Testing maxLength json parameter invalid', () => {
-      expect(() => jsonParamMaxLength.get({
-        body: {
-          value: 'ab'
-        }
-      })).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => jsonParamMaxLength.get('ab')).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
   });
 });

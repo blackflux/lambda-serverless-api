@@ -15,11 +15,7 @@ describe('Testing GeoPoint Parameter', () => {
   });
 
   it('Testing valid query parameter', () => {
-    expect(queryParam.get({
-      queryStringParameters: {
-        geoPoint: '[-119.491,49.892]'
-      }
-    })).to.deep.equal([-119.491, 49.892]);
+    expect(queryParam.get('[-119.491,49.892]')).to.deep.equal([-119.491, 49.892]);
   });
 
   it('Testing invalid query parameter', () => {
@@ -31,11 +27,7 @@ describe('Testing GeoPoint Parameter', () => {
   });
 
   it('Testing valid json parameter', () => {
-    expect(jsonParam.get({
-      body: {
-        geoPoint: [-119.491, 49.892]
-      }
-    })).to.deep.equal([-119.491, 49.892]);
+    expect(jsonParam.get([-119.491, 49.892])).to.deep.equal([-119.491, 49.892]);
   });
 
   it('Testing invalid json parameter', () => {
@@ -47,18 +39,10 @@ describe('Testing GeoPoint Parameter', () => {
   });
 
   it('Testing invalid json parameter (relaxed disabled)', () => {
-    expect(() => jsonParam.get({
-      body: {
-        geoPoint: [0, 0]
-      }
-    })).to.throw('Invalid Value for json-Parameter "geoPoint" provided.');
+    expect(() => jsonParam.get([0, 0])).to.throw('Invalid Value for json-Parameter "geoPoint" provided.');
   });
 
   it('Testing valid json parameter (relaxed enabled)', () => {
-    expect(jsonParamRelaxed.get({
-      body: {
-        geoPoint: [0, 0]
-      }
-    })).to.deep.equal([0, 0]);
+    expect(jsonParamRelaxed.get([0, 0])).to.deep.equal([0, 0]);
   });
 });

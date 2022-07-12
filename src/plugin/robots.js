@@ -21,8 +21,8 @@ class Robots extends Plugin {
     return 3;
   }
 
-  async onUnrouted({ event }) {
-    if (event.path !== '/robots.txt' || event.httpMethod !== 'GET') {
+  async onUnrouted({ lookup }) {
+    if (lookup.get('uri') !== '/robots.txt' || lookup.get('method') !== 'GET') {
       return null;
     }
     return ApiResponseFn(this.response);

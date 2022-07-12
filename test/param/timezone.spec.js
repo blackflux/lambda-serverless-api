@@ -29,36 +29,20 @@ describe('Testing Timezone Parameter', () => {
     });
 
     it('Testing valid query parameter', () => {
-      expect(queryParam.get({
-        queryStringParameters: {
-          value: 'UTC'
-        }
-      })).to.equal('UTC');
+      expect(queryParam.get('UTC')).to.equal('UTC');
     });
 
     it('Testing invalid query parameter', () => {
-      expect(() => queryParam.get({
-        queryStringParameters: {
-          value: 'invalid'
-        }
-      })).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "value" provided.');
     });
 
     it('Testing invalid case-sensitive query parameter', () => {
-      expect(() => queryParam.get({
-        queryStringParameters: {
-          value: 'utc'
-        }
-      })).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get('utc')).to.throw('Invalid Value for query-Parameter "value" provided.');
     });
 
     it('Testing invalid ignored timezone added', () => {
       queryParam = api.Timezone('value', 'query', { enums: ['Extra/Ignored'] });
-      expect(() => queryParam.get({
-        queryStringParameters: {
-          value: 'Extra/Ignored'
-        }
-      })).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get('Extra/Ignored')).to.throw('Invalid Value for query-Parameter "value" provided.');
     });
   });
 
@@ -69,27 +53,15 @@ describe('Testing Timezone Parameter', () => {
     });
 
     it('Testing valid json parameter', () => {
-      expect(jsonParam.get({
-        body: {
-          value: 'UTC'
-        }
-      })).to.equal('UTC');
+      expect(jsonParam.get('UTC')).to.equal('UTC');
     });
 
     it('Testing invalid json parameter', () => {
-      expect(() => jsonParam.get({
-        body: {
-          value: 'invalid'
-        }
-      })).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => jsonParam.get('invalid')).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
 
     it('Testing invalid case-sensitive on json parameter', () => {
-      expect(() => jsonParam.get({
-        body: {
-          value: 'utc'
-        }
-      })).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => jsonParam.get('utc')).to.throw('Invalid Value for json-Parameter "value" provided.');
     });
   });
 });

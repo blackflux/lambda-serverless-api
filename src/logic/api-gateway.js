@@ -5,6 +5,7 @@ import get from 'lodash.get';
 import { wrap as lambdaAsyncWrap } from 'lambda-async';
 import { logger } from 'lambda-monitor-logger';
 import { serializeError } from 'serialize-error';
+import Lookup from '../lookup.js';
 
 const getErrorMessage = (error) => String(get(error, 'message', 'Exception')).split('\n')[0];
 
@@ -48,15 +49,16 @@ export const wrap = ({
   module,
   params = []
 }) => async (event, context) => {
-  if (!event.httpMethod) {
+  const lookup = Lookup(event);
+  if (!lookup.has('method')) {
     return Promise.resolve('OK - No API Gateway call detected.');
   }
 
   set(context, 'custom.executionStart', new Date() / 1);
 
-  if (!('path' in event)) {
+  if (!lookup.has('uri')) {
     Object.assign(event, {
-      path: request.route
+      [lookup.key('uri')]: request.route
         .replace(/^[^\s]+ \/?/, '/')
         .replace(/{([^}]+?)\+?}/g, (_, e) => get(event, ['pathParameters', e]))
     });
@@ -65,6 +67,7 @@ export const wrap = ({
   const kwargs = {
     request,
     event,
+    lookup,
     context,
     route,
     router,
