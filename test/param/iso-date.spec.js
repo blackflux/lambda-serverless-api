@@ -16,11 +16,13 @@ describe('Testing Iso Date Parameter', () => {
     });
 
     it('Testing invalid query parameter (date range)', () => {
-      expect(() => queryParam.get('2019-02-30')).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get('2019-02-30'))
+        .to.throw('Invalid Value for query-Parameter "value" provided.');
     });
 
     it('Testing invalid query parameter (format)', () => {
-      expect(() => queryParam.get('2019/06/18')).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get('2019/06/18'))
+        .to.throw('Invalid Value for query-Parameter "value" provided.');
     });
   });
 
@@ -35,11 +37,13 @@ describe('Testing Iso Date Parameter', () => {
     });
 
     it('Testing invalid json parameter (date range)', () => {
-      expect(() => jsonParam.get('2019-02-30')).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => jsonParam.get('2019-02-30'))
+        .to.throw('Invalid Value for json-Parameter "value" provided.');
     });
 
     it('Testing invalid json parameter (format)', () => {
-      expect(() => jsonParam.get('2019/06/18')).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => jsonParam.get('2019/06/18'))
+        .to.throw('Invalid Value for json-Parameter "value" provided.');
     });
   });
 

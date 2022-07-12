@@ -18,7 +18,8 @@ describe('Testing Json Parameter', () => {
   });
 
   it('Testing invalid query parameter', () => {
-    expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "param" provided.');
+    expect(() => queryParam.get('invalid'))
+      .to.throw('Invalid Value for query-Parameter "param" provided.');
   });
 
   it('Testing valid json parameter', () => {

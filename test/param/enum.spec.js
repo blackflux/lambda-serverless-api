@@ -16,7 +16,8 @@ describe('Testing Enum Parameter', () => {
     });
 
     it('Testing invalid query parameter', () => {
-      expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get('invalid'))
+        .to.throw('Invalid Value for query-Parameter "value" provided.');
     });
   });
 

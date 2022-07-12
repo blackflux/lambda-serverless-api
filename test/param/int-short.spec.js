@@ -19,7 +19,8 @@ describe('Testing IntShort Parameter', () => {
   });
 
   it('Testing invalid query parameter', () => {
-    expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "value" provided.');
+    expect(() => queryParam.get('invalid'))
+      .to.throw('Invalid Value for query-Parameter "value" provided.');
   });
 
   it('Testing valid json parameter', () => {
@@ -27,7 +28,8 @@ describe('Testing IntShort Parameter', () => {
   });
 
   it('Testing invalid json parameter', () => {
-    expect(() => jsonParam.get('invalid')).to.throw('Invalid Value for json-Parameter "value" provided.');
+    expect(() => jsonParam.get('invalid'))
+      .to.throw('Invalid Value for json-Parameter "value" provided.');
   });
 
   it('Testing undefined optional json parameter', () => {
@@ -43,11 +45,13 @@ describe('Testing IntShort Parameter', () => {
     });
 
     it('testing invalid max query parameter', () => {
-      expect(() => queryParamInvalidMax.get('32768')).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParamInvalidMax.get('32768'))
+        .to.throw('Invalid Value for query-Parameter "value" provided.');
     });
 
     it('testing invalid max json parameter', () => {
-      expect(() => bodyParamInvalidMax.get(32768)).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => bodyParamInvalidMax.get(32768))
+        .to.throw('Invalid Value for json-Parameter "value" provided.');
     });
   });
 
@@ -60,11 +64,13 @@ describe('Testing IntShort Parameter', () => {
     });
 
     it('testing invalid min query parameter', () => {
-      expect(() => queryParamInvalidMin.get('-32769')).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParamInvalidMin.get('-32769'))
+        .to.throw('Invalid Value for query-Parameter "value" provided.');
     });
 
     it('testing invalid min json parameter', () => {
-      expect(() => bodyParamInvalidMin.get(-32769)).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => bodyParamInvalidMin.get(-32769))
+        .to.throw('Invalid Value for json-Parameter "value" provided.');
     });
   });
 

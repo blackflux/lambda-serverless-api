@@ -21,7 +21,8 @@ describe('Testing Number Parameter', () => {
   });
 
   it('Testing invalid query param', () => {
-    expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "number" provided.');
+    expect(() => queryParam.get('invalid'))
+      .to.throw('Invalid Value for query-Parameter "number" provided.');
   });
 
   it('Testing valid, restricted query param', () => {
@@ -30,9 +31,8 @@ describe('Testing Number Parameter', () => {
 
   it('Testing invalid, restricted query param', () => {
     ['-11', '-1', '11'].forEach((number) => {
-      expect(() => queryParamRestricted.get({
-        queryStringParameters: { number }
-      })).to.throw('Invalid Value for query-Parameter "number" provided.');
+      expect(() => queryParamRestricted.get(number))
+        .to.throw('Invalid Value for query-Parameter "number" provided.');
     });
   });
 
@@ -42,7 +42,7 @@ describe('Testing Number Parameter', () => {
 
   it('Testing invalid json param', () => {
     ['12.34', 'string'].forEach((number) => {
-      expect(() => jsonParam.get({ body: { number } }))
+      expect(() => jsonParam.get(number))
         .to.throw('Invalid Value for json-Parameter "number" provided.');
     });
   });
@@ -53,7 +53,7 @@ describe('Testing Number Parameter', () => {
 
   it('Testing invalid, restricted json param', () => {
     [-11, -1, 11].forEach((number) => {
-      expect(() => jsonParamRestricted.get({ body: { number } }))
+      expect(() => jsonParamRestricted.get(number))
         .to.throw('Invalid Value for json-Parameter "number" provided.');
     });
   });

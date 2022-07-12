@@ -17,7 +17,8 @@ describe('Testing List Parameter', () => {
   });
 
   it('Testing invalid query parameter', () => {
-    expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "list" provided.');
+    expect(() => queryParam.get('invalid'))
+      .to.throw('Invalid Value for query-Parameter "list" provided.');
   });
 
   it('Testing valid json parameter', () => {
@@ -25,7 +26,8 @@ describe('Testing List Parameter', () => {
   });
 
   it('Testing invalid json parameter', () => {
-    expect(() => jsonParam.get({})).to.throw('Invalid Value for json-Parameter "list" provided.');
+    expect(() => jsonParam.get({}))
+      .to.throw('Invalid Value for json-Parameter "list" provided.');
   });
 
   describe('Testing optional parameter "maxItems"', () => {
@@ -37,11 +39,13 @@ describe('Testing List Parameter', () => {
     });
 
     it('Testing invalid length of list in query param', () => {
-      expect(() => queryParamInValidLength.get('["123", "456", "789"]')).to.throw('Invalid Value for query-Parameter "list" provided.');
+      expect(() => queryParamInValidLength.get('["123", "456", "789"]'))
+        .to.throw('Invalid Value for query-Parameter "list" provided.');
     });
 
     it('Testing invalid length of list in json param', () => {
-      expect(() => bodyParamInValidLength.get(['123', '456', '789'])).to.throw('Invalid Value for json-Parameter "list" provided.');
+      expect(() => bodyParamInValidLength.get(['123', '456', '789']))
+        .to.throw('Invalid Value for json-Parameter "list" provided.');
     });
   });
 
@@ -54,11 +58,13 @@ describe('Testing List Parameter', () => {
     });
 
     it('Testing invalid min length of list in query param', () => {
-      expect(() => queryParamInValidLength.get('["123"]')).to.throw('Invalid Value for query-Parameter "list" provided.');
+      expect(() => queryParamInValidLength.get('["123"]'))
+        .to.throw('Invalid Value for query-Parameter "list" provided.');
     });
 
     it('Testing invalid min length of list in json param', () => {
-      expect(() => bodyParamInValidLength.get(['123'])).to.throw('Invalid Value for json-Parameter "list" provided.');
+      expect(() => bodyParamInValidLength.get(['123']))
+        .to.throw('Invalid Value for json-Parameter "list" provided.');
     });
   });
 });

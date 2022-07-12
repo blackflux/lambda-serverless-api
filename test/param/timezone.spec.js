@@ -33,16 +33,19 @@ describe('Testing Timezone Parameter', () => {
     });
 
     it('Testing invalid query parameter', () => {
-      expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get('invalid'))
+        .to.throw('Invalid Value for query-Parameter "value" provided.');
     });
 
     it('Testing invalid case-sensitive query parameter', () => {
-      expect(() => queryParam.get('utc')).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get('utc'))
+        .to.throw('Invalid Value for query-Parameter "value" provided.');
     });
 
     it('Testing invalid ignored timezone added', () => {
       queryParam = api.Timezone('value', 'query', { enums: ['Extra/Ignored'] });
-      expect(() => queryParam.get('Extra/Ignored')).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get('Extra/Ignored'))
+        .to.throw('Invalid Value for query-Parameter "value" provided.');
     });
   });
 
@@ -57,11 +60,13 @@ describe('Testing Timezone Parameter', () => {
     });
 
     it('Testing invalid json parameter', () => {
-      expect(() => jsonParam.get('invalid')).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => jsonParam.get('invalid'))
+        .to.throw('Invalid Value for json-Parameter "value" provided.');
     });
 
     it('Testing invalid case-sensitive on json parameter', () => {
-      expect(() => jsonParam.get('utc')).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => jsonParam.get('utc'))
+        .to.throw('Invalid Value for json-Parameter "value" provided.');
     });
   });
 });

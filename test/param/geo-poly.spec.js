@@ -18,11 +18,13 @@ describe('Testing GeoPoly Parameter', () => {
   });
 
   it('Testing valid query parameter with only perimeter', () => {
-    expect(queryParam.get(JSON.stringify([counterClockwisePolygon]))).to.deep.equal([counterClockwisePolygon]);
+    expect(queryParam.get(JSON.stringify([counterClockwisePolygon])))
+      .to.deep.equal([counterClockwisePolygon]);
   });
 
   it('Testing valid query parameter with holes', () => {
-    expect(queryParam.get(JSON.stringify([counterClockwisePolygon, clockwisePolygon]))).to.deep.equal([counterClockwisePolygon, clockwisePolygon]);
+    expect(queryParam.get(JSON.stringify([counterClockwisePolygon, clockwisePolygon])))
+      .to.deep.equal([counterClockwisePolygon, clockwisePolygon]);
   });
 
   it('Testing valid json parameter with only perimeter', () => {
@@ -30,28 +32,34 @@ describe('Testing GeoPoly Parameter', () => {
   });
 
   it('Testing valid json parameter with holes', () => {
-    expect(jsonParam.get([counterClockwisePolygon, clockwisePolygon])).to.deep.equal([counterClockwisePolygon, clockwisePolygon]);
+    expect(jsonParam.get([counterClockwisePolygon, clockwisePolygon]))
+      .to.deep.equal([counterClockwisePolygon, clockwisePolygon]);
   });
 
   it('Testing query parameter with perimeter polygon invalid (clockwise)', () => {
-    expect(() => queryParam.get(JSON.stringify([clockwisePolygon]))).to.throw('Invalid Value for query-Parameter "geoPoly" provided.');
+    expect(() => queryParam.get(JSON.stringify([clockwisePolygon])))
+      .to.throw('Invalid Value for query-Parameter "geoPoly" provided.');
   });
 
   it('Testing query parameter with holes polygon invalid (counter clockwise)', () => {
-    expect(() => queryParam.get(JSON.stringify([counterClockwisePolygon, counterClockwisePolygon]))).to.throw('Invalid Value for query-Parameter "geoPoly" provided.');
+    expect(() => queryParam.get(JSON.stringify([counterClockwisePolygon, counterClockwisePolygon])))
+      .to.throw('Invalid Value for query-Parameter "geoPoly" provided.');
   });
 
   it('Testing json parameter with perimeter polygon invalid (clockwise)', () => {
-    expect(() => jsonParam.get([clockwisePolygon])).to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
+    expect(() => jsonParam.get([clockwisePolygon]))
+      .to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
   });
 
   it('Testing json parameter with holes polygon invalid (counter clockwise)', () => {
-    expect(() => jsonParam.get([counterClockwisePolygon, counterClockwisePolygon])).to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
+    expect(() => jsonParam.get([counterClockwisePolygon, counterClockwisePolygon]))
+      .to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
   });
 
   it('Testing valid json parameter (maxHoles)', () => {
     const param = api.GeoPoly('geoPoly', 'json', { maxHoles: 1 });
-    expect(param.get([counterClockwisePolygon, clockwisePolygon])).to.deep.equal([counterClockwisePolygon, clockwisePolygon]);
+    expect(param.get([counterClockwisePolygon, clockwisePolygon]))
+      .to.deep.equal([counterClockwisePolygon, clockwisePolygon]);
   });
 
   it('Testing valid json parameter (maxPointsPerimeter)', () => {
@@ -61,12 +69,14 @@ describe('Testing GeoPoly Parameter', () => {
 
   it('Testing valid json parameter (maxPointsPerHole)', () => {
     const param = api.GeoPoly('geoPoly', 'json', { maxPointsPerHole: 5 });
-    expect(param.get([counterClockwisePolygon, clockwisePolygon])).to.deep.equal([counterClockwisePolygon, clockwisePolygon]);
+    expect(param.get([counterClockwisePolygon, clockwisePolygon]))
+      .to.deep.equal([counterClockwisePolygon, clockwisePolygon]);
   });
 
   it('Testing valid json parameter (maxPoints)', () => {
     const param = api.GeoPoly('geoPolicy', 'json', { maxPoints: 8 });
-    expect(param.get([[[0.5, 0.5], [1, 0.5], [1.3, 1.3], [1.2, 1.2], [1.1, 1.1], [1, 1], [0.5, 1], [0.5, 0.5]]])).to.deep.equal([[[0.5, 0.5], [1, 0.5], [1.3, 1.3], [1.2, 1.2], [1.1, 1.1], [1, 1], [0.5, 1], [0.5, 0.5]]]);
+    expect(param.get([[[0.5, 0.5], [1, 0.5], [1.3, 1.3], [1.2, 1.2], [1.1, 1.1], [1, 1], [0.5, 1], [0.5, 0.5]]]))
+      .to.deep.equal([[[0.5, 0.5], [1, 0.5], [1.3, 1.3], [1.2, 1.2], [1.1, 1.1], [1, 1], [0.5, 1], [0.5, 0.5]]]);
   });
 
   it('Testing valid json parameter (relaxed)', () => {
@@ -76,27 +86,34 @@ describe('Testing GeoPoly Parameter', () => {
 
   it('Testing invalid json parameter (maxHoles)', () => {
     const param = api.GeoPoly('geoPoly', 'json', { maxHoles: 0 });
-    expect(() => param.get([counterClockwisePolygon, clockwisePolygon])).to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
+    expect(() => param.get([counterClockwisePolygon, clockwisePolygon]))
+      .to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
   });
 
   it('Testing invalid json parameter (maxPointsPerimeter)', () => {
     const param = api.GeoPoly('geoPoly', 'json', { maxPointsPerimeter: 4 });
-    expect(() => param.get([counterClockwisePolygon])).to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
+    expect(() => param.get([counterClockwisePolygon]))
+      .to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
   });
 
   it('Testing invalid json parameter (maxPointsPerHole)', () => {
     const param = api.GeoPoly('geoPoly', 'json', { maxPointsPerHole: 4 });
-    expect(() => param.get([counterClockwisePolygon, clockwisePolygon])).to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
+    expect(() => param.get([counterClockwisePolygon, clockwisePolygon]))
+      .to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
   });
 
   it('Testing invalid json parameter (maxPoints)', () => {
     const param = api.GeoPoly('geoPolicy', 'json', { maxPoints: 6 });
-    expect(() => param.get([[[0.5, 0.5], [1, 0.5], [1.3, 1.3], [1.2, 1.2], [1.1, 1.1], [1, 1], [0.5, 1], [0.5, 0.5]]])).to.throw('Invalid Value for json-Parameter "geoPolicy" provided.');
+    expect(() => param.get(
+      [[[0.5, 0.5], [1, 0.5], [1.3, 1.3], [1.2, 1.2], [1.1, 1.1], [1, 1], [0.5, 1], [0.5, 0.5]]]
+    ))
+      .to.throw('Invalid Value for json-Parameter "geoPolicy" provided.');
   });
 
   it('Testing invalid json parameter (relaxed)', () => {
     const param = api.GeoPoly('geoPolicy', 'json', { relaxed: false });
-    expect(() => param.get([[[1, 0], [2, 1], [1, 1], [1, 0]]])).to.throw('Invalid Value for json-Parameter "geoPolicy" provided.');
+    expect(() => param.get([[[1, 0], [2, 1], [1, 1], [1, 0]]]))
+      .to.throw('Invalid Value for json-Parameter "geoPolicy" provided.');
   });
 
   it('Testing self intersecting geo poly', () => {
@@ -113,7 +130,7 @@ describe('Testing GeoPoly Parameter', () => {
       [-124.98112, 49.65410], [-124.99351, 49.65705], [-125.00529, 49.66652], [-125.01194, 49.66069],
       [-125.01898, 49.66615], [-125.01141, 49.67133], [-125.01785, 49.67627], [-125.02721, 49.67123],
       [-125.01808, 49.67647], [-125.03201, 49.68166], [-125.02665, 49.68330]]];
-    expect(() => jsonParam.get({ body: { geoPoly } }))
+    expect(() => jsonParam.get(geoPoly))
       .to.throw('Invalid Value for json-Parameter "geoPoly" provided.');
   });
 });

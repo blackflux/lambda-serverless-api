@@ -18,11 +18,13 @@ describe('Testing JsonList Parameter', () => {
   });
 
   it('Testing invalid query parameter', () => {
-    expect(() => queryParam.get('[invalid]')).to.throw('Invalid Value for query-Parameter "param" provided.');
+    expect(() => queryParam.get('[invalid]'))
+      .to.throw('Invalid Value for query-Parameter "param" provided.');
   });
 
   it('Testing invalid query parameter json parse error', () => {
-    expect(() => queryParam.get('[{parse-error]')).to.throw('Invalid Value for query-Parameter "param" provided.');
+    expect(() => queryParam.get('[{parse-error]'))
+      .to.throw('Invalid Value for query-Parameter "param" provided.');
   });
 
   it('Testing valid json parameter', () => {
@@ -30,6 +32,7 @@ describe('Testing JsonList Parameter', () => {
   });
 
   it('Testing invalid json parameter', () => {
-    expect(() => jsonParam.get(['string'])).to.throw('Invalid Value for json-Parameter "param" provided.');
+    expect(() => jsonParam.get(['string']))
+      .to.throw('Invalid Value for json-Parameter "param" provided.');
   });
 });

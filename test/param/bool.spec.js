@@ -23,7 +23,8 @@ describe('Testing Bool Parameter', () => {
   });
 
   it('Testing invalid query parameter', () => {
-    expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "enabled" provided.');
+    expect(() => queryParam.get('invalid'))
+      .to.throw('Invalid Value for query-Parameter "enabled" provided.');
   });
 
   it('Testing valid json parameter (true)', () => {
@@ -35,7 +36,8 @@ describe('Testing Bool Parameter', () => {
   });
 
   it('Testing invalid json parameter', () => {
-    expect(() => jsonParam.get(1)).to.throw('Invalid Value for json-Parameter "enabled" provided.');
+    expect(() => jsonParam.get(1))
+      .to.throw('Invalid Value for json-Parameter "enabled" provided.');
   });
 
   it('Testing optional, undefined json parameter', () => {

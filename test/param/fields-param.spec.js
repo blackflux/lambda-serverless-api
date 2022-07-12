@@ -23,7 +23,8 @@ describe('Testing FieldsParam Parameter', () => {
   });
 
   it('Testing invalid query param', () => {
-    expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "param" provided.');
+    expect(() => queryParam.get('invalid'))
+      .to.throw('Invalid Value for query-Parameter "param" provided.');
   });
 
   it('Testing valid json param', () => {
@@ -31,7 +32,8 @@ describe('Testing FieldsParam Parameter', () => {
   });
 
   it('Testing invalid json param', () => {
-    expect(() => jsonParam.get('invalid')).to.throw('Invalid Value for json-Parameter "param" provided.');
+    expect(() => jsonParam.get('invalid'))
+      .to.throw('Invalid Value for json-Parameter "param" provided.');
   });
 
   it('Testing only one autoPrune FieldsParam per request', (done) => {

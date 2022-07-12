@@ -20,9 +20,8 @@ describe('Testing GeoPoint Parameter', () => {
 
   it('Testing invalid query parameter', () => {
     ['[-181,0.5]', '[181,0.5]', '[0.5,-91]', '[0.5,91]', '[0.5,0.5,0.5]'].forEach((geoPoint) => {
-      expect(() => queryParam.get({
-        queryStringParameters: { geoPoint }
-      }), `GeoPoint: ${geoPoint}`).to.throw('Invalid Value for query-Parameter "geoPoint" provided.');
+      expect(() => queryParam.get(geoPoint), `GeoPoint: ${geoPoint}`)
+        .to.throw('Invalid Value for query-Parameter "geoPoint" provided.');
     });
   });
 
@@ -32,14 +31,14 @@ describe('Testing GeoPoint Parameter', () => {
 
   it('Testing invalid json parameter', () => {
     [[-181, 0.5], [181, 0.5], [0.5, -91], [0.5, 91], [0.5, 0.5, 0.5], '0.5,0'].forEach((geoPoint) => {
-      expect(() => jsonParam.get({
-        body: { geoPoint }
-      }), `GeoPoint: ${geoPoint}`).to.throw('Invalid Value for json-Parameter "geoPoint" provided.');
+      expect(() => jsonParam.get(geoPoint), `GeoPoint: ${geoPoint}`)
+        .to.throw('Invalid Value for json-Parameter "geoPoint" provided.');
     });
   });
 
   it('Testing invalid json parameter (relaxed disabled)', () => {
-    expect(() => jsonParam.get([0, 0])).to.throw('Invalid Value for json-Parameter "geoPoint" provided.');
+    expect(() => jsonParam.get([0, 0]))
+      .to.throw('Invalid Value for json-Parameter "geoPoint" provided.');
   });
 
   it('Testing valid json parameter (relaxed enabled)', () => {

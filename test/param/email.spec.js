@@ -16,7 +16,8 @@ describe('Testing Email Parameter', () => {
     });
 
     it('Testing invalid query parameter (rejected string)', () => {
-      expect(() => queryParam.get('')).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get(''))
+        .to.throw('Invalid Value for query-Parameter "value" provided.');
     });
   });
 
@@ -31,7 +32,8 @@ describe('Testing Email Parameter', () => {
     });
 
     it('Testing invalid json parameter (rejected string)', () => {
-      expect(() => jsonParam.get('undefined')).to.throw('Invalid Value for json-Parameter "value" provided.');
+      expect(() => jsonParam.get('undefined'))
+        .to.throw('Invalid Value for json-Parameter "value" provided.');
     });
   });
 });

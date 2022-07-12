@@ -16,7 +16,8 @@ describe('Testing Str Parameter', () => {
     });
 
     it('Testing invalid query parameter (rejected string)', () => {
-      expect(() => queryParam.get('')).to.throw('Invalid Value for query-Parameter "value" provided.');
+      expect(() => queryParam.get(''))
+        .to.throw('Invalid Value for query-Parameter "value" provided.');
     });
   });
 

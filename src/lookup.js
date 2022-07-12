@@ -1,4 +1,3 @@
-import assert from 'assert';
 import get_ from 'lodash.get';
 
 export default (event) => {

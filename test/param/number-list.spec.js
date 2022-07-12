@@ -17,7 +17,8 @@ describe('Testing NumberList Parameter', () => {
   });
 
   it('Testing invalid query parameter', () => {
-    expect(() => queryParam.get('invalid')).to.throw('Invalid Value for query-Parameter "list" provided.');
+    expect(() => queryParam.get('invalid'))
+      .to.throw('Invalid Value for query-Parameter "list" provided.');
   });
 
   it('Testing valid json parameter', () => {
@@ -25,7 +26,8 @@ describe('Testing NumberList Parameter', () => {
   });
 
   it('Testing invalid json parameter', () => {
-    expect(() => jsonParam.get(['123', 213])).to.throw('Invalid Value for json-Parameter "list" provided.');
+    expect(() => jsonParam.get(['123', 213]))
+      .to.throw('Invalid Value for json-Parameter "list" provided.');
   });
 
   describe('Testing optional parameter "minItemValue"', () => {
@@ -37,7 +39,8 @@ describe('Testing NumberList Parameter', () => {
     });
 
     it('Testing invalid min-value of list item in query param', () => {
-      expect(() => queryParamInValidMin.get('[1, 1.2]')).to.throw('Invalid Value for query-Parameter "list" provided.');
+      expect(() => queryParamInValidMin.get('[1, 1.2]'))
+        .to.throw('Invalid Value for query-Parameter "list" provided.');
     });
 
     it('Testing valid min-value of list item in query param', () => {
@@ -45,7 +48,8 @@ describe('Testing NumberList Parameter', () => {
     });
 
     it('Testing invalid min-value of list item in json param', () => {
-      expect(() => bodyParamInValidMin.get([1, 1.2])).to.throw('Invalid Value for json-Parameter "list" provided.');
+      expect(() => bodyParamInValidMin.get([1, 1.2]))
+        .to.throw('Invalid Value for json-Parameter "list" provided.');
     });
 
     it('Testing valid min-value of list item in json param', () => {
@@ -62,7 +66,8 @@ describe('Testing NumberList Parameter', () => {
     });
 
     it('Testing invalid max-value of list item in query param', () => {
-      expect(() => queryParamInValidMax.get('[10.4, 10]')).to.throw('Invalid Value for query-Parameter "list" provided.');
+      expect(() => queryParamInValidMax.get('[10.4, 10]'))
+        .to.throw('Invalid Value for query-Parameter "list" provided.');
     });
 
     it('Testing valid max-value of list item in query param', () => {
@@ -70,7 +75,8 @@ describe('Testing NumberList Parameter', () => {
     });
 
     it('Testing invalid max-value of list item in json param', () => {
-      expect(() => bodyParamInValidMax.get([10.4, 10])).to.throw('Invalid Value for json-Parameter "list" provided.');
+      expect(() => bodyParamInValidMax.get([10.4, 10]))
+        .to.throw('Invalid Value for json-Parameter "list" provided.');
     });
 
     it('Testing valid max-value of list item in json param', () => {

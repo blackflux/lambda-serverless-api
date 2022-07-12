@@ -13,7 +13,8 @@ describe('Testing GeoShape Parameter', () => {
   });
 
   it('Testing valid query parameter', () => {
-    expect(queryParam.get('[[0.5,0.5],[0.5,1],[1,1],[1,0.5],[0.5,0.5]]')).to.deep.equal([[0.5, 0.5], [0.5, 1], [1, 1], [1, 0.5], [0.5, 0.5]]);
+    expect(queryParam.get('[[0.5,0.5],[0.5,1],[1,1],[1,0.5],[0.5,0.5]]'))
+      .to.deep.equal([[0.5, 0.5], [0.5, 1], [1, 1], [1, 0.5], [0.5, 0.5]]);
   });
 
   it('Testing invalid query parameter', () => {
@@ -24,14 +25,14 @@ describe('Testing GeoShape Parameter', () => {
       '[[0.5,0.5],[0.5,1],[300,1],[1,0.5],[0.5,0.5]]', // invalid point
       '[[0.5,0.5],[0.5,1],[1,300],[1,0.5],[0.5,0.5]]' // invalid point
     ].forEach((geoShape) => {
-      expect(() => queryParam.get({
-        queryStringParameters: { geoShape }
-      })).to.throw('Invalid Value for query-Parameter "geoShape" provided.');
+      expect(() => queryParam.get(geoShape))
+        .to.throw('Invalid Value for query-Parameter "geoShape" provided.');
     });
   });
 
   it('Testing valid json parameter', () => {
-    expect(jsonParam.get([[0.5, 0.5], [0.5, 1], [1, 1], [1, 0.5], [0.5, 0.5]])).to.deep.equal([[0.5, 0.5], [0.5, 1], [1, 1], [1, 0.5], [0.5, 0.5]]);
+    expect(jsonParam.get([[0.5, 0.5], [0.5, 1], [1, 1], [1, 0.5], [0.5, 0.5]]))
+      .to.deep.equal([[0.5, 0.5], [0.5, 1], [1, 1], [1, 0.5], [0.5, 0.5]]);
   });
 
   it('Testing self intersecting geo shape', () => {
@@ -48,7 +49,7 @@ describe('Testing GeoShape Parameter', () => {
       [-124.98112, 49.65410], [-124.99351, 49.65705], [-125.00529, 49.66652], [-125.01194, 49.66069],
       [-125.01898, 49.66615], [-125.01141, 49.67133], [-125.01785, 49.67627], [-125.02721, 49.67123],
       [-125.01808, 49.67647], [-125.03201, 49.68166], [-125.02665, 49.68330]];
-    expect(() => jsonParam.get({ body: { geoShape } }))
+    expect(() => jsonParam.get(geoShape))
       .to.throw('Invalid Value for json-Parameter "geoShape" provided.');
   });
 
@@ -59,30 +60,35 @@ describe('Testing GeoShape Parameter', () => {
       [[0.5, 0.5], [0.5, 1], [300, 1], [1, 0.5], [0.5, 0.5]], // invalid point
       [[0.5, 0.5], [0.5, 1], [1, 300], [1, 0.5], [0.5, 0.5]] // invalid point
     ].forEach((geoShape) => {
-      expect(() => jsonParam.get({
-        body: { geoShape }
-      })).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
+      expect(() => jsonParam.get(geoShape))
+        .to.throw('Invalid Value for json-Parameter "geoShape" provided.');
     });
   });
 
   it('Testing invalid json parameter (too large)', () => {
     const param = api.GeoShape('geoShape', 'json', { maxPoints: 6 });
-    expect(() => param.get([[0.5, 0.5], [0.5, 1], [1, 1], [1.1, 1.1], [1.2, 1.2], [1.3, 1.3], [1, 0.5], [0.5, 0.5]])).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
+    expect(() => param.get(
+      [[0.5, 0.5], [0.5, 1], [1, 1], [1.1, 1.1], [1.2, 1.2], [1.3, 1.3], [1, 0.5], [0.5, 0.5]]
+    ))
+      .to.throw('Invalid Value for json-Parameter "geoShape" provided.');
   });
 
   it('Testing invalid json parameter (not clockwise)', () => {
     const param = api.GeoShape('geoShape', 'json', { clockwise: true });
-    expect(() => param.get([[0.5, 0.5], [1, 0.5], [1, 1], [0.5, 1], [0.5, 0.5]])).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
+    expect(() => param.get([[0.5, 0.5], [1, 0.5], [1, 1], [0.5, 1], [0.5, 0.5]]))
+      .to.throw('Invalid Value for json-Parameter "geoShape" provided.');
   });
 
   it('Testing invalid json parameter (not counter clockwise)', () => {
     const param = api.GeoShape('geoShape', 'json', { clockwise: false });
-    expect(() => param.get([[0.5, 0.5], [0.5, 1], [1, 1], [1, 0.5], [0.5, 0.5]])).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
+    expect(() => param.get([[0.5, 0.5], [0.5, 1], [1, 1], [1, 0.5], [0.5, 0.5]]))
+      .to.throw('Invalid Value for json-Parameter "geoShape" provided.');
   });
 
   it('Testing invalid json parameter (relaxed disabled)', () => {
     const param = api.GeoShape('geoShape', 'json');
-    expect(() => param.get([[1, 0], [1, 1], [2, 1], [1, 0]])).to.throw('Invalid Value for json-Parameter "geoShape" provided.');
+    expect(() => param.get([[1, 0], [1, 1], [2, 1], [1, 0]]))
+      .to.throw('Invalid Value for json-Parameter "geoShape" provided.');
   });
 
   it('Testing valid json parameter (relaxed enabled)', () => {
