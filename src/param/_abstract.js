@@ -3,11 +3,11 @@ import get from 'lodash.get';
 import { ApiErrorFn } from '../response/api-error.js';
 
 const positionMapping = {
-  query: 'queryStringParameters',
-  json: 'body',
-  path: 'pathParameters',
-  header: 'headers',
-  context: 'requestContext'
+  query: ['queryStringParameters', 'query'],
+  json: ['body'],
+  path: ['pathParameters', 'path'],
+  header: ['headers'],
+  identity: ['requestContext.identity', 'identity']
 };
 
 class Abstract {
@@ -20,13 +20,13 @@ class Abstract {
   } = {}) {
     assert(Object.keys(positionMapping).includes(position), `Unknown Parameter Position: ${position}`);
     assert(
-      nullable === false || ['json', 'context'].includes(position),
+      nullable === false || ['json', 'identity'].includes(position),
       `Parameter Position cannot be nullable: ${position}`
     );
     this.nameOriginal = name;
     this.name = name.endsWith('+') ? name.slice(0, name.length - 1) : name;
     this.position = position;
-    this.stringInput = !['json', 'context'].includes(position);
+    this.stringInput = !['json', 'identity'].includes(position);
     this.required = required;
     this.nullable = nullable;
     this.normalize = normalize;
@@ -40,11 +40,19 @@ class Abstract {
   }
 
   get(event) {
-    let result = get(event, `${positionMapping[this.position]}.${
-      this.position === 'header'
-        ? this.name.toLowerCase()
-        : this.name
-    }`);
+    let result;
+    const positions = positionMapping[this.position];
+    for (let i = 0; i < positions.length; i += 1) {
+      const path = `${positions[i]}.${
+        this.position === 'header'
+          ? this.name.toLowerCase()
+          : this.name
+      }`;
+      result = get(event, path);
+      if (result !== undefined) {
+        break;
+      }
+    }
     if (result === undefined) {
       if (this.required) {
         throw ApiErrorFn(`Required ${this.position}-Parameter "${this.name}" missing.`, 400, 99002);

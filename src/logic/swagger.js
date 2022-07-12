@@ -16,7 +16,7 @@ export default ({ wrapper, options }) => {
   };
   Object.keys(endpoints).forEach((route) => {
     const parameters = endpoints[route]
-      .filter((p) => ['json', 'context'].indexOf(p.position) === -1)
+      .filter((p) => ['json', 'identity'].indexOf(p.position) === -1)
       .map((p) => ({
         name: p.nameOriginal,
         required: p.required,
@@ -63,10 +63,10 @@ export default ({ wrapper, options }) => {
 
     const description = [];
     const contextParams = endpoints[route]
-      .filter((p) => p.position === 'context')
+      .filter((p) => p.position === 'identity')
       .map((p) => p.name);
     if (contextParams.length !== 0) {
-      description.push(`Internally contexts are used: ${contextParams.join(', ')}`);
+      description.push(`Internally identity is used: ${contextParams.join(', ')}`);
     }
 
     const path = `/${route.split(' ')[1]}`;

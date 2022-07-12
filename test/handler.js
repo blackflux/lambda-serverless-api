@@ -89,7 +89,7 @@ export const param = api.wrap('POST param', [
   api.Email('email', 'json', { required: false }),
   api.Str('ref', 'query', { required: false }),
   api.RegEx('notification', 'query', { regex: /^(1|0)$/, required: false }),
-  api.Str('authorizer', 'context', { required: false }),
+  api.Str('sourceIp', 'identity', { required: false }),
   api.Str('authorizer', 'header', { required: false }),
   api.IsoTimestamp('isoTimestampParam', 'json', { required: false }),
   api.IsoDate('isoDateParam', 'json', { required: false }),
