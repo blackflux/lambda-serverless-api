@@ -43,8 +43,8 @@ class FieldsParam extends Str {
     return valid;
   }
 
-  get(event) {
-    let result = super.get(event);
+  get(value) {
+    let result = super.get(value);
     if (typeof result === 'string') {
       result = objectFields.split(result);
     }

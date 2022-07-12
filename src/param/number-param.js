@@ -19,8 +19,8 @@ class NumberParam extends Json {
     return super.validate(value);
   }
 
-  get(event) {
-    return super.get(event);
+  get(value) {
+    return super.get(value);
   }
 }
 export default NumberParam;

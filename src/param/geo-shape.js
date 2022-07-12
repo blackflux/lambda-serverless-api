@@ -15,8 +15,8 @@ class GeoShape extends Json {
     this.items = { type: 'array', items: { type: 'number' } };
   }
 
-  get(event) {
-    return super.get(event);
+  get(value) {
+    return super.get(value);
   }
 }
 export default GeoShape;

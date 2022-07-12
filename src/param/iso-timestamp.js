@@ -24,8 +24,8 @@ class IsoTimestamp extends Schema {
     return valid;
   }
 
-  get(event) {
-    const result = super.get(event);
+  get(value) {
+    const result = super.get(value);
     if ([undefined, null].includes(result)) {
       return result;
     }
