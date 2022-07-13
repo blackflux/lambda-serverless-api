@@ -22,7 +22,7 @@ class Robots extends Plugin {
   }
 
   async onUnrouted({ lookup }) {
-    if (lookup.get('uri') !== '/robots.txt' || lookup.get('method') !== 'GET') {
+    if (lookup.get('uri$') !== '/robots.txt' || lookup.get('method$') !== 'GET') {
       return null;
     }
     return ApiResponseFn(this.response);

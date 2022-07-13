@@ -51,7 +51,7 @@ const VersionManager = ({
       if (request.routed === false) {
         return;
       }
-      if (lookup.get('method') === 'OPTIONS') {
+      if (lookup.get('method$') === 'OPTIONS') {
         return;
       }
       if (apiVersionHeader === undefined) {
@@ -60,7 +60,7 @@ const VersionManager = ({
       if (get(request, ['options', 'versioning']) === false) {
         return;
       }
-      const apiVersion = lookup.get('header', apiVersionHeader);
+      const apiVersion = lookup.get(`header$${apiVersionHeader}`);
       if (apiVersion === undefined) {
         throw ApiErrorFn(`Required header "${apiVersionHeader}" missing`, 403);
       }

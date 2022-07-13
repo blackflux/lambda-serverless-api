@@ -77,12 +77,12 @@ class Logger extends Plugin {
       .map((p) => {
         if (p === '$ROUTE') {
           const matchedRoute = router.recognize(
-            lookup.get('method'),
-            lookup.get('uri') || ''
+            lookup.get('method$'),
+            lookup.get('uri$') || ''
           );
           return matchedRoute
             ? matchedRoute[0].handler.route.split(' ')[1]
-            : lookup.get('uri');
+            : lookup.get('uri$');
         }
         return get(message, p);
       })

@@ -45,7 +45,7 @@ class RateLimit extends Plugin {
     if (this.enabled !== true) {
       return;
     }
-    if (lookup.get('method') === 'OPTIONS') {
+    if (lookup.get('method$') === 'OPTIONS') {
       return;
     }
     const routeLimit = get(request.options, 'limit');
@@ -54,11 +54,7 @@ class RateLimit extends Plugin {
     }
     let identifier;
     for (let idx = 0; idx < this.identifierPaths.length && identifier === undefined; idx += 1) {
-      const arr = this.identifierPaths[idx].split('$');
-      assert(arr.length <= 2);
-      const field = arr.pop();
-      const position = arr.length === 0 ? null : arr[0];
-      identifier = lookup.get(position, field);
+      identifier = lookup.get(this.identifierPaths[idx]);
     }
     if (identifier === undefined) {
       throw new Error(`Rate limit identifier not found\n${JSON.stringify(event)}`);

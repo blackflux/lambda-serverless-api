@@ -50,15 +50,15 @@ export const wrap = ({
   params = []
 }) => async (event, context) => {
   const lookup = Lookup(event);
-  if (!lookup.has('method')) {
+  if (!lookup.has('method$')) {
     return Promise.resolve('OK - No API Gateway call detected.');
   }
 
   set(context, 'custom.executionStart', new Date() / 1);
 
-  if (!lookup.has('uri')) {
+  if (!lookup.has('uri$')) {
     Object.assign(event, {
-      [lookup.key('uri')]: request.route
+      [lookup.key('uri$')]: request.route
         .replace(/^[^\s]+ \/?/, '/')
         .replace(/{([^}]+?)\+?}/g, (_, e) => get(event, ['pathParameters', e]))
     });

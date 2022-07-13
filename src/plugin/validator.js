@@ -52,7 +52,7 @@ class Validator extends Plugin {
   async before({
     router, request, event, lookup
   }) {
-    const receivedRequestMethod = lookup.get('method');
+    const receivedRequestMethod = lookup.get('method$');
     if (receivedRequestMethod !== request.method) {
       throw new Error('Request Method Mismatch');
     }
@@ -65,13 +65,13 @@ class Validator extends Plugin {
     // ...
     if (event[symbols.viaRouter] !== true) {
       const matched = router.recognize(
-        lookup.get('method'),
-        lookup.get('uri') || ''
+        lookup.get('method$'),
+        lookup.get('uri$') || ''
       );
       if (matched === undefined || matched[0].handler.route !== request.route) {
         const routeSubstituted = request.route
           .replace(' ', ' /')
-          .replace(/{([^}]+?)\+?}/g, (_, e) => lookup.get('path', e));
+          .replace(/{([^}]+?)\+?}/g, (_, e) => lookup.get(`path$${e}`));
         logger.warn([
           'Server Configuration Error: Bad Routing',
           `Expected route to match "${routeSubstituted}"`
@@ -81,7 +81,7 @@ class Validator extends Plugin {
     }
 
     const invalidQsParams = difference(
-      Object.keys(lookup.get('query') || {}),
+      Object.keys(lookup.get('query$') || {}),
       request.params.filter((p) => p.position === 'query').map((p) => p.name)
     );
     if (invalidQsParams.length !== 0) {
@@ -91,7 +91,7 @@ class Validator extends Plugin {
     }
 
     const invalidJsonParams = difference(
-      Object.keys(lookup.get('json') || {}),
+      Object.keys(lookup.get('json$') || {}),
       request.params.filter((p) => p.position === 'json').map((p) => p.name)
     );
     if (invalidJsonParams.length !== 0) {

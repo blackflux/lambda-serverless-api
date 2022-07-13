@@ -1,3 +1,4 @@
+import assert from 'assert';
 import get_ from 'lodash.get';
 
 export default (event) => {
@@ -25,17 +26,21 @@ export default (event) => {
     }
   }[integration];
 
-  const get = (position, field = null) => {
-    const fullpath = position === null
-      ? []
-      : lookup[position].split('.');
-    if (field !== null) {
-      const segments = (position === 'header' ? field.toLowerCase() : field).split('.')
+  const get = (...kwargs) => {
+    assert(kwargs.length === 1);
+    const [ident] = kwargs;
+    assert(ident.includes('$'));
+    const arr = ident.split('$');
+    assert(arr.length === 2);
+    const [position, field] = arr;
+    const fullpath = position === '' ? [] : lookup[position].split('.');
+    if (field !== '') {
+      const segments = (position === 'header' ? field.toLowerCase() : field).split('.');
       fullpath.push(...segments);
     }
     return get_(event, fullpath);
   };
-  const has = (position, field = null) => get(position, field) !== undefined;
-  const key = (position) => lookup[position];
+  const has = (ident) => get(ident) !== undefined;
+  const key = (position) => lookup[position.split('$').shift()];
   return { get, has, key };
 };

@@ -31,7 +31,7 @@ class Cors extends Plugin {
 
   async onUnrouted(kwargs) {
     const { lookup, router } = kwargs;
-    if (lookup.get('method') !== 'OPTIONS') {
+    if (lookup.get('method$') !== 'OPTIONS') {
       return null;
     }
 
@@ -39,7 +39,7 @@ class Cors extends Plugin {
       origin,
       'access-control-request-method': accessControlRequestMethod,
       'access-control-request-headers': accessControlRequestHeaders
-    } = lookup.get('header');
+    } = lookup.get('header$');
     if ([
       accessControlRequestMethod,
       accessControlRequestHeaders
@@ -51,7 +51,7 @@ class Cors extends Plugin {
     if (!allowedOrigins.includes(origin) && !allowedOrigins.includes('*')) {
       throw ApiErrorFn('Origin not allowed', 403);
     }
-    if (!router.recognize(accessControlRequestMethod, lookup.get('uri') || '')) {
+    if (!router.recognize(accessControlRequestMethod, lookup.get('uri$') || '')) {
       throw ApiErrorFn('Method not allowed', 403);
     }
     const allowedHeaders = [
@@ -75,7 +75,7 @@ class Cors extends Plugin {
 
   async before(kwargs) {
     const { lookup } = kwargs;
-    if (lookup.get('method') === 'OPTIONS') {
+    if (lookup.get('method$') === 'OPTIONS') {
       return;
     }
 
@@ -85,7 +85,7 @@ class Cors extends Plugin {
     };
     set(kwargs, 'context.cors', cors);
 
-    const origin = lookup.get('header', 'origin');
+    const origin = lookup.get('header$origin');
     if (origin === undefined) {
       return;
     }
