@@ -1,4 +1,3 @@
-import get from 'lodash.get';
 import RouteRecognizer from 'route-recognizer';
 import { symbols } from './symbols.js';
 import * as apiGateway from './api-gateway.js';
