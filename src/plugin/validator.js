@@ -61,8 +61,6 @@ class Validator extends Plugin {
       return;
     }
 
-    // todo: adjust this file (use dynamic) and find parameters elsewhere in project
-    // ...
     if (event[symbols.viaRouter] !== true) {
       const matched = router.recognize(
         lookup.get('method$'),
