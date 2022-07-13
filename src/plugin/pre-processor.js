@@ -29,8 +29,12 @@ class PreProcessor extends Plugin {
     });
     try {
       if (lookup.integration === 'proxy' && lookup.has('json$')) {
+        let json = lookup.get('json$');
+        if (event.isBase64Encoded) {
+          json = Buffer.from(json, 'base64').toString('utf8');
+        }
         Object.assign(event, {
-          [lookup.key('json$')]: JSON.parse(lookup.get('json$'))
+          [lookup.key('json$')]: JSON.parse(json)
         });
       }
     } catch (e) {
