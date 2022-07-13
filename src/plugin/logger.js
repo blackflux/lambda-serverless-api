@@ -13,8 +13,7 @@ class Logger extends Plugin {
     this.signature = get(options, 'signature', [
       'response.statusCode',
       'response.body.messageId',
-      // todo: fix this
-      'event.httpMethod',
+      'event.method$',
       '$ROUTE'
     ]);
     this.logError = get(options, 'logError', true);
@@ -84,7 +83,9 @@ class Logger extends Plugin {
             ? matchedRoute[0].handler.route.split(' ')[1]
             : lookup.get('uri$');
         }
-        return get(message, p);
+        return p.startsWith('event.') && p.includes('$')
+          ? lookup.get(p.slice(6))
+          : get(message, p);
       })
       .filter((e) => !!e).join(' ');
     assert(signature !== '');
