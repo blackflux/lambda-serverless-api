@@ -22,14 +22,16 @@ class PreProcessor extends Plugin {
   // eslint-disable-next-line class-methods-use-this
   async before({ event, lookup }) {
     Object.assign(event, {
-      headers: objectAsLowerCase(lookup.get('header') || {}),
+      [lookup.key('header')]: objectAsLowerCase(lookup.get('header') || {}),
       ...(lookup.has('mvheader')
         ? { [lookup.key('mvheader')]: objectAsLowerCase(lookup.get('mvheader') || {}) }
         : {})
     });
     try {
       if (lookup.has('json')) {
-        Object.assign(event, { [lookup.key('json')]: JSON.parse(lookup.get('json')) });
+        Object.assign(event, {
+          [lookup.key('json')]: JSON.parse(lookup.get('json'))
+        });
       }
     } catch (e) {
       throw ApiErrorFn('Invalid Json Body detected.', 400, 99001, {
