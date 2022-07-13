@@ -1,6 +1,8 @@
 import assert from 'assert';
 import get_ from 'lodash.get';
 
+const DEFAULT = Symbol('default');
+
 export default (event) => {
   const integration = 'method' in event ? 'lambda' : 'proxy';
   const lookup = {
@@ -38,8 +40,11 @@ export default (event) => {
     }
     return get_(event, fullpath, default_);
   };
-  const has = (ident) => get(ident) !== undefined;
-  const key = (position) => lookup[position.split('$').shift()];
+  const has = (ident) => get(ident, DEFAULT) !== DEFAULT;
+  const key = (ident) => {
+    assert(ident.includes('$'));
+    return lookup[ident.split('$').shift()];
+  };
   return {
     get,
     has,

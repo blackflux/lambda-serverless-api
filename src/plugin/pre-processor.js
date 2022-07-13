@@ -22,9 +22,9 @@ class PreProcessor extends Plugin {
   // eslint-disable-next-line class-methods-use-this
   async before({ event, lookup }) {
     Object.assign(event, {
-      [lookup.key('header$')]: objectAsLowerCase(lookup.get('header$') || {}),
+      [lookup.key('header$')]: objectAsLowerCase(lookup.get('header$', {})),
       ...(lookup.has('mvheader$')
-        ? { [lookup.key('mvheader$')]: objectAsLowerCase(lookup.get('mvheader$') || {}) }
+        ? { [lookup.key('mvheader$')]: objectAsLowerCase(lookup.get('mvheader$', {})) }
         : {})
     });
     try {

@@ -81,7 +81,7 @@ class Validator extends Plugin {
     }
 
     const invalidQsParams = difference(
-      Object.keys(lookup.get('query$') || {}),
+      Object.keys(lookup.get('query$', {})),
       request.params.filter((p) => p.position === 'query').map((p) => p.name)
     );
     if (invalidQsParams.length !== 0) {
@@ -91,7 +91,7 @@ class Validator extends Plugin {
     }
 
     const invalidJsonParams = difference(
-      Object.keys(lookup.get('json$') || {}),
+      Object.keys(lookup.get('json$', {})),
       request.params.filter((p) => p.position === 'json').map((p) => p.name)
     );
     if (invalidJsonParams.length !== 0) {
