@@ -26,9 +26,7 @@ export default (event) => {
     }
   }[integration];
 
-  const get = (...kwargs) => {
-    assert(kwargs.length === 1);
-    const [ident] = kwargs;
+  const get = (ident, default_ = undefined) => {
     assert(ident.includes('$'));
     const arr = ident.split('$');
     assert(arr.length === 2);
@@ -38,7 +36,7 @@ export default (event) => {
       const segments = (position === 'header' ? field.toLowerCase() : field).split('.');
       fullpath.push(...segments);
     }
-    return get_(event, fullpath);
+    return get_(event, fullpath, default_);
   };
   const has = (ident) => get(ident) !== undefined;
   const key = (position) => lookup[position.split('$').shift()];

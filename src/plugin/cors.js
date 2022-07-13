@@ -51,7 +51,7 @@ class Cors extends Plugin {
     if (!allowedOrigins.includes(origin) && !allowedOrigins.includes('*')) {
       throw ApiErrorFn('Origin not allowed', 403);
     }
-    if (!router.recognize(accessControlRequestMethod, lookup.get('uri$') || '')) {
+    if (!router.recognize(accessControlRequestMethod, lookup.get('uri$', ''))) {
       throw ApiErrorFn('Method not allowed', 403);
     }
     const allowedHeaders = [

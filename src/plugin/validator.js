@@ -66,7 +66,7 @@ class Validator extends Plugin {
     if (event[symbols.viaRouter] !== true) {
       const matched = router.recognize(
         lookup.get('method$'),
-        lookup.get('uri$') || ''
+        lookup.get('uri$', '')
       );
       if (matched === undefined || matched[0].handler.route !== request.route) {
         const routeSubstituted = request.route
