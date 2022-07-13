@@ -21,14 +21,19 @@ export const Router = ({ module }) => {
   })();
 
   const handler = async (event, context) => {
-    await module.beforeRouting({ event, context, router });
-    const matchedRoutes = router.recognize(event.httpMethod, get(event, 'path', ''));
+    const lookup = Lookup(event);
+    await module.beforeRouting({
+      event, lookup, context, router
+    });
+    const method = lookup.get('method$');
+    const uri = lookup.get('uri$', '');
+    const matchedRoutes = router.recognize(method, uri);
     if (!matchedRoutes) {
       const request = {
         params: [],
         options: {},
-        method: event.httpMethod,
-        uri: get(event, 'path', ''),
+        method,
+        uri,
         routed: false
       };
       request.route = `${request.method} ${request.uri}`;
@@ -36,7 +41,7 @@ export const Router = ({ module }) => {
         handler: async () => {
           const resp = await module.onUnrouted({
             event,
-            lookup: Lookup(event),
+            lookup,
             context,
             router
           });

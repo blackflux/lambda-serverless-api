@@ -30,7 +30,9 @@ class PreProcessor extends Plugin {
     try {
       if (lookup.has('json$')) {
         Object.assign(event, {
-          [lookup.key('json$')]: JSON.parse(lookup.get('json$'))
+          [lookup.key('json$')]: lookup.integration === 'proxy'
+            ? JSON.parse(lookup.get('json$'))
+            : lookup.get('json$')
         });
       }
     } catch (e) {

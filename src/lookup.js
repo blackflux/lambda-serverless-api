@@ -31,7 +31,7 @@ export default (event) => {
     const arr = ident.split('$');
     assert(arr.length === 2);
     const [position, field] = arr;
-    const fullpath = position === '' ? [] : lookup[position].split('.');
+    const fullpath = position === '' || lookup[position] === null ? [] : lookup[position].split('.');
     if (field !== '') {
       const segments = (position === 'header' ? field.toLowerCase() : field).split('.');
       fullpath.push(...segments);
@@ -40,5 +40,10 @@ export default (event) => {
   };
   const has = (ident) => get(ident) !== undefined;
   const key = (position) => lookup[position.split('$').shift()];
-  return { get, has, key };
+  return {
+    get,
+    has,
+    key,
+    integration
+  };
 };
