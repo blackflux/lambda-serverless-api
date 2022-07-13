@@ -14,7 +14,7 @@ class Abstract {
   } = {}) {
     assert(paramPositions.includes(position), `Unknown Parameter Position: ${position}`);
     assert(
-      nullable === false || ['json', 'identity'].includes(position),
+      nullable === false || objParamPositions.includes(position),
       `Parameter Position cannot be nullable: ${position}`
     );
     this.nameOriginal = name;
