@@ -11,7 +11,7 @@ class RateLimit extends Plugin {
     super(options);
     this.enabled = get(options, 'enabled', true);
     this.identifierPaths = get(options, 'identifierPaths', [
-      'requestContext.identity.sourceIp'
+      'identity$sourceIp'
     ]);
     this.limiter = Limiter({
       S3: get(options, 'S3', null),
@@ -54,8 +54,11 @@ class RateLimit extends Plugin {
     }
     let identifier;
     for (let idx = 0; idx < this.identifierPaths.length && identifier === undefined; idx += 1) {
-      // todo: fix
-      identifier = get(event, this.identifierPaths[idx]);
+      const arr = this.identifierPaths[idx].split('$');
+      assert(arr.length <= 2);
+      const field = arr.pop();
+      const position = arr.length === 0 ? null : arr[0];
+      identifier = lookup.get(position, field);
     }
     if (identifier === undefined) {
       throw new Error(`Rate limit identifier not found\n${JSON.stringify(event)}`);

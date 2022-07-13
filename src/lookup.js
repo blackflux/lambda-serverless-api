@@ -26,9 +26,12 @@ export default (event) => {
   }[integration];
 
   const get = (position, field = null) => {
-    const fullpath = lookup[position].split('.');
+    const fullpath = position === null
+      ? []
+      : lookup[position].split('.');
     if (field !== null) {
-      fullpath.push(position === 'header' ? field.toLowerCase() : field);
+      const segments = (position === 'header' ? field.toLowerCase() : field).split('.')
+      fullpath.push(...segments);
     }
     return get_(event, fullpath);
   };
