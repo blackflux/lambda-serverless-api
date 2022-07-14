@@ -29,7 +29,12 @@ class PreProcessor extends Plugin {
     });
     try {
       if (event.body !== undefined) {
-        Object.assign(event, { body: JSON.parse(event.body) });
+        let { body } = event;
+        if (event.isBase64Encoded) {
+          body = Buffer.from(body, 'base64').toString('utf8');
+        }
+        body = JSON.parse(body);
+        Object.assign(event, { body });
       }
     } catch (e) {
       throw ApiErrorFn('Invalid Json Body detected.', 400, 99001, {
