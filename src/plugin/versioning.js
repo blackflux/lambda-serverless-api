@@ -14,6 +14,7 @@ const VersionManager = ({
   forceSunset,
   sunsetDurationInDays,
   versions: versionsRaw,
+  onDeprecated,
   onSunset
 }) => {
   const contextKey = 'custom.versioning.meta';
@@ -73,10 +74,16 @@ const VersionManager = ({
         throw ApiErrorFn(`Endpoint deprecated since version "${deprecated}"`, 403);
       }
       const apiVersionMeta = versions[apiVersion];
-      if (apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
-        onSunset({ request, event });
-        if (forceSunset === true) {
-          throw ApiErrorFn(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
+      if (apiVersionMeta.isDeprecated) {
+        onDeprecated({ request, event, apiVersionMeta });
+        if (apiVersionMeta.sunsetDate < new Date()) {
+          onSunset({ request, event });
+          if (forceSunset === true) {
+            throw ApiErrorFn(
+              `Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`,
+              403
+            );
+          }
         }
       }
       set(context, contextKey, cloneDeep(apiVersionMeta));
@@ -103,6 +110,9 @@ class Versioning extends Plugin {
       forceSunset: get(options, 'forceSunset'),
       sunsetDurationInDays: get(options, 'sunsetDurationInDays'),
       versions: get(options, 'versions', {}),
+      onDeprecated: get(options, 'onDeprecated', ({ event }) => {
+        logger.warn(`Sunset functionality accessed\n${JSON.stringify(event)}`);
+      }),
       onSunset: get(options, 'onSunset', ({ event }) => {
         logger.warn(`Sunset functionality accessed\n${JSON.stringify(event)}`);
       })
@@ -119,6 +129,7 @@ class Versioning extends Plugin {
           Joi.string().pattern(VERSION_REGEX),
           Joi.date().iso()
         ),
+        onDeprecated: Joi.function().optional(),
         onSunset: Joi.function().optional()
       }).optional()
     };
