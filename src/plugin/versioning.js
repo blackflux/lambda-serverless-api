@@ -75,7 +75,9 @@ const VersionManager = ({
       }
       const apiVersionMeta = versions[apiVersion];
       if (apiVersionMeta.isDeprecated) {
-        onDeprecated({ request, event, apiVersionMeta });
+        if (apiVersionMeta.sunsetDate >= new Date()) {
+          onDeprecated({ request, event, apiVersionMeta });
+        }
         if (apiVersionMeta.sunsetDate < new Date()) {
           onSunset({ request, event });
           if (forceSunset === true) {
