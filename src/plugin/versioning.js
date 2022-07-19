@@ -14,7 +14,7 @@ const VersionManager = ({
   forceSunset,
   sunsetDurationInDays,
   versions: versionsRaw,
-  onSunset
+  onDeprecated
 }) => {
   const contextKey = 'custom.versioning.meta';
   const versions = Object.entries(versionsRaw)
@@ -73,9 +73,15 @@ const VersionManager = ({
         throw ApiErrorFn(`Endpoint deprecated since version "${deprecated}"`, 403);
       }
       const apiVersionMeta = versions[apiVersion];
-      if (apiVersionMeta.isDeprecated && apiVersionMeta.sunsetDate < new Date()) {
-        onSunset({ request, event });
-        if (forceSunset === true) {
+      if (apiVersionMeta.isDeprecated) {
+        const isSunset = apiVersionMeta.sunsetDate < new Date();
+        onDeprecated({
+          request,
+          event,
+          sunsetDate: apiVersionMeta.sunsetDate,
+          isSunset
+        });
+        if (isSunset && forceSunset === true) {
           throw ApiErrorFn(`Version "${apiVersion}" is sunset as of "${apiVersionMeta.sunsetDate.toUTCString()}"`, 403);
         }
       }
@@ -103,8 +109,10 @@ class Versioning extends Plugin {
       forceSunset: get(options, 'forceSunset'),
       sunsetDurationInDays: get(options, 'sunsetDurationInDays'),
       versions: get(options, 'versions', {}),
-      onSunset: get(options, 'onSunset', ({ event }) => {
-        logger.warn(`Sunset functionality accessed\n${JSON.stringify(event)}`);
+      onDeprecated: get(options, 'onDeprecated', ({ event, isSunset }) => {
+        if (isSunset) {
+          logger.warn(`Sunset functionality accessed\n${JSON.stringify(event)}`);
+        }
       })
     });
   }
@@ -119,7 +127,7 @@ class Versioning extends Plugin {
           Joi.string().pattern(VERSION_REGEX),
           Joi.date().iso()
         ),
-        onSunset: Joi.function().optional()
+        onDeprecated: Joi.function().optional()
       }).optional()
     };
   }
