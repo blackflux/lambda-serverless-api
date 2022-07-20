@@ -45,7 +45,7 @@ const VersionManager = ({
         request.params.push(new Enum(apiVersionHeader, 'header', { enums: [''], required: false }));
       }
     },
-    storeApiVersionMeta: ({ request, event, context }) => {
+    storeApiVersionMeta: async ({ request, event, context }) => {
       if (request.routed === false) {
         return;
       }
@@ -75,7 +75,7 @@ const VersionManager = ({
       const apiVersionMeta = versions[apiVersion];
       if (apiVersionMeta.isDeprecated) {
         const isSunset = apiVersionMeta.sunsetDate < new Date();
-        onDeprecated({
+        await onDeprecated({
           request,
           event,
           sunsetDate: apiVersionMeta.sunsetDate,
@@ -141,7 +141,7 @@ class Versioning extends Plugin {
   }
 
   async before(kwargs) {
-    this.versionManager.storeApiVersionMeta(kwargs);
+    await this.versionManager.storeApiVersionMeta(kwargs);
   }
 
   async after(kwargs) {
