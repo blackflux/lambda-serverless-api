@@ -32,7 +32,7 @@
     "js-gardener": "3.0.5",
     "lambda-tdd": "6.1.0",
     "minimist": "1.2.6",
-    "moment-timezone": "0.5.34",
+    "moment-timezone": "0.5.35",
     "nock": "13.2.4",
     "node-tdd": "3.4.1",
     "request": "2.88.2",
