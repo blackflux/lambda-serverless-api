@@ -67,7 +67,7 @@ jobs:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-      - run: yarn global add semantic-release
+      - run: yarn global add "semantic-release@^19.0.5"
       - run: yarn run semantic-release
   gally-auto-approve:
     docker:
@@ -120,11 +120,6 @@ jobs:
       - run: >-
           (git add . && git diff-index --quiet HEAD --) || (git status && exit
           1);
-      - run:
-          command: |
-            if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
-              yarn run coveralls
-            fi
   test-node-v16:
     docker:
       - image: circleci/node:16
