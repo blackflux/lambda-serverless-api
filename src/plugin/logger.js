@@ -66,7 +66,7 @@ class Logger extends Plugin {
       event,
       response: asApiGatewayResponse(response, false)
     });
-    this.parse(message);
+    await this.parse(message);
     const success = this.success({ message });
     if ((success && !this.logSuccess) || (!success && !this.logError)) {
       return;
