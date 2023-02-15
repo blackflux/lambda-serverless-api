@@ -17,7 +17,7 @@
     "@babel/core": "7.20.12",
     "@babel/eslint-parser": "7.19.1",
     "@babel/register": "7.18.9",
-    "@blackflux/eslint-plugin-rules": "2.2.0",
+    "@blackflux/eslint-plugin-rules": "2.1.0",
     "@blackflux/robo-config-plugin": "7.9.17",
     "aws-sdk": "2.1297.0",
     "c8": "7.12.0",

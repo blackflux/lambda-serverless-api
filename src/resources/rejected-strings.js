@@ -1,0 +1,35 @@
+import escapeRegExp from '../util/escape-reg-exp.js';
+
+export const list = [
+  '',
+  'undefined',
+  'undef',
+  'null',
+  'NULL',
+  '(null)',
+  '<null>',
+  'nil',
+  'NIL',
+  'true',
+  'false',
+  'True',
+  'False',
+  'TRUE',
+  'FALSE',
+  'None',
+  'NaN',
+  'Infinity',
+  '-Infinity',
+  'INF',
+  '"',
+  '\'',
+  '""',
+  '\'\'',
+  '%',
+  '_',
+  '-',
+  '--',
+  'NUL',
+  '[object Object]'
+];
+export const regex = new RegExp(`!?^(${list.map((s) => escapeRegExp(s)).join('|')})$`);
