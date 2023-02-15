@@ -1,40 +1,10 @@
 import assert from 'assert';
 import get from 'lodash.get';
 import Abstract from './_abstract.js';
-import escapeRegExp from '../util/escape-reg-exp.js';
-
-const rejectedStrings = [
-  '',
-  'undefined',
-  'undef',
-  'null',
-  'NULL',
-  '(null)',
-  '<null>',
-  'nil',
-  'NIL',
-  'true',
-  'false',
-  'True',
-  'False',
-  'TRUE',
-  'FALSE',
-  'None',
-  'NaN',
-  'Infinity',
-  '-Infinity',
-  'INF',
-  '"',
-  '\'',
-  '""',
-  '\'\'',
-  '%',
-  '_',
-  '-',
-  '--',
-  'NUL',
-  '[object Object]'
-];
+import {
+  regex as rejectedStringsRegex,
+  list as rejectedStringsList
+} from '../resources/rejected-strings.js';
 
 class Str extends Abstract {
   constructor(name, position, opts) {
@@ -47,7 +17,7 @@ class Str extends Abstract {
     assert(this.minLength === null || Number.isInteger(this.minLength));
     assert(this.maxLength === null || Number.isInteger(this.maxLength));
     if (this.relaxed !== true) {
-      this.regex = new RegExp(`!?^(${rejectedStrings.map((s) => escapeRegExp(s)).join('|')})$`);
+      this.regex = rejectedStringsRegex;
     }
   }
 
@@ -56,7 +26,7 @@ class Str extends Abstract {
     if (valid && !(typeof value === 'string' || value instanceof String)) {
       valid = false;
     }
-    if (valid && this.relaxed !== true && rejectedStrings.includes(value)) {
+    if (valid && this.relaxed !== true && rejectedStringsList.includes(value)) {
       valid = false;
     }
     if (valid && this.minLength !== null && value.length < this.minLength) {
