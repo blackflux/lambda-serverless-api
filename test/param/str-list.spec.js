@@ -80,12 +80,45 @@ describe('Testing StrList Parameter', () => {
     })).to.throw('Invalid Value for json-Parameter "list" provided.');
   });
 
+  it('Testing rejected string', () => {
+    expect(() => bodyParamEnum.get({
+      body: {
+        list: ['enumOne', '']
+      }
+    })).to.throw('Invalid Value for json-Parameter "list" provided.');
+  });
+
+  describe('Testing rejected string relaxed', () => {
+    let queryParamInValidMin;
+    let bodyParamInValidMin;
+    before(() => {
+      queryParamInValidMin = api.StrList('list', 'query', { relaxed: true });
+      bodyParamInValidMin = api.StrList('list', 'json', { relaxed: true });
+    });
+
+    it('Testing invalid min-length of list item in query param', () => {
+      expect(() => queryParamInValidMin.get({
+        queryStringParameters: {
+          list: '["123", ""]'
+        }
+      })).to.not.throw();
+    });
+
+    it('Testing invalid min-length of list item in json param', () => {
+      expect(() => bodyParamInValidMin.get({
+        body: {
+          list: ['123', '']
+        }
+      })).to.not.throw();
+    });
+  });
+
   describe('Testing optional parameter "minItemLength"', () => {
     let queryParamInValidMin;
     let bodyParamInValidMin;
     before(() => {
-      queryParamInValidMin = api.StrList('list', 'query', { minItemLength: 1 });
-      bodyParamInValidMin = api.StrList('list', 'json', { minItemLength: 1 });
+      queryParamInValidMin = api.StrList('list', 'query', { minItemLength: 1, relaxed: true });
+      bodyParamInValidMin = api.StrList('list', 'json', { minItemLength: 1, relaxed: true });
     });
 
     it('Testing invalid min-length of list item in query param', () => {
