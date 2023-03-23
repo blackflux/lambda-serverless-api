@@ -12,6 +12,7 @@ class StrList extends List {
       assert(Array.isArray(opts.enums));
       assert(opts.enums.every((e) => typeof e === 'string'));
       this.enums = new Set(opts.enums);
+      this.relaxed = true;
     }
 
     assert(opts.minItemLength === undefined || Number.isInteger(opts.minItemLength));
