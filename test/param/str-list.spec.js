@@ -9,11 +9,15 @@ describe('Testing StrList Parameter', () => {
   let jsonParam;
   let queryParamEnum;
   let bodyParamEnum;
+  let queryParamEnumWithRejectedStrings;
+  let bodyParamEnumWithRejectedStrings;
   before(() => {
     queryParam = api.StrList('list', 'query');
     jsonParam = api.StrList('list', 'json');
     queryParamEnum = api.StrList('list', 'query', { enums: ['enumOne', 'enumTwo', 'enumThree'] });
     bodyParamEnum = api.StrList('list', 'json', { enums: ['enumOne', 'enumTwo', 'enumThree'] });
+    queryParamEnumWithRejectedStrings = api.StrList('list', 'query', { enums: ['undefined', '-', 'null'] });
+    bodyParamEnumWithRejectedStrings = api.StrList('list', 'json', { enums: ['undefined', '-', 'null'] });
   });
 
   it('Testing valid query parameter', () => {
@@ -72,6 +76,22 @@ describe('Testing StrList Parameter', () => {
     })).to.deep.equal(['enumOne', 'enumTwo']);
   });
 
+  it('Testing restricted strings in enum query parameter', () => {
+    expect(queryParamEnumWithRejectedStrings.get({
+      queryStringParameters: {
+        list: '["undefined", "-", "null"]'
+      }
+    })).to.deep.equal(['undefined', '-', 'null']);
+  });
+
+  it('Testing restricted strings in enum json parameter', () => {
+    expect(bodyParamEnumWithRejectedStrings.get({
+      body: {
+        list: ['undefined', '-', 'null']
+      }
+    })).to.deep.equal(['undefined', '-', 'null']);
+  });
+
   it('Testing invalid enums json parameter', () => {
     expect(() => bodyParamEnum.get({
       body: {
@@ -81,7 +101,7 @@ describe('Testing StrList Parameter', () => {
   });
 
   it('Testing rejected string', () => {
-    expect(() => bodyParamEnum.get({
+    expect(() => jsonParam.get({
       body: {
         list: ['enumOne', '']
       }
