@@ -22,7 +22,9 @@ export const Wrapper = ({ router, module }) => {
         then: Joi.forbidden(),
         otherwise: Joi.string().pattern(VERSION_REGEX)
       }).optional(),
-      versioning: Joi.boolean().optional()
+      versioning: Joi.boolean().optional(),
+      logSuccess: Joi.boolean().optional(),
+      logError: Joi.boolean().optional()
     }).optional());
     assert(typeof handler === 'function');
 
