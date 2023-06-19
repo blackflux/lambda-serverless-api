@@ -57,7 +57,7 @@ class Logger extends Plugin {
   }
 
   async after({
-    event, context, response, router
+    event, context, request, response, router
   }) {
     if (!this.logError && !this.logSuccess) {
       return;
@@ -68,7 +68,16 @@ class Logger extends Plugin {
     });
     await this.parse(message);
     const success = this.success({ message });
-    if ((success && !this.logSuccess) || (!success && !this.logError)) {
+    const { options } = request;
+    const logSuccess = (
+      options.logSuccess === true
+      || (this.logSuccess === true && options.logSuccess !== false)
+    );
+    const logError = (
+      options.logError === true
+      || (this.logError === true && options.logError !== false)
+    );
+    if ((success && !logSuccess) || (!success && !logError)) {
       return;
     }
 
