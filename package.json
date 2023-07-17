@@ -14,10 +14,7 @@
   ],
   "author": "Lukas Siemon",
   "devDependencies": {
-    "@aws-sdk/client-dynamodb": "3.370.0",
     "@aws-sdk/client-s3": "^3.370.0",
-    "@aws-sdk/lib-dynamodb": "3.370.0",
-    "@aws-sdk/util-dynamodb": "3.370.0",
     "@babel/core": "7.22.9",
     "@babel/eslint-parser": "7.22.9",
     "@babel/register": "7.22.5",
@@ -32,11 +29,11 @@
     "eslint-plugin-markdown": "3.0.0",
     "eslint-plugin-mocha": "10.1.0",
     "js-gardener": "5.0.0",
-    "lambda-tdd": "6.2.3",
+    "lambda-tdd": "6.2.4",
     "minimist": "1.2.8",
     "moment-timezone": "0.5.43",
     "nock": "13.3.2",
-    "node-tdd": "3.5.0",
+    "node-tdd": "3.5.1",
     "request": "2.88.2",
     "request-promise": "4.2.6"
   },
@@ -80,7 +77,7 @@
   ],
   "dependencies": {
     "@turf/kinks": "6.5.0",
-    "aws-sdk-wrap": "13.0.1",
+    "aws-sdk-wrap": "13.0.2",
     "joi-strict": "2.0.1",
     "lambda-async": "2.0.1",
     "lambda-monitor-logger": "4.0.0",
@@ -98,10 +95,5 @@
     "smart-fs": "3.0.1",
     "swagger-parser": "10.0.3",
     "turf-polygon": "1.0.3"
-  },
-  "peerDependencies": {
-    "@aws-sdk/client-dynamodb": "^3.188.0",
-    "@aws-sdk/lib-dynamodb": "^3.188.0",
-    "@aws-sdk/util-dynamodb": "^3.188.0"
   }
 }
