@@ -1,15 +1,15 @@
 [
   {
-    "scope": "https://bucket.s3.amazonaws.com:443",
+    "scope": "https://bucket.s3.us-east-1.amazonaws.com:443",
     "method": "PUT",
-    "path": "/prefix/suffix",
+    "path": "/prefix/suffix?x-id=PutObject",
     "body": "1f8b0800000000000203abae050043bfa6a302000000",
     "status": 200,
     "response": "",
     "responseIsBinary": false
   },
   {
-    "scope": "https://bucket.s3.amazonaws.com:443",
+    "scope": "https://bucket.s3.us-east-1.amazonaws.com:443",
     "method": "GET",
     "path": "/?list-type=2&prefix=prefix",
     "body": "",
