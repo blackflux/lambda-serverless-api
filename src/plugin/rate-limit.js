@@ -12,7 +12,7 @@ class RateLimit extends Plugin {
     this.enabled = get(options, 'enabled', true);
     this.identifierPaths = get(options, 'identifierPaths', ['requestContext.identity.sourceIp']);
     this.limiter = Limiter({
-      S3: get(options, 'S3', null),
+      awsSdkWrap: get(options, 'awsSdkWrap', null),
       bucket: get(options, 'bucket', null),
       globalLimit: get(options, 'globalLimit', 200),
       defaultRouteLimit: get(options, 'defaultRouteLimit', 100)
@@ -24,7 +24,7 @@ class RateLimit extends Plugin {
       rateLimit: Joi.object().keys({
         enabled: Joi.boolean().optional(),
         identifierPaths: Joi.array().items(Joi.string()).optional(),
-        S3: Joi.function(),
+        awsSdkWrap: Joi.object(),
         bucket: Joi.string().optional(),
         // eslint-disable-next-line
         globalLimit: Joi.number().integer().min(0).allow(null).optional(),

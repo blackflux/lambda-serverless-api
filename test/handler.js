@@ -1,6 +1,8 @@
 import request from 'request-promise';
 import Joi from 'joi-strict';
-import AWS from 'aws-sdk';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import AwsSdkWrap from 'aws-sdk-wrap';
+import { logger } from 'lambda-monitor-logger';
 import { Api } from '../src/index.js';
 
 const api = Api({
@@ -36,7 +38,13 @@ const api = Api({
   },
   rateLimit: {
     enabled: process.env.RATE_LIMIT_ENABLED === 'true',
-    S3: AWS.S3
+    awsSdkWrap: AwsSdkWrap({
+      logger,
+      services: {
+        S3: S3Client,
+        'S3:CMD': { PutObjectCommand }
+      }
+    })
   },
   preLogic: () => {}
 });
