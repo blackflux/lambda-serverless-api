@@ -6,6 +6,15 @@ import { URL } from 'url';
 const lookup = {};
 
 export const resolve = async (specifier, context, defaultResolve) => {
+  if (specifier.startsWith('node:test?testSeed=')) {
+    const seed = specifier.split('=')[1];
+    if (seed === '<delete>') {
+      delete process.env.TEST_SEED;
+    } else {
+      process.env.TEST_SEED = seed;
+    }
+    return defaultResolve('node:test');
+  }
   const result = await defaultResolve(specifier, context, defaultResolve);
   const child = new URL(result.url);
 
