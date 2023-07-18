@@ -886,10 +886,10 @@
   dependencies:
     smart-fs "2.0.2"
 
-"@blackflux/robo-config-plugin@9.0.1":
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/@blackflux/robo-config-plugin/-/robo-config-plugin-9.0.1.tgz#72209d224524f16a83e894abe611063850bbac6c"
-  integrity sha512-14OOJOf1kEcWFfCc40XbfeCx8VmMw4OZiX+0H9sDoX2rJfwR3j//qohaKm0JqIgXIeIxGXjKWAaPRGiuBSrl7g==
+"@blackflux/robo-config-plugin@9.0.2":
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@blackflux/robo-config-plugin/-/robo-config-plugin-9.0.2.tgz#f765a0a6e3d1bbfcd06f4e3fe2d4c83a93bf039c"
+  integrity sha512-C5/Zb3OEq8GFC0JtoPG0lO5BYYptWqPWFRF8dXQctI6poahdLRtqJvrfI9ZOuHLafoPGR2evmrPtdvnLo6bC0Q==
   dependencies:
     smart-fs "3.0.1"
 
@@ -3983,10 +3983,10 @@ lambda-monitor-logger@4.0.0:
   dependencies:
     joi-strict "2.0.1"
 
-lambda-tdd@6.2.4:
-  version "6.2.4"
-  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-6.2.4.tgz#d6c1702766dfbf0211796f87953d33b096cb5ed8"
-  integrity sha512-eF9J14Kp9tkUucyoW63C0DXdJmGfhpqESjcQtmO1ECKfKc3mE3wiMWm8zyvoIPTOlqgLSo3AR34B8YJVXy0NEA==
+lambda-tdd@6.2.5:
+  version "6.2.5"
+  resolved "https://registry.yarnpkg.com/lambda-tdd/-/lambda-tdd-6.2.5.tgz#befb9d39637b214a01a6af3f6e3fe0b2326e470b"
+  integrity sha512-Dzk1jjMuQowai3AJ/7C6NuZAgfP+kaunqBoPVMOgXfGBwao2rrpl9puIbvhW4+dMphpEsm5rgDO64jjB3YYDmA==
   dependencies:
     chai-string "1.5.0"
     glob "10.3.3"
