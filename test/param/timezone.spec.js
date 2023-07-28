@@ -1,5 +1,5 @@
-import fs from 'smart-fs';
 import path from 'path';
+import fs from 'smart-fs';
 import { expect } from 'chai';
 import { describe } from 'node-tdd';
 import moment from 'moment-timezone';
