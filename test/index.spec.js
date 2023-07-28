@@ -1,5 +1,5 @@
-import fs from 'smart-fs';
 import path from 'path';
+import fs from 'smart-fs';
 import minimist from 'minimist';
 import difference from 'lodash.difference';
 import { expect } from 'chai';

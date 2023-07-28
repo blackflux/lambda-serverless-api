@@ -219,8 +219,8 @@ _Example_
 
 <!-- eslint-disable import/no-extraneous-dependencies,no-undef -->
 ```js
-import fs from 'smart-fs';
 import path from 'path';
+import fs from 'smart-fs';
 
 const updateSwagger = async () => {
   const swaggerFile = path.join(fs.dirname(import.meta.url), '..', 'swagger.yml');

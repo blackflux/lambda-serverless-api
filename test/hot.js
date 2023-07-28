@@ -4,17 +4,45 @@ import fs from 'fs';
 import { URL } from 'url';
 
 const lookup = {};
+let envVars = {};
+const port = {}; // dummy variable, not used
+
+/* serialized and passed into main process */
+function createListener() {
+  /* communicate process.env to loader process */
+  process.env = new Proxy(process.env, {
+    set(target, key, value) {
+      // eslint-disable-next-line no-param-reassign
+      target[key] = value;
+      port.postMessage(target);
+      return target[key];
+    },
+    deleteProperty(target, key) {
+      if (!(key in target)) {
+        return false;
+      }
+      // eslint-disable-next-line no-param-reassign
+      delete target[key];
+      port.postMessage(target);
+      return true;
+    }
+  });
+}
+
+export function globalPreload({ port: p }) {
+  if (process.versions.node.split('.')[0] < 20) {
+    /* Skip listener, since process shared before node 20 */
+    envVars = process.env;
+    return '(() => {})()';
+  }
+  // eslint-disable-next-line no-param-reassign
+  p.onmessage = ({ data }) => {
+    envVars = data;
+  };
+  return `(${createListener})()`;
+}
 
 export const resolve = async (specifier, context, defaultResolve) => {
-  if (specifier.startsWith('node:test?testSeed=')) {
-    const seed = specifier.split('=')[1];
-    if (seed === '<delete>') {
-      delete process.env.TEST_SEED;
-    } else {
-      process.env.TEST_SEED = seed;
-    }
-    return defaultResolve('node:test');
-  }
   const result = await defaultResolve(specifier, context, defaultResolve);
   const child = new URL(result.url);
 
@@ -68,7 +96,7 @@ export const resolve = async (specifier, context, defaultResolve) => {
     }
   }
 
-  if (!('TEST_SEED' in process.env)) {
+  if (!('TEST_SEED' in envVars)) {
     return result;
   }
 
@@ -78,7 +106,7 @@ export const resolve = async (specifier, context, defaultResolve) => {
 
   if (Array.isArray(lookup[childPath].reload)) {
     const hash = lookup[childPath].reload.reduce(
-      (p, c) => p.update(c).update(process.env[c] || '<undefined>'),
+      (p, c) => p.update(c).update(envVars[c] || '<undefined>'),
       crypto.createHash('md5')
     ).digest('hex');
     return {
@@ -87,6 +115,6 @@ export const resolve = async (specifier, context, defaultResolve) => {
   }
 
   return {
-    url: `${child.href}?id=${process.env.TEST_SEED}`
+    url: `${child.href}?id=${envVars.TEST_SEED}`
   };
 };
