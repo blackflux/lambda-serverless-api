@@ -1,7 +1,7 @@
 import assert from 'assert';
 import get from 'lodash.get';
 import difference from 'lodash.difference';
-import objectFields from 'object-fields';
+import { Retainer, split } from 'object-fields';
 import Str from './str.js';
 
 class FieldsParam extends Str {
@@ -29,7 +29,7 @@ class FieldsParam extends Str {
   pruneFields(apiResponse, parsedFields) {
     assert(apiResponse.isJsonResponse === true, 'Can only prune JsonResponse');
     assert(typeof this.autoPrune === 'string');
-    const retain = objectFields.Retainer(parsedFields);
+    const retain = Retainer(parsedFields);
     retain(this.autoPrune === ''
       ? apiResponse.payload
       : get(apiResponse.payload, this.autoPrune));
@@ -37,7 +37,7 @@ class FieldsParam extends Str {
 
   validate(value) {
     let valid = super.validate(value);
-    if (valid && difference(objectFields.split(value), FieldsParam.evaluatePaths(this.fields)).length !== 0) {
+    if (valid && difference(split(value), FieldsParam.evaluatePaths(this.fields)).length !== 0) {
       valid = false;
     }
     return valid;
@@ -46,7 +46,7 @@ class FieldsParam extends Str {
   get(event) {
     let result = super.get(event);
     if (typeof result === 'string') {
-      result = objectFields.split(result);
+      result = split(result);
     }
     this.enforce.forEach((field) => {
       if (!result.includes(field)) {
