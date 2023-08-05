@@ -1,5 +1,5 @@
 import get from 'lodash.get';
-import pv from 'painless-version';
+import { test } from 'painless-version';
 import SwaggerParser from 'swagger-parser';
 
 export default ({ wrapper, options }) => {
@@ -10,7 +10,7 @@ export default ({ wrapper, options }) => {
     info: {
       title: 'Api Name',
       version: Object.keys(get(options, 'versioning.versions', { '0.0.1': '' }))
-        .sort((a, b) => pv.test(`${a} < ${b}`))[0]
+        .sort((a, b) => test(`${a} < ${b}`))[0]
     },
     paths: {}
   };
