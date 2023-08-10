@@ -22,7 +22,7 @@ class Validator extends Plugin {
     return 6;
   }
 
-  afterRegister({ request }) {
+  afterRegister({ request, caller }) {
     const { params } = request;
 
     // test for param issues
@@ -35,7 +35,7 @@ class Validator extends Plugin {
 
     // test for route collisions
     const routeSignature = request.route.split(/[\s/]/g).map((e) => e.replace(/^{.*?}$/, ':param'));
-    this.routeSignatures.forEach((signature) => {
+    this.routeSignatures.forEach(([signature, caller_]) => {
       if (routeSignature.length !== signature.length) {
         return;
       }
@@ -44,9 +44,12 @@ class Validator extends Plugin {
           return;
         }
       }
-      throw new Error(`Path collision: ${request.route}`);
+      if (caller_ === caller) {
+        return;
+      }
+      throw new Error(`Path collision: ${request.route}\n${caller_} vs ${caller}`);
     });
-    this.routeSignatures.push(routeSignature);
+    this.routeSignatures.push([routeSignature, caller]);
   }
 
   // eslint-disable-next-line class-methods-use-this
