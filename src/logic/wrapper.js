@@ -1,5 +1,6 @@
 import assert from 'assert';
 import Joi from 'joi-strict';
+import { get } from 'stack-trace';
 import * as apiGateway from './api-gateway.js';
 import { VERSION_REGEX } from '../resources/format.js';
 
@@ -52,9 +53,16 @@ export const Wrapper = ({ router, module }) => {
     handlerFn.isApiEndpoint = true;
     handlerFn.route = request.route;
 
+    const trace = get();
+    const caller = [
+      trace[1].getFileName().split('?')[0],
+      trace[1].getLineNumber(),
+      trace[1].getColumnNumber()
+    ].join(':');
+
     router.register(request.route, handlerFn);
     (() => {
-      const resp = module.afterRegister({ request });
+      const resp = module.afterRegister({ request, caller });
       assert(resp === null, 'Plugin should not return from afterRegister()');
     })();
 
