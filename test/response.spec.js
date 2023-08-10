@@ -23,6 +23,15 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
     done();
   });
 
+  it('Testing Reimported Endpoint', (done) => {
+    const importer = () => {
+      api.wrap('GET path/{p1}', [], identity(api));
+    }
+    expect(() => importer()).to.not.throw();
+    expect(() => importer()).to.not.throw();
+    done();
+  });
+
   it('Testing header injections', (done) => {
     api = Api({
       responseHeaders: {
