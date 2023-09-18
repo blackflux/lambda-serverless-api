@@ -5,13 +5,10 @@ import get from 'lodash.get';
 import { wrap as lambdaAsyncWrap } from 'lambda-async';
 import { logger } from 'lambda-monitor-logger';
 import { serializeError } from 'serialize-error';
-
-const getErrorMessage = (error) => String(get(error, 'message', 'Exception')).split('\n')[0];
+import { symbols } from './symbols.js';
 
 export const asApiGatewayResponse = (resp, stringifyJson = true) => {
-  if (get(resp, 'isApiResponse') !== true) {
-    throw resp;
-  }
+  assert(get(resp, 'isApiResponse') === true);
 
   const isApiError = get(resp, 'isApiError');
   assert([true, false].includes(isApiError));
@@ -95,14 +92,21 @@ export const wrap = ({
       // eslint-disable-next-line no-await-in-loop
       kwargs.response = await apply[idx](kwargs.response);
     } catch (err) {
-      assert(idx === 0, 'Should not throw from afterSuccess() or after()');
+      assert(
+        err[symbols.tracked] === true || idx === 0,
+        'Should not throw from afterSuccess() or after()'
+      );
+      Object.defineProperty(event, symbols.tracked, { value: true, writable: false });
       kwargs.response = err;
       isError = true;
     }
     assert(get(kwargs, 'response.isApiError', true) === isError);
-    if (get(kwargs, 'response.isApiResponse', false) !== true) {
-      break;
-    }
+  }
+  if (get(kwargs, 'response.isApiResponse', false) !== true) {
+    return {
+      statusCode: 500,
+      body: '{"message":"Internal Server Error"}'
+    };
   }
   return asApiGatewayResponse(kwargs.response);
 };
@@ -110,12 +114,8 @@ export const wrap = ({
 export const wrapAsync = (handler) => {
   const h = (...kwargs) => handler(...kwargs).catch((error) => {
     logger.warn([
-      `${getErrorMessage(error)}: ${handler.route}`,
-      JSON.stringify({
-        context: 'lambda-serverless-api',
-        route: handler.route,
-        error: serializeError(error)
-      })
+      'Unexpected Exception',
+      JSON.stringify({ error: serializeError(error), kwargs })
     ].join('\n'));
     return {
       statusCode: 500,

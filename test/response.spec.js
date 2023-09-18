@@ -118,6 +118,48 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
     });
   });
 
+  it('Testing crash in pre-response', async ({ recorder }) => {
+    api = Api({
+      preRouting: () => {},
+      preValidation: () => {},
+      preResponse: () => {
+        throw new Error();
+      }
+    });
+    api.wrap('GET path', [], identity(api));
+    const [err, resp] = await new Promise((resolve) => {
+      api.router({
+        httpMethod: 'GET',
+        path: '/path',
+        requestContext: { identity: { sourceIp: '127.0.0.1' } }
+      }, {}, (...args) => resolve(args));
+    });
+    expect(err).to.equal(null);
+    expect(resp).to.deep.equal({
+      statusCode: 500,
+      body: '{"message":"Internal Server Error"}'
+    });
+    expect(err).to.equal(null);
+    const logs = recorder.get();
+    expect(logs.length).to.equal(3);
+    expect(logs[0]).to.deep.equal(
+      'INFO: 200 GET path\n'
+      + '{"event":{"httpMethod":"GET","path":"/path","requestContext":{"identity":{"sourceIp":"127.0.0.1"}},'
+      + '"pathParameters":{},"headers":{}},"response":{"statusCode":200,"body":{}}}'
+    );
+    expect(logs[1]).to.deep.equal(
+      'JSON: {"signature":"200 GET path","success":true,"level":"info","timings":{"duration":0},"event":{"'
+      + 'httpMethod":"GET","path":"/path","requestContext":{"identity":{"sourceIp":"127.0.0.1"}},"pathParame'
+      + 'ters":{},"headers":{}},"response":{"statusCode":200,"body":{}}}'
+    );
+    expect(logs[2]).to.startsWith(
+      'WARNING: Unexpected Exception\n'
+      + '{"error":{"generatedMessage":false,"code":"ERR_ASSERTION","actual":false,"expected":true,"operator"'
+      + ':"==","name":"AssertionError","message":"Should not throw from afterSuccess() or after()","stack":"'
+      + 'AssertionError [ERR_ASSERTION]: Should not throw from afterSuccess() or after()'
+    );
+  });
+
   it('Testing no logs', async ({ recorder }) => {
     api = Api({ logger: { logSuccess: false, logError: false } });
     api.wrap('GET path', [], identity(api));
