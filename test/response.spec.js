@@ -118,6 +118,48 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
     });
   });
 
+  it('Testing crash in pre-response', async ({ recorder }) => {
+    api = Api({
+      preRouting: () => {},
+      preValidation: () => {},
+      preResponse: () => {
+        throw new Error();
+      }
+    });
+    api.wrap('GET path', [], identity(api));
+    await new Promise((resolve) => {
+      api.router({
+        httpMethod: 'GET',
+        path: '/path',
+        requestContext: { identity: { sourceIp: '127.0.0.1' } }
+      }, {}, (err, resp) => {
+        expect(err).to.equal(null);
+        expect(resp).to.deep.equal({
+          statusCode: 500,
+          body: '{"message":"Internal Server Error"}'
+        });
+        expect(err).to.equal(null);
+        expect(recorder.get()).to.deep.equal([
+          'INFO: 200 GET path\n'
+          + '{"event":{"httpMethod":"GET","path":"/path","requestContext":{"identity":{"sourceIp":"127.0.0.1"}},'
+          + '"pathParameters":{},"headers":{}},"response":{"statusCode":200,"body":{}}}',
+          'JSON: {"signature":"200 GET path","success":true,"level":"info","timings":{"duration":0},"event":{"'
+          + 'httpMethod":"GET","path":"/path","requestContext":{"identity":{"sourceIp":"127.0.0.1"}},"pathParame'
+          + 'ters":{},"headers":{}},"response":{"statusCode":200,"body":{}}}',
+          'WARNING: Unexpected Exception\n'
+          + '{"error":{"generatedMessage":false,"code":"ERR_ASSERTION","actual":false,"expected":true,"operator"'
+          + ':"==","name":"AssertionError","message":"Should not throw from afterSuccess() or after()","stack":"'
+          + 'AssertionError [ERR_ASSERTION]: Should not throw from afterSuccess() or after()\\n    at Object.han'
+          + 'dler (file:///home/vinc/Code/blackflux/lambda-serverless-api/src/logic/api-gateway.js:95:7)"},"kwar'
+          + 'gs":[{"httpMethod":"GET","path":"/path","requestContext":{"identity":{"sourceIp":"127.0.0.1"}},"pat'
+          + 'hParameters":{},"headers":{}},{"callbackWaitsForEmptyEventLoop":false,"custom":{"executionStart":15'
+          + '83296617000},"cors":{"allowOrigin":false},"parsedParameters":{}}]}'
+        ]);
+        resolve();
+      });
+    });
+  });
+
   it('Testing no logs', async ({ recorder }) => {
     api = Api({ logger: { logSuccess: false, logError: false } });
     api.wrap('GET path', [], identity(api));

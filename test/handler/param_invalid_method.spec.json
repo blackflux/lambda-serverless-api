@@ -11,7 +11,8 @@
   },
   "logs": {
     "to.deep.equal()": [
-      "WARNING: Request Method Mismatch: POST param\n{\"context\":\"lambda-serverless-api\",\"route\":\"POST param\",\"error\":{\"name\":\"Error\",\"message\":\"Request Method Mismatch\",\"stack\":\"Error: Request Method Mismatch\\n    at Validator.before (file://<root>/src/plugin/validator.js:59:13)\\n    at Module.executeAsync (file://<root>/src/logic/module.js?id=<seed>:49:49)\\n    at async Array.<anonymous> (file://<root>/src/logic/api-gateway.js?id=<seed>:76:20)\\n    at async file://<root>/src/logic/api-gateway.js?id=<seed>:96:25\"}}"
+      "WARNING: GET /param\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param\"},\"response\":{}}",
+      "JSON: {\"signature\":\"GET /param\",\"success\":false,\"level\":\"warn\",\"timings\":{\"duration\":0},\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/param\"},\"response\":{}}"
     ]
   },
   "event": {

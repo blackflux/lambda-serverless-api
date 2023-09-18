@@ -9,11 +9,11 @@
       "body": "{\"message\":\"Internal Server Error\"}"
     }
   },
-  "logs([length])": {
-    "to.deep.equal()": 1
-  },
-  "logs([0])": {
-    "to.startsWith()": "WARNING: Rate limit identifier not found: GET json\n{\"context\":\"lambda-serverless-api\",\"route\":\"GET json\",\"error\":{\"name\":\"Error\",\"message\":\"Rate limit identifier not found\\n{\\\"httpMethod\\\":\\\"GET\\\",\\\"headers\\\":{\\\"x-api-version\\\":\\\"1.0.1\\\"},\\\"path\\\":\\\"/json\\\"}\",\"stack\":\"Error: Rate limit identifier not found\\n{\\\"httpMethod\\\":\\\"GET\\\",\\\"headers\\\":{\\\"x-api-version\\\":\\\"1.0.1\\\"},\\\"path\\\":\\\"/json\\\"}\\n"
+  "logs": {
+    "to.deep.equal()": [
+      "WARNING: GET json\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"path\":\"/json\"},\"response\":{}}",
+      "JSON: {\"signature\":\"GET json\",\"success\":false,\"level\":\"warn\",\"timings\":{\"duration\":0},\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"path\":\"/json\"},\"response\":{}}"
+    ]
   },
   "event": {
     "httpMethod": "GET",

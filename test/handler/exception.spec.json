@@ -2,6 +2,7 @@
   "handler": "exception",
   "success": true,
   "timeout": 2000,
+  "timestamp": "2023-09-18T22:40:17.528Z",
   "expect": {
     "to.deep.equal()": {
       "statusCode": 500,
@@ -10,7 +11,8 @@
   },
   "logs": {
     "to.deep.equal()": [
-      "WARNING: Some Exception: GET exception\n{\"context\":\"lambda-serverless-api\",\"route\":\"GET exception\",\"error\":{\"name\":\"Error\",\"message\":\"Some Exception\",\"stack\":\"Error: Some Exception\\n    at file://<root>/test/handler.js?id=<seed>:70:9\\n    at Array.<anonymous> (file://<root>/src/logic/api-gateway.js?id=<seed>:78:14)\\n    at async file://<root>/src/logic/api-gateway.js?id=<seed>:96:25\"}}"
+      "WARNING: GET exception\n{\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/exception\"},\"response\":{}}",
+      "JSON: {\"signature\":\"GET exception\",\"success\":false,\"level\":\"warn\",\"timings\":{\"duration\":0},\"event\":{\"httpMethod\":\"GET\",\"headers\":{\"x-api-version\":\"1.0.1\"},\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"path\":\"/exception\"},\"response\":{}}"
     ]
   },
   "event": {
