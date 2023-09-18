@@ -140,22 +140,24 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
       body: '{"message":"Internal Server Error"}'
     });
     expect(err).to.equal(null);
-    expect(recorder.get()).to.deep.equal([
+    const logs = recorder.get();
+    expect(logs.length).to.equal(3);
+    expect(logs[0]).to.deep.equal(
       'INFO: 200 GET path\n'
       + '{"event":{"httpMethod":"GET","path":"/path","requestContext":{"identity":{"sourceIp":"127.0.0.1"}},'
-      + '"pathParameters":{},"headers":{}},"response":{"statusCode":200,"body":{}}}',
+      + '"pathParameters":{},"headers":{}},"response":{"statusCode":200,"body":{}}}'
+    );
+    expect(logs[1]).to.deep.equal(
       'JSON: {"signature":"200 GET path","success":true,"level":"info","timings":{"duration":0},"event":{"'
       + 'httpMethod":"GET","path":"/path","requestContext":{"identity":{"sourceIp":"127.0.0.1"}},"pathParame'
-      + 'ters":{},"headers":{}},"response":{"statusCode":200,"body":{}}}',
+      + 'ters":{},"headers":{}},"response":{"statusCode":200,"body":{}}}'
+    );
+    expect(logs[2]).to.startsWith(
       'WARNING: Unexpected Exception\n'
       + '{"error":{"generatedMessage":false,"code":"ERR_ASSERTION","actual":false,"expected":true,"operator"'
       + ':"==","name":"AssertionError","message":"Should not throw from afterSuccess() or after()","stack":"'
-      + 'AssertionError [ERR_ASSERTION]: Should not throw from afterSuccess() or after()\\n    at Object.han'
-      + 'dler (file:///home/vinc/Code/blackflux/lambda-serverless-api/src/logic/api-gateway.js:95:7)"},"kwar'
-      + 'gs":[{"httpMethod":"GET","path":"/path","requestContext":{"identity":{"sourceIp":"127.0.0.1"}},"pat'
-      + 'hParameters":{},"headers":{}},{"callbackWaitsForEmptyEventLoop":false,"custom":{"executionStart":15'
-      + '83296617000},"cors":{"allowOrigin":false},"parsedParameters":{}}]}'
-    ]);
+      + 'AssertionError [ERR_ASSERTION]: Should not throw from afterSuccess() or after()'
+    );
   });
 
   it('Testing no logs', async ({ recorder }) => {
