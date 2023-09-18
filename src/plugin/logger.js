@@ -64,7 +64,9 @@ class Logger extends Plugin {
     }
     const message = cloneDeep({
       event,
-      response: asApiGatewayResponse(response, false)
+      response: get(response, 'isApiResponse') === true
+        ? asApiGatewayResponse(response, false)
+        : response
     });
     await this.parse(message);
     const success = this.success({ message });
