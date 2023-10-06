@@ -43,7 +43,7 @@ describe('Testing Swagger', () => {
         requestContext: { identity: { sourceIp: '127.0.0.1' } }
       }, {}, (_, r) => resolve(r));
     })).to.deep.equal({
-      body: '{"message":"Method / Route not allowed"}',
+      body: '{"message":"Method / Route not allowed","messageId":99008}',
       statusCode: 403
     });
     expect(docs).to.deep.equal({
