@@ -6,13 +6,13 @@
   "expect": {
     "to.deep.equal()": {
       "statusCode": 403,
-      "body": "{\"message\":\"Method / Route not allowed\"}"
+      "body": "{\"message\":\"Method / Route not allowed\",\"messageId\":99008}"
     }
   },
   "logs": {
     "to.deep.equal()": [
-      "WARNING: 403 POST /path/test123/123\n{\"event\":{\"path\":\"/path/test123/123\",\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method / Route not allowed\"}}}",
-      "JSON: {\"signature\":\"403 POST /path/test123/123\",\"success\":false,\"level\":\"warn\",\"timings\":{\"duration\":0},\"event\":{\"path\":\"/path/test123/123\",\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method / Route not allowed\"}}}"
+      "WARNING: 403: Method / Route not allowed\n{\"event\":{\"path\":\"/path/test123/123\",\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method / Route not allowed\",\"messageId\":99008}}}",
+      "JSON: {\"signature\":\"403: Method / Route not allowed\",\"success\":false,\"level\":\"warn\",\"timings\":{\"duration\":0},\"event\":{\"path\":\"/path/test123/123\",\"httpMethod\":\"POST\",\"requestContext\":{\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{}},\"response\":{\"statusCode\":403,\"body\":{\"message\":\"Method / Route not allowed\",\"messageId\":99008}}}"
     ]
   },
   "event": {
