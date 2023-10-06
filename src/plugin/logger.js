@@ -83,15 +83,20 @@ class Logger extends Plugin {
       return;
     }
 
-    const signature = this.signature
-      .map((p) => {
-        if (p === '$ROUTE') {
-          const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
-          return matchedRoute ? matchedRoute[0].handler.route.split(' ')[1] : get(message, 'event.path');
-        }
-        return get(message, p);
-      })
-      .filter((e) => !!e).join(' ');
+    let signature;
+    if (message?.response?.statusCode === 403 && message?.response?.body?.messageId === 99008) {
+      signature = `403: ${message?.response?.body?.message}`;
+    } else {
+      signature = this.signature
+        .map((p) => {
+          if (p === '$ROUTE') {
+            const matchedRoute = router.recognize(event.httpMethod, get(event, 'path', ''));
+            return matchedRoute ? matchedRoute[0].handler.route.split(' ')[1] : get(message, 'event.path');
+          }
+          return get(message, p);
+        })
+        .filter((e) => !!e).join(' ');
+    }
     assert(signature !== '');
 
     const level = this.level({ success, signature, message });

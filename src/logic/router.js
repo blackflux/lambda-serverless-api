@@ -39,7 +39,7 @@ export const Router = ({ module }) => {
             router
           });
           if (resp === null) {
-            throw ApiErrorFn('Method / Route not allowed', 403);
+            throw ApiErrorFn('Method / Route not allowed', 403, 99008);
           }
           return resp;
         },
