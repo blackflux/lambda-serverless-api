@@ -76,10 +76,10 @@ const VersionManager = ({
       const pDepr = params.find((p) => (
         p.deprecated !== null
           && test(`${p.deprecated} <= ${apiVersion}`)
-          && p.get() !== undefined
+          && p.get(event) !== undefined
       ));
       if (pDepr) {
-        throw ApiErrorFn(`Param ${pDepr.name} deprecated since version "${pDepr.deprecated}"`, 403);
+        throw ApiErrorFn(`Param "${pDepr.name}" deprecated since version "${pDepr.deprecated}"`, 403);
       }
       const apiVersionMeta = versions[apiVersion];
       if (apiVersionMeta.isDeprecated) {

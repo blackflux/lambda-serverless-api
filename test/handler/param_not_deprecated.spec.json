@@ -6,13 +6,18 @@
   "expect": {
     "to.deep.equal()": {
       "statusCode": 200,
-      "body": "{\"username\":\"Anja Smith\",\"authorizer\":\"Auth Info Header\",\"depr\":\"some-value\",\"xApiVersion\":\"1.0.1\"}"
+      "body": "{\"username\":\"Anja Smith\",\"authorizer\":\"Auth Info Header\",\"depr\":\"some-value\",\"xApiVersion\":\"1.0.0\"}",
+      "headers": {
+        "deprecation": "date=\"Wed, 01 Jan 2020 00:00:00 GMT\"",
+        "sunset": "Wed, 29 Dec 2021 00:00:00 GMT"
+      }
     }
   },
   "logs": {
     "to.deep.equal()": [
-      "INFO: 200 POST param\n{\"event\":{\"queryStringParameters\":{\"depr\":\"some-value\"},\"body\":{\"username\":\"Anja Smith\"},\"httpMethod\":\"POST\",\"requestContext\":{\"authorizer\":\"Auth Info Context\",\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"authorizer\":\"Auth Info Header\",\"x-api-version\":\"1.0.1\"},\"path\":\"/param\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"authorizer\":\"Auth Info Header\",\"depr\":\"some-value\",\"xApiVersion\":\"1.0.1\"}}}",
-      "JSON: {\"signature\":\"200 POST param\",\"success\":true,\"level\":\"info\",\"timings\":{\"duration\":0},\"event\":{\"queryStringParameters\":{\"depr\":\"some-value\"},\"body\":{\"username\":\"Anja Smith\"},\"httpMethod\":\"POST\",\"requestContext\":{\"authorizer\":\"Auth Info Context\",\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"authorizer\":\"Auth Info Header\",\"x-api-version\":\"1.0.1\"},\"path\":\"/param\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"authorizer\":\"Auth Info Header\",\"depr\":\"some-value\",\"xApiVersion\":\"1.0.1\"}}}"
+      "WARNING: Sunset functionality accessed\n{\"queryStringParameters\":{\"depr\":\"some-value\"},\"body\":{\"username\":\"Anja Smith\"},\"httpMethod\":\"POST\",\"requestContext\":{\"authorizer\":\"Auth Info Context\",\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"authorizer\":\"Auth Info Header\",\"x-api-version\":\"1.0.0\"},\"path\":\"/param\"}",
+      "INFO: 200 POST param\n{\"event\":{\"queryStringParameters\":{\"depr\":\"some-value\"},\"body\":{\"username\":\"Anja Smith\"},\"httpMethod\":\"POST\",\"requestContext\":{\"authorizer\":\"Auth Info Context\",\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"authorizer\":\"Auth Info Header\",\"x-api-version\":\"1.0.0\"},\"path\":\"/param\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"authorizer\":\"Auth Info Header\",\"depr\":\"some-value\",\"xApiVersion\":\"1.0.0\"},\"headers\":{\"deprecation\":\"date=\\\"Wed, 01 Jan 2020 00:00:00 GMT\\\"\",\"sunset\":\"Wed, 29 Dec 2021 00:00:00 GMT\"}}}",
+      "JSON: {\"signature\":\"200 POST param\",\"success\":true,\"level\":\"info\",\"timings\":{\"duration\":0},\"event\":{\"queryStringParameters\":{\"depr\":\"some-value\"},\"body\":{\"username\":\"Anja Smith\"},\"httpMethod\":\"POST\",\"requestContext\":{\"authorizer\":\"Auth Info Context\",\"identity\":{\"sourceIp\":\"127.0.0.1\"}},\"headers\":{\"authorizer\":\"Auth Info Header\",\"x-api-version\":\"1.0.0\"},\"path\":\"/param\"},\"response\":{\"statusCode\":200,\"body\":{\"username\":\"Anja Smith\",\"authorizer\":\"Auth Info Header\",\"depr\":\"some-value\",\"xApiVersion\":\"1.0.0\"},\"headers\":{\"deprecation\":\"date=\\\"Wed, 01 Jan 2020 00:00:00 GMT\\\"\",\"sunset\":\"Wed, 29 Dec 2021 00:00:00 GMT\"}}}"
     ]
   },
   "event": {
@@ -29,7 +34,7 @@
     },
     "headers": {
       "authorizer": "Auth Info Header",
-      "X-api-version": "1.0.1"
+      "X-api-version": "1.0.0"
     }
   }
 }

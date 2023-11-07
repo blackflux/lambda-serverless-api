@@ -1,6 +1,7 @@
 import assert from 'assert';
 import get from 'lodash.get';
 import { ApiErrorFn } from '../response/api-error.js';
+import { VERSION_REGEX } from '../resources/format.js';
 
 const positionMapping = {
   query: 'queryStringParameters',
@@ -24,6 +25,8 @@ class Abstract {
       nullable === false || ['json', 'context'].includes(position),
       `Parameter Position cannot be nullable: ${position}`
     );
+    assert(deprecated === null
+        || VERSION_REGEX.test(deprecated), `Incorrect version format for Param "${name}"`);
     this.nameOriginal = name;
     this.name = name.endsWith('+') ? name.slice(0, name.length - 1) : name;
     this.position = position;
