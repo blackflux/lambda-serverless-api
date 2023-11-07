@@ -72,6 +72,14 @@ const VersionManager = ({
       if (deprecated !== undefined && test(`${deprecated} <= ${apiVersion}`)) {
         throw ApiErrorFn(`Endpoint deprecated since version "${deprecated}"`, 403);
       }
+      const pDepr = get(request, 'params', []).find((p) => (
+        p.deprecated !== null
+          && test(`${p.deprecated} <= ${apiVersion}`)
+          && p.get(event) !== undefined
+      ));
+      if (pDepr) {
+        throw ApiErrorFn(`Param "${pDepr.name}" deprecated since version "${pDepr.deprecated}"`, 403);
+      }
       const apiVersionMeta = versions[apiVersion];
       if (apiVersionMeta.isDeprecated) {
         const isSunset = apiVersionMeta.sunsetDate < new Date();
