@@ -72,8 +72,7 @@ const VersionManager = ({
       if (deprecated !== undefined && test(`${deprecated} <= ${apiVersion}`)) {
         throw ApiErrorFn(`Endpoint deprecated since version "${deprecated}"`, 403);
       }
-      const params = get(request, 'params');
-      const pDepr = params.find((p) => (
+      const pDepr = get(request, 'params', []).find((p) => (
         p.deprecated !== null
           && test(`${p.deprecated} <= ${apiVersion}`)
           && p.get(event) !== undefined
