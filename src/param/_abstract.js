@@ -16,7 +16,8 @@ class Abstract {
     nullable = false,
     normalize = true,
     getter = null,
-    lowercase = false
+    lowercase = false,
+    deprecated = null
   } = {}) {
     assert(Object.keys(positionMapping).includes(position), `Unknown Parameter Position: ${position}`);
     assert(
@@ -31,6 +32,7 @@ class Abstract {
     this.nullable = nullable;
     this.normalize = normalize;
     this.lowercase = lowercase;
+    this.deprecated = deprecated;
     this.getter = getter;
     this.type = null;
   }

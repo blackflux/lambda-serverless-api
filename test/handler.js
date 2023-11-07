@@ -149,7 +149,8 @@ export const param = api.wrap('POST param', [
   api.Str('paramWithGetter', 'query', {
     required: false,
     getter: () => request({ uri: 'https://foo.com', json: true })
-  })
+  }),
+  api.Str('depr', 'query', { required: false, deprecated: '1.0.1' })
 ], (params) => api.JsonResponse(params));
 
 export const param2 = api.wrap('POST param2', [
