@@ -2,6 +2,7 @@
 import assert from 'assert';
 import set from 'lodash.set';
 import get from 'lodash.get';
+import cloneDeep from 'lodash.clonedeep';
 import { wrap as lambdaAsyncWrap } from 'lambda-async';
 import { logger } from 'lambda-monitor-logger';
 import { serializeError } from 'serialize-error';
@@ -59,6 +60,7 @@ export const wrap = ({
     });
   }
 
+  const eventRaw = cloneDeep(event);
   const kwargs = {
     request,
     event,
@@ -72,7 +74,7 @@ export const wrap = ({
     async () => {
       const resp = await module.before(kwargs);
       assert(resp === null, 'Plugin before() should not return');
-      return handler(context.parsedParameters, context, event);
+      return handler(context.parsedParameters, context, eventRaw);
     },
     async (prevResp) => {
       if (!isError) {
