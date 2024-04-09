@@ -74,7 +74,7 @@ export const wrap = ({
     async () => {
       const resp = await module.before(kwargs);
       assert(resp === null, 'Plugin before() should not return');
-      return handler(context.parsedParameters, context, eventRaw);
+      return handler(context.parsedParameters, context, event, eventRaw);
     },
     async (prevResp) => {
       if (!isError) {
