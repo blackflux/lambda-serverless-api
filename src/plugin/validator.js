@@ -91,7 +91,7 @@ class Validator extends Plugin {
       Object.keys(event.body || {}),
       request.params.filter((p) => p.position === 'json').map((p) => p.name)
     );
-    if (invalidJsonParams.length !== 0) {
+    if (invalidJsonParams.length !== 0 && request?.options?.allowUnknownJson !== true) {
       throw ApiErrorFn('Invalid Json Body Param(s) detected.', 400, 99005, {
         value: invalidJsonParams
       });
