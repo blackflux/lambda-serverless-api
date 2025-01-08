@@ -25,7 +25,8 @@ export const Wrapper = ({ router, module }) => {
       }).optional(),
       versioning: Joi.boolean().optional(),
       logSuccess: Joi.boolean().optional(),
-      logError: Joi.boolean().optional()
+      logError: Joi.boolean().optional(),
+      allowUnknownJson: Joi.boolean().optional()
     }).optional());
     assert(typeof handler === 'function');
 
