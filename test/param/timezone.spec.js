@@ -24,6 +24,7 @@ describe('Testing Timezone Parameter', () => {
 
   describe('Testing query param', () => {
     let queryParam;
+
     before(() => {
       queryParam = api.Timezone('value', 'query');
     });
@@ -64,6 +65,7 @@ describe('Testing Timezone Parameter', () => {
 
   describe('Testing json param', () => {
     let jsonParam;
+
     before(() => {
       jsonParam = api.Timezone('value', 'json');
     });

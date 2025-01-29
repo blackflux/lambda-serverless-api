@@ -7,6 +7,7 @@ const api = Api();
 describe('Testing Email Parameter', () => {
   describe('Testing query param', () => {
     let queryParam;
+
     before(() => {
       queryParam = api.Email('value', 'query');
     });
@@ -30,6 +31,7 @@ describe('Testing Email Parameter', () => {
 
   describe('Testing json param', () => {
     let jsonParam;
+
     before(() => {
       jsonParam = api.Email('value', 'json');
     });

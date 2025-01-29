@@ -8,6 +8,7 @@ describe('Testing GeoRect Parameter', () => {
   let queryParam;
   let jsonParam;
   let jsonParamRelaxed;
+
   before(() => {
     queryParam = api.GeoRect('geoRect', 'query');
     jsonParam = api.GeoRect('geoRect', 'json');

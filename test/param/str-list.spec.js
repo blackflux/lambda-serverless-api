@@ -11,6 +11,7 @@ describe('Testing StrList Parameter', () => {
   let bodyParamEnum;
   let queryParamEnumWithRejectedStrings;
   let bodyParamEnumWithRejectedStrings;
+
   before(() => {
     queryParam = api.StrList('list', 'query');
     jsonParam = api.StrList('list', 'json');
@@ -111,6 +112,7 @@ describe('Testing StrList Parameter', () => {
   describe('Testing rejected string relaxed', () => {
     let queryParamInValidMin;
     let bodyParamInValidMin;
+
     before(() => {
       queryParamInValidMin = api.StrList('list', 'query', { relaxed: true });
       bodyParamInValidMin = api.StrList('list', 'json', { relaxed: true });
@@ -136,6 +138,7 @@ describe('Testing StrList Parameter', () => {
   describe('Testing optional parameter "minItemLength"', () => {
     let queryParamInValidMin;
     let bodyParamInValidMin;
+
     before(() => {
       queryParamInValidMin = api.StrList('list', 'query', { minItemLength: 1, relaxed: true });
       bodyParamInValidMin = api.StrList('list', 'json', { minItemLength: 1, relaxed: true });
@@ -161,6 +164,7 @@ describe('Testing StrList Parameter', () => {
   describe('Testing optional parameter "maxItemLength"', () => {
     let queryParamInValidMax;
     let bodyParamInValidMax;
+
     before(() => {
       queryParamInValidMax = api.StrList('list', 'query', { maxItemLength: 5 });
       bodyParamInValidMax = api.StrList('list', 'json', { maxItemLength: 5 });

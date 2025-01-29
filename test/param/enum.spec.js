@@ -7,6 +7,7 @@ const api = Api();
 describe('Testing Enum Parameter', () => {
   describe('Testing query param', () => {
     let queryParam;
+
     before(() => {
       queryParam = api.Enum('value', 'query', { enums: ['value', 'item'] });
     });
@@ -30,6 +31,7 @@ describe('Testing Enum Parameter', () => {
 
   describe('Testing json param', () => {
     let jsonParam;
+
     before(() => {
       jsonParam = api.Enum('value', 'json', { enums: ['value', 'item'] });
     });

@@ -8,6 +8,7 @@ describe('Testing GeoPoint Parameter', () => {
   let queryParam;
   let jsonParam;
   let jsonParamRelaxed;
+
   before(() => {
     queryParam = api.GeoPoint('geoPoint', 'query');
     jsonParam = api.GeoPoint('geoPoint', 'json');
