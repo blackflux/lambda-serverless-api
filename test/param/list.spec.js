@@ -7,6 +7,7 @@ const api = Api();
 describe('Testing List Parameter', () => {
   let queryParam;
   let jsonParam;
+
   before(() => {
     queryParam = api.List('list', 'query');
     jsonParam = api.List('list', 'json');
@@ -47,6 +48,7 @@ describe('Testing List Parameter', () => {
   describe('Testing optional parameter "maxItems"', () => {
     let queryParamInValidLength;
     let bodyParamInValidLength;
+
     before(() => {
       queryParamInValidLength = api.StrList('list', 'query', { maxItems: 2 });
       bodyParamInValidLength = api.StrList('list', 'json', { maxItems: 2 });
@@ -72,6 +74,7 @@ describe('Testing List Parameter', () => {
   describe('Testing optional parameter "minItems"', () => {
     let queryParamInValidLength;
     let bodyParamInValidLength;
+
     before(() => {
       queryParamInValidLength = api.StrList('list', 'query', { minItems: 2 });
       bodyParamInValidLength = api.StrList('list', 'json', { minItems: 2 });

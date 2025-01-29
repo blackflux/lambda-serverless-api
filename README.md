@@ -54,7 +54,7 @@ export default api;
 
 then hook the router endpoint into the [Serverless Framework](https://serverless.com/) configuration as
 
-```yaml
+```
 functions:
   router:
     handler: handler.router

@@ -8,6 +8,7 @@ describe('Testing Bool Parameter', () => {
   let queryParam;
   let jsonParam;
   let jsonParamOptional;
+
   before(() => {
     queryParam = api.Bool('enabled', 'query');
     jsonParam = api.Bool('enabled', 'json');

@@ -7,6 +7,7 @@ const api = Api();
 describe('Testing Iso Date Parameter', () => {
   describe('Testing query param', () => {
     let queryParam;
+
     before(() => {
       queryParam = api.IsoDate('value', 'query');
     });
@@ -38,6 +39,7 @@ describe('Testing Iso Date Parameter', () => {
 
   describe('Testing json param', () => {
     let jsonParam;
+
     before(() => {
       jsonParam = api.IsoDate('value', 'json');
     });
@@ -69,6 +71,7 @@ describe('Testing Iso Date Parameter', () => {
 
   describe('Testing optional param', () => {
     let jsonParamOptional;
+
     before(() => {
       jsonParamOptional = api.IsoDate('value', 'json', { required: false });
     });

@@ -5,6 +5,7 @@ import { Module } from '../src/logic/module.js';
 
 describe('Testing Plugin', () => {
   let module;
+
   before(() => {
     module = new Module({});
   });

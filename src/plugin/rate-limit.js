@@ -65,7 +65,7 @@ class RateLimit extends Plugin {
         data: { event, request },
         routeLimit
       });
-    } catch (e) {
+    } catch {
       const err = ApiErrorFn('Rate limit exceeded.', 429);
       err.headers = {
         'X-Rate-Limit-Reset': 60 - new Date().getSeconds()

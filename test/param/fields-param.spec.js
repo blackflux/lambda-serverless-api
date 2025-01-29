@@ -9,6 +9,7 @@ describe('Testing FieldsParam Parameter', () => {
   let queryParam;
   let jsonParam;
   let queryParamOptionEnforce;
+
   before(() => {
     queryParam = api.FieldsParam('param', 'query', { fields: ['id', 'user.id', 'user.name'] });
     jsonParam = api.FieldsParam('param', 'json', { fields: () => ['id', 'user.id', 'user.name'] });

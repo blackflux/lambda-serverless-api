@@ -8,6 +8,7 @@ const api = Api();
 describe('Testing JsonList Parameter', () => {
   let queryParam;
   let jsonParam;
+
   before(() => {
     queryParam = api.JsonList('param', 'query', { schema: Joi.object() });
     jsonParam = api.JsonList('param', 'json', { schema: Joi.object() });

@@ -6,6 +6,7 @@ const api = Api();
 
 describe('Testing UUID Parameter', () => {
   let queryParam;
+
   before(() => {
     queryParam = api.UUID('value', 'query');
   });

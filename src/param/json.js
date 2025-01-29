@@ -17,7 +17,7 @@ class Json extends Abstract {
     if (valid && this.stringInput) {
       try {
         valueParsed = JSON.parse(value);
-      } catch (e) {
+      } catch {
         valid = false;
       }
     }

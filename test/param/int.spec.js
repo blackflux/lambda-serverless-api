@@ -8,6 +8,7 @@ describe('Testing Int Parameter', () => {
   let queryParam;
   let jsonParam;
   let jsonParamOptional;
+
   before(() => {
     queryParam = api.Int('value', 'query');
     jsonParam = api.Int('value', 'json');
@@ -55,6 +56,7 @@ describe('Testing Int Parameter', () => {
   describe('Testing optional parameter "max"', () => {
     let queryParamInvalidMax;
     let bodyParamInvalidMax;
+
     before(() => {
       queryParamInvalidMax = api.Int('value', 'query', { max: 10 });
       bodyParamInvalidMax = api.Int('value', 'json', { max: 10 });
@@ -80,6 +82,7 @@ describe('Testing Int Parameter', () => {
   describe('Testing optional parameter "min"', () => {
     let queryParamInvalidMin;
     let bodyParamInvalidMin;
+
     before(() => {
       queryParamInvalidMin = api.Int('value', 'query', { min: -1 });
       bodyParamInvalidMin = api.Int('value', 'json', { min: -1 });

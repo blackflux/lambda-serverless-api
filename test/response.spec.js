@@ -5,6 +5,7 @@ import { identity } from './misc.js';
 
 describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
   let api;
+
   beforeEach(() => {
     api = Api({
       cors: {

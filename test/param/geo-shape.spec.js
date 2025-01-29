@@ -7,6 +7,7 @@ const api = Api();
 describe('Testing GeoShape Parameter', () => {
   let queryParam;
   let jsonParam;
+
   before(() => {
     queryParam = api.GeoShape('geoShape', 'query');
     jsonParam = api.GeoShape('geoShape', 'json');

@@ -7,6 +7,7 @@ const api = Api();
 describe('Testing IntList Parameter', () => {
   let queryParam;
   let jsonParam;
+
   before(() => {
     queryParam = api.IntList('list', 'query');
     jsonParam = api.IntList('list', 'json');
@@ -55,6 +56,7 @@ describe('Testing IntList Parameter', () => {
   describe('Testing optional int parameter "minItemValue"', () => {
     let queryParamInValidMin;
     let bodyParamInValidMin;
+
     before(() => {
       queryParamInValidMin = api.IntList('list', 'query', { minItemValue: 1 });
       bodyParamInValidMin = api.IntList('list', 'json', { minItemValue: 1 });
@@ -96,6 +98,7 @@ describe('Testing IntList Parameter', () => {
   describe('Testing optional int parameter "maxItemValue"', () => {
     let queryParamInValidMax;
     let bodyParamInValidMax;
+
     before(() => {
       queryParamInValidMax = api.IntList('list', 'query', { maxItemValue: 10 });
       bodyParamInValidMax = api.IntList('list', 'json', { maxItemValue: 10 });
