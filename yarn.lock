@@ -2334,10 +2334,10 @@ commondir@^1.0.1:
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==
 
-compare-versions@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-6.0.0.tgz#a3edb527e4487bfab9a8b62ffe70cebc9b87675b"
-  integrity sha512-s2MzYxfRsE9f/ow8hjn7ysa7pod1xhHdQMsgiJtKx6XSNf4x2N1KG4fjrkUmXcP/e9Y2ZX4zB6sHIso0Lm6evQ==
+compare-versions@6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-6.1.1.tgz#7af3cc1099ba37d244b3145a9af5201b629148a9"
+  integrity sha512-4hm4VPpIecmlg59CHXnRDnqGplJFrbLG4aFEl5vl6cK1u76ws3LLvX7ikFnTDl5vo39sjWD6AaDPYodJp/NNHg==
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -4259,12 +4259,12 @@ lambda-monitor-logger@5.0.1:
   dependencies:
     joi-strict "3.0.0"
 
-lambda-monitor-logger@5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-5.1.1.tgz#0bb281dbe5c0c1b7145e51548d2d3bbcc41e415f"
-  integrity sha512-jJkpjDPo1Cx/2ozw4jQjzTOQ1Aa/Jz01Yvf4ZSj13aved5dDemOlmeWuMxGSEbp5qNLJq2wzvZTzc50tr5ZvsA==
+lambda-monitor-logger@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/lambda-monitor-logger/-/lambda-monitor-logger-6.0.0.tgz#e0a95fa1a7b47f08bcab13f52e9fb31d4934a7e6"
+  integrity sha512-QyajiRkbUwc8ga8bvEC6Soig+HOUPbCp3u9E6XDjriQWvGcc1oMXBAMzSmeAZcKu3oO6uQ7xkGYua0jLz4j2WA==
   dependencies:
-    joi-strict "3.0.0"
+    joi-strict "4.0.0"
 
 lambda-tdd@8.0.0:
   version "8.0.0"
@@ -5120,12 +5120,12 @@ package-json@^6.3.0, package-json@^6.5.0:
     registry-url "^5.0.0"
     semver "^6.2.0"
 
-painless-version@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/painless-version/-/painless-version-3.0.0.tgz#9b2a5053564e9a3fde8ba84dee6882a988f67d70"
-  integrity sha512-Bc6dw1Uy6XtUPidSvlocqqNx2IMvk5V3XtYcbUGEn0KlT5ZqVrOexY4ErA3+w2uTx+mwom6J5hHqXyMucyrrDw==
+painless-version@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/painless-version/-/painless-version-4.0.0.tgz#0e785d22562308d81a137bd949367fab86b44848"
+  integrity sha512-3b/Nzz/opcKOhj790E05LDrkRUZolr9ekJajZyez3XKWTLr0IdMXJJ62icF8TiFhQs10eQ41hLfwSYoIWjQQTg==
   dependencies:
-    compare-versions "6.0.0"
+    compare-versions "6.1.1"
     lodash.set "4.3.2"
 
 parent-module@^1.0.0:
