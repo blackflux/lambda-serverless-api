@@ -8,6 +8,7 @@ describe('Testing IsoTimestamp Parameter', () => {
   let queryParam;
   let jsonParam;
   let jsonParamOptional;
+
   before(() => {
     queryParam = api.IsoTimestamp('value', 'query');
     jsonParam = api.IsoTimestamp('value', 'json');

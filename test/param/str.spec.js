@@ -7,6 +7,7 @@ const api = Api();
 describe('Testing Str Parameter', () => {
   describe('Testing query param', () => {
     let queryParam;
+
     before(() => {
       queryParam = api.Str('value', 'query');
     });
@@ -30,6 +31,7 @@ describe('Testing Str Parameter', () => {
 
   describe('Testing json param', () => {
     let jsonParam;
+
     before(() => {
       jsonParam = api.Str('value', 'json');
     });
@@ -69,6 +71,7 @@ describe('Testing Str Parameter', () => {
     let jsonParamRelaxed;
     let jsonParamMinLength;
     let jsonParamMaxLength;
+
     before(() => {
       jsonParamOptional = api.Str('value', 'json', { required: false });
       jsonParamRelaxed = api.Str('value', 'json', { relaxed: true });

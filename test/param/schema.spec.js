@@ -9,6 +9,7 @@ describe('Testing Schema Parameter', () => {
   let queryParam;
   let jsonParam;
   let jsonParamOptional;
+
   before(() => {
     queryParam = api.Schema('param', 'query', { schema: Joi.string().valid('value') });
     jsonParam = api.Schema('param', 'json', { schema: Joi.string().valid('value') });

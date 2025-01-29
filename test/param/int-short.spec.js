@@ -8,6 +8,7 @@ describe('Testing IntShort Parameter', () => {
   let queryParam;
   let jsonParam;
   let jsonParamOptional;
+
   before(() => {
     queryParam = api.IntShort('value', 'query');
     jsonParam = api.IntShort('value', 'json');
@@ -55,6 +56,7 @@ describe('Testing IntShort Parameter', () => {
   describe('Testing "max" limit', () => {
     let queryParamInvalidMax;
     let bodyParamInvalidMax;
+
     before(() => {
       queryParamInvalidMax = api.IntShort('value', 'query');
       bodyParamInvalidMax = api.IntShort('value', 'json');
@@ -80,6 +82,7 @@ describe('Testing IntShort Parameter', () => {
   describe('Testing "min" limit', () => {
     let queryParamInvalidMin;
     let bodyParamInvalidMin;
+
     before(() => {
       queryParamInvalidMin = api.IntShort('value', 'query');
       bodyParamInvalidMin = api.IntShort('value', 'json');
@@ -105,6 +108,7 @@ describe('Testing IntShort Parameter', () => {
   describe('Testing "max" setting ignored', () => {
     let jsonParamMax;
     let jsonParamMin;
+
     before(() => {
       jsonParamMax = api.IntShort('value', 'json', { max: 10 });
       jsonParamMin = api.IntShort('value', 'json', { max: -10 });

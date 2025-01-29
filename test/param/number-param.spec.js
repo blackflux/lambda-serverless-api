@@ -9,6 +9,7 @@ describe('Testing Number Parameter', () => {
   let queryParamRestricted;
   let jsonParam;
   let jsonParamRestricted;
+
   before(() => {
     queryParam = api.Number('number', 'query');
     queryParamRestricted = api.Number('number', 'query', { min: 0, max: 10 });

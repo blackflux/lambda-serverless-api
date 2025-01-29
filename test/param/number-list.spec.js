@@ -7,6 +7,7 @@ const api = Api();
 describe('Testing NumberList Parameter', () => {
   let queryParam;
   let jsonParam;
+
   before(() => {
     queryParam = api.NumberList('list', 'query');
     jsonParam = api.NumberList('list', 'json');
@@ -47,6 +48,7 @@ describe('Testing NumberList Parameter', () => {
   describe('Testing optional parameter "minItemValue"', () => {
     let queryParamInValidMin;
     let bodyParamInValidMin;
+
     before(() => {
       queryParamInValidMin = api.NumberList('list', 'query', { minItemValue: 1.2 });
       bodyParamInValidMin = api.NumberList('list', 'json', { minItemValue: 1.2 });
@@ -88,6 +90,7 @@ describe('Testing NumberList Parameter', () => {
   describe('Testing optional parameter "maxItemValue"', () => {
     let queryParamInValidMax;
     let bodyParamInValidMax;
+
     before(() => {
       queryParamInValidMax = api.NumberList('list', 'query', { maxItemValue: 10.3 });
       bodyParamInValidMax = api.NumberList('list', 'json', { maxItemValue: 10.3 });
