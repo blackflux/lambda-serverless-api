@@ -58,10 +58,20 @@ class Abstract {
       if (this.nullable !== true) {
         throw ApiErrorFn(`Non-nullable ${this.position}-Parameter "${this.name}" is null.`, 400, 99006);
       }
-    } else if (!this.validate(result)) {
-      throw ApiErrorFn(`Invalid Value for ${this.position}-Parameter "${this.name}" provided.`, 400, 99003, {
-        value: result
-      });
+    } else {
+      let valid = false;
+      let details = null;
+      try {
+        valid = this.validate(result);
+      } catch (e) {
+        details = e.message;
+      }
+      if (valid !== true) {
+        throw ApiErrorFn(`Invalid Value for ${this.position}-Parameter "${this.name}" provided.`, 400, 99003, {
+          value: result,
+          ...(typeof details === 'string' ? { details } : {})
+        });
+      }
     }
     result = this.getter !== null && ![undefined, null].includes(result)
       ? (params) => this.getter(result, params)
