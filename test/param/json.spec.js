@@ -38,11 +38,9 @@ describe('Testing Json Parameter', () => {
     })).to.deep.equal({ key: 'value' });
   });
 
-  it('Testing invalid json parameter', () => {
-    expect(() => jsonParam.get({
-      body: {
-        param: 'string'
-      }
-    })).to.throw('Invalid Value for json-Parameter "param" provided.');
+  it('Testing invalid json parameter', async ({ capture }) => {
+    const err = await capture(() => jsonParam.get({ body: { param: 'string' } }));
+    expect(err.message).to.equal('Invalid Value for json-Parameter "param" provided.');
+    expect(err.context).to.deep.equal({ value: 'string', details: '"value" must be of type object' });
   });
 });
