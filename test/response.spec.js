@@ -33,89 +33,77 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
     done();
   });
 
-  it('Testing header injections', (done) => {
+  it('Testing header injections', async () => {
     api = Api({
       responseHeaders: {
         inject: ['date', 'server-timing']
       }
     });
     api.wrap('GET path', [], identity(api));
-    api.router({
+    const resp = await api.router({
       httpMethod: 'GET',
       path: '/path',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {}, (err, resp) => {
-      expect(err).to.equal(null);
-      expect(resp).to.deep.equal({
-        statusCode: 200,
-        body: '{}',
-        headers: { date: 'Wed, 04 Mar 2020 04:36:57 GMT', 'server-timing': 'total;dur=0' }
-      });
-      done();
+    }, {});
+    expect(resp).to.deep.equal({
+      statusCode: 200,
+      body: '{}',
+      headers: { date: 'Wed, 04 Mar 2020 04:36:57 GMT', 'server-timing': 'total;dur=0' }
     });
   });
 
-  it('Testing header injections no overwrite', (done) => {
+  it('Testing header injections no overwrite', async () => {
     api = Api({
       responseHeaders: {
         inject: ['date', 'server-timing']
       }
     });
     api.wrap('GET path', [], () => api.JsonResponse({}, 200, { date: 'existing' }));
-    api.router({
+    const resp = await api.router({
       httpMethod: 'GET',
       path: '/path',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {}, (err, resp) => {
-      expect(err).to.equal(null);
-      expect(resp).to.deep.equal({
-        statusCode: 200,
-        body: '{}',
-        headers: { date: 'existing', 'server-timing': 'total;dur=0' }
-      });
-      done();
+    }, {});
+    expect(resp).to.deep.equal({
+      statusCode: 200,
+      body: '{}',
+      headers: { date: 'existing', 'server-timing': 'total;dur=0' }
     });
   });
 
-  it('Testing authorizer deny', (done) => {
+  it('Testing authorizer deny', async () => {
     api = Api({
       preValidation: () => {
         throw ApiError('Unauthorized', 401);
       }
     });
     api.wrap('GET path', [], identity(api));
-    api.router({
+    const resp = await api.router({
       httpMethod: 'GET',
       path: '/path',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {}, (err, resp) => {
-      expect(err).to.equal(null);
-      expect(resp).to.deep.equal({
-        statusCode: 401,
-        body: '{"message":"Unauthorized"}'
-      });
-      done();
+    }, {});
+    expect(resp).to.deep.equal({
+      statusCode: 401,
+      body: '{"message":"Unauthorized"}'
     });
   });
 
-  it('Testing hooks', (done) => {
+  it('Testing hooks', async () => {
     api = Api({
       preRouting: () => {},
       preValidation: () => {},
       preResponse: () => {}
     });
     api.wrap('GET path', [], identity(api));
-    api.router({
+    const resp = await api.router({
       httpMethod: 'GET',
       path: '/path',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {}, (err, resp) => {
-      expect(err).to.equal(null);
-      expect(resp).to.deep.equal({
-        statusCode: 200,
-        body: '{}'
-      });
-      done();
+    }, {});
+    expect(resp).to.deep.equal({
+      statusCode: 200,
+      body: '{}'
     });
   });
 
@@ -128,19 +116,15 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
       }
     });
     api.wrap('GET path', [], identity(api));
-    const [err, resp] = await new Promise((resolve) => {
-      api.router({
-        httpMethod: 'GET',
-        path: '/path',
-        requestContext: { identity: { sourceIp: '127.0.0.1' } }
-      }, {}, (...args) => resolve(args));
-    });
-    expect(err).to.equal(null);
+    const resp = await api.router({
+      httpMethod: 'GET',
+      path: '/path',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
+    }, {});
     expect(resp).to.deep.equal({
       statusCode: 500,
       body: '{"message":"Internal Server Error"}'
     });
-    expect(err).to.equal(null);
     const logs = recorder.get();
     expect(logs.length).to.equal(3);
     expect(logs[0]).to.deep.equal(
@@ -164,14 +148,11 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
   it('Testing no logs', async ({ recorder }) => {
     api = Api({ logger: { logSuccess: false, logError: false } });
     api.wrap('GET path', [], identity(api));
-    const [err, resp] = await new Promise((resolve) => {
-      api.router({
-        httpMethod: 'GET',
-        path: '/path',
-        requestContext: { identity: { sourceIp: '127.0.0.1' } }
-      }, {}, (...args) => resolve(args));
-    });
-    expect(err).to.equal(null);
+    const resp = await api.router({
+      httpMethod: 'GET',
+      path: '/path',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } }
+    }, {});
     expect(resp).to.deep.equal({
       statusCode: 200,
       body: '{}'
@@ -179,48 +160,42 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
     expect(recorder.get()).to.deep.equal([]);
   });
 
-  it('Testing cors function (echo)', (done) => {
+  it('Testing cors function (echo)', async () => {
     api = Api({ cors: { allowedOrigins: () => ['*'] } });
     api.wrap('GET path', [], identity(api));
-    api.router({
+    const resp = await api.router({
       httpMethod: 'GET',
       path: '/path',
       headers: {
         Origin: 'https://some-origin.com'
       },
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {}, (err, resp) => {
-      expect(err).to.equal(null);
-      expect(resp).to.deep.equal({
-        statusCode: 200,
-        body: '{}',
-        headers: { 'Access-Control-Allow-Origin': 'https://some-origin.com' }
-      });
-      done();
+    }, {});
+    expect(resp).to.deep.equal({
+      statusCode: 200,
+      body: '{}',
+      headers: { 'Access-Control-Allow-Origin': 'https://some-origin.com' }
     });
   });
 
-  it('Testing cors function (empty)', (done) => {
+  it('Testing cors function (empty)', async () => {
     api = Api({});
     api.wrap('GET path', [], identity(api));
-    api.router({
+    const resp = await api.router({
       httpMethod: 'GET',
       path: '/path',
       headers: {
         Origin: 'https://test.com'
       },
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {}, (err, resp) => {
-      expect(err).to.equal(null);
-      expect(resp).to.deep.equal({
-        statusCode: 200,
-        body: '{}'
-      });
-      done();
+    }, {});
+    expect(resp).to.deep.equal({
+      statusCode: 200,
+      body: '{}'
     });
   });
 
-  it('Testing Multi Methods for Options Request', (done) => {
+  it('Testing Multi Methods for Options Request', async () => {
     api = Api({
       cors: {
         allowedOrigins: () => ['*'],
@@ -229,7 +204,7 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
     });
     api.wrap('GET path', [], identity(api));
     api.wrap('DELETE path', [], identity(api));
-    api.router({
+    const resp = await api.router({
       httpMethod: 'OPTIONS',
       path: '/path',
       requestContext: { identity: { sourceIp: '127.0.0.1' } },
@@ -238,34 +213,28 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
         'Access-Control-Request-Method': 'GET',
         'Access-Control-Request-Headers': 'Accept'
       }
-    }, {}, (err, resp) => {
-      expect(err).to.equal(null);
-      expect(resp).to.deep.equal({
-        statusCode: 200,
-        body: '',
-        headers: {
-          'access-control-allow-origin': 'https://some-origin.com',
-          'access-control-allow-headers': 'content-type,accept,origin,x-custom',
-          'access-control-allow-methods': 'GET'
-        }
-      });
-      done();
+    }, {});
+    expect(resp).to.deep.equal({
+      statusCode: 200,
+      body: '',
+      headers: {
+        'access-control-allow-origin': 'https://some-origin.com',
+        'access-control-allow-headers': 'content-type,accept,origin,x-custom',
+        'access-control-allow-methods': 'GET'
+      }
     });
   });
 
   it('Testing Default Options Request Fails', async () => {
     api.wrap('GET path', [], identity(api));
-    const [err, resp] = await new Promise((resolve) => {
-      api.router({
-        httpMethod: 'OPTIONS',
-        path: '/path',
-        requestContext: { identity: { sourceIp: '127.0.0.1' } },
-        headers: {
-          Origin: 'https://some-origin.com'
-        }
-      }, {}, (...args) => resolve(args));
-    });
-    expect(err).to.equal(null);
+    const resp = await api.router({
+      httpMethod: 'OPTIONS',
+      path: '/path',
+      requestContext: { identity: { sourceIp: '127.0.0.1' } },
+      headers: {
+        Origin: 'https://some-origin.com'
+      }
+    }, {});
     expect(resp).to.deep.equal({
       statusCode: 403,
       body: '{"message":"Required header missing"}'
@@ -278,52 +247,43 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
     done();
   });
 
-  it('Testing ApiResponse Integration', (done) => {
-    api.wrap('GET test', [], (event, context) => api.ApiResponse('promiseResponse'))({
+  it('Testing ApiResponse Integration', async () => {
+    const resp = await api.wrap('GET test', [], (event, context) => api.ApiResponse('promiseResponse'))({
       httpMethod: 'GET',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {}, (err, resp) => {
-      expect(err).to.equal(null);
-      expect(resp).to.deep.equal({
-        statusCode: 200,
-        body: 'promiseResponse'
-      });
-      done();
+    }, {});
+    expect(resp).to.deep.equal({
+      statusCode: 200,
+      body: 'promiseResponse'
     });
   });
 
-  it('Testing ApiError Integration', (done) => {
-    api.wrap('GET test', [], (event, context) => {
+  it('Testing ApiError Integration', async () => {
+    const resp = await api.wrap('GET test', [], (event, context) => {
       throw api.ApiError('promiseError');
     })({
       httpMethod: 'GET',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {}, (err, resp) => {
-      expect(err).to.equal(null);
-      expect(resp).to.deep.equal({
-        statusCode: 400,
-        body: '{"message":"promiseError"}'
-      });
-      done();
+    }, {});
+    expect(resp).to.deep.equal({
+      statusCode: 400,
+      body: '{"message":"promiseError"}'
     });
   });
 
-  it('Testing Error Integration', (done) => {
+  it('Testing Error Integration', async () => {
     const error = new Error('other');
-    api.wrap('GET test', [], (event, context) => {
+    const resp = await api.wrap('GET test', [], (event, context) => {
       throw error;
     })({
       httpMethod: 'GET',
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {}, (err, resp) => {
-      expect(err).to.equal(null);
-      expect(resp).to.deep.equal({ statusCode: 500, body: '{"message":"Internal Server Error"}' });
-      done();
-    });
+    }, {});
+    expect(resp).to.deep.equal({ statusCode: 500, body: '{"message":"Internal Server Error"}' });
   });
 
-  it('Testing auto field pruning top level', (done) => {
-    api.wrap('GET test', [
+  it('Testing auto field pruning top level', async () => {
+    const resp = await api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: '' })
     ], (event, context) => api.JsonResponse({
       foo: 'bar',
@@ -334,18 +294,15 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
         fields: 'foo'
       },
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {}, (err, resp) => {
-      expect(err).to.be.a('null');
-      expect(resp).to.deep.equal({
-        statusCode: 200,
-        body: '{"foo":"bar"}'
-      });
-      done();
+    }, {});
+    expect(resp).to.deep.equal({
+      statusCode: 200,
+      body: '{"foo":"bar"}'
     });
   });
 
-  it('Testing auto field pruning with path', (done) => {
-    api.wrap('GET test', [
+  it('Testing auto field pruning with path', async () => {
+    const resp = await api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'], autoPrune: 'payload' })
     ], (event, context) => api.JsonResponse({
       payload: {
@@ -358,18 +315,15 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
         fields: 'foo'
       },
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {}, (err, resp) => {
-      expect(err).to.be.a('null');
-      expect(resp).to.deep.equal({
-        statusCode: 200,
-        body: '{"payload":{"foo":"bar"}}'
-      });
-      done();
+    }, {});
+    expect(resp).to.deep.equal({
+      statusCode: 200,
+      body: '{"payload":{"foo":"bar"}}'
     });
   });
 
-  it('Testing without autoPrune', (done) => {
-    api.wrap('GET test', [
+  it('Testing without autoPrune', async () => {
+    const resp = await api.wrap('GET test', [
       api.FieldsParam('fields', 'query', { fields: ['foo'] })
     ], (event, context) => api.JsonResponse({
       foo: 'bar',
@@ -380,13 +334,10 @@ describe('Testing Response', { record: console, timestamp: 1583296617 }, () => {
         fields: 'foo'
       },
       requestContext: { identity: { sourceIp: '127.0.0.1' } }
-    }, {}, (err, resp) => {
-      expect(err).to.be.a('null');
-      expect(resp).to.deep.equal({
-        statusCode: 200,
-        body: '{"foo":"bar","baz":"quz"}'
-      });
-      done();
+    }, {});
+    expect(resp).to.deep.equal({
+      statusCode: 200,
+      body: '{"foo":"bar","baz":"quz"}'
     });
   });
 });
