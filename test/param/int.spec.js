@@ -29,6 +29,11 @@ describe('Testing Int Parameter', () => {
         value: 'invalid'
       }
     })).to.throw('Invalid Value for query-Parameter "value" provided.');
+    expect(() => queryParam.get({
+      queryStringParameters: {
+        value: '11.3'
+      }
+    })).to.throw('Invalid Value for query-Parameter "value" provided.');
   });
 
   it('Testing valid json parameter', () => {
@@ -43,6 +48,11 @@ describe('Testing Int Parameter', () => {
     expect(() => jsonParam.get({
       body: {
         value: 'invalid'
+      }
+    })).to.throw('Invalid Value for json-Parameter "value" provided.');
+    expect(() => jsonParam.get({
+      body: {
+        value: 11.3
       }
     })).to.throw('Invalid Value for json-Parameter "value" provided.');
   });
