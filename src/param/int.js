@@ -15,7 +15,7 @@ class Int extends Abstract {
 
   validate(value) {
     let valid = super.validate(value);
-    if (valid && this.stringInput ? !value.match(/^(-?[1-9]+\d*)$|^0$/) : typeof value !== 'number') {
+    if (valid && this.stringInput ? !value.match(/^(-?[1-9]+\d*)$|^0$/) : !Number.isInteger(value)) {
       valid = false;
     }
     if (valid && this.max !== undefined && value > this.max) {
