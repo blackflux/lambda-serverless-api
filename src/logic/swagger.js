@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 import { test } from 'painless-version';
-import SwaggerParser from 'swagger-parser';
+import SwaggerParser from '@apidevtools/swagger-parser';
 
 export default ({ wrapper, options }) => {
   const { endpoints } = wrapper;
